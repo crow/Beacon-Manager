@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>title</key>
+		<string>Moloko</string>
+		<key>latitude</key>
+		<real>45.551825</real>
+		<key>longitude</key>
+		<real>-122.675856</real>
+		<key>radius</key>
+		<integer>40</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Urban Airship</string>
+		<key>latitude</key>
+		<real>45.525446</real>
+		<key>longitude</key>
+		<real>-122.685681</real>
+		<key>radius</key>
+		<integer>40</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Rogue</string>
+		<key>latitude</key>
+		<real>45.525916</real>
+		<key>longitude</key>
+		<real>-122.684971</real>
+		<key>radius</key>
+		<integer>10</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Gary</string>
+		<key>latitude</key>
+		<real>45.525326</real>
+		<key>longitude</key>
+		<real>-122.685997</real>
+		<key>radius</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Ops</string>
+		<key>latitude</key>
+		<real>45.525206</real>
+		<key>longitude</key>
+		<real>-122.685991</real>
+		<key>radius</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Sales</string>
+		<key>latitude</key>
+		<real>45.525625</real>
+		<key>longitude</key>
+		<real>-122.685952</real>
+		<key>radius</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Battlehawk</string>
+		<key>latitude</key>
+		<real>45.525523</real>
+		<key>longitude</key>
+		<real>-122.686036</real>
+		<key>radius</key>
+		<integer>5</integer>
+	</dict>
+</array>
+</plist>
