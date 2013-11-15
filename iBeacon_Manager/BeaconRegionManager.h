@@ -19,7 +19,7 @@ _sharedObject = block(); \
 }); \
 return _sharedObject; \
 
-@interface RegionManager : NSObject <CLLocationManagerDelegate>
+@interface BeaconRegionManager : NSObject <CLLocationManagerDelegate>
 
 @property (strong, nonatomic) NSArray *rangedBeacons;
 //The current beacons that are monitored, apple already used "monitoredRegions" so they chose "rangedRegions"

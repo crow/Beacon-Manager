@@ -2,6 +2,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/Corelocation.h>
 #import <Foundation/Foundation.h>
+#import "ManagedBeaconRegion.h"
 
 @interface PlistManager : NSObject
 

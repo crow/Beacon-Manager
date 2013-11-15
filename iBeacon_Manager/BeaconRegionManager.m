@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 David Crow. All rights reserved.
 //
 
-#import "RegionManager.h"
+#import "BeaconRegionManager.h"
 
 
-@interface RegionManager ()
+@interface BeaconRegionManager ()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
 
-@implementation RegionManager {
+@implementation BeaconRegionManager {
     NSMutableDictionary *_beacons;
     NSMutableArray *tagArray;
     CGFloat bleatTime;
@@ -26,14 +26,14 @@
     int goatY;
 }
 
-+ (RegionManager *)shared
++ (BeaconRegionManager *)shared
 {
     DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
         return [[self alloc] init];
     });
 }
 
--(RegionManager *)init{
+-(BeaconRegionManager *)init{
     self = [super init];
     monitoredRegionCount = 0;
     self.locationManager = [[CLLocationManager alloc] init];
@@ -42,21 +42,14 @@
     //this should be initialized from persistent storage at some point
     visited = [[NSMutableDictionary alloc] init];
     
-    for (CLBeaconRegion *beaconRegion in self.availableBeaconRegions)
-    {
-        if (beaconRegion != nil) {
-//            beaconRegion.notifyOnEntry = NO;
-//            beaconRegion.notifyOnExit = NO;
-//            beaconRegion.notifyEntryStateOnDisplay = YES;
-            [self.locationManager startMonitoringForRegion:beaconRegion];
-            [self.locationManager startRangingBeaconsInRegion:beaconRegion];
-            monitoredRegionCount++;
-        }
-    }
-    
+    [self startMonitoringAllAvailableBeaconRegions];
+    [self updateMonitoredRegions];
+    return self;
+}
+
+-(void)updateMonitoredRegions{
     //set monitored region read-only property with monitored regions
     _monitoredBeaconRegions = [self.locationManager monitoredRegions];
-    return self;
 }
 
 
@@ -87,11 +80,12 @@
 -(void)startMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion{
 
         if (beaconRegion != nil) {
-//            beaconRegion.notifyOnEntry = NO;
-//            beaconRegion.notifyOnExit = NO;
-//            beaconRegion.notifyEntryStateOnDisplay = NO;
+            beaconRegion.notifyOnEntry = YES;
+            beaconRegion.notifyOnExit = YES;
+            beaconRegion.notifyEntryStateOnDisplay = NO;
             [self.locationManager startMonitoringForRegion:beaconRegion];
             [self.locationManager startRangingBeaconsInRegion:beaconRegion];
+            [self updateMonitoredRegions];
             monitoredRegionCount++;
         }
 }
@@ -104,7 +98,8 @@
         beaconRegion.notifyEntryStateOnDisplay = NO;
         [self.locationManager stopMonitoringForRegion:beaconRegion];
         [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
-        monitoredRegionCount++;
+        [self updateMonitoredRegions];
+        monitoredRegionCount--;
     }
 }
 
@@ -114,11 +109,12 @@
     for (CLBeaconRegion *beaconRegion in self.availableBeaconRegions)
     {
         if (beaconRegion != nil) {
-//            beaconRegion.notifyOnEntry = NO;
-//            beaconRegion.notifyOnExit = NO;
-//            beaconRegion.notifyEntryStateOnDisplay = NO;
+            beaconRegion.notifyOnEntry = YES;
+            beaconRegion.notifyOnExit = YES;
+            beaconRegion.notifyEntryStateOnDisplay = NO;
             [self.locationManager startMonitoringForRegion:beaconRegion];
             [self.locationManager startRangingBeaconsInRegion:beaconRegion];
+            [self updateMonitoredRegions];
             monitoredRegionCount++;
         }
     }
@@ -131,8 +127,12 @@
     for (CLBeaconRegion *beaconRegion in [[PlistManager shared] getAvailableBeaconRegions])
     {
         if (beaconRegion != nil) {
+            beaconRegion.notifyOnEntry = NO;
+            beaconRegion.notifyOnExit = NO;
+            beaconRegion.notifyEntryStateOnDisplay = NO;
             [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
             [self.locationManager stopMonitoringForRegion:beaconRegion];
+            [self updateMonitoredRegions];
             //reset monitored region count
             monitoredRegionCount = 0;
         }
@@ -223,8 +223,9 @@
 
 -(BOOL)isMonitored:(CLBeaconRegion *) beaconRegion{
     for (CLBeaconRegion *bRegion in self.monitoredBeaconRegions) {
-        if (bRegion == beaconRegion)
+        if ([bRegion.identifier isEqualToString:beaconRegion.identifier]){
             return true;
+        }
     }
     return false;
 }
@@ -236,7 +237,7 @@
     // When this happens CoreLocation will launch the application momentarily, call this delegate method
     // and we will let the user know via a local notification.
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    [[RegionManager shared] updateVistedStatsForRegionIdentifier:region.identifier];
+    [[BeaconRegionManager shared] updateVistedStatsForRegionIdentifier:region.identifier];
     
     if(state == CLRegionStateInside)
     {

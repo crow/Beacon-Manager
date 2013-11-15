@@ -11,7 +11,7 @@
 #import "UAConfig.h"
 #import "UAPush.h"
 #import "UALocationService.h"
-#import "RegionManager.h"
+#import "BeaconRegionManager.h"
 
 
 @implementation AppDelegate
@@ -20,7 +20,7 @@
 {
 
     //init UABeaconManager
-    [RegionManager shared];
+    [BeaconRegionManager shared];
     [PlistManager shared];
 
     // This prevents the UA Library from registering with UIApplication by default. This will allow
@@ -106,7 +106,7 @@
     // When this happens CoreLocation will launch the application momentarily, call this delegate method
     // and we will let the user know via a local notification.
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    [[RegionManager shared] updateVistedStatsForRegionIdentifier:region.identifier];
+    [[BeaconRegionManager shared] updateVistedStatsForRegionIdentifier:region.identifier];
     
     if(state == CLRegionStateInside)
     {

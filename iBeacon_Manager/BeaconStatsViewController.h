@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RegionManager.h"
+#import "BeaconRegionManager.h"
 
 @interface BeaconStatsViewController : UITableViewController <UIAlertViewDelegate>
 @property (strong, nonatomic) CLBeaconRegion *beaconRegion;

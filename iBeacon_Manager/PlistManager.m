@@ -96,7 +96,6 @@
      
     }
     
-//    [self populateVisitedRegionsFromBeaconsData:beacons];
     return [NSArray arrayWithArray:beacons];
 }
 
@@ -125,7 +124,7 @@
     
     //return [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:title];
 
-    return [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:title];
+    return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:title];
 }
 
 - (CLRegion*)mapDictionaryToRegion:(NSDictionary*)dictionary {
