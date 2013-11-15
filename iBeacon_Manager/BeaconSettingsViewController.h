@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "RegionManager.h"
+#import "BeaconStatsViewController.h"
 
 @interface BeaconSettingsViewController : UITableViewController
 

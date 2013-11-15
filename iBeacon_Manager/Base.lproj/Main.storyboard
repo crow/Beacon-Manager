@@ -247,7 +247,7 @@
                                             <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
                                         </accessibility>
                                         <connections>
-                                            <segue destination="7EV-CE-Vbw" kind="push" id="6ST-It-ICp"/>
+                                            <segue destination="7EV-CE-Vbw" kind="push" identifier="beaconStats" id="6ST-It-ICp"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>

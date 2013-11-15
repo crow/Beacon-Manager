@@ -86,5 +86,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Make sure your segue name in storyboard is the same as this line
+    if ([[segue identifier] isEqualToString:@"beaconStats"])
+    {
+        // Get reference to the destination view controller
+        BeaconStatsViewController *vc = [segue destinationViewController];
+        [vc setBeaconRegion:self.beaconRegion];
+        [vc setBeacon:self.beacon];
+        // Pass any objects to the view controller here, like...
+        //[vc setMyObjectHere:object];
+    }
+}
 
 @end
