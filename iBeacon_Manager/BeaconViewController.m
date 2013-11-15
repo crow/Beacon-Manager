@@ -16,7 +16,7 @@
 @implementation BeaconViewController {
     NSMutableDictionary *beacons;
     NSMutableArray *rangedRegions;
-    CLBeaconRegion *selectedBeaconRegion;
+    ManagedBeaconRegion *selectedBeaconRegion;
     CLBeacon *selectedBeacon;
 }
 

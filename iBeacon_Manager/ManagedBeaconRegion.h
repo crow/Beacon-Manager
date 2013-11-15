@@ -11,5 +11,16 @@
 @interface ManagedBeaconRegion : CLBeaconRegion
 
 @property int visits;
+@property (nonatomic, strong) NSDate *lastEntry;
+@property (nonatomic, strong) NSDate *lastExit;
+@property NSTimeInterval *totalLastVisitTime;
+@property NSTimeInterval *longestVisitTime;
+@property NSTimeInterval *cumulativeVisitTime;
+
+- (id)initWithProximityUUID:(NSUUID *)proximityUUID identifier:(NSString *)identifier;
+- (id)initWithProximityUUID:(NSUUID *)proximityUUID major:(CLBeaconMajorValue)major identifier:(NSString *)identifier;
+- (id)initWithProximityUUID:(NSUUID *)proximityUUID major:(CLBeaconMajorValue)major minor:(CLBeaconMinorValue)minor identifier:(NSString *)identifier;
+
+
 
 @end

@@ -55,7 +55,7 @@
 
 //returns a beacon from the ranged list given a identifier, else emits log and returns nil
 -(CLBeacon *)beaconWithId:(NSString *)identifier{
-    CLBeaconRegion *beaconRegion = [self beaconRegionWithId:identifier];
+    ManagedBeaconRegion *beaconRegion = [self beaconRegionWithId:identifier];
     for (CLBeacon *beacon in self.rangedBeacons){
         if ([[beacon.proximityUUID UUIDString] isEqualToString:[beaconRegion.proximityUUID UUIDString]]) {
             return beacon;
@@ -65,8 +65,8 @@
     return nil;
 }
 //returns a beacon regions from the available regions (all in plist) given and identifier
--(CLBeaconRegion *)beaconRegionWithId:(NSString *)identifier{
-    for (CLBeaconRegion *beaconRegion in self.availableBeaconRegions)
+-(ManagedBeaconRegion *)beaconRegionWithId:(NSString *)identifier{
+    for (ManagedBeaconRegion *beaconRegion in self.availableBeaconRegions)
     {
         if ([beaconRegion.identifier isEqualToString:identifier]) {
             return beaconRegion;
@@ -77,7 +77,7 @@
     return nil;
 }
 
--(void)startMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion{
+-(void)startMonitoringBeaconInRegion:(ManagedBeaconRegion *)beaconRegion{
 
         if (beaconRegion != nil) {
             beaconRegion.notifyOnEntry = YES;
@@ -90,7 +90,7 @@
         }
 }
 
--(void)stopMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion{
+-(void)stopMonitoringBeaconInRegion:(ManagedBeaconRegion *)beaconRegion{
     
     if (beaconRegion != nil) {
         beaconRegion.notifyOnEntry = NO;
@@ -106,7 +106,7 @@
 //helper method to start monitoring all available beacon regions with no notifications
 -(void)startMonitoringAllAvailableBeaconRegions{
     
-    for (CLBeaconRegion *beaconRegion in self.availableBeaconRegions)
+    for (ManagedBeaconRegion *beaconRegion in self.availableBeaconRegions)
     {
         if (beaconRegion != nil) {
             beaconRegion.notifyOnEntry = YES;
@@ -124,7 +124,7 @@
 //helper method to stop monitoring all available beacon regions
 -(void)stopMonitoringAllAvailableBeaconRegions{
     
-    for (CLBeaconRegion *beaconRegion in [[PlistManager shared] getAvailableBeaconRegions])
+    for (ManagedBeaconRegion *beaconRegion in [[PlistManager shared] getAvailableBeaconRegions])
     {
         if (beaconRegion != nil) {
             beaconRegion.notifyOnEntry = NO;
@@ -145,7 +145,7 @@
     
 }
 
-- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
+- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(ManagedBeaconRegion *)region
 {
     // CoreLocation will call this delegate method at 1 Hz with updated range information.
     // Beacons will be categorized and displayed by proximity.
@@ -179,50 +179,11 @@
 
 -(void)updateVistedStatsForRangedBeacons:(NSArray *)rangedBeacons
 {
-    //this is required to have the most up to date list for getting identifiers for uuids
-    [[PlistManager shared] loadReadableBeaconRegions];
-    
-    for (CLBeacon *beacon in rangedBeacons)
-    {
-        //If the current beacon UUID is missing form the visited regions, make it a dictionary add it to the visited regions
-        
-        int value;
-        NSString *title = [[PlistManager shared] identifierForUUID:[beacon proximityUUID]];
-        //initial values
-        NSNumber *visits = [NSNumber numberWithInt:1];
-        NSNumber *totalVisitTime = [NSNumber numberWithInt:1];
-        //each key is appended with title ex. title_visits
-        NSString *visitsKey = [NSString stringWithFormat:@"%@_visits",title];
-        NSString *totalVisitTimeKey = [NSString stringWithFormat:@"%@_totalVisitTime",title];
-        
-        if ([self.visitedBeaconRegions valueForKey:visitsKey]) {
-            value = [visits intValue];
-            visits = [NSNumber numberWithInt:value + 1];
-            [visited setValue:visits forKey:visitsKey];
-        }
-        else{
-            //new beacon region (no such visit key exists)
-            [visited setValue:visits forKey:visitsKey];
-        }
-        
-        if ([self.visitedBeaconRegions valueForKey:totalVisitTimeKey]) {
-            value = [totalVisitTimeKey intValue];
-            totalVisitTime = [NSNumber numberWithInt:value + 1];
-            [visited setValue:totalVisitTime forKey:totalVisitTimeKey];
-        }
-        else{
-            //new beacon region (no such visit key exists)
-            [visited setValue:totalVisitTime forKey:totalVisitTimeKey];
-        }
-        
-        //set the read-only property
-        _visitedBeaconRegions = visited;
 
-    }
 }
 
--(BOOL)isMonitored:(CLBeaconRegion *) beaconRegion{
-    for (CLBeaconRegion *bRegion in self.monitoredBeaconRegions) {
+-(BOOL)isMonitored:(ManagedBeaconRegion *) beaconRegion{
+    for (ManagedBeaconRegion *bRegion in self.monitoredBeaconRegions) {
         if ([bRegion.identifier isEqualToString:beaconRegion.identifier]){
             return true;
         }

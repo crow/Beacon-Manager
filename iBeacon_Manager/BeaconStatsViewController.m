@@ -36,12 +36,13 @@
 {
     [super viewDidLoad];
     self.title = self.beaconRegion.identifier;
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    BOOL recordState = [[NSUserDefaults standardUserDefaults]
+                        boolForKey:@"recordStatsSwitchState"];
+    
+    //used saved entry unless saved entry is nil
+    recordState ? [self.recordStatsSwitch setEnabled:recordState] : [self.recordStatsSwitch setEnabled:YES];
 }
+
 
 - (void)didReceiveMemoryWarning
 {

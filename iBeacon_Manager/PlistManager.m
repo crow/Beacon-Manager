@@ -48,7 +48,7 @@
     NSMutableArray *readableBeaconArray = [[NSMutableArray alloc] initWithCapacity:[availableBeaconRegions count]];
     NSString *currentReadableBeacon = [[NSString alloc] init];
     
-    for (CLBeaconRegion *beaconRegion in availableBeaconRegions) {
+    for (ManagedBeaconRegion *beaconRegion in availableBeaconRegions) {
         currentReadableBeacon = [NSString stringWithFormat:@"%@ - %@", [beaconRegion identifier], [[beaconRegion proximityUUID] UUIDString]];
         [readableBeaconArray addObject:currentReadableBeacon];
     }
@@ -87,7 +87,7 @@
     NSMutableArray *beacons = [NSMutableArray array];
     for(NSDictionary *beaconDict in self.plistBeaconContentsArray)
     {
-        CLBeaconRegion *beaconRegion = [self mapDictionaryToBeacon:beaconDict];
+        ManagedBeaconRegion *beaconRegion = [self mapDictionaryToBeacon:beaconDict];
         if (beaconRegion != nil) {
               [beacons addObject:beaconRegion];
         } else {
@@ -116,7 +116,7 @@
     return [NSArray arrayWithArray:regions];
 }
 
-- (CLBeaconRegion*)mapDictionaryToBeacon:(NSDictionary*)dictionary {
+- (ManagedBeaconRegion*)mapDictionaryToBeacon:(NSDictionary*)dictionary {
     NSString *title = [dictionary valueForKey:@"title"];
     NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
     //short minor = 11;

@@ -10,7 +10,7 @@
 #import "BeaconRegionManager.h"
 
 @interface BeaconStatsViewController : UITableViewController <UIAlertViewDelegate>
-@property (strong, nonatomic) CLBeaconRegion *beaconRegion;
+@property (strong, nonatomic) ManagedBeaconRegion *beaconRegion;
 @property (strong, nonatomic) CLBeacon *beacon;
 
 @end
