@@ -106,7 +106,7 @@
     // When this happens CoreLocation will launch the application momentarily, call this delegate method
     // and we will let the user know via a local notification.
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    [[RegionManager shared] updateVistedMetricsForRegionIdentifier:region.identifier];
+    [[RegionManager shared] updateVistedStatsForRegionIdentifier:region.identifier];
     
     if(state == CLRegionStateInside)
     {

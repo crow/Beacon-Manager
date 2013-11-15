@@ -33,6 +33,8 @@
     else{
         [[RegionManager shared] stopMonitoringBeaconInRegion:self.beaconRegion];
     }
+    
+    [self loadSwitchStates];
 }
 
 - (IBAction)notifyOnEntrySwitchTouched:(id)sender {
@@ -44,6 +46,8 @@
         self.beaconRegion.notifyOnEntry = NO;
 
     }
+    [self loadSwitchStates];
+
 }
 
 - (IBAction)notifyOnExitSwitchTouched:(id)sender {
@@ -54,6 +58,8 @@
         self.beaconRegion.notifyOnExit = NO;
         
     }
+    [self loadSwitchStates];
+
 }
 
 - (IBAction)notifyEntryOnDisplaySwitchTouched:(id)sender {
@@ -64,40 +70,50 @@
         self.beaconRegion.notifyEntryStateOnDisplay = NO;
         
     }
+    [self loadSwitchStates];
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = self.beaconRegion.identifier;
-    [self loadSwitchState];
+    [self loadSwitchStates];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.monitorLabel.text = [NSString stringWithFormat:@"Monitor %@", self.beaconRegion.identifier];
-    
-    
+
 }
 
--(void)loadSwitchState{
+-(void)loadSwitchStates{
     
-    if (self.beaconRegion.notifyOnEntry) {
+    if ([[RegionManager shared] isMonitored:self.beaconRegion]) {
+        [self.monitorSwitch setOn:YES];
+    }
+    else{
+        [self.monitorSwitch setOn:NO];
+    }
+
+    if (self.beaconRegion.notifyOnEntry == YES) {
         [self.noteEntrySwitch setOn:YES];
     }
     else{
         [self.noteEntrySwitch setOn:NO];
     }
     
-    if (self.beaconRegion.notifyOnExit) {
+    
+    if (self.beaconRegion.notifyOnExit == YES) {
         [self.noteExitSwitch setOn:YES];
     }
     else{
-        [self.noteEntrySwitch setOn:NO];
+        [self.noteExitSwitch setOn:NO];
     }
     
-    if (self.beaconRegion.notifyEntryStateOnDisplay) {
+    
+    if (self.beaconRegion.notifyEntryStateOnDisplay == YES) {
         [self.noteEntryOnDisplaySwitch setOn:YES];
     }
     else{

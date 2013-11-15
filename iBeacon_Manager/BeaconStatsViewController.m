@@ -69,7 +69,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex;{
-    // the user clicked OK
+    // the user clicked No
     if (buttonIndex == 0)
     {
        
