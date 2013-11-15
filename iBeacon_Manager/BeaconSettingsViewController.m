@@ -26,6 +26,13 @@
 }
 
 - (IBAction)monitorSwitchTouched:(id)sender {
+    //if ON
+    if (sender) {
+
+    }
+    else{
+        
+    }
 }
 
 - (IBAction)notifyOnEntrySwitchTouched:(id)sender {

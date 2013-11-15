@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RegionManager.h"
 
-@interface BeaconStatsViewController : UITableViewController
+@interface BeaconStatsViewController : UITableViewController <UIAlertViewDelegate>
 
 @end

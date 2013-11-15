@@ -275,10 +275,10 @@
 				440E866117F51C1E00D191A2 /* PlistManager.m */,
 				44E6C1CA17FE29A200CD88AE /* BeaconViewController.h */,
 				44E6C1CB17FE29A200CD88AE /* BeaconViewController.m */,
-				6192602C1835A17C00143F5A /* BeaconStatsViewController.h */,
-				6192602D1835A17C00143F5A /* BeaconStatsViewController.m */,
 				4498CDC31826EC8A001EC26B /* BeaconSettingsViewController.h */,
 				4498CDC41826EC8A001EC26B /* BeaconSettingsViewController.m */,
+				6192602C1835A17C00143F5A /* BeaconStatsViewController.h */,
+				6192602D1835A17C00143F5A /* BeaconStatsViewController.m */,
 				440E860917F5140F00D191A2 /* Images.xcassets */,
 				440E85F817F5140E00D191A2 /* Supporting Files */,
 			);

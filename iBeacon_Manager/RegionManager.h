@@ -34,5 +34,8 @@ return _sharedObject; \
 -(void)updateVistedMetricsForRegionIdentifier:(NSString *) identifier;
 -(CLBeaconRegion *)beaconRegionWithId:(NSString *)identifier;
 -(CLBeacon *)beaconWithId:(NSString *)identifier;
+-(void)startMonitoringAllAvailableBeaconRegions;
+-(void)stopMonitoringAllAvailableBeaconRegions;
+
 
 @end
