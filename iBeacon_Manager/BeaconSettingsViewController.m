@@ -27,7 +27,7 @@
 
 - (IBAction)monitorSwitchTouched:(id)sender {
     //if ON
-    if (sender) {
+    if ([sender isOn]) {
         [[RegionManager shared] startMonitoringBeaconInRegion:self.beaconRegion];
     }
     else{
@@ -37,7 +37,7 @@
 
 - (IBAction)notifyOnEntrySwitchTouched:(id)sender {
     //if ON
-    if (sender) {
+    if ([sender isOn]) {
         self.beaconRegion.notifyOnEntry = YES;
     }
     else{
@@ -47,7 +47,7 @@
 }
 
 - (IBAction)notifyOnExitSwitchTouched:(id)sender {
-    if (sender) {
+    if ([sender isOn]) {
         self.beaconRegion.notifyOnExit= YES;
     }
     else{
@@ -57,7 +57,7 @@
 }
 
 - (IBAction)notifyEntryOnDisplaySwitchTouched:(id)sender {
-    if (sender) {
+    if ([sender isOn]) {
         self.beaconRegion.notifyEntryStateOnDisplay = YES;
     }
     else{
@@ -69,7 +69,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.title = self.beaconRegion.identifier;
+    [self loadSwitchState];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -78,6 +79,30 @@
     self.monitorLabel.text = [NSString stringWithFormat:@"Monitor %@", self.beaconRegion.identifier];
     
     
+}
+
+-(void)loadSwitchState{
+    
+    if (self.beaconRegion.notifyOnEntry) {
+        [self.noteEntrySwitch setOn:YES];
+    }
+    else{
+        [self.noteEntrySwitch setOn:NO];
+    }
+    
+    if (self.beaconRegion.notifyOnExit) {
+        [self.noteExitSwitch setOn:YES];
+    }
+    else{
+        [self.noteEntrySwitch setOn:NO];
+    }
+    
+    if (self.beaconRegion.notifyEntryStateOnDisplay) {
+        [self.noteEntryOnDisplaySwitch setOn:YES];
+    }
+    else{
+        [self.noteEntryOnDisplaySwitch setOn:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning
