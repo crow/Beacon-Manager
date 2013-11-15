@@ -84,6 +84,30 @@
     return nil;
 }
 
+-(void)startMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion{
+
+        if (beaconRegion != nil) {
+            beaconRegion.notifyOnEntry = NO;
+            beaconRegion.notifyOnExit = NO;
+            beaconRegion.notifyEntryStateOnDisplay = NO;
+            [self.locationManager startMonitoringForRegion:beaconRegion];
+            [self.locationManager startRangingBeaconsInRegion:beaconRegion];
+            monitoredRegionCount++;
+        }
+}
+
+-(void)stopMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion{
+    
+    if (beaconRegion != nil) {
+        beaconRegion.notifyOnEntry = NO;
+        beaconRegion.notifyOnExit = NO;
+        beaconRegion.notifyEntryStateOnDisplay = NO;
+        [self.locationManager stopMonitoringForRegion:beaconRegion];
+        [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
+        monitoredRegionCount++;
+    }
+}
+
 //helper method to start monitoring all available beacon regions with no notifications
 -(void)startMonitoringAllAvailableBeaconRegions{
     
