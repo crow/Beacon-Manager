@@ -71,6 +71,7 @@
 		44E6C1ED17FF986000CD88AE /* 849-radar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44E6C1EB17FF986000CD88AE /* 849-radar@2x.png */; };
 		44EFC679181CA056007C1B1B /* libUAirship-3.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A5F85317F6036200F619C1 /* libUAirship-3.0.1.a */; };
 		44EFC67B181CA11D007C1B1B /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44EFC67A181CA11D007C1B1B /* AirshipConfig.plist */; };
+		6192602E1835A17C00143F5A /* BeaconStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6192602D1835A17C00143F5A /* BeaconStatsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +176,8 @@
 		44E6C1EA17FF986000CD88AE /* 849-radar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "849-radar.png"; sourceTree = "<group>"; };
 		44E6C1EB17FF986000CD88AE /* 849-radar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "849-radar@2x.png"; sourceTree = "<group>"; };
 		44EFC67A181CA11D007C1B1B /* AirshipConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = AirshipConfig.plist; sourceTree = "<group>"; };
+		6192602C1835A17C00143F5A /* BeaconStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconStatsViewController.h; sourceTree = "<group>"; };
+		6192602D1835A17C00143F5A /* BeaconStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconStatsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +275,8 @@
 				440E866117F51C1E00D191A2 /* PlistManager.m */,
 				44E6C1CA17FE29A200CD88AE /* BeaconViewController.h */,
 				44E6C1CB17FE29A200CD88AE /* BeaconViewController.m */,
+				6192602C1835A17C00143F5A /* BeaconStatsViewController.h */,
+				6192602D1835A17C00143F5A /* BeaconStatsViewController.m */,
 				4498CDC31826EC8A001EC26B /* BeaconSettingsViewController.h */,
 				4498CDC41826EC8A001EC26B /* BeaconSettingsViewController.m */,
 				440E860917F5140F00D191A2 /* Images.xcassets */,
@@ -521,6 +526,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6192602E1835A17C00143F5A /* BeaconStatsViewController.m in Sources */,
 				440E866217F51C1E00D191A2 /* PlistManager.m in Sources */,
 				4498CDC51826EC8A001EC26B /* BeaconSettingsViewController.m in Sources */,
 				44E6C1D217FE2BAA00CD88AE /* RegionManager.m in Sources */,
