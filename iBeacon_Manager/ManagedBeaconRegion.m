@@ -8,7 +8,11 @@
 
 #import "ManagedBeaconRegion.h"
 
-@implementation ManagedBeaconRegion
+@interface ManagedBeaconRegion ()
+
+@end
+
+@implementation ManagedBeaconRegion 
 
 
 - (id)initWithProximityUUID:(NSUUID *)proximityUUID identifier:(NSString *)identifier{
@@ -38,6 +42,14 @@
         [self initManagedBeacon];
     }
     return self;
+
+}
+
+-(void)timestampEntry{
+
+}
+
+-(void)timestampExit{
 
 }
 

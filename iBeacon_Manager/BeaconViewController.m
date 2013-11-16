@@ -24,12 +24,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        //register for ranging beacons notification
-        [[NSNotificationCenter defaultCenter]
-         addObserver:self
-         selector:@selector(managerDidRangeBeacons)
-         name:@"managerDidRangeBeacons"
-         object:nil];
+
     }
     return self;
 }
@@ -37,21 +32,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
+    //register for ranging beacons notification
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(managerDidRangeBeacons)
+     name:@"managerDidRangeBeacons"
+     object:nil];
 
 }
 
 - (void)managerDidRangeBeacons
 {
-    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,7 +56,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     int sections = 1;
     if ([[BeaconRegionManager shared] rangedBeacons].count > 0){
@@ -76,20 +67,19 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    
     return [[BeaconRegionManager shared] monitoredBeaconRegions].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"BeaconCell";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     NSArray *monitoredBeaconRegions = [NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
+
+    
     selectedBeaconRegion = monitoredBeaconRegions[indexPath.row];
-    selectedBeacon = [[BeaconRegionManager shared] beaconWithId:selectedBeaconRegion.identifier];
+    CLBeacon *thisBeacon = [[BeaconRegionManager shared] beaconWithId:selectedBeaconRegion.identifier];
     // Configure the cell...
     if (cell == nil)
 	{
@@ -100,21 +90,24 @@
     
     [cell.textLabel setText:selectedBeaconRegion.identifier];
     
-    //
-    if ([selectedBeacon accuracy]){
-        cell.backgroundColor = [UIColor colorWithRed:0 green:100 blue:55 alpha:.2];
-    
-        [UIView animateWithDuration:1.0 delay:0.f options:UIViewAnimationOptionRepeat
-                         animations:^{
-                             cell.imageView.alpha=0.2f;
-                         } completion:^(BOOL finished){
-                             cell.imageView.alpha=1.f;
-                         }];
+    //if there's a beacon in range
+    if ([thisBeacon accuracy]){
+        UIImage *greenMarker = [[UIImage alloc] init];
+        greenMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-ping@2x" ofType:@"png"]];
+        cell.imageView.image = greenMarker;
+
+        //animation is freezing every other refresh
+//        [UIView animateWithDuration:1.0 delay:0.f options:UIViewAnimationOptionRepeat
+//                         animations:^{
+//                             cell.imageView.alpha=0.2f;
+//                         } completion:^(BOOL finished){
+//                             cell.imageView.alpha=1.f;
+//                         }];
+
     }
-        
-    
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [selectedBeaconRegion.proximityUUID UUIDString], selectedBeaconRegion.major ? selectedBeaconRegion.major : @"None", selectedBeaconRegion.minor ? selectedBeaconRegion.minor : @"None"];
-    
+    else{
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [selectedBeaconRegion.proximityUUID UUIDString], selectedBeaconRegion.major ? selectedBeaconRegion.major : @"None", selectedBeaconRegion.minor ? selectedBeaconRegion.minor : @"None"];
+    }
     return cell;
 }
 

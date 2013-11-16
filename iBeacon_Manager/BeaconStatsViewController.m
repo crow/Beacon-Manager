@@ -41,8 +41,19 @@
     
     //used saved entry unless saved entry is nil
     recordState ? [self.recordStatsSwitch setEnabled:recordState] : [self.recordStatsSwitch setEnabled:YES];
+   
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(managerDidRangeBeacons)
+     name:@"managerDidRangeBeacons"
+     object:nil];
+    
 }
 
+- (void)managerDidRangeBeacons
+{
+    
+}
 
 - (void)didReceiveMemoryWarning
 {

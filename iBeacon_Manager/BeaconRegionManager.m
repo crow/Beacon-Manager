@@ -22,8 +22,6 @@
     NSMutableDictionary *visited;
     int monitoredRegionCount;
     CBPeripheralManager *peripheralManager;
-    int goatX;
-    int goatY;
 }
 
 + (BeaconRegionManager *)shared
@@ -36,6 +34,7 @@
 -(BeaconRegionManager *)init{
     self = [super init];
     monitoredRegionCount = 0;
+    _beacons = [[NSMutableDictionary alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     _availableBeaconRegions = [[PlistManager shared] getAvailableBeaconRegions];
@@ -61,6 +60,7 @@
             return beacon;
         }
     }
+    
     NSLog(@"No beacon with the specified ID is within range");
     return nil;
 }
@@ -150,7 +150,7 @@
     // CoreLocation will call this delegate method at 1 Hz with updated range information.
     // Beacons will be categorized and displayed by proximity.
     
-    self.rangedBeacons = beacons;
+    _rangedBeacons = beacons;
     self.currentRegion = region;
     //set ivar to init read-only property
     //_monitoredBeaconRegions = [manager rangedRegions];
@@ -158,7 +158,26 @@
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"managerDidRangeBeacons"
      object:self];
+    
+    
+    NSArray *unknownBeacons = [beacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityUnknown]];
+    if([unknownBeacons count])
+        [_beacons setObject:unknownBeacons forKey:[NSNumber numberWithInt:CLProximityUnknown]];
+    
+    NSArray *immediateBeacons = [beacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityImmediate]];
+    if([immediateBeacons count])
+        [_beacons setObject:immediateBeacons forKey:[NSNumber numberWithInt:CLProximityImmediate]];
+    
+    NSArray *nearBeacons = [beacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityNear]];
+    if([nearBeacons count])
+        [_beacons setObject:nearBeacons forKey:[NSNumber numberWithInt:CLProximityNear]];
+    
+    NSArray *farBeacons = [beacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityFar]];
+    if([farBeacons count])
+        [_beacons setObject:farBeacons forKey:[NSNumber numberWithInt:CLProximityFar]];
 
+    //set read only parameter for detailed ranged beacons
+    _rangedBeaconsDetailed = _beacons;
     [self updateVistedStatsForRangedBeacons:beacons];
 
 }
