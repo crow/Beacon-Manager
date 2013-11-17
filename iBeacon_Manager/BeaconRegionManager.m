@@ -77,6 +77,18 @@
     return nil;
 }
 
+-(ManagedBeaconRegion *)beaconRegionWithUUID:(NSUUID *)UUID{
+    for (ManagedBeaconRegion *beaconRegion in self.availableBeaconRegions)
+    {
+        if ([[beaconRegion.proximityUUID UUIDString] isEqualToString:[UUID UUIDString]]) {
+            return beaconRegion;
+        }
+    }
+    
+    NSLog(@"No available beacon region with the specified ID was included in the available regions list");
+    return nil;
+}
+
 -(void)startMonitoringBeaconInRegion:(ManagedBeaconRegion *)beaconRegion{
 
         if (beaconRegion != nil) {
@@ -159,25 +171,7 @@
      postNotificationName:@"managerDidRangeBeacons"
      object:self];
     
-    
-    NSArray *unknownBeacons = [beacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityUnknown]];
-    if([unknownBeacons count])
-        [_beacons setObject:unknownBeacons forKey:[NSNumber numberWithInt:CLProximityUnknown]];
-    
-    NSArray *immediateBeacons = [beacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityImmediate]];
-    if([immediateBeacons count])
-        [_beacons setObject:immediateBeacons forKey:[NSNumber numberWithInt:CLProximityImmediate]];
-    
-    NSArray *nearBeacons = [beacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityNear]];
-    if([nearBeacons count])
-        [_beacons setObject:nearBeacons forKey:[NSNumber numberWithInt:CLProximityNear]];
-    
-    NSArray *farBeacons = [beacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityFar]];
-    if([farBeacons count])
-        [_beacons setObject:farBeacons forKey:[NSNumber numberWithInt:CLProximityFar]];
 
-    //set read only parameter for detailed ranged beacons
-    _rangedBeaconsDetailed = _beacons;
     [self updateVistedStatsForRangedBeacons:beacons];
 
 }
@@ -190,8 +184,6 @@
     NSLog(@"didExitRegion");
 }
 
-
-
 -(void)updateVistedStatsForRegionIdentifier:(NSString *) identifier{
 
 }
@@ -199,6 +191,31 @@
 -(void)updateVistedStatsForRangedBeacons:(NSArray *)rangedBeacons
 {
 
+    
+    NSArray *unknownBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityUnknown]];
+    if([unknownBeacons count])
+        [_beacons setObject:unknownBeacons forKey:[NSNumber numberWithInt:CLProximityUnknown]];
+    
+    NSArray *immediateBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityImmediate]];
+    if([immediateBeacons count])
+        [_beacons setObject:immediateBeacons forKey:[NSNumber numberWithInt:CLProximityImmediate]];
+    
+    NSArray *nearBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityNear]];
+    if([nearBeacons count])
+        [_beacons setObject:nearBeacons forKey:[NSNumber numberWithInt:CLProximityNear]];
+    
+    NSArray *farBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityFar]];
+    if([farBeacons count])
+        [_beacons setObject:farBeacons forKey:[NSNumber numberWithInt:CLProximityFar]];
+    
+    //set read only parameter for detailed ranged beacons
+    _rangedBeaconsDetailed = _beacons;
+ 
+    //Don't necessarily need to do entry/exit counts here
+//    //visit only counts if it's immediate
+//    for (CLBeacon *beacon in immediateBeacons){
+//        [[self beaconRegionWithUUID:beacon.proximityUUID] timestampEntry];
+//    }
 }
 
 -(BOOL)isMonitored:(ManagedBeaconRegion *) beaconRegion{
@@ -217,20 +234,26 @@
     // When this happens CoreLocation will launch the application momentarily, call this delegate method
     // and we will let the user know via a local notification.
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    [[BeaconRegionManager shared] updateVistedStatsForRegionIdentifier:region.identifier];
+    
+    ManagedBeaconRegion *managedBeaconRegion = [self beaconRegionWithId:region.identifier];
+
     
     if(state == CLRegionStateInside)
     {
         notification.alertBody = [NSString stringWithFormat:@"You're inside the region %@", region.identifier];
+        [managedBeaconRegion timestampEntry];
     }
     else if(state == CLRegionStateOutside)
     {
         notification.alertBody = [NSString stringWithFormat:@"You're outside the region %@", region.identifier];
+        [managedBeaconRegion timestampExit];
     }
     else
     {
         return;
     }
+    
+    [[BeaconRegionManager shared] updateVistedStatsForRegionIdentifier:region.identifier];
     
     // If the application is in the foreground, it will get a callback to application:didReceiveLocalNotification:.
     // If its not, iOS will display the notification to the user.

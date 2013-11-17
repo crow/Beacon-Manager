@@ -10,9 +10,12 @@
 
 @interface ManagedBeaconRegion ()
 
+
 @end
 
-@implementation ManagedBeaconRegion 
+@implementation ManagedBeaconRegion {
+    NSMutableDictionary *mutableBeaconStats;
+}
 
 
 - (id)initWithProximityUUID:(NSUUID *)proximityUUID identifier:(NSString *)identifier{
@@ -46,12 +49,34 @@
 }
 
 -(void)timestampEntry{
-
+    NSLog(@"timestamped entry");
+    self.lastEntry = [[NSDate date] timeIntervalSince1970];
 }
 
 -(void)timestampExit{
+  NSLog(@"timestamped exit");
+    self.lastEntry = [[NSDate date] timeIntervalSince1970];
+    
+    //re-calculate total visit time
+    self.totalLastVisitTime = self.lastExit - self.lastEntry;
+}
+
+-(void)loadBeaconStats{
+    
+    [[NSUserDefaults standardUserDefaults]
+     objectForKey:@"beaconStats"];
+}
+
+-(void)saveBeaconStats{
+   
+    
+//    [mutableBeaconStats setValue:self.totalLastVisitTime forKey:@"totalLastVisitTime"]
+//    
+//    [[NSUserDefaults standardUserDefaults]
+//     setObject:self.beaconStats forKey:@"beaconStats"];
 
 }
+
 
 -(void)initManagedBeacon{
    

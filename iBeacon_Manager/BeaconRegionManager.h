@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "PlistManager.h"
+#import "ManagedBeaconRegion.h"
 
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
 static dispatch_once_t pred = 0; \
@@ -34,7 +35,7 @@ return _sharedObject; \
 
 + (id)shared;
 -(void)updateVistedStatsForRegionIdentifier:(NSString *)identifier;
--(CLBeaconRegion *)beaconRegionWithId:(NSString *)identifier;
+-(ManagedBeaconRegion *)beaconRegionWithId:(NSString *)identifier;
 -(CLBeacon *)beaconWithId:(NSString *)identifier;
 
 -(BOOL)isMonitored:(CLBeaconRegion *) beaconRegion;
