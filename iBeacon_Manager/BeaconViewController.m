@@ -85,7 +85,6 @@
 	{
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
 	}
     
     [cell.textLabel setText:selectedBeaconRegion.identifier];
