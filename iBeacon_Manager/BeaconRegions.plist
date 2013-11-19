@@ -107,11 +107,11 @@
 		<key>title</key>
 		<string>David&apos;s Backpack</string>
 		<key>proximityUUID</key>
-		<string>E2C56DB5-DFFB-48D2-B060-D0F5A71096E0</string>
+		<string>6C15B682-63C5-479A-800D-54D1AA3DA760</string>
 		<key>Major</key>
-		<string>1111</string>
+		<string>1</string>
 		<key>Minor</key>
-		<string>2222</string>
+		<string>3</string>
 	</dict>
 </array>
 </plist>

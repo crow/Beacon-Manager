@@ -58,16 +58,16 @@
 {
     // Return the number of sections.
     int sections = 1;
-    if ([[BeaconRegionManager shared] rangedBeacons].count > 0){
-        sections = 2;
-    }
-    
+//    if ([[BeaconRegionManager shared] rangedBeacons].count > 0){
+//        sections = 2;
+//    }
+//    
     return sections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[BeaconRegionManager shared] monitoredBeaconRegions].count;
+    return [[BeaconRegionManager shared] availableBeaconRegions].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,9 +77,10 @@
     
     NSArray *monitoredBeaconRegions = [NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
 
-    
+
     selectedBeaconRegion = monitoredBeaconRegions[indexPath.row];
-    CLBeacon *thisBeacon = [[BeaconRegionManager shared] beaconWithId:selectedBeaconRegion.identifier];
+
+    selectedBeacon = [[BeaconRegionManager shared] beaconWithId:selectedBeaconRegion.identifier];
     // Configure the cell...
     if (cell == nil)
 	{
@@ -89,8 +90,8 @@
     
     [cell.textLabel setText:selectedBeaconRegion.identifier];
     
-    //if there's a beacon in range
-    if ([thisBeacon accuracy]){
+    //if this beacon is in range
+    if ([selectedBeacon accuracy]){
         UIImage *greenMarker = [[UIImage alloc] init];
         greenMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-ping@2x" ofType:@"png"]];
         cell.imageView.image = greenMarker;

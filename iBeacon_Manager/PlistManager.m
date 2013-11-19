@@ -18,7 +18,11 @@
         _plistRegionContentsArray = [NSArray arrayWithContentsOfFile:plistRegionsPath];
         
         NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
-        self.plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
+        //self.plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
+        
+        //this is a synchonous blocking call, if it takes too long watchdog might kill the process
+        self.plistBeaconContentsArray = [[NSArray alloc]initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/s/m5gtlw5a7wfp8ro/BeaconRegions.plist?dl=1&token_hash=AAE4kf_S08qBeg2OTgYp0T0dIUrc3-K5njlPsV-tvD-qIw"]];
+       
         
         availableBeaconRegions = [[NSArray alloc] initWithArray:[self getAvailableBeaconRegions]];
         _regions = [self buildRegionsDataFromPlist];
@@ -119,8 +123,8 @@
 - (ManagedBeaconRegion*)mapDictionaryToBeacon:(NSDictionary*)dictionary {
     NSString *title = [dictionary valueForKey:@"title"];
     NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
-    short minor = 3;
-    short major = 1;
+   // short minor = 3;
+   // short major = 1;
     
     return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:title];
 
