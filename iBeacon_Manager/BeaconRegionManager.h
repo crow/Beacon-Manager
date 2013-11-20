@@ -27,6 +27,8 @@ return _sharedObject; \
 
 //The current beacons that are monitored, apple already used "monitoredRegions" so they chose "rangedRegions"
 @property (strong, nonatomic, readonly) NSSet *monitoredBeaconRegions;
+
+//Available beacon regions are all the regions loaded from the plist manager
 @property (strong, nonatomic, readonly) NSArray *availableBeaconRegions;
 @property (strong, nonatomic, readonly) NSDictionary *visitedBeaconRegions;
 @property (strong, nonatomic) CLBeaconRegion *currentRegion;//this may be redundant with rangedBeacons

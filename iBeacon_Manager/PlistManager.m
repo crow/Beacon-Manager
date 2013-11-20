@@ -4,6 +4,9 @@
     NSFileManager* manager;
     NSArray *uuidToTitleKey;
     NSArray *availableBeaconRegions;
+    
+    NSArray *plistBeaconContentsArray;
+    NSArray *plistRegionContentsArray;
 }
 
 - (id)init
@@ -15,12 +18,12 @@
         //Initialize plist filed - TODO add file mngr checking
         manager = [NSFileManager defaultManager];
         NSString* plistRegionsPath = [[NSBundle mainBundle] pathForResource:@"Regions" ofType:@"plist"];
-        _plistRegionContentsArray = [NSArray arrayWithContentsOfFile:plistRegionsPath];
+        plistRegionContentsArray = [NSArray arrayWithContentsOfFile:plistRegionsPath];
     
         
         //initialize with local list
         NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
-        self.plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
+        plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
        
         [self loadAvailableBeaconRegions];
 
@@ -49,7 +52,7 @@
 
 -(void)loadHostedPlistFromUrl:(NSURL*)url{
     
-    self.plistBeaconContentsArray = [[NSArray alloc]initWithContentsOfURL:url];
+    plistBeaconContentsArray = [[NSArray alloc]initWithContentsOfURL:url];
     [self loadAvailableBeaconRegions];
     [self loadReadableBeaconRegions];
     //call to reload the tableview with new data
@@ -97,7 +100,7 @@
 - (NSArray*) buildBeaconRegionDataFromPlist
 {
     NSMutableArray *beacons = [NSMutableArray array];
-    for(NSDictionary *beaconDict in self.plistBeaconContentsArray)
+    for(NSDictionary *beaconDict in plistBeaconContentsArray)
     {
         ManagedBeaconRegion *beaconRegion = [self mapDictionaryToBeacon:beaconDict];
         if (beaconRegion != nil) {
@@ -114,7 +117,7 @@
 - (NSArray*) buildRegionsDataFromPlist
 {
     NSMutableArray *regions = [NSMutableArray array];
-    for(NSDictionary *regionDict in _plistRegionContentsArray)
+    for(NSDictionary *regionDict in plistRegionContentsArray)
     {
         CLRegion *region = [self mapDictionaryToRegion:regionDict];
         
