@@ -17,11 +17,12 @@
 
 @implementation BeaconRegionManager {
     NSMutableDictionary *_beacons;
-    NSMutableArray *tagArray;
-    CGFloat bleatTime;
+    //NSMutableArray *tagArray;
+    NSMutableArray *tmpRangedBeacons;
     NSMutableDictionary *visited;
     int monitoredRegionCount;
     CBPeripheralManager *peripheralManager;
+    
 }
 
 + (BeaconRegionManager *)shared
@@ -45,6 +46,7 @@
     [self updateMonitoredRegions];
     return self;
 }
+
 
 -(void)updateMonitoredRegions{
     //set monitored region read-only property with monitored regions
@@ -157,6 +159,7 @@
     
 }
 
+
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(ManagedBeaconRegion *)region
 {
     // CoreLocation will call this delegate method at 1 Hz with updated range information.
@@ -207,6 +210,9 @@
     NSArray *farBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityFar]];
     if([farBeacons count])
         [_beacons setObject:farBeacons forKey:[NSNumber numberWithInt:CLProximityFar]];
+    
+    NSArray *allBeacons = rangedBeacons;
+        [_beacons setObject:allBeacons forKey:[NSNumber numberWithInt:4]];
     
     //set read only parameter for detailed ranged beacons
     _rangedBeaconsDetailed = _beacons;

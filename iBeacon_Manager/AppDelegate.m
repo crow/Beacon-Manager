@@ -21,6 +21,7 @@
 
     //init UABeaconManager
     [BeaconRegionManager shared];
+    //init plist manager
     [PlistManager shared];
 
     // This prevents the UA Library from registering with UIApplication by default. This will allow

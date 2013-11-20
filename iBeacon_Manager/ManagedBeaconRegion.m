@@ -55,7 +55,7 @@
 
 -(void)timestampExit{
     NSLog(@"timestamped exit");
-    self.lastEntry = [[NSDate date] timeIntervalSince1970];
+    self.lastExit = [[NSDate date] timeIntervalSince1970];
     
     //re-calculate total visit time
     self.totalLastVisitTime = self.lastExit - self.lastEntry;

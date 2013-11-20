@@ -4,9 +4,9 @@
 <array>
 	<dict>
 		<key>title</key>
-		<string>Excelsior</string>
+		<string>Beacon_Region_1</string>
 		<key>proximityUUID</key>
-		<string>D698E19F-ABBA-4BF6-91D1-F34E30C1261E</string>
+		<string>AAA8E19F-ABBA-4BF6-91D1-F34E30C1261E</string>
 		<key>Major</key>
 		<string>1</string>
 		<key>Minor</key>
@@ -14,9 +14,19 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>Macon</string>
+		<string>Beacon_Region_2</string>
 		<key>proximityUUID</key>
-		<string>8C46D1FB-B2C0-4AB9-878D-2CC079AA2989</string>
+		<string>AAA6D1FB-B2C0-4AB9-878D-2CC079AA2989</string>
+		<key>Major</key>
+		<string>1</string>
+		<key>Minor</key>
+		<string>3</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Beacon_Region_3</string>
+		<key>proximityUUID</key>
+		<string>AAA9A8CA-0F7E-4565-8D19-74C20C4F9400</string>
 		<key>Major</key>
 		<string>1111</string>
 		<key>Minor</key>
@@ -24,94 +34,14 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>Akron</string>
+		<string>Beacon_Region_4</string>
 		<key>proximityUUID</key>
-		<string>8889A8CA-0F7E-4565-8D19-74C20C4F9400</string>
-		<key>Major</key>
-		<string>1111</string>
-		<key>Minor</key>
-		<string>2222</string>
-	</dict>
-	<dict>
-		<key>title</key>
-		<string>Shenandoah</string>
-		<key>proximityUUID</key>
-		<string>38991AB4-1D1D-4E6D-818B-5D90DE2B1494
+		<string>AAA91AB4-1D1D-4E6D-818B-5D90DE2B1494
 </string>
 		<key>Major</key>
 		<string>1111</string>
 		<key>Minor</key>
 		<string>2222</string>
-	</dict>
-	<dict>
-		<key>title</key>
-		<string>Bournemouth</string>
-		<key>proximityUUID</key>
-		<string>4F65D1AE-3E55-422E-8E03-B10B13292216</string>
-		<key>Major</key>
-		<string>1111</string>
-		<key>Minor</key>
-		<string>2222</string>
-	</dict>
-	<dict>
-		<key>title</key>
-		<string>Norge</string>
-		<key>proximityUUID</key>
-		<string>58916DB9-9AB5-4638-93EC-620956B23731</string>
-		<key>Major</key>
-		<string>1111</string>
-		<key>Minor</key>
-		<string>2222</string>
-	</dict>
-	<dict>
-		<key>title</key>
-		<string>Lakehurst</string>
-		<key>proximityUUID</key>
-		<string>CFB799F7-21A2-41EF-9537-E342BB19D306</string>
-		<key>Major</key>
-		<string>1111</string>
-		<key>Minor</key>
-		<string>2222</string>
-	</dict>
-	<dict>
-		<key>title</key>
-		<string>Graf Zeppelin</string>
-		<key>proximityUUID</key>
-		<string>D1132BE5-B045-40EB-810B-D0C78EA9CAFB</string>
-		<key>Major</key>
-		<string>1111</string>
-		<key>Minor</key>
-		<string>2222</string>
-	</dict>
-	<dict>
-		<key>title</key>
-		<string>Moffet Field</string>
-		<key>proximityUUID</key>
-		<string>3491B6D7-AF17-4B80-8F45-A14850D149AF</string>
-		<key>Major</key>
-		<string>1111</string>
-		<key>Minor</key>
-		<string>2222</string>
-	</dict>
-	<dict>
-		<key>title</key>
-		<string>Test iPad</string>
-		<key>proximityUUID</key>
-		<string>5A4BCFCE-174E-4BAC-A814-092E77F6B7E5</string>
-		<key>Major</key>
-		<string>1111</string>
-		<key>Minor</key>
-		<string>2222</string>
-	</dict>
-	<dict>
-		<key>title</key>
-		<string>David&apos;s Backpack</string>
-		<key>proximityUUID</key>
-		<string>6C15B682-63C5-479A-800D-54D1AA3DA760</string>
-		<key>Major</key>
-		<string>1</string>
-		<key>Minor</key>
-		<string>3</string>
 	</dict>
 </array>
 </plist>

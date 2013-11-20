@@ -9,6 +9,7 @@
 + (PlistManager *)shared;
 - (NSString *)identifierForUUID:(NSUUID *) uuid;
 -(NSArray *)getAvailableBeaconRegions;
+-(void)loadRegions;
 -(void)loadReadableBeaconRegions;
 
 
@@ -21,9 +22,11 @@
 //@property (nonatomic, copy) NSArray *plistVisitedContentsArray;
 //@property (nonatomic, copy, readonly) NSArray *availableBeaconRegions;
 
-//A dictionary consisting of all the monitored beaconRegions - each with a titel, visited count and total time visited
+//A dictionary consisting of all the monitored beaconRegions - each with a title, visited count and total time visited
 @property (nonatomic, strong) NSArray *visitedBeaconRegions;
-@property (nonatomic, copy, readonly) NSArray *regions;
+
+//available regions are regions defined in a local or remote plist
+@property (nonatomic, copy, readonly) NSArray *availableRegions;
 @property (nonatomic, copy, readonly) NSArray *readableBeaconRegions;
 
 

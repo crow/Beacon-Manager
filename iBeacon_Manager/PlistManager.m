@@ -16,16 +16,14 @@
         manager = [NSFileManager defaultManager];
         NSString* plistRegionsPath = [[NSBundle mainBundle] pathForResource:@"Regions" ofType:@"plist"];
         _plistRegionContentsArray = [NSArray arrayWithContentsOfFile:plistRegionsPath];
+    
         
+        //initialize with local list
         NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
-        //self.plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
-        
-        //this is a synchonous blocking call, if it takes too long watchdog might kill the process
-        self.plistBeaconContentsArray = [[NSArray alloc]initWithContentsOfURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/s/m5gtlw5a7wfp8ro/BeaconRegions.plist?dl=1&token_hash=AAE4kf_S08qBeg2OTgYp0T0dIUrc3-K5njlPsV-tvD-qIw"]];
+        self.plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
        
-        
-        availableBeaconRegions = [[NSArray alloc] initWithArray:[self getAvailableBeaconRegions]];
-        _regions = [self buildRegionsDataFromPlist];
+        [self loadRegions];
+
         
     }
     
@@ -43,13 +41,23 @@
     return instance;
 }
 
+-(void)loadRegions{
+    //set read-only available regions 
+    _availableRegions = [self getAvailableBeaconRegions];
+}
+
 -(NSArray *)getAvailableBeaconRegions{
-    return [self buildBeaconsDataFromPlist];
+    return [self buildBeaconRegionDataFromPlist];
+}
+
+-(void)loadHostedPlist{
+    //this is a synchonous blocking call, if it takes too long watchdog might kill the process
+    self.plistBeaconContentsArray = [[NSArray alloc]initWithContentsOfURL:[NSURL URLWithString:@"http://bit.ly/1dcy5q7"]];
 }
 
 -(void)loadReadableBeaconRegions{
     
-    NSMutableArray *readableBeaconArray = [[NSMutableArray alloc] initWithCapacity:[availableBeaconRegions count]];
+    NSMutableArray *readableBeaconArray = [[NSMutableArray alloc] initWithCapacity:[self.availableRegions count]];
     NSString *currentReadableBeacon = [[NSString alloc] init];
     
     for (ManagedBeaconRegion *beaconRegion in availableBeaconRegions) {
@@ -86,7 +94,7 @@
 }
 
 
-- (NSArray*) buildBeaconsDataFromPlist
+- (NSArray*) buildBeaconRegionDataFromPlist
 {
     NSMutableArray *beacons = [NSMutableArray array];
     for(NSDictionary *beaconDict in self.plistBeaconContentsArray)
