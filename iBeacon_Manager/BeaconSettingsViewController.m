@@ -42,7 +42,13 @@
      selector:@selector(managerDidRangeBeacons)
      name:@"managerDidRangeBeacons"
      object:nil];
-    
+   
+
+}
+
+-(void)viewWillAppear
+{
+   // [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)managerDidRangeBeacons

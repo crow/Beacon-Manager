@@ -18,7 +18,6 @@
 @implementation BeaconRegionManager {
     NSMutableDictionary *_beacons;
     NSMutableArray *tmpRangedBeacons;
-    NSMutableDictionary *visited;
     int monitoredRegionCount;
     CBPeripheralManager *peripheralManager;
     
@@ -37,11 +36,9 @@
     _beacons = [[NSMutableDictionary alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-    _availableBeaconRegions = [[PlistManager shared] loadAvailableBeaconRegions];
-    //this should be initialized from persistent storage at some point
-    visited = [[NSMutableDictionary alloc] init];
+
     
-    [self startMonitoringAllAvailableBeaconRegions];
+    [self updateAvailableRegions];
     [self updateMonitoredRegions];
     return self;
 }
@@ -50,6 +47,11 @@
 -(void)updateMonitoredRegions{
     //set monitored region read-only property with monitored regions
     _monitoredBeaconRegions = [self.locationManager monitoredRegions];
+}
+
+-(void)updateAvailableRegions{
+  _availableBeaconRegions = [[PlistManager shared] loadAvailableBeaconRegions];
+  [self startMonitoringAllAvailableBeaconRegions];
 }
 
 

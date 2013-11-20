@@ -8,6 +8,7 @@
 
 #import "BeaconListViewController.h"
 #import "PlistManager.h"
+#import "BeaconRegionManager.h"
 
 @interface BeaconListViewController ()
 
@@ -79,6 +80,8 @@
     if (buttonIndex == 0)
     {
         [[PlistManager shared] loadHostedPlistFromUrl:[NSURL URLWithString:self.beaconListURL.text]];
+        [[BeaconRegionManager shared] updateAvailableRegions];
+        [[BeaconRegionManager shared] updateMonitoredRegions];
     }
 }
 

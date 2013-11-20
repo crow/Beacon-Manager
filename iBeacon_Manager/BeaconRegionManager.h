@@ -30,7 +30,6 @@ return _sharedObject; \
 
 //Available beacon regions are all the regions loaded from the plist manager
 @property (strong, nonatomic, readonly) NSArray *availableBeaconRegions;
-@property (strong, nonatomic, readonly) NSDictionary *visitedBeaconRegions;
 @property (strong, nonatomic) CLBeaconRegion *currentRegion;//this may be redundant with rangedBeacons
 
 
@@ -39,6 +38,9 @@ return _sharedObject; \
 -(void)updateVistedStatsForRegionIdentifier:(NSString *)identifier;
 -(ManagedBeaconRegion *)beaconRegionWithId:(NSString *)identifier;
 -(CLBeacon *)beaconWithId:(NSString *)identifier;
+
+-(void)updateMonitoredRegions;
+-(void)updateAvailableRegions;
 
 -(BOOL)isMonitored:(CLBeaconRegion *) beaconRegion;
 

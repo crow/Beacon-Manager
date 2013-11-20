@@ -16,5 +16,4 @@
 @property (nonatomic, copy, readonly) NSArray *readableBeaconRegions;
 
 
-
 @end

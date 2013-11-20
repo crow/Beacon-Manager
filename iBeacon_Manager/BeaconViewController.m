@@ -8,6 +8,8 @@
 
 #import "BeaconViewController.h"
 #import "BeaconSettingsViewController.h"
+//remove this after debugging
+#import "PlistManager.h"
 
 @interface BeaconViewController ()
 
@@ -32,15 +34,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     //register for ranging beacons notification
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(managerDidRangeBeacons)
      name:@"managerDidRangeBeacons"
      object:nil];
-    
+}
 
-
+-(void)viewWillAppear
+{
+    [self.tableView reloadData];
 }
 
 - (void)managerDidRangeBeacons
@@ -74,10 +79,10 @@
     static NSString *CellIdentifier = @"BeaconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    NSArray *monitoredBeaconRegions = [NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
+    NSArray *availableBeaconRegions = [[BeaconRegionManager shared] availableBeaconRegions]; //[NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
 
 
-    selectedBeaconRegion = monitoredBeaconRegions[indexPath.row];
+    selectedBeaconRegion = availableBeaconRegions[indexPath.row];
 
     selectedBeacon = [[BeaconRegionManager shared] beaconWithId:selectedBeaconRegion.identifier];
     // Configure the cell...
