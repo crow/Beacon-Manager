@@ -7,12 +7,16 @@
 //
 
 #import "BeaconListViewController.h"
+#import "PlistManager.h"
 
 @interface BeaconListViewController ()
 
 @end
 
-@implementation BeaconListViewController
+@implementation BeaconListViewController {
+
+    NSURL *lastUrl;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,8 +35,12 @@
     gestureRecognizer.cancelsTouchesInView = NO;
     self.view.userInteractionEnabled = TRUE;
     [super viewDidLoad];
-
-
+    
+    lastUrl = [[NSUserDefaults standardUserDefaults]
+                        URLForKey:@"lastUrl"];
+    //if last url is nil then change the text field to "Enter URL here" 
+    lastUrl ? [self.beaconListURL setText:[lastUrl absoluteString]] : [self.beaconListURL setText:@"Enter URL here"];
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -43,7 +51,10 @@
 
 - (void)hideKeyboard{
     //update field values on keyboard hide
-    //[self saveUserSettings];
+    lastUrl = [NSURL URLWithString:self.beaconListURL.text];
+    [[NSUserDefaults standardUserDefaults]
+     setURL:lastUrl forKey:@"lastUrl"];
+    
     [self.view endEditing:YES];
 }
 
@@ -56,7 +67,19 @@
 
 - (IBAction)reloadBeaconList:(id)sender {
 
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"This generates a synchronous blocking call - if it takes too long system watchdog might kill the process.  Please ensure your URL is correct" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
+    [alert show];
+ 
+    
+    
+}
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex;{
+    // the user clicked OK
+    if (buttonIndex == 0)
+    {
+        [[PlistManager shared] loadHostedPlistFromUrl:[NSURL URLWithString:self.beaconListURL.text]];
+    }
 }
 
 

@@ -17,7 +17,6 @@
 
 @implementation BeaconRegionManager {
     NSMutableDictionary *_beacons;
-    //NSMutableArray *tagArray;
     NSMutableArray *tmpRangedBeacons;
     NSMutableDictionary *visited;
     int monitoredRegionCount;
@@ -38,7 +37,7 @@
     _beacons = [[NSMutableDictionary alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-    _availableBeaconRegions = [[PlistManager shared] getAvailableBeaconRegions];
+    _availableBeaconRegions = [[PlistManager shared] loadAvailableBeaconRegions];
     //this should be initialized from persistent storage at some point
     visited = [[NSMutableDictionary alloc] init];
     
@@ -138,7 +137,7 @@
 //helper method to stop monitoring all available beacon regions
 -(void)stopMonitoringAllAvailableBeaconRegions{
     
-    for (ManagedBeaconRegion *beaconRegion in [[PlistManager shared] getAvailableBeaconRegions])
+    for (ManagedBeaconRegion *beaconRegion in [[PlistManager shared] loadAvailableBeaconRegions])
     {
         if (beaconRegion != nil) {
             beaconRegion.notifyOnEntry = NO;

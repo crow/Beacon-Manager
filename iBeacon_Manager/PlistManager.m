@@ -22,7 +22,7 @@
         NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
         self.plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
        
-        [self loadRegions];
+        [self loadAvailableBeaconRegions];
 
         
     }
@@ -41,18 +41,18 @@
     return instance;
 }
 
--(void)loadRegions{
+-(NSArray*)loadAvailableBeaconRegions{
     //set read-only available regions 
-    _availableRegions = [self getAvailableBeaconRegions];
+    _availableRegions = [self buildBeaconRegionDataFromPlist];
+    return self.availableRegions;
 }
 
--(NSArray *)getAvailableBeaconRegions{
-    return [self buildBeaconRegionDataFromPlist];
-}
-
--(void)loadHostedPlist{
-    //this is a synchonous blocking call, if it takes too long watchdog might kill the process
-    self.plistBeaconContentsArray = [[NSArray alloc]initWithContentsOfURL:[NSURL URLWithString:@"http://bit.ly/1dcy5q7"]];
+-(void)loadHostedPlistFromUrl:(NSURL*)url{
+    
+    self.plistBeaconContentsArray = [[NSArray alloc]initWithContentsOfURL:url];
+    [self loadAvailableBeaconRegions];
+    [self loadReadableBeaconRegions];
+    //call to reload the tableview with new data
 }
 
 -(void)loadReadableBeaconRegions{

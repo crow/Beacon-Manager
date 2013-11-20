@@ -8,9 +8,9 @@
 
 + (PlistManager *)shared;
 - (NSString *)identifierForUUID:(NSUUID *) uuid;
--(NSArray *)getAvailableBeaconRegions;
--(void)loadRegions;
+-(NSArray *)loadAvailableBeaconRegions;
 -(void)loadReadableBeaconRegions;
+-(void)loadHostedPlistFromUrl:(NSURL*)url;
 
 
 @property (nonatomic, copy, readonly) NSArray *supportedProximityUUIDs;

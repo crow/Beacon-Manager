@@ -58,12 +58,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
+    
     int sections = 1;
-//    if ([[BeaconRegionManager shared] rangedBeacons].count > 0){
-//        sections = 2;
-//    }
-//    
+
     return sections;
 }
 
