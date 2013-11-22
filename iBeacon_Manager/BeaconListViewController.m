@@ -36,11 +36,10 @@
     gestureRecognizer.cancelsTouchesInView = NO;
     self.view.userInteractionEnabled = TRUE;
     [super viewDidLoad];
-    
-    lastUrl = [[NSUserDefaults standardUserDefaults]
-                        URLForKey:@"lastUrl"];
+    [PlistManager shared];
+    lastUrl = [[NSUserDefaults standardUserDefaults] URLForKey:@"lastUrl"];
     //if last url is nil then change the text field to "Enter URL here" 
-    lastUrl ? [self.beaconListURL setText:[lastUrl absoluteString]] : [self.beaconListURL setText:@"Enter URL here"];
+    //lastUrl ? [self.beaconListURL setText:[lastUrl absoluteString]] : [self.beaconListURL setText:@"Enter URL here"];
     
     
     // Uncomment the following line to preserve selection between presentations.
@@ -48,6 +47,8 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.viewAvailableIbeaconsCell.userInteractionEnabled = NO;
+
 }
 
 - (void)hideKeyboard{
@@ -80,6 +81,11 @@
     if (buttonIndex == 0)
     {
         [[PlistManager shared] loadHostedPlistFromUrl:[NSURL URLWithString:self.beaconListURL.text]];
+        [[BeaconRegionManager shared] updateAvailableRegions];
+        [[BeaconRegionManager shared] updateMonitoredRegions];
+        if ([NSURL URLWithString:self.beaconListURL.text] != nil) {
+            self.viewAvailableIbeaconsCell.userInteractionEnabled = YES;
+        }
         [[BeaconRegionManager shared] updateAvailableRegions];
         [[BeaconRegionManager shared] updateMonitoredRegions];
     }

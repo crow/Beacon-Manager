@@ -37,9 +37,6 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
 
-    
-    [self updateAvailableRegions];
-    [self updateMonitoredRegions];
     return self;
 }
 
@@ -56,17 +53,18 @@
 
 
 //returns a beacon from the ranged list given a identifier, else emits log and returns nil
--(CLBeacon *)beaconWithId:(NSString *)identifier{
-    ManagedBeaconRegion *beaconRegion = [self beaconRegionWithId:identifier];
-    for (CLBeacon *beacon in self.rangedBeacons){
-        if ([[beacon.proximityUUID UUIDString] isEqualToString:[beaconRegion.proximityUUID UUIDString]]) {
-            return beacon;
-        }
-    }
-    
-    NSLog(@"No beacon with the specified ID is within range");
-    return nil;
-}
+//-(CLBeacon *)beaconWithId:(NSString *)identifier{
+//    ManagedBeaconRegion *beaconRegion = [self beaconRegionWithId:identifier];
+//    for (CLBeacon *beacon in self.rangedBeacons){
+//        if ([[beacon.proximityUUID UUIDString] isEqualToString:[beaconRegion.proximityUUID UUIDString]]) {
+//            return beacon;
+//        }
+//    }
+//    
+//    NSLog(@"No beacon with the specified ID is within range");
+//    return nil;
+//}
+
 //returns a beacon regions from the available regions (all in plist) given and identifier
 -(ManagedBeaconRegion *)beaconRegionWithId:(NSString *)identifier{
     for (ManagedBeaconRegion *beaconRegion in self.availableBeaconRegions)
@@ -80,19 +78,19 @@
     return nil;
 }
 
--(ManagedBeaconRegion *)beaconRegionWithUUID:(NSUUID *)UUID{
-    for (ManagedBeaconRegion *beaconRegion in self.availableBeaconRegions)
-    {
-        if ([[beaconRegion.proximityUUID UUIDString] isEqualToString:[UUID UUIDString]]) {
-            return beaconRegion;
-        }
-    }
-    
-    NSLog(@"No available beacon region with the specified ID was included in the available regions list");
-    return nil;
-}
+//-(ManagedBeaconRegion *)beaconRegionWithUUID:(NSUUID *)UUID{
+//    for (ManagedBeaconRegion *beaconRegion in self.availableBeaconRegions)
+//    {
+//        if ([[beaconRegion.proximityUUID UUIDString] isEqualToString:[UUID UUIDString]]) {
+//            return beaconRegion;
+//        }
+//    }
+//    
+//    NSLog(@"No available beacon region with the specified ID was included in the available regions list");
+//    return nil;
+//}
 
--(void)startMonitoringBeaconInRegion:(ManagedBeaconRegion *)beaconRegion{
+-(void)startMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion{
 
         if (beaconRegion != nil) {
             beaconRegion.notifyOnEntry = YES;
@@ -105,7 +103,7 @@
         }
 }
 
--(void)stopMonitoringBeaconInRegion:(ManagedBeaconRegion *)beaconRegion{
+-(void)stopMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion{
     
     if (beaconRegion != nil) {
         beaconRegion.notifyOnEntry = NO;
@@ -121,7 +119,7 @@
 //helper method to start monitoring all available beacon regions with no notifications
 -(void)startMonitoringAllAvailableBeaconRegions{
     
-    for (ManagedBeaconRegion *beaconRegion in self.availableBeaconRegions)
+    for (CLBeaconRegion *beaconRegion in self.availableBeaconRegions)
     {
         if (beaconRegion != nil) {
             beaconRegion.notifyOnEntry = YES;
@@ -161,15 +159,27 @@
 }
 
 
-- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(ManagedBeaconRegion *)region
+-(ManagedBeaconRegion *)convertToManagedBeaconRegion:(CLBeaconRegion *)region{
+
+    ManagedBeaconRegion *managedRegion = [[ManagedBeaconRegion alloc] initWithProximityUUID:region.proximityUUID major:[region.major shortValue] minor:[region.minor shortValue] identifier:region.identifier];
+    
+    return managedRegion;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
     // CoreLocation will call this delegate method at 1 Hz with updated range information.
-    // Beacons will be categorized and displayed by proximity.
     
     _rangedBeacons = beacons;
-    self.currentRegion = region;
+  
+    
+    //get closest beacon here TODO
+    [self loadMatchingBeaconForRegion:[self convertToManagedBeaconRegion:region] FromBeacons:beacons];
+    
     //set ivar to init read-only property
     //_monitoredBeaconRegions = [manager rangedRegions];
+    
+    
     
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"managerDidRangeBeacons"
@@ -188,8 +198,18 @@
     NSLog(@"didExitRegion");
 }
 
--(void)updateVistedStatsForRegionIdentifier:(NSString *) identifier{
 
+-(CLBeacon *)loadMatchingBeaconForRegion:(ManagedBeaconRegion *) beaconRegion FromBeacons:(NSArray *)beacons{
+    for (CLBeacon *beacon in beacons) {
+        
+        if (beacon.major == beaconRegion.major && beacon.minor == beaconRegion.minor && [[beacon.proximityUUID UUIDString]isEqualToString:[beaconRegion.proximityUUID UUIDString]])
+        {
+            beaconRegion.beacon = beacon;
+            return beacon;
+        }
+    }
+    //no beacons match this region
+    return nil;
 }
 
 -(void)updateVistedStatsForRangedBeacons:(NSArray *)rangedBeacons
@@ -212,17 +232,8 @@
     if([farBeacons count])
         [_beacons setObject:farBeacons forKey:[NSNumber numberWithInt:CLProximityFar]];
     
-    NSArray *allBeacons = rangedBeacons;
-        [_beacons setObject:allBeacons forKey:[NSNumber numberWithInt:4]];
-    
     //set read only parameter for detailed ranged beacons
     _rangedBeaconsDetailed = _beacons;
- 
-    //Don't necessarily need to do entry/exit counts here
-//    //visit only counts if it's immediate
-//    for (CLBeacon *beacon in immediateBeacons){
-//        [[self beaconRegionWithUUID:beacon.proximityUUID] timestampEntry];
-//    }
 }
 
 -(BOOL)isMonitored:(ManagedBeaconRegion *) beaconRegion{
@@ -260,11 +271,22 @@
         return;
     }
     
-    [[BeaconRegionManager shared] updateVistedStatsForRegionIdentifier:region.identifier];
     
     // If the application is in the foreground, it will get a callback to application:didReceiveLocalNotification:.
     // If its not, iOS will display the notification to the user.
     [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+}
+
+- (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error{
+    NSLog(@"%@", error);
+
+}
+    
+
+
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error{
+NSLog(@"%@", error);
+
 }
 
 @end

@@ -153,8 +153,8 @@
     {
         // Get reference to the destination view controller
         BeaconStatsViewController *vc = [segue destinationViewController];
-        [vc setBeaconRegion:self.beaconRegion];
-        [vc setBeacon:self.beacon];
+        vc.beaconRegion = self.beaconRegion;
+        vc.beacon = self.beaconRegion.beacon;
         // Pass any objects to the view controller here, like...
         //[vc setMyObjectHere:object];
     }

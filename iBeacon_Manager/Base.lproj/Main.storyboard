@@ -1,51 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4EE-61-B96">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="sxo-yh-bxk">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller-->
         <scene sceneID="BgU-Jn-A1L">
             <objects>
                 <navigationController definesPresentationContext="YES" id="sxo-yh-bxk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="QIi-XG-hM3"/>
+                    <tabBarItem key="tabBarItem" title="" id="QIi-XG-hM3"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eGH-dN-C3Y">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="sqm-26-Hpv" kind="relationship" relationship="rootViewController" id="JI0-9U-5pV"/>
+                        <segue destination="GPg-HD-qLl" kind="relationship" relationship="rootViewController" id="999-TV-XOY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wgg-Me-kIp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="158" y="800"/>
-        </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="3ef-NU-EyI">
-            <objects>
-                <tabBarController definesPresentationContext="YES" id="4EE-61-B96" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="3BB-Q6-Igf"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="get-0K-Prm">
-                        <rect key="frame" x="129" y="330" width="163" height="49"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="GPg-HD-qLl" kind="relationship" relationship="viewControllers" id="b4g-aF-fwa"/>
-                        <segue destination="sxo-yh-bxk" kind="relationship" relationship="viewControllers" id="4P8-oh-0Jr"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zrf-FB-H72" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-389" y="1210"/>
+            <point key="canvasLocation" x="-319" y="790"/>
         </scene>
         <!--Beacon View Controller - Beacons-->
         <scene sceneID="iVj-qt-2Vc">
             <objects>
                 <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="sqm-26-Hpv" customClass="BeaconViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="86" sectionHeaderHeight="10" sectionFooterHeight="10" id="HdE-HA-gCS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="separatorColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -102,7 +82,7 @@
             <objects>
                 <tableViewController id="ECA-hv-H9x" customClass="BeaconSettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="9n0-gg-d6f">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="separatorColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -280,7 +260,7 @@
             <objects>
                 <tableViewController id="7EV-CE-Vbw" customClass="BeaconStatsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="bUn-XF-aN9">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="separatorColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -680,7 +660,7 @@
             <objects>
                 <tableViewController id="GPg-HD-qLl" customClass="BeaconListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="DoA-ht-bmA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="separatorColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -689,11 +669,11 @@
                         <sections>
                             <tableViewSection id="nap-Zd-VbF">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="121" id="YiN-Ty-Yps">
-                                        <rect key="frame" x="0.0" y="35" width="320" height="121"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="103" id="YiN-Ty-Yps">
+                                        <rect key="frame" x="0.0" y="35" width="320" height="103"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YiN-Ty-Yps" id="4aw-lb-fd0">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Beacon List URL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gay-lX-pzf">
@@ -703,16 +683,16 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://bit.ly/1dcy5q7" borderStyle="roundedRect" placeholder=".plist URL" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="Woo-TM-equ">
-                                                    <rect key="frame" x="20" y="40" width="280" height="30"/>
+                                                    <rect key="frame" x="20" y="40" width="240" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8C2-AR-3HT">
-                                                    <rect key="frame" x="119" y="78" width="83" height="28"/>
+                                                    <rect key="frame" x="248" y="46" width="83" height="28"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" image="760-refresh-3.png">
+                                                    <state key="normal" image="731-cloud-download.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -728,7 +708,31 @@
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="sep-4M-8dB">
-                                <cells/>
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="54" id="gHP-Rx-XH9">
+                                        <rect key="frame" x="0.0" y="158" width="320" height="54"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gHP-Rx-XH9" id="Smh-hx-uY3">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="53"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="View Available iBeacons" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hsw-e3-bYL">
+                                                    <rect key="frame" x="20" y="16" width="186" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                        </accessibility>
+                                        <connections>
+                                            <segue destination="sqm-26-Hpv" kind="push" id="m3r-5H-hKh"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
                             </tableViewSection>
                         </sections>
                     </tableView>
@@ -737,17 +741,17 @@
                     <navigationItem key="navigationItem" id="aX6-HB-dcf"/>
                     <connections>
                         <outlet property="beaconListURL" destination="Woo-TM-equ" id="hvT-J5-Kvl"/>
+                        <outlet property="viewAvailableIbeaconsCell" destination="gHP-Rx-XH9" id="ya3-tr-aLc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BQP-wH-jmA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="580" y="1484"/>
+            <point key="canvasLocation" x="154" y="790"/>
         </scene>
     </scenes>
     <resources>
         <image name="722-location-pin.png" width="19" height="28"/>
         <image name="731-cloud-download.png" width="28" height="27"/>
-        <image name="760-refresh-3.png" width="28" height="28"/>
         <image name="location-pin-selected.png" width="38" height="56"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

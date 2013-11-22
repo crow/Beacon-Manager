@@ -11,18 +11,21 @@
 @interface ManagedBeaconRegion ()
 
 
+
 @end
+
 
 @implementation ManagedBeaconRegion {
     NSMutableDictionary *mutableBeaconStats;
 }
 
 
+
 - (id)initWithProximityUUID:(NSUUID *)proximityUUID identifier:(NSString *)identifier{
     
     self = [super initWithProximityUUID:proximityUUID identifier:identifier];
     if (self) {
-        [self initManagedBeacon];
+        [self initManagedBeaconRegion];
     }
     return self;
     
@@ -32,7 +35,7 @@
     
     self = [super initWithProximityUUID:proximityUUID major:major identifier:identifier];
     if (self) {
-        [self initManagedBeacon];
+        [self initManagedBeaconRegion];
     }
     return self;
     
@@ -42,11 +45,17 @@
     
     self = [super initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
     if (self) {
-        [self initManagedBeacon];
+        [self initManagedBeaconRegion];
     }
     return self;
 
 }
+
+
+-(void)initManagedBeaconRegion{
+    self.beacon = [[CLBeacon alloc] init]; //allocate space for the beacons to go
+}
+
 
 -(void)timestampEntry{
     NSLog(@"timestamped entry");
@@ -63,6 +72,8 @@
 
 -(void)loadBeaconStats{
     
+    
+    
     [[NSUserDefaults standardUserDefaults]
      objectForKey:@"beaconStats"];
 }
@@ -77,9 +88,5 @@
 
 }
 
-
--(void)initManagedBeacon{
-   
-}
 
 @end

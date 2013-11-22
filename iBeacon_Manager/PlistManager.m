@@ -14,23 +14,24 @@
     self = [super init];
     if(self)
     {
-
-        //Initialize plist filed - TODO add file mngr checking
-        manager = [NSFileManager defaultManager];
-        NSString* plistRegionsPath = [[NSBundle mainBundle] pathForResource:@"Regions" ofType:@"plist"];
-        plistRegionContentsArray = [NSArray arrayWithContentsOfFile:plistRegionsPath];
-    
-        
-        //initialize with local list
-        NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
-        plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
-       
-        [self loadAvailableBeaconRegions];
-
         
     }
     
     return self;
+}
+
+-(void)loadSampleLists{
+    //Initialize plist filed - TODO add file mngr checking
+    manager = [NSFileManager defaultManager];
+    NSString* plistRegionsPath = [[NSBundle mainBundle] pathForResource:@"Regions" ofType:@"plist"];
+    plistRegionContentsArray = [NSArray arrayWithContentsOfFile:plistRegionsPath];
+    
+    
+    //initialize with local list
+    NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
+    plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
+    
+    [self loadAvailableBeaconRegions];
 }
 
 + (PlistManager *)shared
@@ -132,14 +133,17 @@
 }
 
 - (ManagedBeaconRegion*)mapDictionaryToBeacon:(NSDictionary*)dictionary {
-    NSString *title = [dictionary valueForKey:@"title"];
-    NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
-   // short minor = 3;
-   // short major = 1;
     
-    return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:title];
+    
+    NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
+    short major = [[dictionary valueForKey:@"Major"] shortValue];
+    short minor = [[dictionary valueForKey:@"Minor"] shortValue];
+    NSString *identifier = [dictionary valueForKey:@"title"];
 
-    //return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:title];
+    
+    //return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:identifier];
+
+    return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
 }
 
 - (CLRegion*)mapDictionaryToRegion:(NSDictionary*)dictionary {

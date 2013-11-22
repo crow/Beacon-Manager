@@ -17,7 +17,7 @@
 
 @implementation BeaconViewController {
     NSMutableDictionary *beacons;
-    NSMutableArray *rangedRegions;
+  //  NSMutableArray *rangedRegions;
     ManagedBeaconRegion *selectedBeaconRegion;
     CLBeacon *selectedBeacon;
 }
@@ -51,6 +51,8 @@
 - (void)managerDidRangeBeacons
 {
 
+
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,11 +82,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     NSArray *availableBeaconRegions = [[BeaconRegionManager shared] availableBeaconRegions]; //[NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
-
-
+    
     selectedBeaconRegion = availableBeaconRegions[indexPath.row];
-
-    selectedBeacon = [[BeaconRegionManager shared] beaconWithId:selectedBeaconRegion.identifier];
     // Configure the cell...
     if (cell == nil)
 	{
@@ -95,7 +94,7 @@
     [cell.textLabel setText:selectedBeaconRegion.identifier];
     
     //if this beacon is in range
-    if ([selectedBeacon accuracy]){
+    if ([selectedBeaconRegion.beacon accuracy]){
         UIImage *greenMarker = [[UIImage alloc] init];
         greenMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-ping@2x" ofType:@"png"]];
         cell.imageView.image = greenMarker;
@@ -131,8 +130,8 @@
     {
         // Get reference to the destination view controller
         BeaconSettingsViewController *vc = [segue destinationViewController];
-        [vc setBeaconRegion:selectedBeaconRegion];
-        [vc setBeacon:selectedBeacon];
+        vc.beaconRegion = selectedBeaconRegion;
+        vc.beacon = selectedBeaconRegion.beacon;
         // Pass any objects to the view controller here, like...
         //[vc setMyObjectHere:object];
     }
