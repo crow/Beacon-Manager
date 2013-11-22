@@ -19,11 +19,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    //init UABeaconManager
-    [BeaconRegionManager shared];
-    //init plist manager
-    [PlistManager shared];
-
     // This prevents the UA Library from registering with UIApplication by default. This will allow
     // you to prompt your users at a later time. This gives your app the opportunity to explain the
     // benefits of push or allows users to turn it on explicitly in a settings screen.

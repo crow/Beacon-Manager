@@ -81,6 +81,7 @@
     static NSString *CellIdentifier = @"BeaconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+
     NSArray *availableManagedBeaconRegions = [[BeaconRegionManager shared] availableManagedBeaconRegions]; //[NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
     
     currentManagedBeaconRegion = availableManagedBeaconRegions[indexPath.row];
@@ -106,7 +107,7 @@
 //                         } completion:^(BOOL finished){
 //                             cell.imageView.alpha=1.f;
 //                         }];
-
+       cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [currentManagedBeaconRegion.proximityUUID UUIDString], currentManagedBeaconRegion.major ? currentManagedBeaconRegion.major : @"None", currentManagedBeaconRegion.minor ? currentManagedBeaconRegion.minor : @"None"];
     }
     else{
         cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [currentManagedBeaconRegion.proximityUUID UUIDString], currentManagedBeaconRegion.major ? currentManagedBeaconRegion.major : @"None", currentManagedBeaconRegion.minor ? currentManagedBeaconRegion.minor : @"None"];
@@ -130,8 +131,10 @@
     {
         // Get reference to the destination view controller
         BeaconSettingsViewController *vc = [segue destinationViewController];
+
         vc.beaconRegion = currentManagedBeaconRegion;
         vc.beacon = currentManagedBeaconRegion.beacon;
+
         // Pass any objects to the view controller here, like...
         //[vc setMyObjectHere:object];
     }

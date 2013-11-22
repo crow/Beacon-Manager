@@ -53,7 +53,7 @@
 
 
 -(void)initManagedBeaconRegion{
-    
+   // self.beacon = [[CLBeacon alloc] init]; //allocate space for the beacons to go
 }
 
 

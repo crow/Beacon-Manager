@@ -12,6 +12,7 @@
 - (id)init
 {
     self = [super init];
+    
     if(self)
     {
 
@@ -26,11 +27,23 @@
         plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
        
         [self getAvailableManagedBeaconRegions];
-
-        
     }
     
     return self;
+}
+
+-(void)loadSampleLists{
+    //Initialize plist filed - TODO add file mngr checking
+    manager = [NSFileManager defaultManager];
+    NSString* plistRegionsPath = [[NSBundle mainBundle] pathForResource:@"Regions" ofType:@"plist"];
+    plistRegionContentsArray = [NSArray arrayWithContentsOfFile:plistRegionsPath];
+    
+    
+    //initialize with local list
+    NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
+    plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
+    
+    [self getAvailableManagedBeaconRegions];
 }
 
 + (PlistManager *)shared
@@ -140,7 +153,9 @@
     NSString *identifier = [dictionary valueForKey:@"title"];
 
     
-    //return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:title];
+
+
+    //return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:identifier];
 
     return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
 }

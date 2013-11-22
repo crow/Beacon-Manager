@@ -29,7 +29,9 @@ return _sharedObject; \
 @property (strong, nonatomic, readonly) NSSet *monitoredBeaconRegions;
 
 //Available beacon regions are all the regions loaded from the plist manager
+
 @property (strong, nonatomic, readonly) NSArray *availableManagedBeaconRegions;
+
 @property (strong, nonatomic) ManagedBeaconRegion *currentRegion;//this may be redundant with rangedBeacons
 
 

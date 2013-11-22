@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *cumulativeVisitTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastExitLabel;
-@property (weak, nonatomic) IBOutlet UILabel *LastEntryLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastEntryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalLastVisitTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalVisitsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *averageVisitTimeLabel;
@@ -52,6 +52,10 @@
 
 - (void)managerDidRangeBeacons
 {
+
+  
+    self.lastEntryLabel.text = [NSString stringWithFormat:@"%f", self.beaconRegion.lastEntry];
+    self.lastExitLabel.text = [NSString stringWithFormat:@"%f", self.beaconRegion.lastExit];
     
 }
 
