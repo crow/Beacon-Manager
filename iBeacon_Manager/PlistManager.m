@@ -25,7 +25,7 @@
         NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
         plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
        
-        [self loadAvailableBeaconRegions];
+        [self getAvailableManagedBeaconRegions];
 
         
     }
@@ -44,7 +44,7 @@
     return instance;
 }
 
--(NSArray*)loadAvailableBeaconRegions{
+-(NSArray*)getAvailableManagedBeaconRegions{
     //set read-only available regions 
     _availableRegions = [self buildBeaconRegionDataFromPlist];
     return self.availableRegions;
@@ -53,7 +53,7 @@
 -(void)loadHostedPlistFromUrl:(NSURL*)url{
     
     plistBeaconContentsArray = [[NSArray alloc]initWithContentsOfURL:url];
-    [self loadAvailableBeaconRegions];
+    [self getAvailableManagedBeaconRegions];
     [self loadReadableBeaconRegions];
     //call to reload the tableview with new data
 }
@@ -99,19 +99,19 @@
 
 - (NSArray*) buildBeaconRegionDataFromPlist
 {
-    NSMutableArray *beacons = [NSMutableArray array];
+    NSMutableArray *managedBeaconRegions = [NSMutableArray array];
     for(NSDictionary *beaconDict in plistBeaconContentsArray)
     {
         ManagedBeaconRegion *beaconRegion = [self mapDictionaryToBeacon:beaconDict];
         if (beaconRegion != nil) {
-              [beacons addObject:beaconRegion];
+              [managedBeaconRegions addObject:beaconRegion];
         } else {
             NSLog(@"beaconRegion is nil (╯°□°)╯︵ ┻━┻");
         }
      
     }
     
-    return [NSArray arrayWithArray:beacons];
+    return [NSArray arrayWithArray:managedBeaconRegions];
 }
 
 - (NSArray*) buildRegionsDataFromPlist
@@ -132,14 +132,17 @@
 }
 
 - (ManagedBeaconRegion*)mapDictionaryToBeacon:(NSDictionary*)dictionary {
-    NSString *title = [dictionary valueForKey:@"title"];
-    NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
-   // short minor = 3;
-   // short major = 1;
     
-    return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:title];
+    
+    NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
+    short major = [[dictionary valueForKey:@"Major"] shortValue];
+    short minor = [[dictionary valueForKey:@"Minor"] shortValue];
+    NSString *identifier = [dictionary valueForKey:@"title"];
 
-    //return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:title];
+    
+    //return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:title];
+
+    return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
 }
 
 - (CLRegion*)mapDictionaryToRegion:(NSDictionary*)dictionary {

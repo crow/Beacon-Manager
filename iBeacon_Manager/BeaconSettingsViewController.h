@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) ManagedBeaconRegion *beaconRegion;
 @property (strong, nonatomic) CLBeacon *beacon;
+
 @property (strong, nonatomic) IBOutlet UILabel *monitorLabel;
 @property (strong, nonatomic) IBOutlet UISwitch *monitorSwitch;
 @property (strong, nonatomic) IBOutlet UILabel *noteEntryLabel;

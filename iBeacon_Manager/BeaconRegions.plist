@@ -8,9 +8,9 @@
 		<key>proximityUUID</key>
 		<string>AAA8E19F-ABBA-4BF6-91D1-F34E30C1261E</string>
 		<key>Major</key>
-		<string>1</string>
+		<integer>1</integer>
 		<key>Minor</key>
-		<string>3</string>
+		<integer>3</integer>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -18,9 +18,9 @@
 		<key>proximityUUID</key>
 		<string>AAA6D1FB-B2C0-4AB9-878D-2CC079AA2989</string>
 		<key>Major</key>
-		<string>1</string>
+		<integer>1</integer>
 		<key>Minor</key>
-		<string>3</string>
+		<integer>3</integer>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -28,9 +28,9 @@
 		<key>proximityUUID</key>
 		<string>AAA9A8CA-0F7E-4565-8D19-74C20C4F9400</string>
 		<key>Major</key>
-		<string>1111</string>
+		<integer>1111</integer>
 		<key>Minor</key>
-		<string>2222</string>
+		<integer>2222</integer>
 	</dict>
 	<dict>
 		<key>title</key>
@@ -39,9 +39,9 @@
 		<string>AAA91AB4-1D1D-4E6D-818B-5D90DE2B1494
 </string>
 		<key>Major</key>
-		<string>1111</string>
+		<integer>1111</integer>
 		<key>Minor</key>
-		<string>2222</string>
+		<integer>2222</integer>
 	</dict>
 </array>
 </plist>

@@ -10,12 +10,13 @@
 
 @interface ManagedBeaconRegion : CLBeaconRegion
 
-//every beacon region has at least 1 ibeacon that represents it TODO:expand for case of multiple beacons for one region
+//closest beacon matching this beaconRegion's UUID, Major, Minor - nil if none
 @property (nonatomic, strong) CLBeacon *beacon;
 
 @property (nonatomic, strong, readonly) NSDictionary *beaconStats;
 
 @property int visits;
+@property int proximity; //unknown = 0, immediate = 1, near = 2, far = 3
 @property NSTimeInterval lastEntry;
 @property NSTimeInterval lastExit;
 @property NSTimeInterval totalLastVisitTime;
