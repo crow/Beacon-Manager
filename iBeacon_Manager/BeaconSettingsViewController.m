@@ -53,7 +53,8 @@
 
 - (void)managerDidRangeBeacons
 {
-    
+    self.rssiLabel.text = [NSString stringWithFormat:@"%ld", (long)beaconRegion.beacon.rssi];
+    self.proximityLabel.text = [NSString stringWithFormat:@"%1.3f ± %d m", beaconRegion.beacon.accuracy, beaconRegion.beacon.proximity];
 }
 
 

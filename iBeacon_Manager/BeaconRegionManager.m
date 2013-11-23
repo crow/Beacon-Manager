@@ -64,7 +64,7 @@
         }
     }
     
-    NSLog(@"No beacon with the specified ID is within range");
+    //No beacon with the specified ID is within range
     return nil;
 }
 //returns a managed beacon region from the available regions (all in plist) given an identifier
@@ -227,11 +227,15 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
-    NSLog( @"didEnterRegion" );
+    NSLog( @"didEnterRegion %@", region.identifier );
+    ManagedBeaconRegion *managedBeaconRegion = [self beaconRegionWithId:region.identifier];
+    [managedBeaconRegion timestampEntry];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
-    NSLog(@"didExitRegion");
+    NSLog(@"didExitRegion %@", region.identifier);
+    ManagedBeaconRegion *managedBeaconRegion = [self beaconRegionWithId:region.identifier];
+    [managedBeaconRegion timestampExit];
 }
 
 
@@ -251,7 +255,6 @@
 -(void)updateVistedStatsForRangedBeacons:(NSArray *)rangedBeacons
 {
 
-    
     NSArray *unknownBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityUnknown]];
     if([unknownBeacons count])
         [_beacons setObject:unknownBeacons forKey:[NSNumber numberWithInt:CLProximityUnknown]];
@@ -272,7 +275,7 @@
     _rangedBeaconsDetailed = _beacons;
 }
 
--(BOOL)isMonitored:(ManagedBeaconRegion *) beaconRegion{
+-(BOOL)isMonitored:(ManagedBeaconRegion *)beaconRegion{
     for (ManagedBeaconRegion *bRegion in self.monitoredBeaconRegions) {
         if ([bRegion.identifier isEqualToString:beaconRegion.identifier]){
             return true;
@@ -288,19 +291,23 @@
     // When this happens CoreLocation will launch the application momentarily, call this delegate method
     // and we will let the user know via a local notification.
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    
-    ManagedBeaconRegion *managedBeaconRegion = [self beaconRegionWithId:region.identifier];
+
 
     
     if(state == CLRegionStateInside)
     {
         notification.alertBody = [NSString stringWithFormat:@"You're inside the region %@", region.identifier];
-        [managedBeaconRegion timestampEntry];
+//        ManagedBeaconRegion *managedBeaconRegion = [self beaconRegionWithId:region.identifier];
+//        if (managedBeaconRegion.beacon.accuracy)
+//            [managedBeaconRegion timestampEntry];
+        
     }
     else if(state == CLRegionStateOutside)
     {
         notification.alertBody = [NSString stringWithFormat:@"You're outside the region %@", region.identifier];
-        [managedBeaconRegion timestampExit];
+//        ManagedBeaconRegion *managedBeaconRegion = [self beaconRegionWithId:region.identifier];
+//        if (managedBeaconRegion.beacon.accuracy<0)
+//            [managedBeaconRegion timestampExit];
     }
     else
     {

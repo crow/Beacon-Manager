@@ -25,4 +25,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *noteEntryOnDisplayLabel;
 @property (strong, nonatomic) IBOutlet UISwitch *noteEntryOnDisplaySwitch;
 
+@property (weak, nonatomic) IBOutlet UILabel *rssiLabel;
+@property (weak, nonatomic) IBOutlet UILabel *proximityLabel;
+
+
 @end

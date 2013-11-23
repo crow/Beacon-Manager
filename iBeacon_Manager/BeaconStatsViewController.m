@@ -48,15 +48,34 @@
      name:@"managerDidRangeBeacons"
      object:nil];
     
+    
 }
 
 - (void)managerDidRangeBeacons
 {
 
   
-    self.lastEntryLabel.text = [NSString stringWithFormat:@"%f", self.beaconRegion.lastEntry];
-    self.lastExitLabel.text = [NSString stringWithFormat:@"%f", self.beaconRegion.lastExit];
+    self.lastEntryLabel.text = [self dateStringFromInterval:[[NSDate date] timeIntervalSince1970]];
+    //self.lastExitLabel.text = [self dateStringFromInterval:self.beaconRegion.lastExit];
+    self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"%f",
+                                                                  [[NSDate date] timeIntervalSince1970]];
     
+}
+
+-(NSString *)dateStringFromInterval:(NSTimeInterval)interval{
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
+    NSString *dateString = [NSDateFormatter localizedStringFromDate:date
+                                                          dateStyle:NSDateFormatterShortStyle
+                                                          timeStyle:NSDateFormatterShortStyle];
+
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"yyyy"];
+//    
+//    //Optionally for time zone converstions
+//    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"PDT"]];
+//    
+//    NSString *stringFromDate = [formatter stringFromDate:dateString];
+    return dateString;
 }
 
 - (void)didReceiveMemoryWarning
@@ -88,7 +107,8 @@
     // the user clicked No
     if (buttonIndex == 0)
     {
-       
+        self.beaconRegion.lastEntry = 0;
+        self.beaconRegion.lastExit = 0;
     }
     else{
     
