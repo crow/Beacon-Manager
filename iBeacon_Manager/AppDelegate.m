@@ -63,14 +63,16 @@
     return YES;
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
     UA_LDEBUG(@"Application did become active.");
     
     // Set the icon badge to zero on resume (optional)
     [[UAPush shared] resetBadge];
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
     UA_LINFO(@"APNS device token: %@", deviceToken);
     
     // Updates the device token and registers the token with UA. This won't occur until
@@ -78,11 +80,13 @@
     [[UAPush shared] registerDeviceToken:deviceToken];
 }
 
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *) error {
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *) error
+{
     UA_LERR(@"Failed To Register For Remote Notifications With Error: %@", error);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
     
     UA_LINFO(@"Received remote notification: %@", userInfo);
     

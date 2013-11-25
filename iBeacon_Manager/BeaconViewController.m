@@ -15,7 +15,8 @@
 
 @end
 
-@implementation BeaconViewController {
+@implementation BeaconViewController
+{
     NSMutableDictionary *beacons;
   //  NSMutableArray *rangedRegions;
     ManagedBeaconRegion *currentManagedBeaconRegion;
@@ -134,7 +135,8 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     //update selected beacon region

@@ -32,7 +32,8 @@
     return self;
 }
 
--(void)loadSampleLists{
+-(void)loadSampleLists
+{
     //Initialize plist filed - TODO add file mngr checking
     manager = [NSFileManager defaultManager];
     NSString* plistRegionsPath = [[NSBundle mainBundle] pathForResource:@"Regions" ofType:@"plist"];
@@ -57,13 +58,15 @@
     return instance;
 }
 
--(NSArray*)getAvailableManagedBeaconRegions{
+-(NSArray*)getAvailableManagedBeaconRegions
+{
     //set read-only available regions 
     _availableRegions = [self buildBeaconRegionDataFromPlist];
     return self.availableRegions;
 }
 
--(void)loadHostedPlistFromUrl:(NSURL*)url{
+-(void)loadHostedPlistFromUrl:(NSURL*)url
+{
     
     plistBeaconContentsArray = [[NSArray alloc]initWithContentsOfURL:url];
     [self getAvailableManagedBeaconRegions];
@@ -71,7 +74,8 @@
     //call to reload the tableview with new data
 }
 
--(void)loadReadableBeaconRegions{
+-(void)loadReadableBeaconRegions
+{
     
     NSMutableArray *readableBeaconArray = [[NSMutableArray alloc] initWithCapacity:[self.availableRegions count]];
     NSString *currentReadableBeacon = [[NSString alloc] init];
@@ -144,7 +148,8 @@
     return [NSArray arrayWithArray:regions];
 }
 
-- (ManagedBeaconRegion*)mapDictionaryToBeacon:(NSDictionary*)dictionary {
+- (ManagedBeaconRegion*)mapDictionaryToBeacon:(NSDictionary*)dictionary
+{
     
     
     NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
@@ -160,7 +165,8 @@
     return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
 }
 
-- (CLRegion*)mapDictionaryToRegion:(NSDictionary*)dictionary {
+- (CLRegion*)mapDictionaryToRegion:(NSDictionary*)dictionary
+{
     NSString *title = [dictionary valueForKey:@"title"];
     
     CLLocationDegrees latitude = [[dictionary valueForKey:@"latitude"] doubleValue];

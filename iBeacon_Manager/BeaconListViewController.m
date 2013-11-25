@@ -14,7 +14,8 @@
 
 @end
 
-@implementation BeaconListViewController {
+@implementation BeaconListViewController
+{
 
     NSURL *lastUrl;
 }
@@ -51,7 +52,8 @@
 
 }
 
-- (void)hideKeyboard{
+- (void)hideKeyboard
+{
     //update field values on keyboard hide
     lastUrl = [NSURL URLWithString:self.beaconListURL.text];
     [[NSUserDefaults standardUserDefaults]
@@ -67,7 +69,8 @@
 }
 
 
-- (IBAction)reloadBeaconList:(id)sender {
+- (IBAction)reloadBeaconList:(id)sender
+{
 
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"This generates a synchronous blocking call - if it takes too long system watchdog might kill the process.  Please ensure your URL is correct" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
     [alert show];
@@ -76,7 +79,8 @@
     
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex;{
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
     // the user clicked OK
     if (buttonIndex == 0)
     {

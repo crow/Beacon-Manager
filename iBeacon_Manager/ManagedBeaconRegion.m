@@ -21,7 +21,8 @@
 
 
 
-- (id)initWithProximityUUID:(NSUUID *)proximityUUID identifier:(NSString *)identifier{
+- (id)initWithProximityUUID:(NSUUID *)proximityUUID identifier:(NSString *)identifier
+{
     
     self = [super initWithProximityUUID:proximityUUID identifier:identifier];
     if (self) {
@@ -31,7 +32,8 @@
     
 }
 
-- (id)initWithProximityUUID:(NSUUID *)proximityUUID major:(CLBeaconMajorValue)major identifier:(NSString *)identifier{
+- (id)initWithProximityUUID:(NSUUID *)proximityUUID major:(CLBeaconMajorValue)major identifier:(NSString *)identifier
+{
     
     self = [super initWithProximityUUID:proximityUUID major:major identifier:identifier];
     if (self) {
@@ -41,7 +43,8 @@
     
 }
 
-- (id)initWithProximityUUID:(NSUUID *)proximityUUID major:(CLBeaconMajorValue)major minor:(CLBeaconMinorValue)minor identifier:(NSString *)identifier{
+- (id)initWithProximityUUID:(NSUUID *)proximityUUID major:(CLBeaconMajorValue)major minor:(CLBeaconMinorValue)minor identifier:(NSString *)identifier
+{
     
     self = [super initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
     if (self) {
@@ -52,18 +55,20 @@
 }
 
 
--(void)initManagedBeaconRegion{
+-(void)initManagedBeaconRegion
+{
    // self.beacon = [[CLBeacon alloc] init]; //allocate space for the beacons to go
-
 }
 
 
--(void)timestampEntry{
+-(void)timestampEntry
+{
     NSLog(@"timestamped entry");
     self.lastEntry = [[NSDate date] timeIntervalSince1970];
 }
 
--(void)timestampExit{
+-(void)timestampExit
+{
     NSLog(@"timestamped exit");
     self.lastExit = [[NSDate date] timeIntervalSince1970];
     
@@ -71,17 +76,14 @@
     self.totalLastVisitTime = self.lastExit - self.lastEntry;
 }
 
--(void)loadBeaconStats{
-    
-    
-    
+-(void)loadBeaconStats
+{
     [[NSUserDefaults standardUserDefaults]
      objectForKey:@"beaconStats"];
 }
 
--(void)saveBeaconStats{
-   
-    
+-(void)saveBeaconStats
+{
 //    [mutableBeaconStats setValue:self.totalLastVisitTime forKey:@"totalLastVisitTime"]
 //    
 //    [[NSUserDefaults standardUserDefaults]

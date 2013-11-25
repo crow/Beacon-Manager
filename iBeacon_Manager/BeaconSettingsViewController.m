@@ -58,7 +58,8 @@
 }
 
 
-- (IBAction)monitorSwitchTouched:(id)sender {
+- (IBAction)monitorSwitchTouched:(id)sender
+{
     //if ON
     if ([sender isOn]) {
         [[BeaconRegionManager shared] startMonitoringBeaconInRegion:self.beaconRegion];
@@ -70,7 +71,8 @@
     [self loadSwitchStates];
 }
 
-- (IBAction)notifyOnEntrySwitchTouched:(id)sender {
+- (IBAction)notifyOnEntrySwitchTouched:(id)sender
+{
     //if ON
     if ([sender isOn]) {
         self.beaconRegion.notifyOnEntry = YES;
@@ -83,7 +85,8 @@
     [self loadSwitchStates];
 }
 
-- (IBAction)notifyOnExitSwitchTouched:(id)sender {
+- (IBAction)notifyOnExitSwitchTouched:(id)sender
+{
     if ([sender isOn]) {
         self.beaconRegion.notifyOnExit= YES;
     }
@@ -95,7 +98,8 @@
     [self loadSwitchStates];
 }
 
-- (IBAction)notifyEntryOnDisplaySwitchTouched:(id)sender {
+- (IBAction)notifyEntryOnDisplaySwitchTouched:(id)sender
+{
     if ([sender isOn]) {
         self.beaconRegion.notifyEntryStateOnDisplay = YES;
     }
@@ -108,7 +112,8 @@
 }
 
 
--(void)loadSwitchStates{
+-(void)loadSwitchStates
+{
     
     if ([[BeaconRegionManager shared] isMonitored:self.beaconRegion]) {
         [self.monitorSwitch setOn:YES];
