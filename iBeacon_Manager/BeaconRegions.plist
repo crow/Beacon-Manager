@@ -6,42 +6,41 @@
 		<key>title</key>
 		<string>Beacon_Region_1</string>
 		<key>proximityUUID</key>
-		<string>AAA8E19F-ABBA-4BF6-91D1-F34E30C1261E</string>
+		<string>ILU8E19F-ABBA-4BF6-91D1-F34E30C1261E</string>
 		<key>Major</key>
 		<integer>1</integer>
 		<key>Minor</key>
-		<integer>3</integer>
+		<integer>0</integer>
 	</dict>
 	<dict>
 		<key>title</key>
 		<string>Beacon_Region_2</string>
 		<key>proximityUUID</key>
-		<string>AAA6D1FB-B2C0-4AB9-878D-2CC079AA2989</string>
+		<string>GR86D1FB-B2C0-4AB9-878D-2CC079AA2989</string>
 		<key>Major</key>
 		<integer>1</integer>
 		<key>Minor</key>
-		<integer>3</integer>
+		<integer>1</integer>
 	</dict>
 	<dict>
 		<key>title</key>
 		<string>Beacon_Region_3</string>
 		<key>proximityUUID</key>
-		<string>AAA9A8CA-0F7E-4565-8D19-74C20C4F9400</string>
+		<string>GR86D1FB-B2C0-4AB9-878D-2CC079AA2989</string>
 		<key>Major</key>
-		<integer>1111</integer>
+		<integer>1</integer>
 		<key>Minor</key>
-		<integer>2222</integer>
+		<integer>2</integer>
 	</dict>
 	<dict>
 		<key>title</key>
 		<string>Beacon_Region_4</string>
 		<key>proximityUUID</key>
-		<string>AAA91AB4-1D1D-4E6D-818B-5D90DE2B1494
-</string>
+		<string>FUN11DLV-B2C0-4AB9-878D-2CC079AA2989</string>
 		<key>Major</key>
-		<integer>1111</integer>
+		<integer>1</integer>
 		<key>Minor</key>
-		<integer>2222</integer>
+		<integer>2</integer>
 	</dict>
 </array>
 </plist>

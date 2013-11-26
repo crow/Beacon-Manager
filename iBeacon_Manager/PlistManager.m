@@ -15,8 +15,8 @@
     
     if(self)
     {
-        //Initialize plist filed - TODO add file mngr checking
-        [self getAvailableManagedBeaconRegions];
+//        //Initialize plist filed - TODO add file mngr checking
+//        [self getAvailableManagedBeaconRegions];
     }
     
     return self;
@@ -34,18 +34,7 @@
     NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
     plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
     
-    [self getAvailableManagedBeaconRegions];
-}
-
-+ (PlistManager *)shared
-{
-    static id instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[self alloc] init];
-    });
-    
-    return instance;
+    [self loadAvailableManagedBeaconRegions];
 }
 
 -(NSArray*)getAvailableManagedBeaconRegions
@@ -57,25 +46,28 @@
 
 -(void)loadHostedPlistFromUrl:(NSURL*)url
 {
-    
-    plistBeaconContentsArray = [[NSArray alloc]initWithContentsOfURL:url];
-    [self getAvailableManagedBeaconRegions];
-    [self loadReadableBeaconRegions];
-    //call to reload the tableview with new data
+    //
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfURL:url];
+        [self getAvailableManagedBeaconRegions];
+        [self loadReadableBeaconRegions];
+    });
 }
 
 -(void)loadAvailableManagedBeaconRegions
 {
-      _availableManagedBeaconRegions = [self buildBeaconRegionDataFromPlist];
+    _availableManagedBeaconRegions = [self buildBeaconRegionDataFromPlist];
 }
 
+//This is a helper method that can be removed, useful for displaying IDs next to UUID
 -(void)loadReadableBeaconRegions
 {
     
     NSMutableArray *readableBeaconArray = [[NSMutableArray alloc] initWithCapacity:[self.availableManagedBeaconRegions count]];
     NSString *currentReadableBeacon = [[NSString alloc] init];
     
-    for (ManagedBeaconRegion *beaconRegion in availableBeaconRegions) {
+    for (ManagedBeaconRegion *beaconRegion in availableBeaconRegions)
+    {
         currentReadableBeacon = [NSString stringWithFormat:@"%@ - %@", [beaconRegion identifier], [[beaconRegion proximityUUID] UUIDString]];
         [readableBeaconArray addObject:currentReadableBeacon];
     }
@@ -88,23 +80,26 @@
     NSRange uuidRange;
     if (self.readableBeaconRegions != nil)
     {
-        for (NSString *string in self.readableBeaconRegions) {
+        for (NSString *string in self.readableBeaconRegions)
+        {
             //if string contains - <UUID> then remove this portion so only the identifier remains
             NSString *uuidPortion = [NSString stringWithFormat:@" - %@", [uuid UUIDString]];
             //NSRange returns a struct, so make sure it isn't nil, TODO:add nil check
             
             if (string != nil)
+            {
                 uuidRange = [string rangeOfString:[uuid UUIDString]];
-            
-            if (uuidRange.location != NSNotFound){
+            }
+            if (uuidRange.location != NSNotFound)
+            {
                 return [string substringToIndex:[string rangeOfString:uuidPortion].location];
             }
         }
-        NSLog(@"uuid is not in the monitored list (╯°□°)╯︵ ┻━┻");
+        //uuid is not in the monitored list
         return nil;
     }
     
-    NSLog(@"identifer for UUID did not return (╯°□°)╯︵ ┻━┻");
+    //identifer for UUID did not return (╯°□°)╯︵ ┻━┻
     return nil;
 }
 
@@ -117,32 +112,14 @@
         ManagedBeaconRegion *beaconRegion = [self mapDictionaryToBeacon:beaconDict];
         if (beaconRegion != nil) {
               [managedBeaconRegions addObject:beaconRegion];
-        } else {
-            NSLog(@"beaconRegion is nil (╯°□°)╯︵ ┻━┻");
         }
-     
     }
-    
     return [NSArray arrayWithArray:managedBeaconRegions];
 }
 
-- (NSArray*) buildRegionsDataFromPlist
-{
-    NSMutableArray *regions = [NSMutableArray array];
-    for(NSDictionary *regionDict in plistRegionContentsArray)
-    {
-        CLRegion *region = [self mapDictionaryToRegion:regionDict];
-        
-        if (region != nil) {
-            [regions addObject:region];
-        } else {
-            NSLog(@"region is nil (╯°□°)╯︵ ┻━┻");
-        }
-        
-    }
-    return [NSArray arrayWithArray:regions];
-}
 
+
+//maps each plist dictionary representing a managed beacon region to a managed beacon region
 - (ManagedBeaconRegion*)mapDictionaryToBeacon:(NSDictionary*)dictionary
 {
 
@@ -154,6 +131,24 @@
     //return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:identifier];
 
     return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
+}
+
+#pragma regions support TODOs
+
+//TODO: add regions support in separate plist
+/*
+- (NSArray*) buildRegionsDataFromPlist
+{
+    NSMutableArray *regions = [NSMutableArray array];
+    for(NSDictionary *regionDict in plistRegionContentsArray)
+    {
+        CLRegion *region = [self mapDictionaryToRegion:regionDict];
+        
+        if (region != nil) {
+            [regions addObject:region];
+        }
+    }
+    return [NSArray arrayWithArray:regions];
 }
 
 - (CLRegion*)mapDictionaryToRegion:(NSDictionary*)dictionary
@@ -168,5 +163,5 @@
     return [[CLRegion alloc] initCircularRegionWithCenter:centerCoordinate radius:regionRadius identifier:title];
     
 }
-
+*/
 @end

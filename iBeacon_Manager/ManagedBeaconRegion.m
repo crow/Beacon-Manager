@@ -19,8 +19,6 @@
     NSMutableDictionary *mutableBeaconStats;
 }
 
-
-
 - (id)initWithProximityUUID:(NSUUID *)proximityUUID identifier:(NSString *)identifier
 {
     
@@ -57,9 +55,8 @@
 
 -(void)initManagedBeaconRegion
 {
-   // self.beacon = [[CLBeacon alloc] init]; //allocate space for the beacons to go
-}
 
+}
 
 -(void)timestampEntry
 {

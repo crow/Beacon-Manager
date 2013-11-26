@@ -5,8 +5,8 @@
 #import "ManagedBeaconRegion.h"
 
 @interface PlistManager : NSObject
-
-+ (PlistManager *)shared;
+//
+//+ (PlistManager *)shared;
 - (NSString *)identifierForUUID:(NSUUID *) uuid;
 -(NSArray *)getAvailableManagedBeaconRegions;
 -(void)loadReadableBeaconRegions;
@@ -14,6 +14,5 @@
 
 @property (nonatomic, copy, readonly) NSArray *availableManagedBeaconRegions;
 @property (nonatomic, copy, readonly) NSArray *readableBeaconRegions;
-
 
 @end

@@ -21,14 +21,14 @@
   //  NSMutableArray *rangedRegions;
     ManagedBeaconRegion *currentManagedBeaconRegion;
     CLBeacon *selectedBeacon;
-    int hitCount;
+    UIImage *whiteMarker;
+    UIImage *greenMarker;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-
     }
     return self;
 }
@@ -37,28 +37,30 @@
 {
     [super viewDidLoad];
     
+    //nitialize reused tableview images
+    greenMarker = [[UIImage alloc] init];
+    greenMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-ping@2x" ofType:@"png"]];
+    
+    whiteMarker = [[UIImage alloc] init];
+    whiteMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-pin@2x" ofType:@"png"]];
+    
     //register for ranging beacons notification
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(managerDidRangeBeacons)
      name:@"managerDidRangeBeacons"
      object:nil];
-    hitCount = 0;
+
 }
 
 -(void)viewWillAppear
 {
-    [self.tableView reloadData];
+
 }
 
 - (void)managerDidRangeBeacons
 {
-    hitCount++;
-    if (hitCount>5){
-        [self.tableView reloadData];
-        hitCount = 0;
-    }
-  
+  [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,9 +73,8 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
-    int sections = 1;
 
+    int sections = 1;
     return sections;
 }
 
@@ -87,7 +88,7 @@
     static NSString *CellIdentifier = @"BeaconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-
+ 
     NSArray *availableManagedBeaconRegions = [[BeaconRegionManager shared] availableManagedBeaconRegions]; //[NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
     
     currentManagedBeaconRegion = availableManagedBeaconRegions[indexPath.row];
@@ -101,35 +102,31 @@
     [cell.textLabel setText:currentManagedBeaconRegion.identifier];
     
     //if this beacon is in range
-    if ([currentManagedBeaconRegion.beacon accuracy]){
-        UIImage *greenMarker = [[UIImage alloc] init];
-        greenMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-ping@2x" ofType:@"png"]];
+    if ([currentManagedBeaconRegion.beacon accuracy] > 0)
+    {
         cell.imageView.image = greenMarker;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [currentManagedBeaconRegion.proximityUUID UUIDString], currentManagedBeaconRegion.major ? currentManagedBeaconRegion.major : @"None", currentManagedBeaconRegion.minor ? currentManagedBeaconRegion.minor : @"None"];
-
-        //animation is freezing every other refresh
-//        [UIView animateWithDuration:1.0 delay:0.f options:UIViewAnimationOptionRepeat
-//                         animations:^{
-//                             cell.imageView.alpha=0.6f;
-//                         } completion:^(BOOL finished){
-//                             cell.imageView.alpha=1.f;
-//                         }];
+        
+        [UIView animateWithDuration:1.0 delay:0.f options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse
+                         animations:^{
+                             cell.imageView.image = greenMarker;
+                             cell.imageView.alpha=0.5f;
+                            //cell.imageView.image = greenMarker;
+                             //[self.view layoutIfNeeded];
+                         } completion:^(BOOL finished){
+                             cell.imageView.alpha=1.f;
+                         }];
      
     }
-    else if ([currentManagedBeaconRegion.beacon rssi] == -1.000){
-        UIImage *blackMarker = [[UIImage alloc] init];
-        blackMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"location-pin-selected" ofType:@"png"]];
-        cell.imageView.image = blackMarker;
-        
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [currentManagedBeaconRegion.proximityUUID UUIDString], currentManagedBeaconRegion.major ? currentManagedBeaconRegion.major : @"None", currentManagedBeaconRegion.minor ? currentManagedBeaconRegion.minor : @"None"];
+    else if ([currentManagedBeaconRegion.beacon accuracy] == -1)
+    {
+        cell.imageView.image = whiteMarker;
     }
     else{
-        UIImage *whiteMarker = [[UIImage alloc] init];
-        whiteMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-pin@2x" ofType:@"png"]];
         cell.imageView.image = whiteMarker;
-        
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [currentManagedBeaconRegion.proximityUUID UUIDString], currentManagedBeaconRegion.major ? currentManagedBeaconRegion.major : @"None", currentManagedBeaconRegion.minor ? currentManagedBeaconRegion.minor : @"None"];
     }
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [currentManagedBeaconRegion.proximityUUID UUIDString], currentManagedBeaconRegion.major ? currentManagedBeaconRegion.major : @"None", currentManagedBeaconRegion.minor ? currentManagedBeaconRegion.minor : @"None"];
+    
     return cell;
 }
 

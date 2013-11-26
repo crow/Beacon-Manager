@@ -51,13 +51,13 @@
 
 - (void)managerDidRangeBeacons
 {
-    self.lastEntryLabel.text = [self dateStringFromInterval:[[NSDate date] timeIntervalSince1970]];
-    //self.lastExitLabel.text = [self dateStringFromInterval:self.beaconRegion.lastExit];
-    self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"%f",
-                                                                  [[NSDate date] timeIntervalSince1970]];
+    self.lastEntryLabel.text = self.beaconRegion.lastEntry ? [self dateStringFromInterval:self.beaconRegion.lastEntry] : @"---";
+    self.lastEntryLabel.text = self.beaconRegion.lastExit ? [self dateStringFromInterval:self.beaconRegion.lastExit] : @"---";
+    self.totalLastVisitTimeLabel.text = @"TODO";
 }
 
--(NSString *)dateStringFromInterval:(NSTimeInterval)interval{
+-(NSString *)dateStringFromInterval:(NSTimeInterval)interval
+{
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
     NSString *dateString = [NSDateFormatter localizedStringFromDate:date
                                                           dateStyle:NSDateFormatterShortStyle
@@ -77,13 +77,16 @@
 {
     [super didReceiveMemoryWarning];
 }
-- (IBAction)recordStatsSwitchTouched:(id)sender {
+- (IBAction)recordStatsSwitchTouched:(id)sender
+{
     BOOL recordStatsSwitchState = [sender isOn];
 
-    if (recordStatsSwitchState) {
+    if (recordStatsSwitchState)
+    {
         NSLog(@"Recording Started");
     }
-    else {
+    else
+    {
         
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Would you like to delete your current statistics data for this beacon?" message:nil delegate:self
@@ -105,7 +108,8 @@
         self.beaconRegion.lastEntry = 0;
         self.beaconRegion.lastExit = 0;
     }
-    else{
+    else
+    {
     
     }
 }

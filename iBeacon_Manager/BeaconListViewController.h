@@ -10,7 +10,4 @@
 
 @interface BeaconListViewController : UITableViewController
 
-@property (weak, nonatomic) IBOutlet UITextField *beaconListURL;
-@property (weak, nonatomic) IBOutlet UITableViewCell *viewAvailableIbeaconsCell;
-
 @end

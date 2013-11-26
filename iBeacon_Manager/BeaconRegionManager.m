@@ -17,12 +17,10 @@
 
 @implementation BeaconRegionManager
 {
-    NSMutableDictionary *_beacons;
-    NSMutableArray *tmpRangedBeacons;
     ManagedBeaconRegion *currentManagedRegion;
     int monitoredRegionCount;
-    CBPeripheralManager *peripheralManager;
-    
+    //temporary store for detailed ranging
+    NSMutableDictionary *tmpRangedBeacons;
 }
 
 + (BeaconRegionManager *)shared
@@ -36,24 +34,24 @@
 {
     self = [super init];
     monitoredRegionCount = 0;
-    _beacons = [[NSMutableDictionary alloc] init];
+    tmpRangedBeacons = [[NSMutableDictionary alloc] init];
     currentManagedRegion = [[ManagedBeaconRegion alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-
+    _plistManager = [[PlistManager alloc] init];
     return self;
 }
 
 
--(void)updateMonitoredRegions
+-(void)loadMonitoredRegions
 {
     //set monitored region read-only property with monitored regions
     _monitoredBeaconRegions = [self.locationManager monitoredRegions];
 }
 
--(void)updateAvailableRegions
+-(void)loadAvailableRegions
 {
-  _availableManagedBeaconRegions = [[PlistManager shared] getAvailableManagedBeaconRegions];
+  _availableManagedBeaconRegions = [_plistManager getAvailableManagedBeaconRegions];
   [self startMonitoringAllAvailableBeaconRegions];
 }
 
@@ -86,6 +84,10 @@
     return nil;
 }
 
+-(void)loadHostedPlistFromUrl:(NSURL*)url{
+
+}
+
 
 //returns a managed beacon region from the available regions (all in plist) given the UUID
 //WARNING - beacons may have the same UUID
@@ -111,7 +113,7 @@
             beaconRegion.notifyEntryStateOnDisplay = NO;
             [self.locationManager startMonitoringForRegion:beaconRegion];
             [self.locationManager startRangingBeaconsInRegion:beaconRegion];
-            [self updateMonitoredRegions];
+            [self loadMonitoredRegions];
             monitoredRegionCount++;
         }
 }
@@ -125,7 +127,7 @@
         beaconRegion.notifyEntryStateOnDisplay = NO;
         [self.locationManager stopMonitoringForRegion:beaconRegion];
         [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
-        [self updateMonitoredRegions];
+        [self loadMonitoredRegions];
         monitoredRegionCount--;
     }
 }
@@ -142,7 +144,7 @@
             beaconRegion.notifyEntryStateOnDisplay = NO;
             [self.locationManager startMonitoringForRegion:beaconRegion];
             [self.locationManager startRangingBeaconsInRegion:beaconRegion];
-            [self updateMonitoredRegions];
+            [self loadMonitoredRegions];
             monitoredRegionCount++;
         }
     }
@@ -153,7 +155,7 @@
 -(void)stopMonitoringAllAvailableBeaconRegions
 {
     
-    for (ManagedBeaconRegion *beaconRegion in [[PlistManager shared] getAvailableManagedBeaconRegions])
+    for (ManagedBeaconRegion *beaconRegion in [_plistManager getAvailableManagedBeaconRegions])
     {
         if (beaconRegion != nil) {
             beaconRegion.notifyOnEntry = NO;
@@ -161,19 +163,13 @@
             beaconRegion.notifyEntryStateOnDisplay = NO;
             [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
             [self.locationManager stopMonitoringForRegion:beaconRegion];
-            [self updateMonitoredRegions];
+            [self loadMonitoredRegions];
             //reset monitored region count
             monitoredRegionCount = 0;
         }
     }
     
 }
-
-- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
-{
-    
-}
-
 
 -(ManagedBeaconRegion *)convertToManagedBeaconRegion:(CLBeaconRegion *)region
 {
@@ -245,24 +241,25 @@
 
     NSArray *unknownBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityUnknown]];
     if([unknownBeacons count])
-        [_beacons setObject:unknownBeacons forKey:[NSNumber numberWithInt:CLProximityUnknown]];
+        [tmpRangedBeacons setObject:unknownBeacons forKey:[NSNumber numberWithInt:CLProximityUnknown]];
     
     NSArray *immediateBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityImmediate]];
     if([immediateBeacons count])
-        [_beacons setObject:immediateBeacons forKey:[NSNumber numberWithInt:CLProximityImmediate]];
+        [tmpRangedBeacons setObject:immediateBeacons forKey:[NSNumber numberWithInt:CLProximityImmediate]];
     
     NSArray *nearBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityNear]];
     if([nearBeacons count])
-        [_beacons setObject:nearBeacons forKey:[NSNumber numberWithInt:CLProximityNear]];
+        [tmpRangedBeacons setObject:nearBeacons forKey:[NSNumber numberWithInt:CLProximityNear]];
     
     NSArray *farBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityFar]];
     if([farBeacons count])
-        [_beacons setObject:farBeacons forKey:[NSNumber numberWithInt:CLProximityFar]];
+        [tmpRangedBeacons setObject:farBeacons forKey:[NSNumber numberWithInt:CLProximityFar]];
     
     //set read only parameter for detailed ranged beacons
-    _rangedBeaconsDetailed = _beacons;
+    _rangedBeaconsDetailed = tmpRangedBeacons;
 }
 
+//helper method for checking if a specific beacon region is monitored
 -(BOOL)isMonitored:(ManagedBeaconRegion *)beaconRegion
 {
     for (ManagedBeaconRegion *bRegion in self.monitoredBeaconRegions) {

@@ -21,28 +21,24 @@ _sharedObject = block(); \
 return _sharedObject; \
 
 @interface BeaconRegionManager : NSObject <CLLocationManagerDelegate>
-
+//plist manager for managing local (sample) and remotely hosted plists
+@property (strong, nonatomic, readonly) PlistManager *plistManager;
+//ranged beacons from didRangeBeacons callback
 @property (strong, nonatomic, readonly) NSArray *rangedBeacons;
+//detailed ranged dictionary ordered by zone (unknown, immediate, near, far)
 @property (strong, nonatomic, readonly) NSDictionary *rangedBeaconsDetailed;
-
-//The current beacons that are monitored, apple already used "monitoredRegions" so they chose "rangedRegions"
+//beacons that are currently monitored (same as available managed beacon regions by default)
 @property (strong, nonatomic, readonly) NSSet *monitoredBeaconRegions;
-
-//Available beacon regions are all the regions loaded from the plist manager
-
+//all the managed regions loaded from the plist manager, data store for the available regions
 @property (strong, nonatomic, readonly) NSArray *availableManagedBeaconRegions;
-
-@property (strong, nonatomic) ManagedBeaconRegion *currentRegion;//this may be redundant with rangedBeacons
-
-
 
 + (id)shared;
 -(void)updateVistedStatsForRegionIdentifier:(NSString *)identifier;
 -(ManagedBeaconRegion *)beaconRegionWithId:(NSString *)identifier;
 -(CLBeacon *)beaconWithId:(NSString *)identifier;
 
--(void)updateMonitoredRegions;
--(void)updateAvailableRegions;
+-(void)loadMonitoredRegions;
+-(void)loadAvailableRegions;
 
 -(BOOL)isMonitored:(CLBeaconRegion *) beaconRegion;
 
@@ -50,6 +46,7 @@ return _sharedObject; \
 -(void)stopMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion;
 -(void)startMonitoringAllAvailableBeaconRegions;
 -(void)stopMonitoringAllAvailableBeaconRegions;
+
 
 -(CLBeacon *)loadMatchingBeaconForRegion:(ManagedBeaconRegion *) beaconRegion FromBeacons:(NSArray *)beacons;
 

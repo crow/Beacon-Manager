@@ -113,14 +113,16 @@
 -(void)loadSwitchStates
 {
     
-    if ([[BeaconRegionManager shared] isMonitored:self.beaconRegion]) {
+    if ([[BeaconRegionManager shared] isMonitored:self.beaconRegion])
+    {
         [self.monitorSwitch setOn:YES];
     }
     else{
         [self.monitorSwitch setOn:NO];
     }
 
-    if (self.beaconRegion.notifyOnEntry == YES) {
+    if (self.beaconRegion.notifyOnEntry == YES)
+    {
         [self.noteEntrySwitch setOn:YES];
     }
     else{
@@ -128,7 +130,8 @@
     }
 
     
-    if (self.beaconRegion.notifyOnExit == YES) {
+    if (self.beaconRegion.notifyOnExit == YES)
+    {
         [self.noteExitSwitch setOn:YES];
     }
     else{
@@ -136,7 +139,8 @@
     }
     
     
-    if (self.beaconRegion.notifyEntryStateOnDisplay == YES) {
+    if (self.beaconRegion.notifyEntryStateOnDisplay == YES)
+    {
         [self.noteEntryOnDisplaySwitch setOn:YES];
     }
     else{
