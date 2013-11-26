@@ -9,17 +9,19 @@
 #import "BeaconListViewController.h"
 #import "PlistManager.h"
 #import "BeaconRegionManager.h"
+#import <MessageUI/MessageUI.h>
 
-@interface BeaconListViewController ()
+
+@interface BeaconListViewController () <MFMailComposeViewControllerDelegate>
 
 @end
 
 @implementation BeaconListViewController
 {
-    __strong IBOutlet UIActivityIndicatorView *urlLoadingIndicator;
-    __strong IBOutlet UITextField *urlTextField;
-    __strong IBOutlet UIButton *loadButton;
-    __strong IBOutlet UITableViewCell *availableBeaconsCell;
+    IBOutlet UIButton *emailButton;
+    IBOutlet UITextField *urlTextField;
+    IBOutlet UIButton *loadButton;
+    IBOutlet UITableViewCell *availableBeaconsCell;
     NSURL *lastUrl;
 }
 
@@ -30,6 +32,10 @@
         // Custom initialization
     }
     return self;
+}
+
+- (IBAction)emailButtonTouched:(id)sender {
+    [self showEmail];
 }
 
 - (void)viewDidLoad
@@ -43,7 +49,6 @@
     //[PlistManager shared];
     lastUrl = [[NSUserDefaults standardUserDefaults] URLForKey:@"lastUrl"];
     availableBeaconsCell.hidden = YES;
-    urlLoadingIndicator.hidden = YES;
     loadButton.hidden = NO;
     availableBeaconsCell.alpha = 0;
     availableBeaconsCell.userInteractionEnabled = NO;
@@ -102,6 +107,57 @@
         [[BeaconRegionManager shared] loadAvailableRegions];
         [[BeaconRegionManager shared] loadMonitoredRegions];
     }
+}
+
+- (void)showEmail{
+    
+    NSString *emailTitle = @"Sample iBeacon Manager Plist";
+    NSString *messageBody = @"Host the attached plist list where ever you like, copy and paste the URL of the hosted file into the \"Load Remote iBeacon Plist\" text field and hit the cloud button.  The sample plist content can be altered for your use case, but not it's structure. The UUID, major and minor of the iBeacon regions outlined in the list must match the UUID, major and minor of the advertising iBeacons for the iBeacon Manager to function properly.  Enjoy.";
+    NSArray *toRecipents = [NSArray arrayWithObject:@"Your email here"];
+    
+    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+    mc.mailComposeDelegate = self;
+    [mc setSubject:emailTitle];
+    [mc setMessageBody:messageBody isHTML:NO];
+    [mc setToRecipients:toRecipents];
+    
+    
+    NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
+    NSData *fileData = [NSData dataWithContentsOfFile:plistBeaconRegionsPath];
+    
+    // MIME type is XML (plist)
+    NSString *mimeType = @"application/xml";
+
+    
+    // Add attachment
+    [mc addAttachmentData:fileData mimeType:mimeType fileName:@"BeaconRegions"];
+    
+    // Present mail view controller on screen
+    [self presentViewController:mc animated:YES completion:NULL];
+}
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 

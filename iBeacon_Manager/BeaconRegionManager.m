@@ -311,7 +311,6 @@
     NSLog(@"%@", error);
 
 }
-    
 
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error

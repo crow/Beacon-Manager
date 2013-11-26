@@ -91,6 +91,7 @@
 		6194E35C18445B6F00F26217 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 6194E34C18445B6F00F26217 /* iTunesArtwork */; };
 		6194E35D18445B6F00F26217 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6194E34D18445B6F00F26217 /* iTunesArtwork@2x */; };
 		6194E36018445CA000F26217 /* 731-cloud-download-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */; };
+		6194E3651845291000F26217 /* 730-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3641845291000F26217 /* 730-envelope@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,6 +219,7 @@
 		6194E34C18445B6F00F26217 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		6194E34D18445B6F00F26217 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "731-cloud-download-selected@2x.png"; sourceTree = "<group>"; };
+		6194E3641845291000F26217 /* 730-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "730-envelope@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -412,6 +414,7 @@
 		6194E35E18445B8400F26217 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				6194E3641845291000F26217 /* 730-envelope@2x.png */,
 				6194E33E18445B6F00F26217 /* Icon-60.png */,
 				6194E33F18445B6F00F26217 /* Icon-60@2x.png */,
 				6194E34018445B6F00F26217 /* Icon-72.png */,
@@ -560,6 +563,7 @@
 				6194E35C18445B6F00F26217 /* iTunesArtwork in Resources */,
 				44E6C1E017FF97B300CD88AE /* star.png in Resources */,
 				6194E35918445B6F00F26217 /* Icon-Spotlight-40@2x.png in Resources */,
+				6194E3651845291000F26217 /* 730-envelope@2x.png in Resources */,
 				440E864917F5151D00D191A2 /* hey_adam.caf in Resources */,
 				6194E35118445B6F00F26217 /* Icon-72@2x.png in Resources */,
 				44E6C1C917FC96A500CD88AE /* BeaconRegions.plist in Resources */,
