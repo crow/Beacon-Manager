@@ -37,17 +37,8 @@
     gestureRecognizer.cancelsTouchesInView = NO;
     self.view.userInteractionEnabled = TRUE;
     [super viewDidLoad];
-    [PlistManager shared];
+    //[PlistManager shared];
     lastUrl = [[NSUserDefaults standardUserDefaults] URLForKey:@"lastUrl"];
-    //if last url is nil then change the text field to "Enter URL here" 
-    //lastUrl ? [self.beaconListURL setText:[lastUrl absoluteString]] : [self.beaconListURL setText:@"Enter URL here"];
-    
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.viewAvailableIbeaconsCell.userInteractionEnabled = NO;
 
 }
@@ -65,7 +56,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -74,9 +64,6 @@
 
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"This generates a synchronous blocking call - if it takes too long system watchdog might kill the process.  Please ensure your URL is correct" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
     [alert show];
- 
-    
-    
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex

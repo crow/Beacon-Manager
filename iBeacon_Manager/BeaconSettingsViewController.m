@@ -42,8 +42,6 @@
      selector:@selector(managerDidRangeBeacons)
      name:@"managerDidRangeBeacons"
      object:nil];
-   
-
 }
 
 -(void)viewWillAppear

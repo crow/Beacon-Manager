@@ -58,9 +58,7 @@
         [self.tableView reloadData];
         hitCount = 0;
     }
-    
-
-    
+  
 }
 
 - (void)didReceiveMemoryWarning

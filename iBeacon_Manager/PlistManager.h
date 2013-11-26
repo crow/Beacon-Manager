@@ -12,7 +12,7 @@
 -(void)loadReadableBeaconRegions;
 -(void)loadHostedPlistFromUrl:(NSURL*)url;
 
-@property (nonatomic, copy, readonly) NSArray *availableRegions;
+@property (nonatomic, copy, readonly) NSArray *availableManagedBeaconRegions;
 @property (nonatomic, copy, readonly) NSArray *readableBeaconRegions;
 
 

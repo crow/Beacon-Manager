@@ -47,19 +47,14 @@
      selector:@selector(managerDidRangeBeacons)
      name:@"managerDidRangeBeacons"
      object:nil];
-    
-    
 }
 
 - (void)managerDidRangeBeacons
 {
-
-  
     self.lastEntryLabel.text = [self dateStringFromInterval:[[NSDate date] timeIntervalSince1970]];
     //self.lastExitLabel.text = [self dateStringFromInterval:self.beaconRegion.lastExit];
     self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"%f",
                                                                   [[NSDate date] timeIntervalSince1970]];
-    
 }
 
 -(NSString *)dateStringFromInterval:(NSTimeInterval)interval{
@@ -81,7 +76,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 - (IBAction)recordStatsSwitchTouched:(id)sender {
     BOOL recordStatsSwitchState = [sender isOn];

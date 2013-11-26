@@ -15,17 +15,7 @@
     
     if(self)
     {
-
         //Initialize plist filed - TODO add file mngr checking
-        manager = [NSFileManager defaultManager];
-        NSString* plistRegionsPath = [[NSBundle mainBundle] pathForResource:@"Regions" ofType:@"plist"];
-        plistRegionContentsArray = [NSArray arrayWithContentsOfFile:plistRegionsPath];
-    
-        
-        //initialize with local list
-        NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
-        plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
-       
         [self getAvailableManagedBeaconRegions];
     }
     
@@ -61,8 +51,8 @@
 -(NSArray*)getAvailableManagedBeaconRegions
 {
     //set read-only available regions 
-    _availableRegions = [self buildBeaconRegionDataFromPlist];
-    return self.availableRegions;
+    [self loadAvailableManagedBeaconRegions];
+    return self.availableManagedBeaconRegions;
 }
 
 -(void)loadHostedPlistFromUrl:(NSURL*)url
@@ -74,10 +64,15 @@
     //call to reload the tableview with new data
 }
 
+-(void)loadAvailableManagedBeaconRegions
+{
+      _availableManagedBeaconRegions = [self buildBeaconRegionDataFromPlist];
+}
+
 -(void)loadReadableBeaconRegions
 {
     
-    NSMutableArray *readableBeaconArray = [[NSMutableArray alloc] initWithCapacity:[self.availableRegions count]];
+    NSMutableArray *readableBeaconArray = [[NSMutableArray alloc] initWithCapacity:[self.availableManagedBeaconRegions count]];
     NSString *currentReadableBeacon = [[NSString alloc] init];
     
     for (ManagedBeaconRegion *beaconRegion in availableBeaconRegions) {
@@ -150,15 +145,11 @@
 
 - (ManagedBeaconRegion*)mapDictionaryToBeacon:(NSDictionary*)dictionary
 {
-    
-    
+
     NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
     short major = [[dictionary valueForKey:@"Major"] shortValue];
     short minor = [[dictionary valueForKey:@"Minor"] shortValue];
     NSString *identifier = [dictionary valueForKey:@"title"];
-
-    
-
 
     //return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:identifier];
 
