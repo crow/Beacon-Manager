@@ -25,24 +25,20 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    UA_LDEBUG(@"Application did become active.");
 
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    UA_LINFO(@"APNS device token: %@", deviceToken);
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *) error
 {
-    UA_LERR(@"Failed To Register For Remote Notifications With Error: %@", error);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     
-    UA_LINFO(@"Received remote notification: %@", userInfo);
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -53,14 +49,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-	if ([CLLocationManager significantLocationChangeMonitoringAvailable]) {
-		// Stop normal location updates and start significant location change updates for battery efficiency.
-//		[viewController.locationManager startUpdatingLocation];
-//		[viewController.locationManager startMonitoringSignificantLocationChanges];
-	}
-	else {
-		NSLog(@"Significant location change monitoring is not available.");
-	}
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
