@@ -91,7 +91,6 @@
 		6194E36018445CA000F26217 /* 731-cloud-download-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */; };
 		6194E3651845291000F26217 /* 730-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3641845291000F26217 /* 730-envelope@2x.png */; };
 		6194E36718453EBA00F26217 /* BeaconRegions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6194E36618453EBA00F26217 /* BeaconRegions.plist */; };
-		6194E37418458A6A00F26217 /* libUAirship-3.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6194E36F18458A0400F26217 /* libUAirship-3.0.2.a */; };
 		6194E3761845A44500F26217 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3751845A44500F26217 /* iTunesArtwork@2x */; };
 /* End PBXBuildFile section */
 
@@ -102,27 +101,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 440E85ED17F5140E00D191A2;
 			remoteInfo = UABeacons;
-		};
-		6194E36E18458A0400F26217 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6194E36818458A0300F26217 /* AirshipLib.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BB88612C159A7E9600584445;
-			remoteInfo = AirshipLib;
-		};
-		6194E37018458A0400F26217 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6194E36818458A0300F26217 /* AirshipLib.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7BB679061429288D00B877DB;
-			remoteInfo = AirshipLogicTests;
-		};
-		6194E37218458A0400F26217 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6194E36818458A0300F26217 /* AirshipLib.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1FE0B7B117E2751000856C60;
-			remoteInfo = "AirshipLib-iOS5";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -220,7 +198,6 @@
 		6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "731-cloud-download-selected@2x.png"; sourceTree = "<group>"; };
 		6194E3641845291000F26217 /* 730-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "730-envelope@2x.png"; sourceTree = "<group>"; };
 		6194E36618453EBA00F26217 /* BeaconRegions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BeaconRegions.plist; sourceTree = "<group>"; };
-		6194E36818458A0300F26217 /* AirshipLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirshipLib.xcodeproj; path = "../../../uasource/ios-library-dev/AirshipLib/AirshipLib.xcodeproj"; sourceTree = "<group>"; };
 		6194E3751845A44500F26217 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -229,7 +206,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6194E37418458A6A00F26217 /* libUAirship-3.0.2.a in Frameworks */,
 				44A5F86217F6049A00F619C1 /* CoreData.framework in Frameworks */,
 				44A5F86017F6048900F619C1 /* SystemConfiguration.framework in Frameworks */,
 				44A5F85E17F6047900F619C1 /* CoreTelephony.framework in Frameworks */,
@@ -266,7 +242,6 @@
 		440E85E517F5140E00D191A2 = {
 			isa = PBXGroup;
 			children = (
-				6194E36818458A0300F26217 /* AirshipLib.xcodeproj */,
 				440E85F717F5140E00D191A2 /* iBeacon_Manager */,
 				440E85F017F5140E00D191A2 /* Frameworks */,
 				440E85EF17F5140E00D191A2 /* Products */,
@@ -428,16 +403,6 @@
 			name = Icons;
 			sourceTree = "<group>";
 		};
-		6194E36918458A0300F26217 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6194E36F18458A0400F26217 /* libUAirship-3.0.2.a */,
-				6194E37118458A0400F26217 /* AirshipLogicTests.xctest */,
-				6194E37318458A0400F26217 /* libUAirship-iOS5-3.0.2.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -504,12 +469,6 @@
 			mainGroup = 440E85E517F5140E00D191A2;
 			productRefGroup = 440E85EF17F5140E00D191A2 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 6194E36918458A0300F26217 /* Products */;
-					ProjectRef = 6194E36818458A0300F26217 /* AirshipLib.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				440E85ED17F5140E00D191A2 /* iBeacon_Manager */,
@@ -517,30 +476,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		6194E36F18458A0400F26217 /* libUAirship-3.0.2.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libUAirship-3.0.2.a";
-			remoteRef = 6194E36E18458A0400F26217 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		6194E37118458A0400F26217 /* AirshipLogicTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AirshipLogicTests.xctest;
-			remoteRef = 6194E37018458A0400F26217 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		6194E37318458A0400F26217 /* libUAirship-iOS5-3.0.2.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libUAirship-iOS5-3.0.2.a";
-			remoteRef = 6194E37218458A0400F26217 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		440E85EC17F5140E00D191A2 /* Resources */ = {
