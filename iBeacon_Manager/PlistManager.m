@@ -51,6 +51,7 @@
         plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfURL:url];
         [self getAvailableManagedBeaconRegions];
         [self loadReadableBeaconRegions];
+        
     });
 }
 

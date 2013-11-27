@@ -44,15 +44,15 @@
      object:nil];
 }
 
--(void)viewWillAppear
-{
-   // [self.navigationController setNavigationBarHidden:NO];
-}
-
 - (void)managerDidRangeBeacons
 {
-    self.rssiLabel.text = [NSString stringWithFormat:@"%ld", (long)beaconRegion.beacon.rssi];
-    self.proximityLabel.text = [NSString stringWithFormat:@"%1.3f ± %d m", beaconRegion.beacon.accuracy, beaconRegion.beacon.proximity];
+    NSString *proximity;
+    NSString *rssi;
+    
+    rssi = (beaconRegion.beacon.rssi == 0) ? @"---" : [NSString stringWithFormat:@"%ld", (long)beaconRegion.beacon.rssi];
+    proximity = (beaconRegion.beacon.rssi == 0) ? @"---" : [NSString stringWithFormat:@"%1.3f ± %d m", beaconRegion.beacon.accuracy, beaconRegion.beacon.proximity];
+    self.rssiLabel.text = rssi;
+    self.proximityLabel.text = proximity;
 }
 
 

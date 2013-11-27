@@ -4,19 +4,9 @@
 <array>
 	<dict>
 		<key>title</key>
-		<string>Beacon_Region_1</string>
+		<string>Kitchen</string>
 		<key>proximityUUID</key>
-		<string>ILU8E19F-ABBA-4BF6-91D1-F34E30C1261E</string>
-		<key>Major</key>
-		<integer>1</integer>
-		<key>Minor</key>
-		<integer>0</integer>
-	</dict>
-	<dict>
-		<key>title</key>
-		<string>Beacon_Region_2</string>
-		<key>proximityUUID</key>
-		<string>GR86D1FB-B2C0-4AB9-878D-2CC079AA2989</string>
+		<string>3AB02BB7-6AEC-47BA-AF56-AB0B2A9E0AA0</string>
 		<key>Major</key>
 		<integer>1</integer>
 		<key>Minor</key>
@@ -24,9 +14,60 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>Beacon_Region_3</string>
+		<string>Ballroom</string>
 		<key>proximityUUID</key>
-		<string>GR86D1FB-B2C0-4AB9-878D-2CC079AA2989</string>
+		<string>8C46D1FB-B2C0-4AB9-878D-2CC079AA2989</string>
+		<key>Major</key>
+		<integer>1</integer>
+		<key>Minor</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Conservatory</string>
+		<key>proximityUUID</key>
+		<string>8889A8CA-0F7E-4565-8D19-74C20C4F9400</string>
+		<key>Major</key>
+		<integer>1</integer>
+		<key>Minor</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Dining Room</string>
+		<key>proximityUUID</key>
+		<string>38991AB4-1D1D-4E6D-818B-5D90DE2B1494
+</string>
+		<key>Major</key>
+		<integer>1</integer>
+		<key>Minor</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Billiard Room</string>
+		<key>proximityUUID</key>
+		<string>6C158682-63C5-479A-800D-54D1AA3DA760</string>
+		<key>Major</key>
+		<integer>1</integer>
+		<key>Minor</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Lounge</string>
+		<key>proximityUUID</key>
+		<string>D698E19F-ABBA-4BF6-91D1-F34E30C1261E</string>
+		<key>Major</key>
+		<integer>1</integer>
+		<key>Minor</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Hall</string>
+		<key>proximityUUID</key>
+		<string>D698E19F-ABBA-4BF6-91D1-F34E30C1261E</string>
 		<key>Major</key>
 		<integer>1</integer>
 		<key>Minor</key>
@@ -34,13 +75,43 @@
 	</dict>
 	<dict>
 		<key>title</key>
-		<string>Beacon_Region_4</string>
+		<string>Study</string>
 		<key>proximityUUID</key>
-		<string>FUN11DLV-B2C0-4AB9-878D-2CC079AA2989</string>
+		<string>D698E19F-ABBA-4BF6-91D1-F34E30C1261E</string>
 		<key>Major</key>
 		<integer>1</integer>
 		<key>Minor</key>
-		<integer>2</integer>
+		<integer>3</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Cellar</string>
+		<key>proximityUUID</key>
+		<string>3491B6D7-AF17-4B80-8F45-A14850D149AF</string>
+		<key>Major</key>
+		<integer>1</integer>
+		<key>Minor</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Hall</string>
+		<key>proximityUUID</key>
+		<string>5A4BCFCE-174E-4BAC-A814-092E77F6B7E5</string>
+		<key>Major</key>
+		<integer>1</integer>
+		<key>Minor</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Library</string>
+		<key>proximityUUID</key>
+		<string>17AC3F63-B7D9-4463-964D-10DDD1F25AB9</string>
+		<key>Major</key>
+		<integer>1</integer>
+		<key>Minor</key>
+		<integer>1</integer>
 	</dict>
 </array>
 </plist>

@@ -50,7 +50,6 @@
 		44A5F86217F6049A00F619C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A5F86117F6049A00F619C1 /* CoreData.framework */; };
 		44E46F1618072C38004A35E9 /* VisitedBeaconRegions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44E46F1518072C38004A35E9 /* VisitedBeaconRegions.plist */; };
 		44E6C1C617FC939100CD88AE /* Regions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44E6C1C517FC939100CD88AE /* Regions.plist */; };
-		44E6C1C917FC96A500CD88AE /* BeaconRegions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44E6C1C817FC96A500CD88AE /* BeaconRegions.plist */; };
 		44E6C1CC17FE29A200CD88AE /* BeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C1CB17FE29A200CD88AE /* BeaconViewController.m */; };
 		44E6C1D217FE2BAA00CD88AE /* BeaconRegionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C1D117FE2BAA00CD88AE /* BeaconRegionManager.m */; };
 		44E6C1E017FF97B300CD88AE /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 44E6C1DE17FF97B300CD88AE /* star.png */; };
@@ -61,7 +60,6 @@
 		44E6C1E917FF983300CD88AE /* 845-location-target@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44E6C1E717FF983300CD88AE /* 845-location-target@2x.png */; };
 		44E6C1EC17FF986000CD88AE /* 849-radar.png in Resources */ = {isa = PBXBuildFile; fileRef = 44E6C1EA17FF986000CD88AE /* 849-radar.png */; };
 		44E6C1ED17FF986000CD88AE /* 849-radar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44E6C1EB17FF986000CD88AE /* 849-radar@2x.png */; };
-		44EFC679181CA056007C1B1B /* libUAirship-3.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A5F85317F6036200F619C1 /* libUAirship-3.0.1.a */; };
 		44EFC67B181CA11D007C1B1B /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44EFC67A181CA11D007C1B1B /* AirshipConfig.plist */; };
 		6153AD661836CC59004E8C17 /* ManagedBeaconRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 6153AD651836CC59004E8C17 /* ManagedBeaconRegion.m */; };
 		6153AD681836E7BE004E8C17 /* 722-location-ping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6153AD671836E7BE004E8C17 /* 722-location-ping@2x.png */; };
@@ -92,6 +90,9 @@
 		6194E35D18445B6F00F26217 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6194E34D18445B6F00F26217 /* iTunesArtwork@2x */; };
 		6194E36018445CA000F26217 /* 731-cloud-download-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */; };
 		6194E3651845291000F26217 /* 730-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3641845291000F26217 /* 730-envelope@2x.png */; };
+		6194E36718453EBA00F26217 /* BeaconRegions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6194E36618453EBA00F26217 /* BeaconRegions.plist */; };
+		6194E37418458A6A00F26217 /* libUAirship-3.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6194E36F18458A0400F26217 /* libUAirship-3.0.2.a */; };
+		6194E3761845A44500F26217 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3751845A44500F26217 /* iTunesArtwork@2x */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,23 +103,23 @@
 			remoteGlobalIDString = 440E85ED17F5140E00D191A2;
 			remoteInfo = UABeacons;
 		};
-		44A5F85217F6036200F619C1 /* PBXContainerItemProxy */ = {
+		6194E36E18458A0400F26217 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 44A5F84C17F6036100F619C1 /* AirshipLib.xcodeproj */;
+			containerPortal = 6194E36818458A0300F26217 /* AirshipLib.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BB88612C159A7E9600584445;
 			remoteInfo = AirshipLib;
 		};
-		44A5F85417F6036200F619C1 /* PBXContainerItemProxy */ = {
+		6194E37018458A0400F26217 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 44A5F84C17F6036100F619C1 /* AirshipLib.xcodeproj */;
+			containerPortal = 6194E36818458A0300F26217 /* AirshipLib.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 7BB679061429288D00B877DB;
 			remoteInfo = AirshipLogicTests;
 		};
-		44A5F85617F6036200F619C1 /* PBXContainerItemProxy */ = {
+		6194E37218458A0400F26217 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 44A5F84C17F6036100F619C1 /* AirshipLib.xcodeproj */;
+			containerPortal = 6194E36818458A0300F26217 /* AirshipLib.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 1FE0B7B117E2751000856C60;
 			remoteInfo = "AirshipLib-iOS5";
@@ -166,7 +167,6 @@
 		44952DA61822E4C300DC00E3 /* 703-download-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "703-download-selected.png"; sourceTree = "<group>"; };
 		4498CDC31826EC8A001EC26B /* BeaconSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconSettingsViewController.h; sourceTree = "<group>"; };
 		4498CDC41826EC8A001EC26B /* BeaconSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconSettingsViewController.m; sourceTree = "<group>"; };
-		44A5F84C17F6036100F619C1 /* AirshipLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirshipLib.xcodeproj; path = "ios-library-dev/AirshipLib/AirshipLib.xcodeproj"; sourceTree = "<group>"; };
 		44A5F85917F6041D00F619C1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		44A5F85B17F6043500F619C1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		44A5F85D17F6047900F619C1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -174,7 +174,6 @@
 		44A5F86117F6049A00F619C1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		44E46F1518072C38004A35E9 /* VisitedBeaconRegions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = VisitedBeaconRegions.plist; sourceTree = "<group>"; };
 		44E6C1C517FC939100CD88AE /* Regions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Regions.plist; sourceTree = "<group>"; };
-		44E6C1C817FC96A500CD88AE /* BeaconRegions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BeaconRegions.plist; sourceTree = "<group>"; };
 		44E6C1CA17FE29A200CD88AE /* BeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconViewController.h; sourceTree = "<group>"; };
 		44E6C1CB17FE29A200CD88AE /* BeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconViewController.m; sourceTree = "<group>"; };
 		44E6C1D017FE2BAA00CD88AE /* BeaconRegionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconRegionManager.h; sourceTree = "<group>"; };
@@ -220,6 +219,9 @@
 		6194E34D18445B6F00F26217 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "731-cloud-download-selected@2x.png"; sourceTree = "<group>"; };
 		6194E3641845291000F26217 /* 730-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "730-envelope@2x.png"; sourceTree = "<group>"; };
+		6194E36618453EBA00F26217 /* BeaconRegions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BeaconRegions.plist; sourceTree = "<group>"; };
+		6194E36818458A0300F26217 /* AirshipLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirshipLib.xcodeproj; path = "../../../uasource/ios-library-dev/AirshipLib/AirshipLib.xcodeproj"; sourceTree = "<group>"; };
+		6194E3751845A44500F26217 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,7 +229,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44EFC679181CA056007C1B1B /* libUAirship-3.0.1.a in Frameworks */,
+				6194E37418458A6A00F26217 /* libUAirship-3.0.2.a in Frameworks */,
 				44A5F86217F6049A00F619C1 /* CoreData.framework in Frameworks */,
 				44A5F86017F6048900F619C1 /* SystemConfiguration.framework in Frameworks */,
 				44A5F85E17F6047900F619C1 /* CoreTelephony.framework in Frameworks */,
@@ -264,7 +266,7 @@
 		440E85E517F5140E00D191A2 = {
 			isa = PBXGroup;
 			children = (
-				44A5F84C17F6036100F619C1 /* AirshipLib.xcodeproj */,
+				6194E36818458A0300F26217 /* AirshipLib.xcodeproj */,
 				440E85F717F5140E00D191A2 /* iBeacon_Manager */,
 				440E85F017F5140E00D191A2 /* Frameworks */,
 				440E85EF17F5140E00D191A2 /* Products */,
@@ -338,7 +340,7 @@
 				44DE3EA11809089C0037CC91 /* Images */,
 				44EFC67C181CA138007C1B1B /* Images */,
 				44E6C1C517FC939100CD88AE /* Regions.plist */,
-				44E6C1C817FC96A500CD88AE /* BeaconRegions.plist */,
+				6194E36618453EBA00F26217 /* BeaconRegions.plist */,
 				44E46F1518072C38004A35E9 /* VisitedBeaconRegions.plist */,
 				440E85F917F5140E00D191A2 /* iBeacon_Manager-Info.plist */,
 				44EFC67A181CA11D007C1B1B /* AirshipConfig.plist */,
@@ -347,16 +349,6 @@
 				440E85FF17F5140E00D191A2 /* iBeacon_Manager-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		44A5F84D17F6036100F619C1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				44A5F85317F6036200F619C1 /* libUAirship-3.0.1.a */,
-				44A5F85517F6036200F619C1 /* AirshipLogicTests.xctest */,
-				44A5F85717F6036200F619C1 /* libUAirship-iOS5-3.0.1.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		44DE3EA11809089C0037CC91 /* Images */ = {
@@ -370,6 +362,7 @@
 				6153AD88183B0BD8004E8C17 /* 731-cloud-download@2x.png */,
 				44952DA21822E4A800DC00E3 /* 703-download@2x.png */,
 				44952DA61822E4C300DC00E3 /* 703-download-selected.png */,
+				6194E3751845A44500F26217 /* iTunesArtwork@2x */,
 				44952DA41822E4BD00DC00E3 /* 702-share-selected@2x.png */,
 				44952DA01822E4A400DC00E3 /* 702-share@2x.png */,
 				6153AD7A183ADA32004E8C17 /* imgres.png */,
@@ -433,6 +426,16 @@
 				6194E34D18445B6F00F26217 /* iTunesArtwork@2x */,
 			);
 			name = Icons;
+			sourceTree = "<group>";
+		};
+		6194E36918458A0300F26217 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6194E36F18458A0400F26217 /* libUAirship-3.0.2.a */,
+				6194E37118458A0400F26217 /* AirshipLogicTests.xctest */,
+				6194E37318458A0400F26217 /* libUAirship-iOS5-3.0.2.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -503,8 +506,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 44A5F84D17F6036100F619C1 /* Products */;
-					ProjectRef = 44A5F84C17F6036100F619C1 /* AirshipLib.xcodeproj */;
+					ProductGroup = 6194E36918458A0300F26217 /* Products */;
+					ProjectRef = 6194E36818458A0300F26217 /* AirshipLib.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -516,25 +519,25 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		44A5F85317F6036200F619C1 /* libUAirship-3.0.1.a */ = {
+		6194E36F18458A0400F26217 /* libUAirship-3.0.2.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libUAirship-3.0.1.a";
-			remoteRef = 44A5F85217F6036200F619C1 /* PBXContainerItemProxy */;
+			path = "libUAirship-3.0.2.a";
+			remoteRef = 6194E36E18458A0400F26217 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		44A5F85517F6036200F619C1 /* AirshipLogicTests.xctest */ = {
+		6194E37118458A0400F26217 /* AirshipLogicTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = AirshipLogicTests.xctest;
-			remoteRef = 44A5F85417F6036200F619C1 /* PBXContainerItemProxy */;
+			remoteRef = 6194E37018458A0400F26217 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		44A5F85717F6036200F619C1 /* libUAirship-iOS5-3.0.1.a */ = {
+		6194E37318458A0400F26217 /* libUAirship-iOS5-3.0.2.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libUAirship-iOS5-3.0.1.a";
-			remoteRef = 44A5F85617F6036200F619C1 /* PBXContainerItemProxy */;
+			path = "libUAirship-iOS5-3.0.2.a";
+			remoteRef = 6194E37218458A0400F26217 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -566,7 +569,6 @@
 				6194E3651845291000F26217 /* 730-envelope@2x.png in Resources */,
 				440E864917F5151D00D191A2 /* hey_adam.caf in Resources */,
 				6194E35118445B6F00F26217 /* Icon-72@2x.png in Resources */,
-				44E6C1C917FC96A500CD88AE /* BeaconRegions.plist in Resources */,
 				6153AD89183B0BD8004E8C17 /* 731-cloud-download@2x.png in Resources */,
 				6153AD87183ADA32004E8C17 /* imgres@2x.png in Resources */,
 				44E6C1E517FF97E900CD88AE /* star-selected@2x.png in Resources */,
@@ -589,6 +591,7 @@
 				6153AD681836E7BE004E8C17 /* 722-location-ping@2x.png in Resources */,
 				6194E34F18445B6F00F26217 /* Icon-60@2x.png in Resources */,
 				44E6C1EC17FF986000CD88AE /* 849-radar.png in Resources */,
+				6194E3761845A44500F26217 /* iTunesArtwork@2x in Resources */,
 				44E6C1E917FF983300CD88AE /* 845-location-target@2x.png in Resources */,
 				6153AD8B183B0DA3004E8C17 /* 760-refresh-3@2x.png in Resources */,
 				44952DA11822E4A400DC00E3 /* 702-share@2x.png in Resources */,
@@ -598,6 +601,7 @@
 				61564A28183B0F3E00D87AF2 /* BeaconRegionsPlistSample.png in Resources */,
 				6194E35718445B6F00F26217 /* Icon-Small@2x.png in Resources */,
 				440E864417F5151D00D191A2 /* pig.caf in Resources */,
+				6194E36718453EBA00F26217 /* BeaconRegions.plist in Resources */,
 				44E6C1E817FF983300CD88AE /* 845-location-target.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -742,8 +746,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: John D Crow (RT2J3E5RQP)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: John D Crow (RT2J3E5RQP)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iBeacon_Manager/iBeacon_Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -769,8 +773,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: John D Crow (RT2J3E5RQP)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: John D Crow (RT2J3E5RQP)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iBeacon_Manager/iBeacon_Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -783,6 +787,7 @@
 					"$(inherited)",
 					"/Users/dcrow/currentprojects/iBeacon_Manager/DerivedData/iBeacon_Manager/Build/Products/Debug-iphoneos",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iBeacon_Manager;
 				PROVISIONING_PROFILE = "";

@@ -42,7 +42,6 @@
     return self;
 }
 
-
 -(void)loadMonitoredRegions
 {
     //set monitored region read-only property with monitored regions

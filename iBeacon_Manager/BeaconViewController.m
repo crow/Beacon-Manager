@@ -18,11 +18,11 @@
 @implementation BeaconViewController
 {
     NSMutableDictionary *beacons;
-  //  NSMutableArray *rangedRegions;
     ManagedBeaconRegion *currentManagedBeaconRegion;
     CLBeacon *selectedBeacon;
     UIImage *whiteMarker;
     UIImage *greenMarker;
+    int refreshCount;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -36,8 +36,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //nitialize reused tableview images
+
+    //Load the available managed beacon regions and update monitored regions
+    [[BeaconRegionManager shared] loadAvailableRegions];
+    [[BeaconRegionManager shared] loadMonitoredRegions];
+
+    //Initialize reused tableview images
     greenMarker = [[UIImage alloc] init];
     greenMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-ping@2x" ofType:@"png"]];
     
@@ -50,17 +54,18 @@
      selector:@selector(managerDidRangeBeacons)
      name:@"managerDidRangeBeacons"
      object:nil];
-
-}
-
--(void)viewWillAppear
-{
-
+    
+    refreshCount = 0;
 }
 
 - (void)managerDidRangeBeacons
 {
-  [self.tableView reloadData];
+    //reloads every 3 seconds for better responsiveness w/o table view jerk
+    if (refreshCount > 2){
+        refreshCount = 0;
+        [self.tableView reloadData];
+    }
+    refreshCount++;
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,26 +106,23 @@
     
     [cell.textLabel setText:currentManagedBeaconRegion.identifier];
     
-    //if this beacon is in range
+    //iBeacon is in range
     if ([currentManagedBeaconRegion.beacon accuracy] > 0)
     {
         cell.imageView.image = greenMarker;
-        
+    }
+    //iBeacon has been seen, but has gone out of range
+    else if ([currentManagedBeaconRegion.beacon accuracy] == -1)
+    {
+        //fade green marker to white
         [UIView animateWithDuration:1.0 delay:0.f options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse
                          animations:^{
-                             cell.imageView.image = greenMarker;
-                             cell.imageView.alpha=0.5f;
-                            //cell.imageView.image = greenMarker;
-                             //[self.view layoutIfNeeded];
+                             cell.imageView.image = whiteMarker;
                          } completion:^(BOOL finished){
                              cell.imageView.alpha=1.f;
                          }];
-     
     }
-    else if ([currentManagedBeaconRegion.beacon accuracy] == -1)
-    {
-        cell.imageView.image = whiteMarker;
-    }
+    //iBeacon has never been seen
     else{
         cell.imageView.image = whiteMarker;
     }
@@ -150,9 +152,6 @@
 
         vc.beaconRegion = currentManagedBeaconRegion;
         vc.beacon = currentManagedBeaconRegion.beacon;
-
-        // Pass any objects to the view controller here, like...
-        //[vc setMyObjectHere:object];
     }
 }
 
