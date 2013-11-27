@@ -33,7 +33,6 @@ return _sharedObject; \
 @property (strong, nonatomic, readonly) NSArray *availableManagedBeaconRegions;
 
 + (id)shared;
--(void)updateVistedStatsForRegionIdentifier:(NSString *)identifier;
 -(ManagedBeaconRegion *)beaconRegionWithId:(NSString *)identifier;
 -(CLBeacon *)beaconWithId:(NSString *)identifier;
 

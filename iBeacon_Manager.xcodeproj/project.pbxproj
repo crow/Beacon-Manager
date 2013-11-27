@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		440E85F217F5140E00D191A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E85F117F5140E00D191A2 /* Foundation.framework */; };
-		440E85F417F5140E00D191A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E85F317F5140E00D191A2 /* CoreGraphics.framework */; };
 		440E85F617F5140E00D191A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E85F517F5140E00D191A2 /* UIKit.framework */; };
 		440E85FC17F5140E00D191A2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 440E85FA17F5140E00D191A2 /* InfoPlist.strings */; };
 		440E85FE17F5140E00D191A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 440E85FD17F5140E00D191A2 /* main.m */; };
@@ -17,25 +16,14 @@
 		440E861117F5140F00D191A2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E861017F5140F00D191A2 /* XCTest.framework */; };
 		440E861217F5140F00D191A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E85F117F5140E00D191A2 /* Foundation.framework */; };
 		440E861317F5140F00D191A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E85F517F5140E00D191A2 /* UIKit.framework */; };
-		440E864417F5151D00D191A2 /* pig.caf in Resources */ = {isa = PBXBuildFile; fileRef = 440E863E17F5151D00D191A2 /* pig.caf */; };
-		440E864517F5151D00D191A2 /* frog.caf in Resources */ = {isa = PBXBuildFile; fileRef = 440E863F17F5151D00D191A2 /* frog.caf */; };
-		440E864617F5151D00D191A2 /* cow.caf in Resources */ = {isa = PBXBuildFile; fileRef = 440E864017F5151D00D191A2 /* cow.caf */; };
-		440E864717F5151D00D191A2 /* cat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 440E864117F5151D00D191A2 /* cat.caf */; };
-		440E864817F5151D00D191A2 /* goat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 440E864217F5151D00D191A2 /* goat.caf */; };
-		440E864917F5151D00D191A2 /* hey_adam.caf in Resources */ = {isa = PBXBuildFile; fileRef = 440E864317F5151D00D191A2 /* hey_adam.caf */; };
-		440E864E17F5155F00D191A2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E864D17F5155F00D191A2 /* AudioToolbox.framework */; };
 		440E865017F5156900D191A2 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E864F17F5156900D191A2 /* CoreBluetooth.framework */; };
-		440E865217F5157100D191A2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865117F5157100D191A2 /* QuartzCore.framework */; };
-		440E865417F5157800D191A2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865317F5157800D191A2 /* AVFoundation.framework */; };
 		440E865617F5157F00D191A2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865517F5157F00D191A2 /* CoreLocation.framework */; };
 		440E865817F5159300D191A2 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865717F5159300D191A2 /* libz.dylib */; };
 		440E865A17F5159C00D191A2 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865917F5159C00D191A2 /* libsqlite3.dylib */; };
 		440E865C17F515A500D191A2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865B17F515A500D191A2 /* CFNetwork.framework */; };
-		440E865E17F515AC00D191A2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865D17F515AC00D191A2 /* Security.framework */; };
 		440E866217F51C1E00D191A2 /* PlistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 440E866117F51C1E00D191A2 /* PlistManager.m */; };
 		4476CEE41819F87E002E5F9E /* 722-location-pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 4476CEE21819F87E002E5F9E /* 722-location-pin.png */; };
 		4476CEE51819F87E002E5F9E /* 722-location-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4476CEE31819F87E002E5F9E /* 722-location-pin@2x.png */; };
-		447F26531823013C0076F44E /* iBeacon_Manager-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 440E85F917F5140E00D191A2 /* iBeacon_Manager-Info.plist */; };
 		447F2659182301E20076F44E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 440E860317F5140E00D191A2 /* Main.storyboard */; };
 		4481878A181F7A90009514CC /* location-pin-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 44818789181F7A90009514CC /* location-pin-selected.png */; };
 		44952DA11822E4A400DC00E3 /* 702-share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44952DA01822E4A400DC00E3 /* 702-share@2x.png */; };
@@ -44,10 +32,7 @@
 		44952DA71822E4C300DC00E3 /* 703-download-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 44952DA61822E4C300DC00E3 /* 703-download-selected.png */; };
 		4498CDC51826EC8A001EC26B /* BeaconSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4498CDC41826EC8A001EC26B /* BeaconSettingsViewController.m */; };
 		44A5F85A17F6041D00F619C1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A5F85917F6041D00F619C1 /* MessageUI.framework */; };
-		44A5F85C17F6043500F619C1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A5F85B17F6043500F619C1 /* MapKit.framework */; };
-		44A5F85E17F6047900F619C1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A5F85D17F6047900F619C1 /* CoreTelephony.framework */; };
 		44A5F86017F6048900F619C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A5F85F17F6048900F619C1 /* SystemConfiguration.framework */; };
-		44A5F86217F6049A00F619C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A5F86117F6049A00F619C1 /* CoreData.framework */; };
 		44E46F1618072C38004A35E9 /* VisitedBeaconRegions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44E46F1518072C38004A35E9 /* VisitedBeaconRegions.plist */; };
 		44E6C1C617FC939100CD88AE /* Regions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44E6C1C517FC939100CD88AE /* Regions.plist */; };
 		44E6C1CC17FE29A200CD88AE /* BeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C1CB17FE29A200CD88AE /* BeaconViewController.m */; };
@@ -67,7 +52,6 @@
 		6153AD87183ADA32004E8C17 /* imgres@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6153AD7B183ADA32004E8C17 /* imgres@2x.png */; };
 		6153AD89183B0BD8004E8C17 /* 731-cloud-download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6153AD88183B0BD8004E8C17 /* 731-cloud-download@2x.png */; };
 		6153AD8B183B0DA3004E8C17 /* 760-refresh-3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6153AD8A183B0DA3004E8C17 /* 760-refresh-3@2x.png */; };
-		61564A28183B0F3E00D87AF2 /* BeaconRegionsPlistSample.png in Resources */ = {isa = PBXBuildFile; fileRef = 61564A27183B0F3E00D87AF2 /* BeaconRegionsPlistSample.png */; };
 		61564A2E183B102100D87AF2 /* BeaconListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61564A2D183B102100D87AF2 /* BeaconListViewController.m */; };
 		61564A3C1840044900D87AF2 /* 722-location-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61564A3B1840044900D87AF2 /* 722-location-pin@2x.png */; };
 		61564A411840045400D87AF2 /* location-pin-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 61564A401840045400D87AF2 /* location-pin-selected.png */; };
@@ -91,7 +75,6 @@
 		6194E36018445CA000F26217 /* 731-cloud-download-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */; };
 		6194E3651845291000F26217 /* 730-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3641845291000F26217 /* 730-envelope@2x.png */; };
 		6194E36718453EBA00F26217 /* BeaconRegions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6194E36618453EBA00F26217 /* BeaconRegions.plist */; };
-		6194E3761845A44500F26217 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3751845A44500F26217 /* iTunesArtwork@2x */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,12 +102,6 @@
 		440E860917F5140F00D191A2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		440E860F17F5140F00D191A2 /* iBeacon_ManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iBeacon_ManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		440E861017F5140F00D191A2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		440E863E17F5151D00D191A2 /* pig.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pig.caf; sourceTree = "<group>"; };
-		440E863F17F5151D00D191A2 /* frog.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = frog.caf; sourceTree = "<group>"; };
-		440E864017F5151D00D191A2 /* cow.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = cow.caf; sourceTree = "<group>"; };
-		440E864117F5151D00D191A2 /* cat.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = cat.caf; sourceTree = "<group>"; };
-		440E864217F5151D00D191A2 /* goat.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = goat.caf; sourceTree = "<group>"; };
-		440E864317F5151D00D191A2 /* hey_adam.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hey_adam.caf; sourceTree = "<group>"; };
 		440E864D17F5155F00D191A2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		440E864F17F5156900D191A2 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		440E865117F5157100D191A2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -206,21 +183,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44A5F86217F6049A00F619C1 /* CoreData.framework in Frameworks */,
 				44A5F86017F6048900F619C1 /* SystemConfiguration.framework in Frameworks */,
-				44A5F85E17F6047900F619C1 /* CoreTelephony.framework in Frameworks */,
-				44A5F85C17F6043500F619C1 /* MapKit.framework in Frameworks */,
-				440E865417F5157800D191A2 /* AVFoundation.framework in Frameworks */,
 				44A5F85A17F6041D00F619C1 /* MessageUI.framework in Frameworks */,
-				440E865E17F515AC00D191A2 /* Security.framework in Frameworks */,
 				440E865C17F515A500D191A2 /* CFNetwork.framework in Frameworks */,
 				440E865A17F5159C00D191A2 /* libsqlite3.dylib in Frameworks */,
 				440E865817F5159300D191A2 /* libz.dylib in Frameworks */,
-				440E85F417F5140E00D191A2 /* CoreGraphics.framework in Frameworks */,
 				440E865617F5157F00D191A2 /* CoreLocation.framework in Frameworks */,
-				440E865217F5157100D191A2 /* QuartzCore.framework in Frameworks */,
 				440E865017F5156900D191A2 /* CoreBluetooth.framework in Frameworks */,
-				440E864E17F5155F00D191A2 /* AudioToolbox.framework in Frameworks */,
 				440E85F617F5140E00D191A2 /* UIKit.framework in Frameworks */,
 				440E85F217F5140E00D191A2 /* Foundation.framework in Frameworks */,
 			);
@@ -311,7 +280,6 @@
 		440E85F817F5140E00D191A2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				44EFC67D181CA15B007C1B1B /* Sounds */,
 				44DE3EA11809089C0037CC91 /* Images */,
 				44EFC67C181CA138007C1B1B /* Images */,
 				44E6C1C517FC939100CD88AE /* Regions.plist */,
@@ -364,19 +332,6 @@
 				44E6C1E317FF97E900CD88AE /* star-selected@2x.png */,
 			);
 			name = Images;
-			sourceTree = "<group>";
-		};
-		44EFC67D181CA15B007C1B1B /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				440E863E17F5151D00D191A2 /* pig.caf */,
-				440E863F17F5151D00D191A2 /* frog.caf */,
-				440E864017F5151D00D191A2 /* cow.caf */,
-				440E864117F5151D00D191A2 /* cat.caf */,
-				440E864217F5151D00D191A2 /* goat.caf */,
-				440E864317F5151D00D191A2 /* hey_adam.caf */,
-			);
-			name = Sounds;
 			sourceTree = "<group>";
 		};
 		6194E35E18445B8400F26217 /* Icons */ = {
@@ -485,15 +440,12 @@
 				6194E35A18445B6F00F26217 /* Icon.png in Resources */,
 				6194E35B18445B6F00F26217 /* Icon@2x.png in Resources */,
 				6153AD86183ADA32004E8C17 /* imgres.png in Resources */,
-				440E864617F5151D00D191A2 /* cow.caf in Resources */,
 				447F2659182301E20076F44E /* Main.storyboard in Resources */,
 				44E6C1E117FF97B300CD88AE /* star@2x.png in Resources */,
 				6194E35218445B6F00F26217 /* Icon-76.png in Resources */,
-				440E864717F5151D00D191A2 /* cat.caf in Resources */,
 				44952DA51822E4BD00DC00E3 /* 702-share-selected@2x.png in Resources */,
 				440E860A17F5140F00D191A2 /* Images.xcassets in Resources */,
 				44952DA71822E4C300DC00E3 /* 703-download-selected.png in Resources */,
-				440E864817F5151D00D191A2 /* goat.caf in Resources */,
 				440E85FC17F5140E00D191A2 /* InfoPlist.strings in Resources */,
 				6194E35818445B6F00F26217 /* Icon-Spotlight-40.png in Resources */,
 				6194E35418445B6F00F26217 /* Icon-Small-50.png in Resources */,
@@ -502,7 +454,6 @@
 				44E6C1E017FF97B300CD88AE /* star.png in Resources */,
 				6194E35918445B6F00F26217 /* Icon-Spotlight-40@2x.png in Resources */,
 				6194E3651845291000F26217 /* 730-envelope@2x.png in Resources */,
-				440E864917F5151D00D191A2 /* hey_adam.caf in Resources */,
 				6194E35118445B6F00F26217 /* Icon-72@2x.png in Resources */,
 				6153AD89183B0BD8004E8C17 /* 731-cloud-download@2x.png in Resources */,
 				6153AD87183ADA32004E8C17 /* imgres@2x.png in Resources */,
@@ -513,9 +464,7 @@
 				6194E36018445CA000F26217 /* 731-cloud-download-selected@2x.png in Resources */,
 				6194E34E18445B6F00F26217 /* Icon-60.png in Resources */,
 				6194E35D18445B6F00F26217 /* iTunesArtwork@2x in Resources */,
-				440E864517F5151D00D191A2 /* frog.caf in Resources */,
 				44952DA31822E4A800DC00E3 /* 703-download@2x.png in Resources */,
-				447F26531823013C0076F44E /* iBeacon_Manager-Info.plist in Resources */,
 				44E6C1ED17FF986000CD88AE /* 849-radar@2x.png in Resources */,
 				44EFC67B181CA11D007C1B1B /* AirshipConfig.plist in Resources */,
 				4476CEE51819F87E002E5F9E /* 722-location-pin@2x.png in Resources */,
@@ -526,16 +475,13 @@
 				6153AD681836E7BE004E8C17 /* 722-location-ping@2x.png in Resources */,
 				6194E34F18445B6F00F26217 /* Icon-60@2x.png in Resources */,
 				44E6C1EC17FF986000CD88AE /* 849-radar.png in Resources */,
-				6194E3761845A44500F26217 /* iTunesArtwork@2x in Resources */,
 				44E6C1E917FF983300CD88AE /* 845-location-target@2x.png in Resources */,
 				6153AD8B183B0DA3004E8C17 /* 760-refresh-3@2x.png in Resources */,
 				44952DA11822E4A400DC00E3 /* 702-share@2x.png in Resources */,
 				6194E35318445B6F00F26217 /* Icon-76@2x.png in Resources */,
 				6194E35018445B6F00F26217 /* Icon-72.png in Resources */,
 				4481878A181F7A90009514CC /* location-pin-selected.png in Resources */,
-				61564A28183B0F3E00D87AF2 /* BeaconRegionsPlistSample.png in Resources */,
 				6194E35718445B6F00F26217 /* Icon-Small@2x.png in Resources */,
-				440E864417F5151D00D191A2 /* pig.caf in Resources */,
 				6194E36718453EBA00F26217 /* BeaconRegions.plist in Resources */,
 				44E6C1E817FF983300CD88AE /* 845-location-target.png in Resources */,
 			);
@@ -688,13 +634,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Users/dcrow/currentprojects/iBeacon_Manager/ios-library-dev/Airship/**",
 				);
 				INFOPLIST_FILE = "iBeacon_Manager/iBeacon_Manager-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/dcrow/currentprojects/iBeacon_Manager/DerivedData/iBeacon_Manager/Build/Products/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iBeacon_Manager;
 				PROVISIONING_PROFILE = "";
@@ -715,13 +657,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Users/dcrow/currentprojects/iBeacon_Manager/ios-library-dev/Airship/**",
 				);
 				INFOPLIST_FILE = "iBeacon_Manager/iBeacon_Manager-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/dcrow/currentprojects/iBeacon_Manager/DerivedData/iBeacon_Manager/Build/Products/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iBeacon_Manager;

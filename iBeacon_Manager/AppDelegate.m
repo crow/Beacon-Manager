@@ -7,10 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "UAirship.h"
-#import "UAConfig.h"
-#import "UAPush.h"
-#import "UALocationService.h"
 #import "BeaconRegionManager.h"
 
 
