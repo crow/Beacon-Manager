@@ -8,6 +8,8 @@
 	<string>iBeacons</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIcons~ipad</key>
+	<dict/>
 	<key>CFBundleIdentifier</key>
 	<string>us.dcrow.iBeaconManager</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -34,7 +36,6 @@
 		<string>bluetooth-peripheral</string>
 		<string>external-accessory</string>
 		<string>location</string>
-		<string>remote-notification</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
