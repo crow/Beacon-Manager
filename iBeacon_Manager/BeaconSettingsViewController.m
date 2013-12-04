@@ -112,7 +112,7 @@
 
 -(void)loadSwitchStates
 {
-    
+   //this is ugly, can probably be handled with ternary operators
     if ([[BeaconRegionManager shared] isMonitored:self.beaconRegion])
     {
         [self.monitorSwitch setOn:YES];
