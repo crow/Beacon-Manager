@@ -124,11 +124,12 @@
 - (ManagedBeaconRegion*)mapDictionaryToBeacon:(NSDictionary*)dictionary
 {
 
+    if (dictionary){
     NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
     short major = [[dictionary valueForKey:@"Major"] shortValue];
     short minor = [[dictionary valueForKey:@"Minor"] shortValue];
     NSString *identifier = [dictionary valueForKey:@"title"];
-
+    }
     //return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:identifier];
 
     return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
