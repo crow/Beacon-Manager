@@ -123,12 +123,36 @@
 //maps each plist dictionary representing a managed beacon region to a managed beacon region
 - (ManagedBeaconRegion*)mapDictionaryToBeacon:(NSDictionary*)dictionary
 {
-
+    NSUUID *proximityUUID;
+    short major= 0;
+    short minor = 0;
+    NSString *identifier;
+    
     if (dictionary){
-    NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
-    short major = [[dictionary valueForKey:@"Major"] shortValue];
-    short minor = [[dictionary valueForKey:@"Minor"] shortValue];
-    NSString *identifier = [dictionary valueForKey:@"title"];
+        if ([dictionary valueForKey:@"proximityUUID"] != nil)
+        {
+           proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
+        }
+        
+        if ([dictionary valueForKey:@"Major"] != nil)
+        {
+            major = [[dictionary valueForKey:@"Major"] shortValue];
+        }
+        if ([dictionary valueForKey:@"Minor"] != nil)
+        {
+            minor = [[dictionary valueForKey:@"Minor"] shortValue];
+        }
+        if ([dictionary valueForKey:@"title"] != nil) {
+            identifier = [dictionary valueForKey:@"title"];
+        }
+     
+    }
+    else
+    {
+        proximityUUID = [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
+        major = 000;
+        minor = 000;
+        identifier = @"No Identifier";
     }
     //return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:identifier];
 
