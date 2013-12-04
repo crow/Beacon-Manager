@@ -129,20 +129,20 @@
     NSString *identifier;
     
     if (dictionary){
-        if ([dictionary valueForKey:@"proximityUUID"] != nil)
+        if ([dictionary valueForKey:@"proximityUUID"] != nil && [[dictionary valueForKey:@"proximityUUID"]isKindOfClass:[NSString class]])
         {
            proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
         }
         
-        if ([dictionary valueForKey:@"Major"] != nil)
+        if ([dictionary valueForKey:@"Major"] != nil && [[dictionary valueForKey:@"Major"]isKindOfClass:[NSNumber class]])
         {
             major = [[dictionary valueForKey:@"Major"] shortValue];
         }
-        if ([dictionary valueForKey:@"Minor"] != nil)
+        if ([dictionary valueForKey:@"Minor"] != nil && [[dictionary valueForKey:@"Minor"]isKindOfClass:[NSNumber class]])
         {
             minor = [[dictionary valueForKey:@"Minor"] shortValue];
         }
-        if ([dictionary valueForKey:@"title"] != nil) {
+        if ([dictionary valueForKey:@"title"] != nil && [[dictionary valueForKey:@"title"]isKindOfClass:[NSString class]]) {
             identifier = [dictionary valueForKey:@"title"];
         }
      
