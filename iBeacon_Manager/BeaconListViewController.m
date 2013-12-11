@@ -40,7 +40,6 @@
 
 - (void)viewDidLoad
 {
-    
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
     gestureRecognizer.cancelsTouchesInView = NO;
@@ -48,11 +47,8 @@
     [super viewDidLoad];
     //[PlistManager shared];
     lastUrl = [[NSUserDefaults standardUserDefaults] URLForKey:@"lastUrl"];
-    availableBeaconsCell.hidden = YES;
-    loadButton.hidden = NO;
-    availableBeaconsCell.alpha = 0;
-    availableBeaconsCell.userInteractionEnabled = NO;
-
+    //[[BeaconRegionManager shared] loadAvailableRegions];
+    [self beaconLoadCheck];
 }
 
 - (void)hideKeyboard
@@ -79,7 +75,6 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    
     NSURL *url = [NSURL URLWithString:urlTextField.text];
     // the user clicked OK
     if (buttonIndex == 0)
@@ -93,17 +88,37 @@
         }
     }
 }
-//response callback that ensures this is a valid URL that exists, if plist is not present list will safely fail to popluate
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    if ([(NSHTTPURLResponse *)response statusCode] == 200) {
-        // url exists
-        [[[BeaconRegionManager shared] plistManager] loadHostedPlistFromUrl:[NSURL URLWithString:urlTextField.text]];
+
+//helper for determining if a beacon list has been loaded
+-(void)beaconLoadCheck
+{
+    if ([[BeaconRegionManager shared] availableManagedBeaconRegionsList])
+    {
         availableBeaconsCell.hidden = NO;
         [UIView animateWithDuration:1 animations:^() {
             availableBeaconsCell.alpha = 1.0;
         }];
         availableBeaconsCell.userInteractionEnabled = YES;
-        loadButton.hidden = NO;
+    }
+    else
+    {
+        availableBeaconsCell.hidden = YES;
+        availableBeaconsCell.alpha = 0;
+        availableBeaconsCell.userInteractionEnabled = NO;
+    }
+}
+
+//response callback that ensures this is a valid URL that exists, if plist is not present list will safely fail to popluate
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    if ([(NSHTTPURLResponse *)response statusCode] == 200) {
+        // url exists
+        [[[BeaconRegionManager shared] plistManager] loadHostedPlistFromUrl:[NSURL URLWithString:urlTextField.text]];
+
+        availableBeaconsCell.hidden = NO;
+        [UIView animateWithDuration:1 animations:^() {
+            availableBeaconsCell.alpha = 1.0;
+        }];
+        availableBeaconsCell.userInteractionEnabled = YES;
     }
 }
 

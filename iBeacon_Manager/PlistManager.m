@@ -34,14 +34,14 @@
     NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
     plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
     
-    [self loadAvailableManagedBeaconRegions];
+    [self loadAvailableManagedBeaconRegionsList];
 }
 
--(NSArray*)getAvailableManagedBeaconRegions
+-(NSArray*)getAvailableManagedBeaconRegionsList
 {
     //set read-only available regions 
-    [self loadAvailableManagedBeaconRegions];
-    return self.availableManagedBeaconRegions;
+    [self loadAvailableManagedBeaconRegionsList];
+    return self.availableManagedBeaconRegionsList;
 }
 
 -(void)loadHostedPlistFromUrl:(NSURL*)url
@@ -49,22 +49,22 @@
     //
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfURL:url];
-        [self getAvailableManagedBeaconRegions];
+        [self getAvailableManagedBeaconRegionsList];
         [self loadReadableBeaconRegions];
         
     });
 }
 
--(void)loadAvailableManagedBeaconRegions
+-(void)loadAvailableManagedBeaconRegionsList
 {
-    _availableManagedBeaconRegions = [self buildBeaconRegionDataFromPlist];
+    _availableManagedBeaconRegionsList = [self buildBeaconRegionDataFromPlist];
 }
 
 //This is a helper method that can be removed, useful for displaying IDs next to UUID
 -(void)loadReadableBeaconRegions
 {
     
-    NSMutableArray *readableBeaconArray = [[NSMutableArray alloc] initWithCapacity:[self.availableManagedBeaconRegions count]];
+    NSMutableArray *readableBeaconArray = [[NSMutableArray alloc] initWithCapacity:[self.availableManagedBeaconRegionsList count]];
     NSString *currentReadableBeacon = [[NSString alloc] init];
     
     for (ManagedBeaconRegion *beaconRegion in availableBeaconRegions)
@@ -155,7 +155,7 @@
         identifier = @"No Identifier";
     }
     //return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:identifier];
-
+    
     return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
 }
 
@@ -169,7 +169,7 @@
     for(NSDictionary *regionDict in plistRegionContentsArray)
     {
         CLRegion *region = [self mapDictionaryToRegion:regionDict];
-        
+ 
         if (region != nil) {
             [regions addObject:region];
         }

@@ -50,10 +50,9 @@
 
 -(void)loadAvailableRegions
 {
-  _availableManagedBeaconRegions = [_plistManager getAvailableManagedBeaconRegions];
-  [self startMonitoringAllAvailableBeaconRegions];
+    _availableManagedBeaconRegionsList = [_plistManager getAvailableManagedBeaconRegionsList];
+    [self startMonitoringAllAvailableBeaconRegions];
 }
-
 
 //returns a beacon from the ranged list given a identifier, else emits log and returns nil
 -(CLBeacon *)beaconWithId:(NSString *)identifier
@@ -72,7 +71,7 @@
 //returns a beacon regions from the available regions (all in plist) given and identifier
 -(ManagedBeaconRegion *)beaconRegionWithId:(NSString *)identifier
 {
-    for (ManagedBeaconRegion *managedBeaconRegion in self.availableManagedBeaconRegions)
+    for (ManagedBeaconRegion *managedBeaconRegion in self.availableManagedBeaconRegionsList)
     {
         if ([managedBeaconRegion.identifier isEqualToString:identifier]) {
             return managedBeaconRegion;
@@ -92,7 +91,7 @@
 //WARNING - beacons may have the same UUID
 -(ManagedBeaconRegion *)beaconRegionWithUUID:(NSUUID *)UUID
 {
-    for (ManagedBeaconRegion *beaconRegion in self.availableManagedBeaconRegions)
+    for (ManagedBeaconRegion *beaconRegion in self.availableManagedBeaconRegionsList)
     {
         if ([[beaconRegion.proximityUUID UUIDString] isEqualToString:[UUID UUIDString]]) {
             return beaconRegion;
@@ -135,7 +134,7 @@
 -(void)startMonitoringAllAvailableBeaconRegions
 {
     
-    for (ManagedBeaconRegion *beaconRegion in self.availableManagedBeaconRegions)
+    for (ManagedBeaconRegion *beaconRegion in self.availableManagedBeaconRegionsList)
     {
         if (beaconRegion != nil) {
             beaconRegion.notifyOnEntry = YES;
@@ -154,7 +153,7 @@
 -(void)stopMonitoringAllAvailableBeaconRegions
 {
     
-    for (ManagedBeaconRegion *beaconRegion in [_plistManager getAvailableManagedBeaconRegions])
+    for (ManagedBeaconRegion *beaconRegion in [_plistManager getAvailableManagedBeaconRegionsList])
     {
         if (beaconRegion != nil) {
             beaconRegion.notifyOnEntry = NO;
@@ -190,7 +189,7 @@
         
     
     //get closest beacon here TODO
-    [self loadMatchingBeaconForRegion:[self convertToManagedBeaconRegion:region] FromBeacons:beacons];
+    [self getMatchingBeaconForRegion:[self convertToManagedBeaconRegion:region] FromBeacons:beacons];
     
     //set ivar to init read-only property
     //_monitoredBeaconRegions = [manager rangedRegions];
@@ -209,19 +208,65 @@
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
     NSLog( @"didEnterRegion %@", region.identifier );
-    ManagedBeaconRegion *managedBeaconRegion = [self beaconRegionWithId:region.identifier];
-    [managedBeaconRegion timestampEntry];
+    [self timestampEntryForBeaconRegion:[self beaconRegionWithId:region.identifier]];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     NSLog(@"didExitRegion %@", region.identifier);
-    ManagedBeaconRegion *managedBeaconRegion = [self beaconRegionWithId:region.identifier];
-    [managedBeaconRegion timestampExit];
+    [self timestampExitForBeaconRegion:[self beaconRegionWithId:region.identifier]];
 }
 
+-(void)timestampEntryForBeaconRegion:(ManagedBeaconRegion *) beaconRegion
+{
+    NSLog(@"timestamped entry");
+    if ([self.beaconStats objectForKey:beaconRegion.identifier])
+    {
+        NSDictionary *beaconRegionStats = [self.beaconStats objectForKey:beaconRegion.identifier];
+        [beaconRegionStats setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:@"lastEntry"];
+    }
+    else
+    {
+        //create new dictionary for this region and add it to stats
+        NSDictionary *beaconRegionStats = [NSDictionary new];
+        [beaconRegionStats setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:@"lastEntry"];
+        [self.beaconStats setValue:beaconRegionStats forKey:beaconRegion.identifier];
+    }
+    
+    //self.lastEntry = [[NSDate date] timeIntervalSince1970];
+    //  [beaconStats setObject:[NSNumber numberWithDouble:self.lastEntry] forKey:@"lastEntry"];
 
--(CLBeacon *)loadMatchingBeaconForRegion:(ManagedBeaconRegion *) beaconRegion FromBeacons:(NSArray *)beacons
+  
+   
+}
+
+-(void)timestampExitForBeaconRegion:(ManagedBeaconRegion *) beaconRegion
+{
+    NSLog(@"timestamped exit");
+    
+    [self.beaconStats
+     setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:@"lastExit"];
+    
+    //self.lastExit = [[NSDate date] timeIntervalSince1970];
+    //   [beaconStats setObject:[NSNumber numberWithDouble:self.lastExit] forKey:@"lastExit"];
+    //re-calculate total visit time
+    //self.totalLastVisitTime = self.lastExit - self.lastEntry;
+}
+
+//-(ManagedBeaconRegion *)getMatchingManagedBeaconRegion:(CLBeaconRegion *) beaconRegion
+//{
+//    for (ManagedBeaconRegion *managedRegion in self.availableManagedBeaconRegionsList) {
+//        
+//        if (managedRegion.major == beaconRegion.major && managedRegion.minor == beaconRegion.minor && [[managedRegion.proximityUUID UUIDString]isEqualToString:[beaconRegion.proximityUUID UUIDString]])
+//        {
+//            return managedRegion;
+//        }
+//    }
+//    //there are no managed regions available that match this region
+//    return nil;
+//}
+
+-(CLBeacon *)getMatchingBeaconForRegion:(ManagedBeaconRegion *) beaconRegion FromBeacons:(NSArray *)beacons
 {
     for (CLBeacon *beacon in beacons) {
         
@@ -308,14 +353,12 @@
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error
 {
     NSLog(@"%@", error);
-
 }
 
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
 {
-NSLog(@"%@", error);
-
+    NSLog(@"%@", error);
 }
 
 @end

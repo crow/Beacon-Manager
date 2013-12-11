@@ -15,7 +15,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-
     return YES;
 }
 
@@ -45,7 +44,6 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -57,6 +55,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
 }
 
 

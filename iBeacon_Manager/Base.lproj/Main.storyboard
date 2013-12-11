@@ -281,7 +281,7 @@
                                             <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
                                         </accessibility>
                                         <connections>
-                                            <segue destination="b5G-8E-Iks" kind="push" id="zzy-jW-juj"/>
+                                            <segue destination="b5G-8E-Iks" kind="push" identifier="beaconStats" id="roH-dZ-0Re"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>

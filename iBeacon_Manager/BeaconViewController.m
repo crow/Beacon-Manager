@@ -85,7 +85,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[BeaconRegionManager shared] availableManagedBeaconRegions].count;
+    return [[BeaconRegionManager shared] availableManagedBeaconRegionsList].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,9 +94,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
  
-    NSArray *availableManagedBeaconRegions = [[BeaconRegionManager shared] availableManagedBeaconRegions]; //[NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
+    NSArray *availableManagedBeaconRegionsList = [[BeaconRegionManager shared] availableManagedBeaconRegionsList]; //[NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
     
-    currentManagedBeaconRegion = availableManagedBeaconRegions[indexPath.row];
+    currentManagedBeaconRegion = availableManagedBeaconRegionsList[indexPath.row];
     // Configure the cell...
     if (cell == nil)
 	{
@@ -150,7 +150,7 @@
         // Get reference to the destination view controller
         BeaconSettingsViewController *vc = [segue destinationViewController];
 
-        vc.beaconRegion = currentManagedBeaconRegion;
+        vc.managedBeaconRegion = currentManagedBeaconRegion;
         vc.beacon = currentManagedBeaconRegion.beacon;
     }
 }

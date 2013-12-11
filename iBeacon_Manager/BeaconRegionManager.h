@@ -30,7 +30,10 @@ return _sharedObject; \
 //beacons that are currently monitored (same as available managed beacon regions by default)
 @property (strong, nonatomic, readonly) NSSet *monitoredBeaconRegions;
 //all the managed regions loaded from the plist manager, data store for the available regions
-@property (strong, nonatomic, readonly) NSArray *availableManagedBeaconRegions;
+@property (strong, nonatomic, readonly) NSArray *availableManagedBeaconRegionsList;
+
+@property (strong, nonatomic) NSDictionary *beaconStats;
+
 
 + (id)shared;
 -(ManagedBeaconRegion *)beaconRegionWithId:(NSString *)identifier;
@@ -47,7 +50,10 @@ return _sharedObject; \
 -(void)stopMonitoringAllAvailableBeaconRegions;
 
 
--(CLBeacon *)loadMatchingBeaconForRegion:(ManagedBeaconRegion *) beaconRegion FromBeacons:(NSArray *)beacons;
+
+
+
+-(CLBeacon *)getMatchingBeaconForRegion:(ManagedBeaconRegion *) beaconRegion FromBeacons:(NSArray *)beacons;
 
 
 @end

@@ -14,7 +14,7 @@
 
 @implementation BeaconSettingsViewController
 
-@synthesize beaconRegion;
+@synthesize managedBeaconRegion;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -28,14 +28,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = self.beaconRegion.identifier;
+    self.title = self.managedBeaconRegion.identifier;
     [self loadSwitchStates];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.monitorLabel.text = [NSString stringWithFormat:@"Monitor %@", self.beaconRegion.identifier];
+    self.monitorLabel.text = [NSString stringWithFormat:@"Monitor %@", self.managedBeaconRegion.identifier];
     
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -49,8 +49,8 @@
     NSString *proximity;
     NSString *rssi;
     
-    rssi = (beaconRegion.beacon.rssi == 0) ? @"---" : [NSString stringWithFormat:@"%ld", (long)beaconRegion.beacon.rssi];
-    proximity = (beaconRegion.beacon.rssi == 0) ? @"---" : [NSString stringWithFormat:@"%1.3f ± %d m", beaconRegion.beacon.accuracy, beaconRegion.beacon.proximity];
+    rssi = (managedBeaconRegion.beacon.rssi == 0) ? @"---" : [NSString stringWithFormat:@"%ld", (long)managedBeaconRegion.beacon.rssi];
+    proximity = (managedBeaconRegion.beacon.rssi == 0) ? @"---" : [NSString stringWithFormat:@"%1.3f ± %d m", managedBeaconRegion.beacon.accuracy, managedBeaconRegion.beacon.proximity];
     self.rssiLabel.text = rssi;
     self.proximityLabel.text = proximity;
 }
@@ -60,10 +60,10 @@
 {
     //if ON
     if ([sender isOn]) {
-        [[BeaconRegionManager shared] startMonitoringBeaconInRegion:self.beaconRegion];
+        [[BeaconRegionManager shared] startMonitoringBeaconInRegion:self.managedBeaconRegion];
     }
     else{
-        [[BeaconRegionManager shared] stopMonitoringBeaconInRegion:self.beaconRegion];
+        [[BeaconRegionManager shared] stopMonitoringBeaconInRegion:self.managedBeaconRegion];
     }
     
     [self loadSwitchStates];
@@ -73,10 +73,10 @@
 {
     //if ON
     if ([sender isOn]) {
-        self.beaconRegion.notifyOnEntry = YES;
+        self.managedBeaconRegion.notifyOnEntry = YES;
     }
     else{
-        self.beaconRegion.notifyOnEntry = NO;
+        self.managedBeaconRegion.notifyOnEntry = NO;
 
     }
     
@@ -86,10 +86,10 @@
 - (IBAction)notifyOnExitSwitchTouched:(id)sender
 {
     if ([sender isOn]) {
-        self.beaconRegion.notifyOnExit= YES;
+        self.managedBeaconRegion.notifyOnExit= YES;
     }
     else{
-        self.beaconRegion.notifyOnExit = NO;
+        self.managedBeaconRegion.notifyOnExit = NO;
         
     }
     
@@ -99,10 +99,10 @@
 - (IBAction)notifyEntryOnDisplaySwitchTouched:(id)sender
 {
     if ([sender isOn]) {
-        self.beaconRegion.notifyEntryStateOnDisplay = YES;
+        self.managedBeaconRegion.notifyEntryStateOnDisplay = YES;
     }
     else{
-        self.beaconRegion.notifyEntryStateOnDisplay = NO;
+        self.managedBeaconRegion.notifyEntryStateOnDisplay = NO;
         
     }
     
@@ -113,7 +113,7 @@
 -(void)loadSwitchStates
 {
    //this is ugly, can probably be handled with ternary operators
-    if ([[BeaconRegionManager shared] isMonitored:self.beaconRegion])
+    if ([[BeaconRegionManager shared] isMonitored:self.managedBeaconRegion])
     {
         [self.monitorSwitch setOn:YES];
     }
@@ -121,7 +121,7 @@
         [self.monitorSwitch setOn:NO];
     }
 
-    if (self.beaconRegion.notifyOnEntry == YES)
+    if (self.managedBeaconRegion.notifyOnEntry == YES)
     {
         [self.noteEntrySwitch setOn:YES];
     }
@@ -130,7 +130,7 @@
     }
 
     
-    if (self.beaconRegion.notifyOnExit == YES)
+    if (self.managedBeaconRegion.notifyOnExit == YES)
     {
         [self.noteExitSwitch setOn:YES];
     }
@@ -139,7 +139,7 @@
     }
     
     
-    if (self.beaconRegion.notifyEntryStateOnDisplay == YES)
+    if (self.managedBeaconRegion.notifyEntryStateOnDisplay == YES)
     {
         [self.noteEntryOnDisplaySwitch setOn:YES];
     }
@@ -161,8 +161,8 @@
     {
         // Get reference to the destination view controller
         BeaconStatsViewController *vc = [segue destinationViewController];
-        vc.beaconRegion = self.beaconRegion;
-        vc.beacon = self.beaconRegion.beacon;
+        vc.managedBeaconRegion = self.managedBeaconRegion;
+        vc.beacon = self.managedBeaconRegion.beacon;
         // Pass any objects to the view controller here, like...
         //[vc setMyObjectHere:object];
     }

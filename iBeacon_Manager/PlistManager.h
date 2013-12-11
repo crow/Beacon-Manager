@@ -8,11 +8,11 @@
 //
 //+ (PlistManager *)shared;
 - (NSString *)identifierForUUID:(NSUUID *) uuid;
--(NSArray *)getAvailableManagedBeaconRegions;
+-(NSArray *)getAvailableManagedBeaconRegionsList;
 -(void)loadReadableBeaconRegions;
 -(void)loadHostedPlistFromUrl:(NSURL*)url;
 
-@property (nonatomic, copy, readonly) NSArray *availableManagedBeaconRegions;
+@property (nonatomic, copy, readonly) NSArray *availableManagedBeaconRegionsList;
 @property (nonatomic, copy, readonly) NSArray *readableBeaconRegions;
 
 @end

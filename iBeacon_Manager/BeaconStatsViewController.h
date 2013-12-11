@@ -11,7 +11,7 @@
 
 @interface BeaconStatsViewController : UITableViewController <UIAlertViewDelegate>
 
-@property (strong, nonatomic) ManagedBeaconRegion *beaconRegion;
+@property (strong, nonatomic) ManagedBeaconRegion *managedBeaconRegion;
 @property (strong, nonatomic) CLBeacon *beacon;
 
 @end

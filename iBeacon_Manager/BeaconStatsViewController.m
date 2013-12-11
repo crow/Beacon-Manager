@@ -35,13 +35,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = self.beaconRegion.identifier;
-    BOOL recordState = [[NSUserDefaults standardUserDefaults]
-                        boolForKey:@"recordStatsSwitchState"];
+    self.title = self.managedBeaconRegion.identifier;
+    
+    BOOL recordState;
+    if ([[NSUserDefaults standardUserDefaults]
+          boolForKey:@"recordStatsSwitchState"]){
+        recordState = [[NSUserDefaults standardUserDefaults]
+                            boolForKey:@"recordStatsSwitchState"];
+    }
+    else{
+        recordState = YES;
+    }
+
     
     //used saved entry unless saved entry is nil
     recordState ? [self.recordStatsSwitch setEnabled:recordState] : [self.recordStatsSwitch setEnabled:YES];
    
+    [self.managedBeaconRegion loadSavedBeaconStats];
+    
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(managerDidRangeBeacons)
@@ -49,10 +60,19 @@
      object:nil];
 }
 
+
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [self.managedBeaconRegion saveBeaconStats];
+}
+
+
+
 - (void)managerDidRangeBeacons
 {
-    self.lastEntryLabel.text = self.beaconRegion.lastEntry ? [self dateStringFromInterval:self.beaconRegion.lastEntry] : @"---";
-    self.lastEntryLabel.text = self.beaconRegion.lastExit ? [self dateStringFromInterval:self.beaconRegion.lastExit] : @"---";
+  //  self.lastEntryLabel.text = [NSString stringWithFormat:@"%f", ];
+  //  self.lastEntryLabel.text = [NSString stringWithFormat:@"%f", ];
     self.totalLastVisitTimeLabel.text = @"TODO";
 }
 
@@ -105,8 +125,8 @@
     // the user clicked No
     if (buttonIndex == 0)
     {
-        self.beaconRegion.lastEntry = 0;
-        self.beaconRegion.lastExit = 0;
+        self.managedBeaconRegion.lastEntry = 0;
+        self.managedBeaconRegion.lastExit = 0;
     }
     else
     {

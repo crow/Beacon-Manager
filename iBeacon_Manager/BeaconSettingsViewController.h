@@ -13,7 +13,7 @@
 
 @interface BeaconSettingsViewController : UITableViewController
 
-@property (strong, nonatomic) ManagedBeaconRegion *beaconRegion;
+@property (strong, nonatomic) ManagedBeaconRegion *managedBeaconRegion;
 @property (strong, nonatomic) CLBeacon *beacon;
 
 @property (strong, nonatomic) IBOutlet UILabel *monitorLabel;
