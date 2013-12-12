@@ -92,7 +92,11 @@
         }
     }
     
-    self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"%f Seconds", lastEntry-lastExit];
+    //only update total last visit time when exit is after entry
+    if (lastEntry-lastExit < 0) {
+          self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"%f Seconds", lastEntry-lastExit];
+    }
+  
     
 
 }
