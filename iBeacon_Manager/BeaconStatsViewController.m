@@ -94,7 +94,10 @@
     
     //only update total last visit time when exit is after entry
     if (lastEntry-lastExit < 0) {
-          self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"%f Seconds", lastEntry-lastExit];
+        self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"%1.0f Seconds", lastExit-lastEntry];
+    }
+    else {
+        self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"Waiting for exit..."];
     }
   
     
