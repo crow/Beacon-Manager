@@ -14,7 +14,8 @@
 
 @end
 
-@implementation ManagedBeaconRegion {
+@implementation ManagedBeaconRegion
+{
     NSMutableDictionary *beaconStats;
 }
 

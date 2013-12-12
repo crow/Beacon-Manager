@@ -32,12 +32,16 @@ return _sharedObject; \
 //all the managed regions loaded from the plist manager, data store for the available regions
 @property (strong, nonatomic, readonly) NSArray *availableManagedBeaconRegionsList;
 
-@property (strong, nonatomic) NSDictionary *beaconStats;
+//@property (strong, nonatomic) NSMutableDictionary *availableManagedBeaconRegions;
+
+@property (strong, nonatomic) NSMutableDictionary *beaconStats;
 
 
 + (id)shared;
 -(ManagedBeaconRegion *)beaconRegionWithId:(NSString *)identifier;
 -(CLBeacon *)beaconWithId:(NSString *)identifier;
+
+-(NSMutableDictionary *)getBeaconStatsForIdentifier:(NSString *)identifier;
 
 -(void)loadMonitoredRegions;
 -(void)loadAvailableRegions;

@@ -518,14 +518,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Exit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TCE-ml-TDn">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Entry" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TCE-ml-TDn">
                                                     <rect key="frame" x="20" y="11" width="142" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="---" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZO-qe-tId">
-                                                    <rect key="frame" x="102" y="11" width="218" height="21"/>
+                                                    <rect key="frame" x="109" y="11" width="218" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -544,7 +544,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Entry" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fx8-Kg-dJw">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Exit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fx8-Kg-dJw">
                                                     <rect key="frame" x="20" y="11" width="149" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -657,8 +657,8 @@
                     <connections>
                         <outlet property="averageVisitTimeLabel" destination="Hez-xM-ebe" id="vW4-Kr-cuf"/>
                         <outlet property="cumulativeVisitTimeLabel" destination="IbA-g0-qxZ" id="cFf-KS-btX"/>
-                        <outlet property="lastEntryLabel" destination="VPQ-9P-Rco" id="nu2-S0-yP6"/>
-                        <outlet property="lastExitLabel" destination="FZO-qe-tId" id="exb-iC-Bwx"/>
+                        <outlet property="lastEntryLabel" destination="FZO-qe-tId" id="a7V-0J-PuI"/>
+                        <outlet property="lastExitLabel" destination="VPQ-9P-Rco" id="5kx-Tl-Jov"/>
                         <outlet property="recordStatsSwitch" destination="GGz-sT-nZF" id="ISr-fd-QMI"/>
                         <outlet property="totalLastVisitTimeLabel" destination="HAZ-hU-hSC" id="XkL-lR-15v"/>
                         <outlet property="totalVisitsLabel" destination="J4Q-PV-enA" id="Xcn-YF-Wh5"/>

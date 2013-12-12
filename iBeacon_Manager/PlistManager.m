@@ -1,6 +1,7 @@
 #import "PlistManager.h"
 
-@implementation PlistManager {
+@implementation PlistManager
+{
     NSFileManager* manager;
     NSArray *uuidToTitleKey;
     NSArray *availableBeaconRegions;
@@ -111,7 +112,8 @@
     for(NSDictionary *beaconDict in plistBeaconContentsArray)
     {
         ManagedBeaconRegion *beaconRegion = [self mapDictionaryToBeacon:beaconDict];
-        if (beaconRegion != nil) {
+        if (beaconRegion != nil)
+        {
               [managedBeaconRegions addObject:beaconRegion];
         }
     }
@@ -128,7 +130,8 @@
     short minor = 0;
     NSString *identifier;
     
-    if (dictionary){
+    if (dictionary)
+    {
         if ([dictionary valueForKey:@"proximityUUID"] != nil && [[dictionary valueForKey:@"proximityUUID"]isKindOfClass:[NSString class]])
         {
            proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
@@ -154,8 +157,6 @@
         minor = 000;
         identifier = @"No Identifier";
     }
-    //return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:identifier];
-    
     return [[ManagedBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
 }
 

@@ -21,7 +21,11 @@
 
 @end
 
-@implementation BeaconStatsViewController 
+@implementation BeaconStatsViewController {
+    NSMutableDictionary *beaconStats;
+    double lastEntry;
+    double lastExit;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -46,7 +50,6 @@
     else{
         recordState = YES;
     }
-
     
     //used saved entry unless saved entry is nil
     recordState ? [self.recordStatsSwitch setEnabled:recordState] : [self.recordStatsSwitch setEnabled:YES];
@@ -68,12 +71,37 @@
 }
 
 
+-(void)loadBeaconStats
+{
+
+    if ([[BeaconRegionManager shared] getBeaconStatsForIdentifier:self.managedBeaconRegion.identifier]) {
+        beaconStats = [[BeaconRegionManager shared] getBeaconStatsForIdentifier:self.managedBeaconRegion.identifier];
+        
+        //TODO check type just in case
+        if ([beaconStats objectForKey:@"lastEntry"])
+        {
+            lastEntry = [[beaconStats objectForKey:@"lastEntry"] doubleValue];
+            self.lastEntryLabel.text = [NSString stringWithFormat:@"%@", [self dateStringFromInterval:lastEntry]];
+
+        }
+        if ([beaconStats objectForKey:@"lastExit"])
+        {
+            lastExit = [[beaconStats objectForKey:@"lastExit"] doubleValue];
+            self.lastExitLabel.text = [NSString stringWithFormat:@"%@", [self dateStringFromInterval:lastExit]];
+
+        }
+    }
+    
+    self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"%f Seconds", lastEntry-lastExit];
+    
+
+}
 
 - (void)managerDidRangeBeacons
 {
-  //  self.lastEntryLabel.text = [NSString stringWithFormat:@"%f", ];
-  //  self.lastEntryLabel.text = [NSString stringWithFormat:@"%f", ];
-    self.totalLastVisitTimeLabel.text = @"TODO";
+    //continuosly update beaconstats
+    [self loadBeaconStats];
+
 }
 
 -(NSString *)dateStringFromInterval:(NSTimeInterval)interval

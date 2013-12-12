@@ -32,8 +32,6 @@
 - (id)initWithProximityUUID:(NSUUID *)proximityUUID major:(CLBeaconMajorValue)major identifier:(NSString *)identifier;
 - (id)initWithProximityUUID:(NSUUID *)proximityUUID major:(CLBeaconMajorValue)major minor:(CLBeaconMinorValue)minor identifier:(NSString *)identifier;
 
--(void)timestampEntry;
--(void)timestampExit;
 
 -(void)saveBeaconStats;
 -(void)loadSavedBeaconStats;
