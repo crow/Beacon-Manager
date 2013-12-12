@@ -53,8 +53,6 @@
     
     //used saved entry unless saved entry is nil
     recordState ? [self.recordStatsSwitch setEnabled:recordState] : [self.recordStatsSwitch setEnabled:YES];
-   
-    [self.managedBeaconRegion loadSavedBeaconStats];
     
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -67,7 +65,7 @@
 
 -(void)viewDidDisappear:(BOOL)animated
 {
-    [self.managedBeaconRegion saveBeaconStats];
+
 }
 
 
@@ -160,8 +158,7 @@
     // the user clicked No
     if (buttonIndex == 0)
     {
-        self.managedBeaconRegion.lastEntry = 0;
-        self.managedBeaconRegion.lastExit = 0;
+
     }
     else
     {
