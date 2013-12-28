@@ -285,9 +285,7 @@
 
 -(void)clearBeaconStats
 {
-    for (id key in self.beaconStats) {
-        [self.beaconStats removeObjectForKey:key];
-    }
+    self.beaconStats = nil;
     [[NSUserDefaults standardUserDefaults] setObject:self.beaconStats forKey:@"beaconStats"];
 }
 
