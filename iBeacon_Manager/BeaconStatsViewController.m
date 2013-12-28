@@ -39,7 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = self.managedBeaconRegion.identifier;
+    self.title = self.beaconRegion.identifier;
     
     BOOL recordState;
     if ([[NSUserDefaults standardUserDefaults]
@@ -72,23 +72,11 @@
 -(void)loadBeaconStats
 {
 
-    if ([[BeaconRegionManager shared] getBeaconStatsForIdentifier:self.managedBeaconRegion.identifier]) {
-        beaconStats = [[BeaconRegionManager shared] getBeaconStatsForIdentifier:self.managedBeaconRegion.identifier];
-        
-        //TODO check type just in case
-        if ([beaconStats objectForKey:@"lastEntry"])
-        {
-            lastEntry = [[beaconStats objectForKey:@"lastEntry"] doubleValue];
-            self.lastEntryLabel.text = [NSString stringWithFormat:@"%@", [self dateStringFromInterval:lastEntry]];
+ 
+    
+    self.lastEntryLabel.text = [NSString stringWithFormat:@"%f",[[BeaconRegionManager shared] lastEntryForIdentifier:self.beaconRegion.identifier]];
 
-        }
-        if ([beaconStats objectForKey:@"lastExit"])
-        {
-            lastExit = [[beaconStats objectForKey:@"lastExit"] doubleValue];
-            self.lastExitLabel.text = [NSString stringWithFormat:@"%@", [self dateStringFromInterval:lastExit]];
-
-        }
-    }
+    self.lastExitLabel.text = [NSString stringWithFormat:@"%f",[[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier]];
     
     //only update total last visit time when exit is after entry
     if (lastEntry-lastExit < 0) {

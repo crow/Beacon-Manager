@@ -10,7 +10,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "PlistManager.h"
-#import "ManagedBeaconRegion.h"
 
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
 static dispatch_once_t pred = 0; \
@@ -21,6 +20,10 @@ _sharedObject = block(); \
 return _sharedObject; \
 
 @interface BeaconRegionManager : NSObject <CLLocationManagerDelegate>
+
+
+@property  (nonatomic, assign) BOOL ibeaconsEnabled;
+
 //plist manager for managing local (sample) and remotely hosted plists
 @property (strong, nonatomic, readonly) PlistManager *plistManager;
 //ranged beacons from didRangeBeacons callback
@@ -38,26 +41,35 @@ return _sharedObject; \
 
 
 + (id)shared;
--(ManagedBeaconRegion *)beaconRegionWithId:(NSString *)identifier;
--(CLBeacon *)beaconWithId:(NSString *)identifier;
+-(void)startManager;
 
--(NSMutableDictionary *)getBeaconStatsForIdentifier:(NSString *)identifier;
+//checks state of iBeacons enabled and starts monitoring accordingly
+-(void)checkiBeaconsEnabledState;
+
+
+//beacon and beacon region getters
+-(CLBeacon *)beaconWithId:(NSString *)identifier;
+-(CLBeaconRegion *)beaconRegionWithId:(NSString *)identifier;
+
 
 -(void)loadMonitoredRegions;
 -(void)loadAvailableRegions;
 
+//monitoring checking
 -(BOOL)isMonitored:(CLBeaconRegion *) beaconRegion;
-
 -(void)startMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion;
 -(void)stopMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion;
 -(void)startMonitoringAllAvailableBeaconRegions;
 -(void)stopMonitoringAllAvailableBeaconRegions;
+-(void)stopMonitoringAllBeaconRegions;
 
-
-
-
-
--(CLBeacon *)getMatchingBeaconForRegion:(ManagedBeaconRegion *) beaconRegion FromBeacons:(NSArray *)beacons;
+//stats getters
+-(NSMutableDictionary *)beaconStatsForIdentifier:(NSString *)identifier;
+-(double)lastEntryForIdentifier:(NSString *)identifier;
+-(double)lastExitForIdentifier:(NSString *)identifier;
+-(double)cumulativeTimeForIdentifier:(NSString *)identifier;
+//stats mgmt
+-(void)clearBeaconStats;
 
 
 @end

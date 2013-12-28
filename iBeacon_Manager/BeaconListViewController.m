@@ -111,8 +111,13 @@
 //response callback that ensures this is a valid URL that exists, if plist is not present list will safely fail to popluate
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     if ([(NSHTTPURLResponse *)response statusCode] == 200) {
+        
+        //clear any beaconRegions stored in the locationManager
+        [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
+        //initialize ibeacon manager, load iBeacon plist, load available regions, start monitoring available regions
         // url exists
-        [[[BeaconRegionManager shared] plistManager] loadHostedPlistFromUrl:[NSURL URLWithString:urlTextField.text]];
+        [[[BeaconRegionManager shared] plistManager] loadHostedPlistWithUrl:[NSURL URLWithString:urlTextField.text]];
+        [[BeaconRegionManager shared] startManager];
 
         availableBeaconsCell.hidden = NO;
         [UIView animateWithDuration:1 animations:^() {
