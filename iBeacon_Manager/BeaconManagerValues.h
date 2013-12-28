@@ -8,7 +8,6 @@
 
 //Define all the user defaults keys here
 
-#define kSomeConstat1 @"key0"
-#define kSomeConstat2 @"key1"
-#define kSomeConstat3 @"key2"
+#define kBeaconsEnabled @"ibm-ibeacons-enabled"
+
 

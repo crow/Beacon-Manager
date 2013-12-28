@@ -44,7 +44,7 @@
     
     //add observer to kMotherShipiBeaconsEnabled keypath, will call observeValueForKeyPath
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:kMotherShipiBeaconsEnabled
+                                            forKeyPath:kBeaconsEnabled
                                                options:NSKeyValueObservingOptionNew
                                                context:NULL];
     return self;
@@ -72,7 +72,7 @@
 
 -(void)checkiBeaconsEnabledState
 {
-    if([[NSUserDefaults standardUserDefaults] objectForKey:kMotherShipiBeaconsEnabled] == nil)
+    if([[NSUserDefaults standardUserDefaults] objectForKey:kBeaconsEnabled] == nil)
     {
         //if no saved switch state set to YES by default
         self.ibeaconsEnabled = YES;
@@ -80,7 +80,7 @@
     else
     {
         //ui will store switch state under kMotherShipiBeaconsEnabled
-        self.ibeaconsEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kMotherShipiBeaconsEnabled];
+        self.ibeaconsEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kBeaconsEnabled];
     }
     
     //enable montoring based on switch state
@@ -473,10 +473,10 @@
     return nil;
 }
 
-//called whenever kMotherShipiBeaconsEnabled changes
+////called whenever kMotherShipiBeaconsEnabled changes
 - (void)observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context
 {
-    if([keyPath isEqual:kMotherShipiBeaconsEnabled])
+    if([keyPath isEqual:kBeaconsEnabled])
     {
         [self checkiBeaconsEnabledState];
     }
