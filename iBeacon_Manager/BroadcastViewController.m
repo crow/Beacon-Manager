@@ -1,15 +1,15 @@
 
-#import "ALConfigurationViewController.h"
+#import "BroadcastViewController.h"
 
 #import <CoreLocation/CoreLocation.h>
 
-@interface ALConfigurationViewController ()
+@interface BroadcastViewController ()
 
 - (void)configurationChanged:(id)sender;
 
 @end
 
-@implementation ALConfigurationViewController
+@implementation BroadcastViewController
 {
     CBPeripheralManager *_peripheralManager;
     

@@ -17,12 +17,12 @@
 
 @implementation BeaconViewController
 {
-    NSMutableDictionary *beacons;
-    CLBeaconRegion *selectedBeaconRegion;
-    CLBeacon *selectedBeacon;
-    UIImage *whiteMarker;
-    UIImage *greenMarker;
-    int refreshCount;
+    NSMutableDictionary *_beacons;
+    CLBeaconRegion *_selectedBeaconRegion;
+    CLBeacon *_selectedBeacon;
+    UIImage *_whiteMarker;
+    UIImage *_greenMarker;
+    int _refreshCount;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -42,11 +42,11 @@
     [[BeaconRegionManager shared] loadMonitoredRegions];
 
     //Initialize reused tableview images
-    greenMarker = [[UIImage alloc] init];
-    greenMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-ping@2x" ofType:@"png"]];
+    _greenMarker = [[UIImage alloc] init];
+    _greenMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-ping@2x" ofType:@"png"]];
     
-    whiteMarker = [[UIImage alloc] init];
-    whiteMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-pin@2x" ofType:@"png"]];
+    _whiteMarker = [[UIImage alloc] init];
+    _whiteMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-pin@2x" ofType:@"png"]];
     
     //register for ranging beacons notification
     [[NSNotificationCenter defaultCenter]
@@ -55,17 +55,17 @@
      name:@"managerDidRangeBeacons"
      object:nil];
     
-    refreshCount = 0;
+    _refreshCount = 0;
 }
 
 - (void)managerDidRangeBeacons
 {
     //reloads every 3 seconds for better responsiveness w/o table view jerk
-    if (refreshCount > 2){
-        refreshCount = 0;
+    if (_refreshCount > 2){
+        _refreshCount = 0;
         [self.tableView reloadData];
     }
-    refreshCount++;
+    _refreshCount++;
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,8 +96,8 @@
  
     NSArray *availableManagedBeaconRegionsList = [[BeaconRegionManager shared] availableManagedBeaconRegionsList]; //[NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
     
-    selectedBeaconRegion = availableManagedBeaconRegionsList[indexPath.row];
-    selectedBeacon = [[BeaconRegionManager shared] beaconWithId:selectedBeaconRegion.identifier];
+    _selectedBeaconRegion = availableManagedBeaconRegionsList[indexPath.row];
+    _selectedBeacon = [[BeaconRegionManager shared] beaconWithId:_selectedBeaconRegion.identifier];
     
     // Configure the cell...
     if (cell == nil)
@@ -106,30 +106,30 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
     
-    [cell.textLabel setText:selectedBeaconRegion.identifier];
+    [cell.textLabel setText:_selectedBeaconRegion.identifier];
     
     //iBeacon is in range
-    if ([selectedBeacon accuracy] > 0)
+    if ([_selectedBeacon accuracy] > 0)
     {
-        cell.imageView.image = greenMarker;
+        cell.imageView.image = _greenMarker;
     }
     //iBeacon has been seen, but has gone out of range
-    else if ([selectedBeacon accuracy] == -1)
+    else if ([_selectedBeacon accuracy] == -1)
     {
         //fade green marker to white
         [UIView animateWithDuration:1.0 delay:0.f options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse
                          animations:^{
-                             cell.imageView.image = whiteMarker;
+                             cell.imageView.image = _whiteMarker;
                          } completion:^(BOOL finished){
                              cell.imageView.alpha=1.f;
                          }];
     }
     //iBeacon has never been seen
     else{
-        cell.imageView.image = whiteMarker;
+        cell.imageView.image = _whiteMarker;
     }
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [selectedBeaconRegion.proximityUUID UUIDString], selectedBeaconRegion.major ? selectedBeaconRegion.major : @"None", selectedBeaconRegion.minor ? selectedBeaconRegion.minor : @"None"];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [_selectedBeaconRegion.proximityUUID UUIDString], _selectedBeaconRegion.major ? _selectedBeaconRegion.major : @"None", _selectedBeaconRegion.minor ? _selectedBeaconRegion.minor : @"None"];
     
     return cell;
 }
@@ -139,8 +139,8 @@
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     //NOTE setting the selected beacon region and selected beacon in this way will cause issue if IDs are not unique
-    selectedBeaconRegion = [[BeaconRegionManager shared] beaconRegionWithId:cell.textLabel.text];
-    selectedBeacon = [[BeaconRegionManager shared] beaconWithId:cell.textLabel.text];
+    _selectedBeaconRegion = [[BeaconRegionManager shared] beaconRegionWithId:cell.textLabel.text];
+    _selectedBeacon = [[BeaconRegionManager shared] beaconWithId:cell.textLabel.text];
     [self performSegueWithIdentifier:@"beaconSettings" sender:self];
     
 }
@@ -153,8 +153,8 @@
         // Get reference to the destination view controller
         BeaconSettingsViewController *vc = [segue destinationViewController];
 
-        vc.beaconRegion = selectedBeaconRegion;
-        vc.beacon = selectedBeacon;
+        vc.beaconRegion = _selectedBeaconRegion;
+        vc.beacon = _selectedBeacon;
     }
 }
 

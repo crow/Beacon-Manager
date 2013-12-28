@@ -18,11 +18,11 @@
 
 @implementation BeaconListViewController
 {
-    IBOutlet UIButton *emailButton;
-    IBOutlet UITextField *urlTextField;
-    IBOutlet UIButton *loadButton;
-    IBOutlet UITableViewCell *availableBeaconsCell;
-    NSURL *lastUrl;
+    IBOutlet UIButton *_emailButton;
+    IBOutlet UITextField *_urlTextField;
+    IBOutlet UIButton *_loadButton;
+    IBOutlet UITableViewCell *_availableBeaconsCell;
+    NSURL *_lastUrl;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -46,7 +46,7 @@
     self.view.userInteractionEnabled = TRUE;
     [super viewDidLoad];
     //[PlistManager shared];
-    lastUrl = [[NSUserDefaults standardUserDefaults] URLForKey:@"lastUrl"];
+    _lastUrl = [[NSUserDefaults standardUserDefaults] URLForKey:@"lastUrl"];
     //[[BeaconRegionManager shared] loadAvailableRegions];
     [self beaconLoadCheck];
 }
@@ -54,9 +54,9 @@
 - (void)hideKeyboard
 {
     //update field values on keyboard hide
-    lastUrl = [NSURL URLWithString:urlTextField.text];
+    _lastUrl = [NSURL URLWithString:_urlTextField.text];
     [[NSUserDefaults standardUserDefaults]
-     setURL:lastUrl forKey:@"lastUrl"];
+     setURL:_lastUrl forKey:@"lastUrl"];
     
     [self.view endEditing:YES];
 }
@@ -75,7 +75,7 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    NSURL *url = [NSURL URLWithString:urlTextField.text];
+    NSURL *url = [NSURL URLWithString:_urlTextField.text];
     // the user clicked OK
     if (buttonIndex == 0)
     {
@@ -94,17 +94,17 @@
 {
     if ([[BeaconRegionManager shared] availableManagedBeaconRegionsList])
     {
-        availableBeaconsCell.hidden = NO;
+        _availableBeaconsCell.hidden = NO;
         [UIView animateWithDuration:1 animations:^() {
-            availableBeaconsCell.alpha = 1.0;
+            _availableBeaconsCell.alpha = 1.0;
         }];
-        availableBeaconsCell.userInteractionEnabled = YES;
+        _availableBeaconsCell.userInteractionEnabled = YES;
     }
     else
     {
-        availableBeaconsCell.hidden = YES;
-        availableBeaconsCell.alpha = 0;
-        availableBeaconsCell.userInteractionEnabled = NO;
+        _availableBeaconsCell.hidden = YES;
+        _availableBeaconsCell.alpha = 0;
+        _availableBeaconsCell.userInteractionEnabled = NO;
     }
 }
 
@@ -116,14 +116,14 @@
         [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
         //initialize ibeacon manager, load iBeacon plist, load available regions, start monitoring available regions
         // url exists
-        [[[BeaconRegionManager shared] plistManager] loadHostedPlistWithUrl:[NSURL URLWithString:urlTextField.text]];
+        [[[BeaconRegionManager shared] plistManager] loadHostedPlistWithUrl:[NSURL URLWithString:_urlTextField.text]];
         [[BeaconRegionManager shared] startManager];
 
-        availableBeaconsCell.hidden = NO;
+        _availableBeaconsCell.hidden = NO;
         [UIView animateWithDuration:1 animations:^() {
-            availableBeaconsCell.alpha = 1.0;
+            _availableBeaconsCell.alpha = 1.0;
         }];
-        availableBeaconsCell.userInteractionEnabled = YES;
+        _availableBeaconsCell.userInteractionEnabled = YES;
     }
 }
 

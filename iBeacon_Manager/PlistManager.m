@@ -3,11 +3,11 @@
 
 @implementation PlistManager
 {
-    NSFileManager* manager;
-    NSArray *uuidToTitleKey;
-    NSArray *availableBeaconRegions;
-    NSArray *plistBeaconContentsArray;
-    NSArray *plistRegionContentsArray;
+    NSFileManager *_manager;
+    NSArray *_uuidToTitleKey;
+    NSArray *_availableBeaconRegions;
+    NSArray *_plistBeaconContentsArray;
+    NSArray *_plistRegionContentsArray;
 }
 
 - (id)init
@@ -36,7 +36,7 @@
 {
     //initialize with local list
     NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"CKO" ofType:@"plist"];
-    plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
+    _plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
     
     [self loadAvailableBeaconRegionsList];
     [self loadReadableBeaconRegions];
@@ -46,7 +46,7 @@
 {
     //
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfURL:url];
+        _plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfURL:url];
         [self getAvailableBeaconRegionsList];
         [self loadReadableBeaconRegions];
         
@@ -61,7 +61,7 @@
 - (NSArray*) buildBeaconRegionDataFromPlist
 {
     NSMutableArray *managedBeaconRegions = [NSMutableArray array];
-    for(NSDictionary *beaconDict in plistBeaconContentsArray)
+    for(NSDictionary *beaconDict in _plistBeaconContentsArray)
     {
         CLBeaconRegion *beaconRegion = [self mapDictionaryToBeacon:beaconDict];
         if (beaconRegion != nil)
@@ -119,7 +119,7 @@
     NSMutableArray *readableBeaconArray = [[NSMutableArray alloc] initWithCapacity:[self.availableBeaconRegionsList count]];
     NSString *currentReadableBeacon;
     
-    for (CLBeaconRegion *beaconRegion in availableBeaconRegions)
+    for (CLBeaconRegion *beaconRegion in _availableBeaconRegions)
     {
         currentReadableBeacon = [NSString stringWithFormat:@"%@ - %@", [beaconRegion identifier], [[beaconRegion proximityUUID] UUIDString]];
         [readableBeaconArray addObject:currentReadableBeacon];

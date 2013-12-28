@@ -22,9 +22,9 @@
 @end
 
 @implementation BeaconStatsViewController {
-    NSMutableDictionary *beaconStats;
-    double lastEntry;
-    double lastExit;
+    NSMutableDictionary *_beaconStats;
+    double _lastEntry;
+    double _lastExit;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -79,8 +79,8 @@
     self.lastExitLabel.text = [NSString stringWithFormat:@"%f",[[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier]];
     
     //only update total last visit time when exit is after entry
-    if (lastEntry-lastExit < 0) {
-        self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"%1.0f Seconds", lastExit-lastEntry];
+    if (_lastEntry-_lastExit < 0) {
+        self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"%1.0f Seconds", _lastExit-_lastEntry];
     }
     else {
         self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"Waiting for exit..."];

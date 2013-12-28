@@ -32,7 +32,7 @@
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BeaconCell" textLabel="NHq-zm-Nxn" detailTextLabel="Jvp-VW-Ts2" imageView="pvy-nH-039" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="Mh8-qV-ArC">
-                                <rect key="frame" x="0.0" y="119" width="320" height="64"/>
+                                <rect key="frame" x="0.0" y="75" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mh8-qV-ArC" id="iMW-FE-g6w">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="63"/>
@@ -428,27 +428,27 @@
                     <tabBarItem key="tabBarItem" title="Beacon List" image="731-cloud-download.png" id="e1q-vm-9IV"/>
                     <navigationItem key="navigationItem" id="aX6-HB-dcf"/>
                     <connections>
-                        <outlet property="availableBeaconsCell" destination="gHP-Rx-XH9" id="coJ-ps-z4d"/>
-                        <outlet property="emailButton" destination="wjV-je-yFw" id="unC-ng-PiI"/>
-                        <outlet property="loadButton" destination="8C2-AR-3HT" id="l9A-KD-R00"/>
-                        <outlet property="urlTextField" destination="Woo-TM-equ" id="MUK-Y2-Xqy"/>
+                        <outlet property="_availableBeaconsCell" destination="gHP-Rx-XH9" id="UPF-YJ-jih"/>
+                        <outlet property="_emailButton" destination="wjV-je-yFw" id="QG0-Aj-yDV"/>
+                        <outlet property="_loadButton" destination="8C2-AR-3HT" id="jU9-rW-o1T"/>
+                        <outlet property="_urlTextField" destination="Woo-TM-equ" id="D6I-VN-XON"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BQP-wH-jmA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="175" y="800"/>
         </scene>
-        <!--Configuration View Controller-->
+        <!--Broadcast View Controller-->
         <scene sceneID="tx8-Bv-0iu">
             <objects>
-                <tableViewController id="tnr-aT-O49" customClass="ALConfigurationViewController" sceneMemberID="viewController">
+                <tableViewController id="tnr-aT-O49" customClass="BroadcastViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="mYq-9d-W2s">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="SQn-bN-zq0">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SQn-bN-zq0" id="yrP-1k-DPd">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
