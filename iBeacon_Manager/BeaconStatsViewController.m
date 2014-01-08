@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *averageVisitTimeLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *recordStatsSwitch;
 
-
 @end
 
 @implementation BeaconStatsViewController {
@@ -61,22 +60,19 @@
      object:nil];
 }
 
-
-
 -(void)viewDidDisappear:(BOOL)animated
 {
 
 }
 
-
 -(void)loadBeaconStats
 {
 
- 
-    
     self.lastEntryLabel.text = [NSString stringWithFormat:@"%f",[[BeaconRegionManager shared] lastEntryForIdentifier:self.beaconRegion.identifier]];
 
     self.lastExitLabel.text = [NSString stringWithFormat:@"%f",[[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier]];
+    
+    self.cumulativeVisitTimeLabel.text = [NSString stringWithFormat:@"%f",[[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier]];
     
     //only update total last visit time when exit is after entry
     if (_lastEntry-_lastExit < 0) {
@@ -85,16 +81,12 @@
     else {
         self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"Waiting for exit..."];
     }
-  
-    
-
 }
 
 - (void)managerDidRangeBeacons
 {
     //continuosly update beaconstats
     [self loadBeaconStats];
-
 }
 
 -(NSString *)dateStringFromInterval:(NSTimeInterval)interval
@@ -103,14 +95,6 @@
     NSString *dateString = [NSDateFormatter localizedStringFromDate:date
                                                           dateStyle:NSDateFormatterShortStyle
                                                           timeStyle:NSDateFormatterShortStyle];
-
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"yyyy"];
-//    
-//    //Optionally for time zone converstions
-//    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"PDT"]];
-//    
-//    NSString *stringFromDate = [formatter stringFromDate:dateString];
     return dateString;
 }
 
@@ -128,17 +112,14 @@
     }
     else
     {
-        
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Would you like to delete your current statistics data for this beacon?" message:nil delegate:self
                               cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         [alert show];
     }
-    
    //save switch state in NSUserDefaults
     [[NSUserDefaults standardUserDefaults]
      setBool:recordStatsSwitchState forKey:@"recordStatsSwitchState"];
-    
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -153,7 +134,5 @@
     
     }
 }
-
-
 
 @end

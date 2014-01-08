@@ -47,6 +47,11 @@
 
 - (void)managerDidRangeBeacons
 {
+    [self updateView];
+}
+
+-(void)updateView
+{
     NSString *proximity;
     NSString *rssi;
     
@@ -55,7 +60,6 @@
     self.rssiLabel.text = rssi;
     self.proximityLabel.text = proximity;
 }
-
 
 - (IBAction)monitorSwitchTouched:(id)sender
 {
@@ -113,40 +117,10 @@
 
 -(void)loadSwitchStates
 {
-   //this is ugly, can probably be handled with ternary operators
-    if ([[BeaconRegionManager shared] isMonitored:self.beaconRegion])
-    {
-        [self.monitorSwitch setOn:YES];
-    }
-    else{
-        [self.monitorSwitch setOn:NO];
-    }
-
-    if (self.beaconRegion.notifyOnEntry == YES)
-    {
-        [self.noteEntrySwitch setOn:YES];
-    }
-    else{
-        [self.noteEntrySwitch setOn:NO];
-    }
-
-    
-    if (self.beaconRegion.notifyOnExit == YES)
-    {
-        [self.noteExitSwitch setOn:YES];
-    }
-    else{
-        [self.noteExitSwitch setOn:NO];
-    }
-    
-    
-    if (self.beaconRegion.notifyEntryStateOnDisplay == YES)
-    {
-        [self.noteEntryOnDisplaySwitch setOn:YES];
-    }
-    else{
-        [self.noteEntryOnDisplaySwitch setOn:NO];
-    }
+    [self.monitorSwitch setOn:[[BeaconRegionManager shared] isMonitored:self.beaconRegion]];
+    [self.noteEntrySwitch setOn:self.beaconRegion.notifyOnEntry];
+    [self.noteExitSwitch setOn:self.beaconRegion.notifyOnExit];
+    [self.noteEntryOnDisplaySwitch setOn:self.beaconRegion.notifyEntryStateOnDisplay];
 }
 
 - (void)didReceiveMemoryWarning

@@ -92,7 +92,7 @@
 //helper for determining if a beacon list has been loaded
 -(void)beaconLoadCheck
 {
-    if ([[BeaconRegionManager shared] availableManagedBeaconRegionsList])
+    if ([[BeaconRegionManager shared] availableBeaconRegionsList])
     {
         _availableBeaconsCell.hidden = NO;
         [UIView animateWithDuration:1 animations:^() {

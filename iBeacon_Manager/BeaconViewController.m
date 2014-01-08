@@ -39,7 +39,7 @@
 
     //Load the available managed beacon regions and update monitored regions
     [[BeaconRegionManager shared] loadAvailableRegions];
-    [[BeaconRegionManager shared] loadMonitoredRegions];
+    [[BeaconRegionManager shared] syncMonitoredRegions];
 
     //Initialize reused tableview images
     _greenMarker = [[UIImage alloc] init];
@@ -85,7 +85,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[BeaconRegionManager shared] availableManagedBeaconRegionsList].count;
+    return [[BeaconRegionManager shared] availableBeaconRegionsList].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,7 +94,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
  
-    NSArray *availableManagedBeaconRegionsList = [[BeaconRegionManager shared] availableManagedBeaconRegionsList]; //[NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
+    NSArray *availableManagedBeaconRegionsList = [[BeaconRegionManager shared] availableBeaconRegionsList]; //[NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
     
     _selectedBeaconRegion = availableManagedBeaconRegionsList[indexPath.row];
     _selectedBeacon = [[BeaconRegionManager shared] beaconWithId:_selectedBeaconRegion.identifier];
