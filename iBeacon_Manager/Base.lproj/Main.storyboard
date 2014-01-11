@@ -438,10 +438,10 @@
             </objects>
             <point key="canvasLocation" x="175" y="800"/>
         </scene>
-        <!--Broadcast View Controller-->
+        <!--Beacon Broadcast View Controller-->
         <scene sceneID="tx8-Bv-0iu">
             <objects>
-                <tableViewController id="tnr-aT-O49" customClass="BroadcastViewController" sceneMemberID="viewController">
+                <tableViewController id="tnr-aT-O49" customClass="BeaconBroadcastViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="mYq-9d-W2s">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

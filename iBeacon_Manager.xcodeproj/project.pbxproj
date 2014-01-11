@@ -34,7 +34,7 @@
 		44E6C1CC17FE29A200CD88AE /* BeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C1CB17FE29A200CD88AE /* BeaconViewController.m */; };
 		44EFC67B181CA11D007C1B1B /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44EFC67A181CA11D007C1B1B /* AirshipConfig.plist */; };
 		6139C7DB186E480A00D72E45 /* BeaconRegionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */; };
-		6139C7DE186E482700D72E45 /* PlistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139C7DD186E482700D72E45 /* PlistManager.m */; };
+		6139C7DE186E482700D72E45 /* BeaconPlistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139C7DD186E482700D72E45 /* BeaconPlistManager.m */; };
 		6153AD681836E7BE004E8C17 /* 722-location-ping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6153AD671836E7BE004E8C17 /* 722-location-ping@2x.png */; };
 		6153AD89183B0BD8004E8C17 /* 731-cloud-download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6153AD88183B0BD8004E8C17 /* 731-cloud-download@2x.png */; };
 		6153AD8B183B0DA3004E8C17 /* 760-refresh-3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6153AD8A183B0DA3004E8C17 /* 760-refresh-3@2x.png */; };
@@ -63,7 +63,7 @@
 		6194E3BF18469DFA00F26217 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3AE18469DFA00F26217 /* iTunesArtwork@2x */; };
 		6194E3C018469DFA00F26217 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3AF18469DFA00F26217 /* iTunesArtwork@2x.png */; };
 		6194E3C218469E1700F26217 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3C118469E1700F26217 /* iTunesArtwork.png */; };
-		61ADB691185AAD2800542929 /* BroadcastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61ADB690185AAD2800542929 /* BroadcastViewController.m */; };
+		61ADB691185AAD2800542929 /* BeaconBroadcastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61ADB690185AAD2800542929 /* BeaconBroadcastViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,8 +118,8 @@
 		44EFC67A181CA11D007C1B1B /* AirshipConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = AirshipConfig.plist; sourceTree = "<group>"; };
 		6139C7D9186E480A00D72E45 /* BeaconRegionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconRegionManager.h; sourceTree = "<group>"; };
 		6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconRegionManager.m; sourceTree = "<group>"; };
-		6139C7DC186E482700D72E45 /* PlistManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlistManager.h; sourceTree = "<group>"; };
-		6139C7DD186E482700D72E45 /* PlistManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlistManager.m; sourceTree = "<group>"; };
+		6139C7DC186E482700D72E45 /* BeaconPlistManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconPlistManager.h; sourceTree = "<group>"; };
+		6139C7DD186E482700D72E45 /* BeaconPlistManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconPlistManager.m; sourceTree = "<group>"; };
 		6139C7DF186E486F00D72E45 /* BeaconManagerValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BeaconManagerValues.h; sourceTree = "<group>"; };
 		6153AD671836E7BE004E8C17 /* 722-location-ping@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "722-location-ping@2x.png"; sourceTree = "<group>"; };
 		6153AD88183B0BD8004E8C17 /* 731-cloud-download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "731-cloud-download@2x.png"; sourceTree = "<group>"; };
@@ -151,8 +151,8 @@
 		6194E3AE18469DFA00F26217 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		6194E3AF18469DFA00F26217 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		6194E3C118469E1700F26217 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
-		61ADB68F185AAD2800542929 /* BroadcastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BroadcastViewController.h; sourceTree = "<group>"; };
-		61ADB690185AAD2800542929 /* BroadcastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BroadcastViewController.m; sourceTree = "<group>"; };
+		61ADB68F185AAD2800542929 /* BeaconBroadcastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconBroadcastViewController.h; sourceTree = "<group>"; };
+		61ADB690185AAD2800542929 /* BeaconBroadcastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconBroadcastViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,8 +236,8 @@
 				440E860317F5140E00D191A2 /* Main.storyboard */,
 				6139C7D9186E480A00D72E45 /* BeaconRegionManager.h */,
 				6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */,
-				6139C7DC186E482700D72E45 /* PlistManager.h */,
-				6139C7DD186E482700D72E45 /* PlistManager.m */,
+				6139C7DC186E482700D72E45 /* BeaconPlistManager.h */,
+				6139C7DD186E482700D72E45 /* BeaconPlistManager.m */,
 				44E6C1CA17FE29A200CD88AE /* BeaconViewController.h */,
 				44E6C1CB17FE29A200CD88AE /* BeaconViewController.m */,
 				4498CDC31826EC8A001EC26B /* BeaconSettingsViewController.h */,
@@ -247,8 +247,8 @@
 				6139C7DF186E486F00D72E45 /* BeaconManagerValues.h */,
 				61564A2C183B102100D87AF2 /* BeaconListViewController.h */,
 				61564A2D183B102100D87AF2 /* BeaconListViewController.m */,
-				61ADB68F185AAD2800542929 /* BroadcastViewController.h */,
-				61ADB690185AAD2800542929 /* BroadcastViewController.m */,
+				61ADB68F185AAD2800542929 /* BeaconBroadcastViewController.h */,
+				61ADB690185AAD2800542929 /* BeaconBroadcastViewController.m */,
 				440E85F817F5140E00D191A2 /* Supporting Files */,
 			);
 			path = iBeacon_Manager;
@@ -458,12 +458,12 @@
 				6192602E1835A17C00143F5A /* BeaconStatsViewController.m in Sources */,
 				4498CDC51826EC8A001EC26B /* BeaconSettingsViewController.m in Sources */,
 				44E6C1CC17FE29A200CD88AE /* BeaconViewController.m in Sources */,
-				61ADB691185AAD2800542929 /* BroadcastViewController.m in Sources */,
+				61ADB691185AAD2800542929 /* BeaconBroadcastViewController.m in Sources */,
 				440E860217F5140E00D191A2 /* AppDelegate.m in Sources */,
 				440E85FE17F5140E00D191A2 /* main.m in Sources */,
 				6139C7DB186E480A00D72E45 /* BeaconRegionManager.m in Sources */,
 				61564A2E183B102100D87AF2 /* BeaconListViewController.m in Sources */,
-				6139C7DE186E482700D72E45 /* PlistManager.m in Sources */,
+				6139C7DE186E482700D72E45 /* BeaconPlistManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

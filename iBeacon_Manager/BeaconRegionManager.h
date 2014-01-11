@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "PlistManager.h"
+#import "BeaconPlistManager.h"
 
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
 static dispatch_once_t pred = 0; \
@@ -25,9 +25,9 @@ return _sharedObject; \
 @property  (nonatomic, assign) BOOL ibeaconsEnabled;
 
 //plist manager for managing local (sample) and remotely hosted plists
-@property (strong, nonatomic, readonly) PlistManager *plistManager;
+@property (strong, nonatomic, readonly) BeaconPlistManager *plistManager;
 //ranged beacons from didRangeBeacons callback
-@property (strong, nonatomic, readonly) NSArray *rangedBeacons;
+@property (strong, nonatomic, readonly) NSArray *currentRangedBeacons;
 //detailed ranged dictionary ordered by zone (unknown, immediate, near, far)
 @property (strong, nonatomic, readonly) NSDictionary *rangedBeaconsDetailed;
 //beacons that are currently monitored (same as available managed beacon regions by default)

@@ -31,11 +31,7 @@
     [super viewDidLoad];
     self.title = self.beaconRegion.identifier;
     [self loadSwitchStates];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
     self.monitorLabel.text = [NSString stringWithFormat:@"Monitor %@", self.beaconRegion.identifier];
     
     [[NSNotificationCenter defaultCenter]
@@ -76,41 +72,19 @@
 
 - (IBAction)notifyOnEntrySwitchTouched:(id)sender
 {
-    //if ON
-    if ([sender isOn]) {
-        self.beaconRegion.notifyOnEntry = YES;
-    }
-    else{
-        self.beaconRegion.notifyOnEntry = NO;
-
-    }
-    
+    self.beaconRegion.notifyOnEntry = [sender isOn];
     [self loadSwitchStates];
 }
 
 - (IBAction)notifyOnExitSwitchTouched:(id)sender
 {
-    if ([sender isOn]) {
-        self.beaconRegion.notifyOnExit= YES;
-    }
-    else{
-        self.beaconRegion.notifyOnExit = NO;
-        
-    }
-    
+    self.beaconRegion.notifyOnExit = [sender isOn];
     [self loadSwitchStates];
 }
 
 - (IBAction)notifyEntryOnDisplaySwitchTouched:(id)sender
 {
-    if ([sender isOn]) {
-        self.beaconRegion.notifyEntryStateOnDisplay = YES;
-    }
-    else{
-        self.beaconRegion.notifyEntryStateOnDisplay = NO;
-        
-    }
-    
+    self.beaconRegion.notifyEntryStateOnDisplay = [sender isOn];
     [self loadSwitchStates];
 }
 
@@ -138,8 +112,6 @@
         BeaconStatsViewController *vc = [segue destinationViewController];
         vc.beaconRegion = self.beaconRegion;
         vc.beacon = self.beacon;
-        // Pass any objects to the view controller here, like...
-        //[vc setMyObjectHere:object];
     }
 }
 

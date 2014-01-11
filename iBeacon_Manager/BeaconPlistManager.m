@@ -1,7 +1,7 @@
-#import "PlistManager.h"
+#import "BeaconPlistManager.h"
 
 
-@implementation PlistManager
+@implementation BeaconPlistManager
 {
     NSFileManager *_manager;
     NSArray *_uuidToTitleKey;
@@ -22,8 +22,6 @@
     
     return self;
 }
-
-
 
 -(NSArray*)getAvailableBeaconRegionsList
 {
@@ -47,7 +45,7 @@
     //
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         _plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfURL:url];
-        [self getAvailableBeaconRegionsList];
+        [self loadAvailableBeaconRegionsList];
         [self loadReadableBeaconRegions];
         
     });

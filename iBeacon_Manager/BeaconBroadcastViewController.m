@@ -1,15 +1,15 @@
 
-#import "BroadcastViewController.h"
+#import "BeaconBroadcastViewController.h"
 
 #import <CoreLocation/CoreLocation.h>
 
-@interface BroadcastViewController ()
+@interface BeaconBroadcastViewController ()
 
 - (void)configurationChanged:(id)sender;
 
 @end
 
-@implementation BroadcastViewController
+@implementation BeaconBroadcastViewController
 {
     CBPeripheralManager *_peripheralManager;
     
