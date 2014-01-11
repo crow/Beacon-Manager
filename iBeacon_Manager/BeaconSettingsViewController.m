@@ -51,6 +51,9 @@
     NSString *proximity;
     NSString *rssi;
     
+    //don't let the beacon get stale - for some reason it was TODO look into why this is necessary
+    self.beacon = [[BeaconRegionManager shared] beaconWithId:self.beaconRegion.identifier];
+    
     rssi = (self.beacon.rssi == 0) ? @"---" : [NSString stringWithFormat:@"%ld", (long)self.beacon.rssi];
     proximity = (self.beacon.rssi == 0) ? @"---" : [NSString stringWithFormat:@"%1.3f ± %d m", self.beacon.accuracy, self.beacon.proximity];
     self.rssiLabel.text = rssi;

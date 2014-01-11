@@ -57,8 +57,9 @@
      name:@"managerDidRangeBeacons"
      object:nil];
     
-    _selectedBeacon = [[CLBeacon alloc] init];
-    _selectedBeaconRegion = [[CLBeaconRegion alloc] init];
+//no need to reallocate these
+//    _selectedBeacon = [[CLBeacon alloc] init];
+//    _selectedBeaconRegion = [[CLBeaconRegion alloc] init];
     
     _refreshCount = 0;
 }

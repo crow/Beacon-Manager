@@ -26,8 +26,6 @@ return _sharedObject; \
 
 //plist manager for managing local (sample) and remotely hosted plists
 @property (strong, nonatomic, readonly) BeaconPlistManager *plistManager;
-//ranged beacons from didRangeBeacons callback
-@property (strong, nonatomic, readonly) NSArray *currentRangedBeacons;
 //detailed ranged dictionary ordered by zone (unknown, immediate, near, far)
 @property (strong, nonatomic, readonly) NSDictionary *rangedBeaconsDetailed;
 //beacons that are currently monitored (same as available managed beacon regions by default)

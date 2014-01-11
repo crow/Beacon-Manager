@@ -27,7 +27,7 @@
     @private
         int _monitoredRegionCount;
         //temporary store for detailed ranging
-        NSMutableDictionary *currentRangedBeacons;
+        NSMutableDictionary *_currentRangedBeacons;
 }
 
 + (BeaconRegionManager *)shared
@@ -45,7 +45,7 @@
     _plistManager = [[BeaconPlistManager alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-    currentRangedBeacons = [[NSMutableDictionary alloc] init];
+    _currentRangedBeacons = [[NSMutableDictionary alloc] init];
     _monitoredRegionCount = 0;
     
     //add observer to kMotherShipiBeaconsEnabled keypath, will call observeValueForKeyPath
@@ -208,18 +208,19 @@
     // CoreLocation will call this delegate method at 1 Hz once for each region
     
     //if a mutable array exists under key region.identifier, replace it's contents with the ranged beacons
-    if ([currentRangedBeacons objectForKey:region.identifier] && [[currentRangedBeacons objectForKey:region.identifier] isKindOfClass:[NSMutableArray class]])
+    if ([_currentRangedBeacons objectForKey:region.identifier] && [[_currentRangedBeacons objectForKey:region.identifier] isKindOfClass:[NSMutableArray class]])
     {
         
-        NSMutableArray *currentBeaconsInRegion = [currentRangedBeacons objectForKey:region.identifier];
+        NSMutableArray *currentBeaconsInRegion = [_currentRangedBeacons objectForKey:region.identifier];
         currentBeaconsInRegion = [NSMutableArray arrayWithArray:beacons];
+        [_currentRangedBeacons setObject:currentBeaconsInRegion forKey:region.identifier];
     }
     //if no mutable array exists under key, allocate mutable array and replace with ranged beacons
     else
     {
         NSMutableArray *currentBeaconsInRegion = [[NSMutableArray alloc] initWithArray:beacons];
         //place current ranged beacons for this region under this region's key
-        [currentRangedBeacons setObject:currentBeaconsInRegion forKey:region.identifier];
+        [_currentRangedBeacons setObject:currentBeaconsInRegion forKey:region.identifier];
     }
     //else create the dictionary with the identifier of the beacon region
     
@@ -456,24 +457,24 @@
 -(void)updateVistedStatsForRangedBeacons:(NSArray *)rangedBeacons
 {
     //[tmpRangedBeacons removeAllObjects];
-    NSArray *unknownBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityUnknown]];
-    if([unknownBeacons count])
-        [currentRangedBeacons setObject:unknownBeacons forKey:[NSNumber numberWithInt:CLProximityUnknown]];
-    
-    NSArray *immediateBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityImmediate]];
-    if([immediateBeacons count])
-        [currentRangedBeacons setObject:immediateBeacons forKey:[NSNumber numberWithInt:CLProximityImmediate]];
-    
-    NSArray *nearBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityNear]];
-    if([nearBeacons count])
-        [currentRangedBeacons setObject:nearBeacons forKey:[NSNumber numberWithInt:CLProximityNear]];
-    
-    NSArray *farBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityFar]];
-    if([farBeacons count])
-        [currentRangedBeacons setObject:farBeacons forKey:[NSNumber numberWithInt:CLProximityFar]];
-    
-    //set read only parameter for detailed ranged beacons
-    _rangedBeaconsDetailed = currentRangedBeacons;
+//    NSArray *unknownBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityUnknown]];
+//    if([unknownBeacons count])
+//        [currentRangedBeacons setObject:unknownBeacons forKey:[NSNumber numberWithInt:CLProximityUnknown]];
+//    
+//    NSArray *immediateBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityImmediate]];
+//    if([immediateBeacons count])
+//        [currentRangedBeacons setObject:immediateBeacons forKey:[NSNumber numberWithInt:CLProximityImmediate]];
+//    
+//    NSArray *nearBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityNear]];
+//    if([nearBeacons count])
+//        [currentRangedBeacons setObject:nearBeacons forKey:[NSNumber numberWithInt:CLProximityNear]];
+//    
+//    NSArray *farBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityFar]];
+//    if([farBeacons count])
+//        [currentRangedBeacons setObject:farBeacons forKey:[NSNumber numberWithInt:CLProximityFar]];
+//    
+//    //set read only parameter for detailed ranged beacons
+//    _rangedBeaconsDetailed = currentRangedBeacons;
 }
 
 #pragma non-essential helpers
@@ -494,9 +495,18 @@
 -(CLBeacon *)beaconWithId:(NSString *)identifier
 {
     CLBeaconRegion *beaconRegion = [self beaconRegionWithId:identifier];
-    for (CLBeacon *beacon in self.currentRangedBeacons){
-        if ([[beacon.proximityUUID UUIDString] isEqualToString:[beaconRegion.proximityUUID UUIDString]]) {
-            return beacon;
+    NSMutableArray *beacons;
+    //this lever of checking probably isn't completely necessary
+    if ([_currentRangedBeacons objectForKey:identifier] && [[_currentRangedBeacons objectForKey:identifier] isKindOfClass:[NSMutableArray class]]) {
+        beacons = [_currentRangedBeacons objectForKey:identifier];
+    }
+
+    if (beacons)
+    {
+        for (CLBeacon *beacon in beacons){
+            if ([[beacon.proximityUUID UUIDString] isEqualToString:[beaconRegion.proximityUUID UUIDString]]) {
+                return beacon;
+            }
         }
     }
     //No beacon with the specified ID is within range
