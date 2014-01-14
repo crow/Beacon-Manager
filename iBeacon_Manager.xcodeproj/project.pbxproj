@@ -33,6 +33,13 @@
 		44A5F86017F6048900F619C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A5F85F17F6048900F619C1 /* SystemConfiguration.framework */; };
 		44E6C1CC17FE29A200CD88AE /* BeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C1CB17FE29A200CD88AE /* BeaconViewController.m */; };
 		44EFC67B181CA11D007C1B1B /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44EFC67A181CA11D007C1B1B /* AirshipConfig.plist */; };
+		6119CDE11885F59C0023B25B /* libUAirship-3.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6119CDE01885F59C0023B25B /* libUAirship-3.0.2.a */; };
+		6119CDE21885F5F30023B25B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E85F317F5140E00D191A2 /* CoreGraphics.framework */; };
+		6119CDE31885F6220023B25B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A5F85D17F6047900F619C1 /* CoreTelephony.framework */; };
+		6119CDE41885F62C0023B25B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E864D17F5155F00D191A2 /* AudioToolbox.framework */; };
+		6119CDE51885F6320023B25B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A5F85B17F6043500F619C1 /* MapKit.framework */; };
+		6119CDE61885F6440023B25B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865D17F515AC00D191A2 /* Security.framework */; };
+		6119CDE81885F64D0023B25B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6119CDE71885F64C0023B25B /* MobileCoreServices.framework */; };
 		6139C7DB186E480A00D72E45 /* BeaconRegionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */; };
 		6139C7DE186E482700D72E45 /* BeaconPlistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139C7DD186E482700D72E45 /* BeaconPlistManager.m */; };
 		6153AD681836E7BE004E8C17 /* 722-location-ping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6153AD671836E7BE004E8C17 /* 722-location-ping@2x.png */; };
@@ -116,6 +123,8 @@
 		44E6C1CA17FE29A200CD88AE /* BeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconViewController.h; sourceTree = "<group>"; };
 		44E6C1CB17FE29A200CD88AE /* BeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconViewController.m; sourceTree = "<group>"; };
 		44EFC67A181CA11D007C1B1B /* AirshipConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = AirshipConfig.plist; sourceTree = "<group>"; };
+		6119CDE01885F59C0023B25B /* libUAirship-3.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-3.0.2.a"; sourceTree = "<group>"; };
+		6119CDE71885F64C0023B25B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6139C7D9186E480A00D72E45 /* BeaconRegionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconRegionManager.h; sourceTree = "<group>"; };
 		6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconRegionManager.m; sourceTree = "<group>"; };
 		6139C7DC186E482700D72E45 /* BeaconPlistManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconPlistManager.h; sourceTree = "<group>"; };
@@ -160,14 +169,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6119CDE81885F64D0023B25B /* MobileCoreServices.framework in Frameworks */,
+				6119CDE61885F6440023B25B /* Security.framework in Frameworks */,
+				6119CDE51885F6320023B25B /* MapKit.framework in Frameworks */,
+				6119CDE41885F62C0023B25B /* AudioToolbox.framework in Frameworks */,
+				6119CDE31885F6220023B25B /* CoreTelephony.framework in Frameworks */,
+				440E865A17F5159C00D191A2 /* libsqlite3.dylib in Frameworks */,
+				440E85F617F5140E00D191A2 /* UIKit.framework in Frameworks */,
 				44A5F86017F6048900F619C1 /* SystemConfiguration.framework in Frameworks */,
+				6119CDE21885F5F30023B25B /* CoreGraphics.framework in Frameworks */,
 				44A5F85A17F6041D00F619C1 /* MessageUI.framework in Frameworks */,
 				440E865C17F515A500D191A2 /* CFNetwork.framework in Frameworks */,
-				440E865A17F5159C00D191A2 /* libsqlite3.dylib in Frameworks */,
+				6119CDE11885F59C0023B25B /* libUAirship-3.0.2.a in Frameworks */,
 				440E865817F5159300D191A2 /* libz.dylib in Frameworks */,
 				440E865617F5157F00D191A2 /* CoreLocation.framework in Frameworks */,
 				440E865017F5156900D191A2 /* CoreBluetooth.framework in Frameworks */,
-				440E85F617F5140E00D191A2 /* UIKit.framework in Frameworks */,
 				440E85F217F5140E00D191A2 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +222,8 @@
 		440E85F017F5140E00D191A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6119CDE71885F64C0023B25B /* MobileCoreServices.framework */,
+				6119CDE01885F59C0023B25B /* libUAirship-3.0.2.a */,
 				44A5F86117F6049A00F619C1 /* CoreData.framework */,
 				44A5F85F17F6048900F619C1 /* SystemConfiguration.framework */,
 				44A5F85D17F6047900F619C1 /* CoreTelephony.framework */,
@@ -589,10 +607,14 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../Airship/**",
 				);
 				INFOPLIST_FILE = "iBeacon_Manager/iBeacon_Manager-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iBeacon_Manager;
 				PROVISIONING_PROFILE = "";
@@ -615,10 +637,14 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../Airship/**",
 				);
 				INFOPLIST_FILE = "iBeacon_Manager/iBeacon_Manager-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iBeacon_Manager;

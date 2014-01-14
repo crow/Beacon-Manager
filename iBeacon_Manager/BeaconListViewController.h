@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BeaconListViewController : UITableViewController 
+@interface BeaconListViewController : UITableViewController <NSURLConnectionDelegate>
 
 @end

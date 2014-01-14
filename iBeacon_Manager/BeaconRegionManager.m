@@ -8,6 +8,7 @@
 
 #import "BeaconRegionManager.h"
 #import "BeaconManagerValues.h"
+#import "UAPush.h"
 
 #define kiBeaconStats @"ua-mothership-ibeacon-stats"
 #define kBeaconsEnabled @"ibm-ibeacons-enabled"
@@ -240,13 +241,13 @@
     NSTimeInterval lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:region.identifier];
     NSTimeInterval cumulativeTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:region.identifier];
     
-//    [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"Outside-%@", region.identifier]];
-//    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Inside-%@", region.identifier]];
-//    
-//    //[[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Entered-%@_At:%@", region.identifier, [NSDate dateWithTimeIntervalSince1970:lastEntry]]];
-//
-//    UALOG(@"Updating tag");
-//    [[UAPush shared] updateRegistration];
+    [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"Outside-%@", region.identifier]];
+    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Inside-%@", region.identifier]];
+    
+    //[[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Entered-%@_At:%@", region.identifier, [NSDate dateWithTimeIntervalSince1970:lastEntry]]];
+
+    UALOG(@"Updating tag");
+    [[UAPush shared] updateRegistration];
     
     NSLog( @"didEnterRegion %@", region.identifier );
     [self timestampEntryForBeaconRegion:[self beaconRegionWithId:region.identifier]];
@@ -258,13 +259,11 @@
     NSTimeInterval lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:region.identifier];
     NSTimeInterval cumulativeTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:region.identifier];
     
-//    [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"Outside-%@", region.identifier]];
-//    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Inside-%@", region.identifier]];
-//    
-//    //[[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Exited-%@_At:%@_tt:%fs", region.identifier,[NSDate dateWithTimeIntervalSince1970:lastExit],cumulativeTime]];
-//    
-//    UALOG(@"Updating tag");
-//    [[UAPush shared] updateRegistration];
+    [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"Outside-%@", region.identifier]];
+    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Inside-%@", region.identifier]];
+    
+    UALOG(@"Updating tag");
+    [[UAPush shared] updateRegistration];
     
     NSLog(@"didExitRegion %@", region.identifier);
     //exit timestamp includes cumulative time measurement
