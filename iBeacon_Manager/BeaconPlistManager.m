@@ -42,6 +42,22 @@
 
 -(void)loadHostedPlistWithUrl:(NSURL*)url
 {
+    
+//    NSMutableData *data;
+//    
+//    NSURLRequest *request=[NSURLRequest requestWithURL:url
+//                                              cachePolicy:NSURLRequestUseProtocolCachePolicy
+//                                          timeoutInterval:60.0];
+//    
+//    NSURLConnection *connection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
+//    
+//    if (connection) {
+//        data=[NSMutableData data];
+//    } else {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No connection could be made" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [alert show];
+//    }
+    
     //
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         _plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfURL:url];

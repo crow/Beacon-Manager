@@ -3,7 +3,7 @@
 #import <CoreLocation/Corelocation.h>
 #import <Foundation/Foundation.h>
 
-@interface BeaconPlistManager : NSObject
+@interface BeaconPlistManager : NSObject <NSURLConnectionDelegate>
 
 -(NSString *)identifierForUUID:(NSUUID *) uuid;
 -(NSArray *)getAvailableBeaconRegionsList;
