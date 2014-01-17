@@ -67,14 +67,13 @@
 
 -(void)loadBeaconStats
 {
+    
+    self.lastEntryLabel.text = [[BeaconRegionManager shared] lastEntryForIdentifier:self.beaconRegion.identifier] == 0 ? @"---" : [NSString stringWithFormat:@"%@",[NSDate dateWithTimeIntervalSince1970:[[BeaconRegionManager shared] lastEntryForIdentifier:self.beaconRegion.identifier]]];
 
     
-    self.lastEntryLabel.text = [NSString stringWithFormat:@"%@",[NSDate dateWithTimeIntervalSince1970:[[BeaconRegionManager shared] lastEntryForIdentifier:self.beaconRegion.identifier]]];
-
+    self.lastExitLabel.text = [[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier] == 0 ? @"---" : [NSString stringWithFormat:@"%@",[NSDate dateWithTimeIntervalSince1970:[[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier]]];
     
-    self.lastExitLabel.text = [NSString stringWithFormat:@"%@",[NSDate dateWithTimeIntervalSince1970:[[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier]]];
-    
-    self.cumulativeVisitTimeLabel.text = [NSString stringWithFormat:@"%1.0f",[[BeaconRegionManager shared] cumulativeTimeForIdentifier:self.beaconRegion.identifier]];
+    self.cumulativeVisitTimeLabel.text = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:self.beaconRegion.identifier] == 0 ? @"---" : [NSString stringWithFormat:@"%1.0f",[[BeaconRegionManager shared] cumulativeTimeForIdentifier:self.beaconRegion.identifier]];
     
     //only update total last visit time when exit is after entry
     if (_lastExit-_lastEntry > 0) {
@@ -131,7 +130,7 @@
     switch (buttonIndex) {
         case 1:
             //delete all stats for this beacon
-            //[[BeaconRegionManager shared] clearBeaconStats];
+            [[BeaconRegionManager shared] clearBeaconStatsForBeaconRegion:self.beaconRegion];
             break;
         case 2:
             //delete all stats

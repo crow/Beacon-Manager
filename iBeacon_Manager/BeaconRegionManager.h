@@ -68,6 +68,8 @@ return _sharedObject; \
 -(double)cumulativeTimeForIdentifier:(NSString *)identifier;
 //stats mgmt
 -(void)clearBeaconStats;
+-(void)clearBeaconStatsForBeaconRegion:(CLBeaconRegion *)beaconRegion;
+
 
 
 @end

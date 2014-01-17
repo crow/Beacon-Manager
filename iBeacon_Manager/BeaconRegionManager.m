@@ -331,6 +331,14 @@
     [[NSUserDefaults standardUserDefaults] setObject:self.beaconStats forKey:kiBeaconStats];
 }
 
+-(void)clearBeaconStatsForBeaconRegion:(CLBeaconRegion *)beaconRegion
+{
+    if ([self.beaconStats objectForKey:beaconRegion.identifier])
+    {
+    [self.beaconStats setObject:nil forKey:beaconRegion.identifier];
+    }
+    [self saveBeaconStats];
+}
 
 -(NSMutableDictionary *)beaconStatsForIdentifier:(NSString *)identifier
 {
