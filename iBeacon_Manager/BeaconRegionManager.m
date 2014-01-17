@@ -428,6 +428,8 @@
         }
         [self saveBeaconStats];
     }
+    
+    [self calculateCumulativeTimeForBeaconRegion:beaconRegion];
 }
 
 

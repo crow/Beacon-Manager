@@ -68,14 +68,16 @@
 -(void)loadBeaconStats
 {
 
-    self.lastEntryLabel.text = [NSString stringWithFormat:@"%f",[[BeaconRegionManager shared] lastEntryForIdentifier:self.beaconRegion.identifier]];
-
-    self.lastExitLabel.text = [NSString stringWithFormat:@"%f",[[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier]];
     
-    self.cumulativeVisitTimeLabel.text = [NSString stringWithFormat:@"%f",[[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier]];
+    self.lastEntryLabel.text = [NSString stringWithFormat:@"%@",[NSDate dateWithTimeIntervalSince1970:[[BeaconRegionManager shared] lastEntryForIdentifier:self.beaconRegion.identifier]]];
+
+    
+    self.lastExitLabel.text = [NSString stringWithFormat:@"%@",[NSDate dateWithTimeIntervalSince1970:[[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier]]];
+    
+    self.cumulativeVisitTimeLabel.text = [NSString stringWithFormat:@"%1.0f",[[BeaconRegionManager shared] cumulativeTimeForIdentifier:self.beaconRegion.identifier]];
     
     //only update total last visit time when exit is after entry
-    if (_lastEntry-_lastExit < 0) {
+    if (_lastExit-_lastEntry > 0) {
         self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"%1.0f Seconds", _lastExit-_lastEntry];
     }
     else {
@@ -113,8 +115,8 @@
     else
     {
         UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Would you like to delete your current statistics data for this beacon?" message:nil delegate:self
-                              cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                              initWithTitle:@"Would you like to delete your current statistics data?" message:nil delegate:self
+                              cancelButtonTitle:@"No" otherButtonTitles:@"Yes, for this beacon", @"Yes, all stats", nil];
         [alert show];
     }
    //save switch state in NSUserDefaults
@@ -124,14 +126,33 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
+    
+    
+    switch (buttonIndex) {
+        case 1:
+            //delete all stats for this beacon
+            //[[BeaconRegionManager shared] clearBeaconStats];
+            break;
+        case 2:
+            //delete all stats
+            [[BeaconRegionManager shared] clearBeaconStats];
+            break;
+        default:
+            //do nothing (user said no)
+            break;
+    }
     // the user clicked No
     if (buttonIndex == 0)
     {
 
     }
+    if (buttonIndex == 1)
+    {
+        
+    }
     else
     {
-    
+        [[BeaconRegionManager shared] clearBeaconStats];
     }
 }
 
