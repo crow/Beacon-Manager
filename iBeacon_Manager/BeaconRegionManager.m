@@ -15,6 +15,7 @@
 #define kLastEntry @"last-entry"
 #define kLastExit @"last-exit"
 #define kCumulativeTime @"cumulative-time"
+#define kVisits @"visits"
 
 #define kEntryTagPreamble @"inside"
 #define kExitTagPreamble @"outside"
@@ -90,7 +91,6 @@
     }
     else
     {
-    
         self.ibeaconsEnabled =  YES;
     }
 }
@@ -400,8 +400,52 @@
     return 0;
 }
 
+-(double)averageVisitTimeForIdentifier:(NSString *)identifier
+{
+    NSLog(@"No average visit time for that identifier is available");
+    return [self cumulativeTimeForIdentifier:identifier]/[self visitsForIdentifier:identifier];
+}
+
+-(int)visitsForIdentifier:(NSString *)identifier
+{
+    if (self.beaconStats && [self.beaconStats objectForKey:identifier])
+    {
+        NSDictionary *stats = [self.beaconStats objectForKey:identifier];
+        if ([stats objectForKey:kVisits])
+        {
+            return [[stats objectForKey:kVisits] intValue];
+        }
+    }
+    NSLog(@"No visits for that identifier are available");
+    return 0;
+}
+
+-(void)recordVisitForBeaconRegion:(CLBeaconRegion *)beaconRegion
+{
+    if (beaconRegion.identifier)
+    {
+        NSLog(@"visit recorded");
+        //if beaconstats dict is present and there's a visits entry
+        if ([self.beaconStats objectForKey:beaconRegion.identifier] && [self visitsForIdentifier:beaconRegion.identifier] > 0)
+        {
+            NSMutableDictionary *beaconRegionStats = [self.beaconStats objectForKey:beaconRegion.identifier];
+            [beaconRegionStats setObject:[NSNumber numberWithInteger:[self visitsForIdentifier:beaconRegion.identifier] + 1] forKey:kVisits];
+        }
+        else
+        {
+            //create new dictionary for this region and add it to stats
+            NSMutableDictionary *beaconRegionStats = [NSMutableDictionary new];
+            [beaconRegionStats setObject:[NSNumber numberWithInteger:1] forKey:kVisits];
+            [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+        }
+        [self saveBeaconStats];
+    }
+}
 -(void)timestampEntryForBeaconRegion:(CLBeaconRegion *)beaconRegion
 {
+    
+    //record a visit on entry
+    [self recordVisitForBeaconRegion:beaconRegion];
     
     if (beaconRegion.identifier)
     {

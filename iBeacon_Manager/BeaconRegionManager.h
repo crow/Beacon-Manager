@@ -66,6 +66,9 @@ return _sharedObject; \
 -(double)lastEntryForIdentifier:(NSString *)identifier;
 -(double)lastExitForIdentifier:(NSString *)identifier;
 -(double)cumulativeTimeForIdentifier:(NSString *)identifier;
+-(int)visitsForIdentifier:(NSString *)identifier;
+-(double)averageVisitTimeForIdentifier:(NSString *)identifier;
+
 //stats mgmt
 -(void)clearBeaconStats;
 -(void)clearBeaconStatsForBeaconRegion:(CLBeaconRegion *)beaconRegion;

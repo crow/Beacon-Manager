@@ -26,6 +26,8 @@
         double _lastEntry;
         double _lastExit;
         double _cumulativeVisitTime;
+        double _averageVisitTime;
+        int _visits;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -73,17 +75,22 @@
     _lastEntry = [[BeaconRegionManager shared] lastEntryForIdentifier:self.beaconRegion.identifier];
     _lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier];
     _cumulativeVisitTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:self.beaconRegion.identifier];
+    _visits = [[BeaconRegionManager shared] visitsForIdentifier:self.beaconRegion.identifier];
+    _averageVisitTime = [[BeaconRegionManager shared] averageVisitTimeForIdentifier:self.beaconRegion.identifier];
+    
     
     self.lastEntryLabel.text = _lastEntry == 0 ? @"---" : [NSString stringWithFormat:@"%@",[self dateStringFromInterval:_lastEntry]];
     self.lastExitLabel.text = _lastExit == 0 ? @"---" : [NSString stringWithFormat:@"%@",[self dateStringFromInterval:_lastExit]];
     self.cumulativeVisitTimeLabel.text = _cumulativeVisitTime == 0 ? @"---" : [NSString stringWithFormat:@"%1.0f Seconds", _cumulativeVisitTime];
+     self.totalVisitsLabel.text = _visits == 0 ? @"---" : [NSString stringWithFormat:@"%d", _visits];
+     self.averageVisitTimeLabel.text = isnan(_averageVisitTime) || _averageVisitTime == 0 || _averageVisitTime > 99999999 ? @"---" : [NSString stringWithFormat:@"%1.0f Seconds", _averageVisitTime];
     
     //only update total last visit time when exit is after entry
     if (_lastExit-_lastEntry > 0) {
         self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"%1.0f Seconds", _lastExit-_lastEntry];
     }
     else {
-        self.totalLastVisitTimeLabel.text = [NSString stringWithFormat:@"Waiting for exit..."];
+        self.totalLastVisitTimeLabel.text = _lastEntry == 0 ? @"---" : @"Waiting for exit...";
     }
 }
 
