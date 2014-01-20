@@ -16,6 +16,11 @@
 #define kLastExit @"last-exit"
 #define kCumulativeTime @"cumulative-time"
 
+#define kEntryTagPreamble @"inside"
+#define kExitTagPreamble @"outside"
+
+
+
 @interface BeaconRegionManager ()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -109,16 +114,16 @@
     }
 }
 
-//-(void)removeAllBeaconTags
-//{
-//    for (CLBeaconRegion *beaconRegion in self.availableBeaconRegionsList)
-//    {
-//        [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kMotherShipCKOExitTagPreamble, beaconRegion.identifier]];
-//        [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kMotherShipCKOEntryTagPreamble, beaconRegion.identifier]];
-//    }
-//    
-//    [[UAPush shared] updateRegistration];
-//}
+-(void)removeAllBeaconTags
+{
+    for (CLBeaconRegion *beaconRegion in self.availableBeaconRegionsList)
+    {
+        [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kExitTagPreamble, beaconRegion.identifier]];
+        [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, beaconRegion.identifier]];
+    }
+    
+    [[UAPush shared] updateRegistration];
+}
 
 -(void)syncMonitoredRegions
 {
@@ -241,8 +246,8 @@
     NSTimeInterval lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:region.identifier];
     NSTimeInterval cumulativeTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:region.identifier];
     
-    [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"Outside-%@", region.identifier]];
-    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Inside-%@", region.identifier]];
+    [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kExitTagPreamble]];
+    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kEntryTagPreamble]];
     
     //[[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Entered-%@_At:%@", region.identifier, [NSDate dateWithTimeIntervalSince1970:lastEntry]]];
 
@@ -259,8 +264,8 @@
     NSTimeInterval lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:region.identifier];
     NSTimeInterval cumulativeTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:region.identifier];
     
-    [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"Outside-%@", region.identifier]];
-    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Inside-%@", region.identifier]];
+    [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kEntryTagPreamble]];
+    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kExitTagPreamble]];
     
     UALOG(@"Updating tag");
     [[UAPush shared] updateRegistration];
@@ -277,21 +282,21 @@
     // When this happens CoreLocation will launch the application momentarily, call this delegate method
     // and we will let the user know via a local notification.
 
-//    if(state == CLRegionStateInside)
-//    {
-//        [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"Outside-%@", region.identifier]];
-//        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Inside-%@", region.identifier]];
-//        UALOG(@"Updating tag");
-//        NSLog( @"didEnterRegion %@", region.identifier );
-//    }
-//    else if(state == CLRegionStateOutside)
-//    {
-//        [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"Inside-%@", region.identifier]];
-//        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Outside-%@", region.identifier]];
-//        NSLog(@"didExitRegion %@", region.identifier);
-//    }
-//    UALOG(@"Updating tag");
-//    [[UAPush shared] updateRegistration];
+    if(state == CLRegionStateInside)
+    {
+        [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kExitTagPreamble]];
+        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kEntryTagPreamble]];
+        UALOG(@"Updating tag");
+        NSLog( @"didEnterRegion %@", region.identifier );
+    }
+    else if(state == CLRegionStateOutside)
+    {
+        [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kEntryTagPreamble]];
+        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kExitTagPreamble]];
+        NSLog(@"didExitRegion %@", region.identifier);
+    }
+    UALOG(@"Updating tag");
+    [[UAPush shared] updateRegistration];
 }
 
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error
