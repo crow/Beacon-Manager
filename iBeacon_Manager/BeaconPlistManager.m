@@ -149,15 +149,15 @@
     
     NSMutableArray *readableBeaconArray = [[NSMutableArray alloc] initWithCapacity:[self.availableBeaconRegionsList count]];
     NSString *currentReadableBeacon;
-    
+
     for (CLBeaconRegion *beaconRegion in _availableBeaconRegions)
     {
         currentReadableBeacon = [NSString stringWithFormat:@"%@ - %@", [beaconRegion identifier], [[beaconRegion proximityUUID] UUIDString]];
         [readableBeaconArray addObject:currentReadableBeacon];
     }
-    
-    _readableBeaconRegions = [NSArray arrayWithArray:readableBeaconArray];
-}
+
+        _readableBeaconRegions = [NSArray arrayWithArray:readableBeaconArray];
+    }
 
 -(NSString *)identifierForUUID:(NSUUID *) uuid
 {

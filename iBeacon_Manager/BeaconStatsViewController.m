@@ -21,9 +21,11 @@
 @end
 
 @implementation BeaconStatsViewController {
-    NSMutableDictionary *_beaconStats;
-    double _lastEntry;
-    double _lastExit;
+   @private
+        NSMutableDictionary *_beaconStats;
+        double _lastEntry;
+        double _lastExit;
+        double _cumulativeVisitTime;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -68,12 +70,13 @@
 -(void)loadBeaconStats
 {
     
-    self.lastEntryLabel.text = [[BeaconRegionManager shared] lastEntryForIdentifier:self.beaconRegion.identifier] == 0 ? @"---" : [NSString stringWithFormat:@"%@",[NSDate dateWithTimeIntervalSince1970:[[BeaconRegionManager shared] lastEntryForIdentifier:self.beaconRegion.identifier]]];
-
+    _lastEntry = [[BeaconRegionManager shared] lastEntryForIdentifier:self.beaconRegion.identifier];
+    _lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier];
+    _cumulativeVisitTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:self.beaconRegion.identifier];
     
-    self.lastExitLabel.text = [[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier] == 0 ? @"---" : [NSString stringWithFormat:@"%@",[NSDate dateWithTimeIntervalSince1970:[[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier]]];
-    
-    self.cumulativeVisitTimeLabel.text = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:self.beaconRegion.identifier] == 0 ? @"---" : [NSString stringWithFormat:@"%1.0f",[[BeaconRegionManager shared] cumulativeTimeForIdentifier:self.beaconRegion.identifier]];
+    self.lastEntryLabel.text = _lastEntry == 0 ? @"---" : [NSString stringWithFormat:@"%@",[self dateStringFromInterval:_lastEntry]];
+    self.lastExitLabel.text = _lastExit == 0 ? @"---" : [NSString stringWithFormat:@"%@",[self dateStringFromInterval:_lastExit]];
+    self.cumulativeVisitTimeLabel.text = _cumulativeVisitTime == 0 ? @"---" : [NSString stringWithFormat:@"%1.0f Seconds", _cumulativeVisitTime];
     
     //only update total last visit time when exit is after entry
     if (_lastExit-_lastEntry > 0) {
@@ -125,8 +128,6 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    
-    
     switch (buttonIndex) {
         case 1:
             //delete all stats for this beacon

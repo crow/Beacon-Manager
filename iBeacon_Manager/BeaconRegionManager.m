@@ -454,7 +454,6 @@
     
     NSMutableDictionary *beaconRegionStats = [self.beaconStats objectForKey:beaconRegion.identifier];
     
-    
     if (entryTime > 0)
     {
         cumulativeTime = cumulativeTime + (exitTime - entryTime);
@@ -465,7 +464,6 @@
         [beaconRegionStats setObject:@0 forKey:kCumulativeTime];
     }
 }
-
 
 //TODO finish filtering by proximity and tagging
 -(void)updateVistedStatsForRangedBeacons:(NSArray *)rangedBeacons
