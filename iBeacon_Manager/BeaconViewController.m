@@ -17,12 +17,13 @@
 
 @implementation BeaconViewController
 {
-    NSMutableDictionary *_beacons;
-    CLBeaconRegion *_selectedBeaconRegion;
-    CLBeacon *_selectedBeacon;
-    UIImage *_whiteMarker;
-    UIImage *_greenMarker;
-    int _refreshCount;
+    @private
+        NSMutableDictionary *_beacons;
+        CLBeaconRegion *_selectedBeaconRegion;
+        CLBeacon *_selectedBeacon;
+        UIImage *_whiteMarker;
+        UIImage *_greenMarker;
+        int _refreshCount;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style

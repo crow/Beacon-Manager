@@ -778,7 +778,7 @@
                                                     </connections>
                                                 </switch>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="722-location-pin.png" translatesAutoresizingMaskIntoConstraints="NO" id="gDO-Tz-8Se">
-                                                    <rect key="frame" x="220" y="6" width="26" height="30"/>
+                                                    <rect key="frame" x="216" y="9" width="40" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -925,7 +925,7 @@
                         <outlet property="minorField" destination="vBa-6l-aqs" id="JVs-uo-HFd"/>
                         <outlet property="transmitPowerLabel" destination="WnG-rX-IpV" id="Mwb-Wh-wAT"/>
                         <outlet property="transmitPowerSlider" destination="5Xu-ft-IPf" id="kMp-XG-64d"/>
-                        <outlet property="uuidField" destination="Pw7-Xy-CV1" id="eeI-9I-zqe"/>
+                        <outlet property="uuidField" destination="Q9i-3a-cke" id="lo4-SJ-tEn"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eg9-p8-lLj" userLabel="First Responder" sceneMemberID="firstResponder"/>
