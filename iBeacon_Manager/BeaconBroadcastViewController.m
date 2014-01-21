@@ -7,7 +7,6 @@
 //
 
 #import "BeaconBroadcastViewController.h"
-
 @interface BeaconBroadcastViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *broadcastImage;
@@ -24,6 +23,10 @@
 {
     @private
         CBPeripheralManager *_peripheralManager;
+        NSUUID *_uuid;
+        NSNumber *_major;
+        NSNumber *_minor;
+        NSNumber *_power;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -45,7 +48,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     // sync the broadcast switch
-    broadcastSwitch.on = _peripheralManager.isAdvertising;
+    self.broadcastSwitch.on = _peripheralManager.isAdvertising;
 }
 
 - (void)viewDidLoad
@@ -58,6 +61,60 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+- (IBAction)broadcastSwitchTouched:(id)sender {
+  
+    if(_peripheralManager.state < CBPeripheralManagerStatePoweredOn)
+    {
+        UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Bluetooth must be enabled" message:@"To configure your device as a beacon" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
+        
+        return;
+    }
+    
+    if([sender isOn])
+    {
+        // We must construct a CLBeaconRegion that represents the payload we want the device to beacon.
+        NSDictionary *peripheralData = nil;
+        if(_uuid && _major && _minor)
+        {
+            CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid major:[_major shortValue] minor:[_minor shortValue] identifier:@"us.dcrow.iBeaconManager"];
+            peripheralData = [region peripheralDataWithMeasuredPower:_power];
+        }
+        else if(_uuid && _major)
+        {
+            CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid major:[_major shortValue]  identifier:@"us.dcrow.iBeaconManager"];
+            peripheralData = [region peripheralDataWithMeasuredPower:_power];
+        }
+        else if(_uuid)
+        {
+            CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid identifier:@"us.dcrow.iBeaconManager"];
+            peripheralData = [region peripheralDataWithMeasuredPower:_power];
+        }
+        
+        // The region's peripheral data contains the CoreBluetooth-specific data we need to advertise.
+        if(peripheralData)
+        {
+            [_peripheralManager startAdvertising:peripheralData];
+        }
+    }
+    else
+    {
+        [_peripheralManager stopAdvertising];
+    }
+
+    
+}
+
+- (IBAction)transmitPowerSliderChanged:(id)sender {
+}
+
+
+
+
+
+
 
 //#pragma mark - Table view data source
 //
