@@ -56,9 +56,15 @@
 {
     [super viewDidLoad];
     _peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-    self.transmitPowerSlider.minimumValue = 0;
+    self.transmitPowerSlider.minimumValue = 1;
     self.transmitPowerSlider.maximumValue = 90;
     
+    //for naturally exiting the keyboard
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.tableView addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = NO;
+    
+    self.view.userInteractionEnabled = TRUE;
     
     //Initialize reused tableview images
     _greenMarker = [[UIImage alloc] init];
@@ -77,6 +83,11 @@
     _minor = [[NSNumber alloc] initWithDouble: [self.minorField.text doubleValue]];
     _major = [[NSNumber alloc] initWithDouble: [self.majorField.text doubleValue]];
 
+}
+
+- (void)hideKeyboard{
+    //update field values on keyboard hide
+    [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning
