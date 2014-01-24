@@ -10,15 +10,7 @@
 #import "BeaconManagerValues.h"
 #import "UAPush.h"
 
-#define kiBeaconStats @"ua-mothership-ibeacon-stats"
-#define kBeaconsEnabled @"ibm-ibeacons-enabled"
-#define kLastEntry @"last-entry"
-#define kLastExit @"last-exit"
-#define kCumulativeTime @"cumulative-time"
-#define kVisits @"visits"
 
-#define kEntryTagPreamble @"inside"
-#define kExitTagPreamble @"outside"
 
 
 

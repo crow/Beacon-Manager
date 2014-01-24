@@ -7,6 +7,8 @@
 //
 
 #import "BeaconBroadcastViewController.h"
+#import "BeaconManagerValues.h"
+
 @interface BeaconBroadcastViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *broadcastImage;
@@ -16,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *uuidField;
 @property (weak, nonatomic) IBOutlet UITextField *majorField;
 @property (weak, nonatomic) IBOutlet UITextField *minorField;
+@property (strong, nonatomic) IBOutlet UIButton *generateUuidButton;
 
 @end
 
@@ -40,6 +43,12 @@
     return self;
 }
 
+- (IBAction)generateUuidTapped:(id)sender
+{
+    NSString *uuid = [[NSUUID UUID] UUIDString];
+    [self.uuidField setText:uuid];
+    
+}
 
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
 {
@@ -50,6 +59,27 @@
 {
     // sync the broadcast switch
     self.broadcastSwitch.on = _peripheralManager.isAdvertising;
+}
+
+-(void)saveLastBroadcastUuid
+{
+    if ([self.uuidField text]) {
+        [[NSUserDefaults standardUserDefaults] setObject:[self.uuidField text] forKey:kLastBroadcastUuidString];
+    }
+}
+
+-(void)loadLastBroadcastUuid
+{
+    if([[NSUserDefaults standardUserDefaults] objectForKey:kLastBroadcastUuidString])
+    {
+        //if no saved switch state set to YES by default
+        [self.uuidField setText:[[NSUserDefaults standardUserDefaults] stringForKey:kLastBroadcastUuidString]];
+    }
+    else
+    {
+        NSString *uuid = [[NSUUID UUID] UUIDString];
+        [self.uuidField setText:uuid];
+    }
 }
 
 - (void)viewDidLoad
@@ -73,12 +103,13 @@
     _whiteMarker = [[UIImage alloc] init];
     _whiteMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-pin@2x" ofType:@"png"]];
     
+
     
     //set default power and initial region properties TODO this in a less sloppy way
     self.transmitPowerLabel.text = [NSString stringWithFormat:@"-59 dB"];
     [self.transmitPowerSlider setValue:59 animated:NO];
     _power = @-59;
-    
+    [self loadLastBroadcastUuid];
     _uuid = [[NSUUID alloc] initWithUUIDString:self.uuidField.text];
     _minor = [[NSNumber alloc] initWithDouble: [self.minorField.text doubleValue]];
     _major = [[NSNumber alloc] initWithDouble: [self.majorField.text doubleValue]];
@@ -116,17 +147,17 @@
         NSDictionary *peripheralData = nil;
         if(_uuid && _major && _minor)
         {
-            CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid major:[_major shortValue] minor:[_minor shortValue] identifier:@"us.dcrow.iBeaconManager"];
+            CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid major:[_major shortValue] minor:[_minor shortValue] identifier:[[UIDevice currentDevice] name]];
             peripheralData = [region peripheralDataWithMeasuredPower:_power];
         }
         else if(_uuid && _major)
         {
-            CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid major:[_major shortValue]  identifier:@"us.dcrow.iBeaconManager"];
+            CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid major:[_major shortValue]  identifier:[[UIDevice currentDevice] name]];
             peripheralData = [region peripheralDataWithMeasuredPower:_power];
         }
         else if(_uuid)
         {
-            CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid identifier:@"us.dcrow.iBeaconManager"];
+            CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid identifier:[[UIDevice currentDevice] name]];
             peripheralData = [region peripheralDataWithMeasuredPower:_power];
         }
         
@@ -140,8 +171,9 @@
     {
         [_peripheralManager stopAdvertising];
     }
-
     
+    //save last uuid that was broadcast in NSUserDefaults
+    [self saveLastBroadcastUuid];
 }
 
 - (IBAction)transmitPowerSliderChanged:(id)sender {

@@ -811,6 +811,16 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="numbersAndPunctuation" keyboardAppearance="alert"/>
                                                 </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3L-3Y-Pps">
+                                                    <rect key="frame" x="196" y="7" width="104" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Generate UUID">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="generateUuidTapped:" destination="ByO-gA-1Ub" eventType="touchUpInside" id="mQz-NB-Dmp"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <accessibility key="accessibilityConfiguration">
@@ -921,6 +931,7 @@
                     <connections>
                         <outlet property="broadcastImage" destination="gDO-Tz-8Se" id="2M6-w5-K3p"/>
                         <outlet property="broadcastSwitch" destination="4JG-1w-TzC" id="5K7-QA-bJp"/>
+                        <outlet property="generateUuidButton" destination="V3L-3Y-Pps" id="Bsn-MY-HRN"/>
                         <outlet property="majorField" destination="z08-UD-om0" id="psu-NJ-Ted"/>
                         <outlet property="minorField" destination="vBa-6l-aqs" id="JVs-uo-HFd"/>
                         <outlet property="transmitPowerLabel" destination="WnG-rX-IpV" id="Mwb-Wh-wAT"/>

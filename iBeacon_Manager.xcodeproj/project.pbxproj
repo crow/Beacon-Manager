@@ -51,7 +51,7 @@
 		6192602E1835A17C00143F5A /* BeaconStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6192602D1835A17C00143F5A /* BeaconStatsViewController.m */; };
 		6194E36018445CA000F26217 /* 731-cloud-download-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */; };
 		6194E3651845291000F26217 /* 730-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3641845291000F26217 /* 730-envelope@2x.png */; };
-		6194E36718453EBA00F26217 /* BeaconRegions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6194E36618453EBA00F26217 /* BeaconRegions.plist */; };
+		6194E36718453EBA00F26217 /* SampleBeaconRegions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6194E36618453EBA00F26217 /* SampleBeaconRegions.plist */; };
 		6194E399184696E400F26217 /* iBeaconManager.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6194E398184696E400F26217 /* iBeaconManager.xcassets */; };
 		6194E3B018469DFA00F26217 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E39F18469DFA00F26217 /* Icon-60.png */; };
 		6194E3B118469DFA00F26217 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3A018469DFA00F26217 /* Icon-60@2x.png */; };
@@ -143,7 +143,7 @@
 		6192602D1835A17C00143F5A /* BeaconStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconStatsViewController.m; sourceTree = "<group>"; };
 		6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "731-cloud-download-selected@2x.png"; sourceTree = "<group>"; };
 		6194E3641845291000F26217 /* 730-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "730-envelope@2x.png"; sourceTree = "<group>"; };
-		6194E36618453EBA00F26217 /* BeaconRegions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BeaconRegions.plist; sourceTree = "<group>"; };
+		6194E36618453EBA00F26217 /* SampleBeaconRegions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SampleBeaconRegions.plist; sourceTree = "<group>"; };
 		6194E398184696E400F26217 /* iBeaconManager.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = iBeaconManager.xcassets; sourceTree = "<group>"; };
 		6194E39F18469DFA00F26217 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60.png"; sourceTree = "<group>"; };
 		6194E3A018469DFA00F26217 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
@@ -281,7 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				44DE3EA11809089C0037CC91 /* Images */,
-				6194E36618453EBA00F26217 /* BeaconRegions.plist */,
+				6194E36618453EBA00F26217 /* SampleBeaconRegions.plist */,
 				440E85F917F5140E00D191A2 /* iBeacon_Manager-Info.plist */,
 				44EFC67A181CA11D007C1B1B /* AirshipConfig.plist */,
 				440E85FA17F5140E00D191A2 /* InfoPlist.strings */,
@@ -460,7 +460,7 @@
 				6194E3B718469DFA00F26217 /* Icon-Small-50@2x.png in Resources */,
 				4481878A181F7A90009514CC /* location-pin-selected.png in Resources */,
 				6194E3B518469DFA00F26217 /* Icon-76@2x.png in Resources */,
-				6194E36718453EBA00F26217 /* BeaconRegions.plist in Resources */,
+				6194E36718453EBA00F26217 /* SampleBeaconRegions.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
