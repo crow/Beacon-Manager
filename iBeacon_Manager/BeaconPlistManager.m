@@ -33,7 +33,7 @@
 -(void)loadLocalPlist
 {
     //initialize with local list
-    NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"CKO" ofType:@"plist"];
+    NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"SampleBeaconRegions" ofType:@"plist"];
     _plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
     
     [self loadAvailableBeaconRegionsList];
@@ -42,7 +42,7 @@
 
 -(void)loadHostedPlistWithUrl:(NSURL*)url
 {
-    
+  //TODO make a sane URL request with a callback instead of this lazy shit
 //    NSMutableData *data;
 //    
 //    NSURLRequest *request=[NSURLRequest requestWithURL:url

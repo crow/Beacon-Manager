@@ -280,6 +280,12 @@
         [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kEntryTagPreamble]];
         UALOG(@"Updating tag");
         NSLog( @"didEnterRegion %@", region.identifier );
+                
+        //if lastEntry is null then entry is when the app started in the region
+        if (![[BeaconRegionManager shared] lastEntryForIdentifier:region.identifier])
+        {
+            [self timestampEntryForBeaconRegion:[self beaconRegionWithId:region.identifier]];
+        }
     }
     else if(state == CLRegionStateOutside)
     {

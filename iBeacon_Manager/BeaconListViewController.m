@@ -40,6 +40,20 @@
     [self showEmail];
 }
 
+- (IBAction)loadSampleButtonPressed:(id)sender {
+    
+    //clear any beaconRegions stored in the locationManager
+    [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
+    
+    [[[BeaconRegionManager shared] plistManager] loadLocalPlist];
+    
+    _availableBeaconsCell.hidden = NO;
+    [UIView animateWithDuration:1 animations:^() {
+        _availableBeaconsCell.alpha = 1.0;
+    }];
+    _availableBeaconsCell.userInteractionEnabled = YES;
+}
+
 - (void)viewDidLoad
 {
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
