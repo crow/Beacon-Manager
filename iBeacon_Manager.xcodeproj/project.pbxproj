@@ -72,6 +72,7 @@
 		6194E3BF18469DFA00F26217 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3AE18469DFA00F26217 /* iTunesArtwork@2x */; };
 		6194E3C018469DFA00F26217 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3AF18469DFA00F26217 /* iTunesArtwork@2x.png */; };
 		6194E3C218469E1700F26217 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3C118469E1700F26217 /* iTunesArtwork.png */; };
+		61B2E1631893211F00A87DB4 /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B2E1621893211F00A87DB4 /* PulsingHaloLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +165,8 @@
 		6194E3AE18469DFA00F26217 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		6194E3AF18469DFA00F26217 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		6194E3C118469E1700F26217 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
+		61B2E1611893211F00A87DB4 /* PulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulsingHaloLayer.h; sourceTree = "<group>"; };
+		61B2E1621893211F00A87DB4 /* PulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulsingHaloLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +272,8 @@
 				61564A2D183B102100D87AF2 /* BeaconListViewController.m */,
 				6119CDE9188E0E460023B25B /* BeaconBroadcastViewController.h */,
 				6119CDEA188E0E460023B25B /* BeaconBroadcastViewController.m */,
+				61B2E1611893211F00A87DB4 /* PulsingHaloLayer.h */,
+				61B2E1621893211F00A87DB4 /* PulsingHaloLayer.m */,
 				440E85F817F5140E00D191A2 /* Supporting Files */,
 			);
 			path = iBeacon_Manager;
@@ -477,6 +482,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61B2E1631893211F00A87DB4 /* PulsingHaloLayer.m in Sources */,
 				6192602E1835A17C00143F5A /* BeaconStatsViewController.m in Sources */,
 				4498CDC51826EC8A001EC26B /* BeaconSettingsViewController.m in Sources */,
 				6119CDEB188E0E460023B25B /* BeaconBroadcastViewController.m in Sources */,

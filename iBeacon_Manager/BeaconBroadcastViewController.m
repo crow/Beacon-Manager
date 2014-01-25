@@ -8,6 +8,9 @@
 
 #import "BeaconBroadcastViewController.h"
 #import "BeaconManagerValues.h"
+#import "PulsingHaloLayer.h"
+
+#define kMaxRadius 400
 
 @interface BeaconBroadcastViewController ()
 
@@ -19,6 +22,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *majorField;
 @property (weak, nonatomic) IBOutlet UITextField *minorField;
 @property (strong, nonatomic) IBOutlet UIButton *generateUuidButton;
+
+@property (nonatomic, strong) PulsingHaloLayer *halo;
+@property (nonatomic, weak) IBOutlet UIImageView *beaconView;
+@property (strong, nonatomic) IBOutlet UITableViewCell *broadcastCell;
 
 @end
 
@@ -85,6 +92,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+ 
+    
+    //halo view
+    self.halo = [PulsingHaloLayer layer];
+    self.halo.radius = 0;
+    self.halo.position = self.beaconView.center;
+    [self.view.layer insertSublayer:self.halo below:self.beaconView.layer];
+    //set up halo color
+    UIColor *color = [UIColor colorWithRed:0
+                                     green:1.0
+                                      blue:0.48
+                                     alpha:1.0];
+    
+    self.halo.backgroundColor = color.CGColor;
+    
     _peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
     self.transmitPowerSlider.minimumValue = 1;
     self.transmitPowerSlider.maximumValue = 90;
@@ -131,18 +153,26 @@
 - (IBAction)broadcastSwitchTouched:(id)sender {
   
     self.broadcastImage.image = _whiteMarker;
+    self.beaconView.image = _whiteMarker;
+    self.halo.radius = 0;
     
     if(_peripheralManager.state < CBPeripheralManagerStatePoweredOn)
     {
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Bluetooth must be enabled" message:@"To configure your device as a beacon" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
+        //reset switch position
+        [sender setOn:false animated:true];
         
         return;
     }
 
     if([sender isOn])
     {
+       
         self.broadcastImage.image = _greenMarker;
+        self.beaconView.image = _greenMarker;
+        self.halo.radius = self.transmitPowerSlider.value * kMaxRadius;
+        [self.tableView reloadData];
         // We must construct a CLBeaconRegion that represents the payload we want the device to beacon.
         NSDictionary *peripheralData = nil;
         if(_uuid && _major && _minor)
@@ -177,7 +207,13 @@
 }
 
 - (IBAction)transmitPowerSliderChanged:(id)sender {
+    
+    
+    if ([self.broadcastSwitch isOn]){
+    self.halo.radius = self.transmitPowerSlider.value * kMaxRadius;
+    //self.radiusLabel.text = [@(self.transmitPowerSlider) stringValue];
     self.transmitPowerLabel.text = [NSString stringWithFormat:@"-%1.0f dB", self.transmitPowerSlider.value];
+    }
     _power = [NSNumber numberWithFloat:self.transmitPowerSlider.value];
 }
 
