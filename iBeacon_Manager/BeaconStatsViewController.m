@@ -142,7 +142,7 @@
             break;
         case 2:
             //delete all stats
-            [[BeaconRegionManager shared] clearBeaconStats];
+            [[BeaconRegionManager shared] clearAllBeaconStats];
             break;
         default:
             //do nothing (user said no)
@@ -159,7 +159,7 @@
     }
     else
     {
-        [[BeaconRegionManager shared] clearBeaconStats];
+        [[BeaconRegionManager shared] clearAllBeaconStats];
     }
 }
 

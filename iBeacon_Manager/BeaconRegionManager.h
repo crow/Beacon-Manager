@@ -70,7 +70,7 @@ return _sharedObject; \
 -(double)averageVisitTimeForIdentifier:(NSString *)identifier;
 
 //stats mgmt
--(void)clearBeaconStats;
+-(void)clearAllBeaconStats;
 -(void)clearBeaconStatsForBeaconRegion:(CLBeaconRegion *)beaconRegion;
 
 

@@ -46,12 +46,7 @@
     self.locationManager.delegate = self;
     _currentRangedBeacons = [[NSMutableDictionary alloc] init];
     _monitoredRegionCount = 0;
-    
-    //add observer to kMotherShipiBeaconsEnabled keypath, will call observeValueForKeyPath
-    [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:kBeaconsEnabled
-                                               options:NSKeyValueObservingOptionNew
-                                               context:NULL];
+
     return self;
 }
 
@@ -314,7 +309,7 @@
 {
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kiBeaconStats])
     {
-        self.beaconStats = [[NSUserDefaults standardUserDefaults] objectForKey:kiBeaconStats];
+        self.beaconStats = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:kiBeaconStats]];
     }
     else
     {
@@ -328,7 +323,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:self.beaconStats forKey:kiBeaconStats];
 }
 
--(void)clearBeaconStats
+-(void)clearAllBeaconStats
 {
     self.beaconStats = nil;
     [[NSUserDefaults standardUserDefaults] setObject:self.beaconStats forKey:kiBeaconStats];
@@ -400,7 +395,6 @@
 
 -(double)averageVisitTimeForIdentifier:(NSString *)identifier
 {
-    NSLog(@"No average visit time for that identifier is available");
     return [self cumulativeTimeForIdentifier:identifier]/[self visitsForIdentifier:identifier];
 }
 
@@ -420,20 +414,23 @@
 
 -(void)recordVisitForBeaconRegion:(CLBeaconRegion *)beaconRegion
 {
+    int visits;
     if (beaconRegion.identifier)
     {
         NSLog(@"visit recorded");
         //if beaconstats dict is present and there's a visits entry
         if ([self.beaconStats objectForKey:beaconRegion.identifier] && [self visitsForIdentifier:beaconRegion.identifier] > 0)
         {
-            NSMutableDictionary *beaconRegionStats = [self.beaconStats objectForKey:beaconRegion.identifier];
-            [beaconRegionStats setObject:[NSNumber numberWithInteger:[self visitsForIdentifier:beaconRegion.identifier] + 1] forKey:kVisits];
+            NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
+            visits = [self visitsForIdentifier:beaconRegion.identifier] + 1;
+            [beaconRegionStats setObject:[NSNumber numberWithInteger:visits] forKey:kVisits];
         }
         else
         {
             //create new dictionary for this region and add it to stats
-            NSMutableDictionary *beaconRegionStats = [NSMutableDictionary new];
-            [beaconRegionStats setObject:[NSNumber numberWithInteger:1] forKey:kVisits];
+            NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] init];
+            visits = 1;
+            [beaconRegionStats setObject:[NSNumber numberWithInteger:visits] forKey:kVisits];
             [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
         }
         [self saveBeaconStats];
@@ -450,7 +447,7 @@
         NSLog(@"timestamped entry");
         if ([self.beaconStats objectForKey:beaconRegion.identifier])
         {
-            NSMutableDictionary *beaconRegionStats = [self.beaconStats objectForKey:beaconRegion.identifier];
+            NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
             [beaconRegionStats setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:kLastEntry];
         }
         else
@@ -471,7 +468,7 @@
         NSLog(@"timestamped exit");
         if ([self.beaconStats objectForKey:beaconRegion.identifier])
         {
-            NSMutableDictionary *beaconRegionStats = [self.beaconStats objectForKey:beaconRegion.identifier];
+            NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
             [beaconRegionStats setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:kLastExit];
         }
         else
@@ -494,7 +491,7 @@
     NSTimeInterval entryTime = [self lastEntryForIdentifier:beaconRegion.identifier];
     NSTimeInterval exitTime = [self lastExitForIdentifier:beaconRegion.identifier];
     
-    NSMutableDictionary *beaconRegionStats = [self.beaconStats objectForKey:beaconRegion.identifier];
+    NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
     
     if (entryTime > 0)
     {
@@ -578,15 +575,6 @@
     }
     //No available beacon region with the specified ID was included in the available regions list
     return nil;
-}
-
-////called whenever kMotherShipiBeaconsEnabled changes
-- (void)observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context
-{
-    if([keyPath isEqual:kBeaconsEnabled])
-    {
-        [self checkiBeaconsEnabledState];
-    }
 }
 
 @end
