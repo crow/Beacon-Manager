@@ -45,7 +45,6 @@
 
 - (IBAction)loadSampleButtonPressed:(id)sender {
     
-
     if (!loading)
     {
     //clear any beaconRegions stored in the locationManager

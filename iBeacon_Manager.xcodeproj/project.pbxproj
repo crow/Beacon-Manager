@@ -49,6 +49,9 @@
 		6153AD8B183B0DA3004E8C17 /* 760-refresh-3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6153AD8A183B0DA3004E8C17 /* 760-refresh-3@2x.png */; };
 		61564A2E183B102100D87AF2 /* BeaconListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61564A2D183B102100D87AF2 /* BeaconListViewController.m */; };
 		61564A3C1840044900D87AF2 /* 722-location-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61564A3B1840044900D87AF2 /* 722-location-pin@2x.png */; };
+		617F60E21899E86E00D4C01C /* 849-radar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 617F60E11899E86E00D4C01C /* 849-radar@2x.png */; };
+		617F60E41899E8D800D4C01C /* 751-eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 617F60E31899E8D800D4C01C /* 751-eye@2x.png */; };
+		617F60E61899E9E000D4C01C /* 789-map-location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 617F60E51899E9E000D4C01C /* 789-map-location@2x.png */; };
 		6192602E1835A17C00143F5A /* BeaconStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6192602D1835A17C00143F5A /* BeaconStatsViewController.m */; };
 		6194E36018445CA000F26217 /* 731-cloud-download-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */; };
 		6194E3651845291000F26217 /* 730-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3641845291000F26217 /* 730-envelope@2x.png */; };
@@ -141,6 +144,9 @@
 		61564A2C183B102100D87AF2 /* BeaconListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconListViewController.h; sourceTree = "<group>"; };
 		61564A2D183B102100D87AF2 /* BeaconListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconListViewController.m; sourceTree = "<group>"; };
 		61564A3B1840044900D87AF2 /* 722-location-pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "722-location-pin@2x.png"; sourceTree = "<group>"; };
+		617F60E11899E86E00D4C01C /* 849-radar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "849-radar@2x.png"; sourceTree = "<group>"; };
+		617F60E31899E8D800D4C01C /* 751-eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "751-eye@2x.png"; sourceTree = "<group>"; };
+		617F60E51899E9E000D4C01C /* 789-map-location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "789-map-location@2x.png"; sourceTree = "<group>"; };
 		6192602C1835A17C00143F5A /* BeaconStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconStatsViewController.h; sourceTree = "<group>"; };
 		6192602D1835A17C00143F5A /* BeaconStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconStatsViewController.m; sourceTree = "<group>"; };
 		6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "731-cloud-download-selected@2x.png"; sourceTree = "<group>"; };
@@ -329,6 +335,9 @@
 		6194E35E18445B8400F26217 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				617F60E31899E8D800D4C01C /* 751-eye@2x.png */,
+				617F60E51899E9E000D4C01C /* 789-map-location@2x.png */,
+				617F60E11899E86E00D4C01C /* 849-radar@2x.png */,
 				6119CDEC1891EF320023B25B /* 854-list@2x.png */,
 				6194E39F18469DFA00F26217 /* Icon-60.png */,
 				6194E3A018469DFA00F26217 /* Icon-60@2x.png */,
@@ -461,9 +470,11 @@
 				6194E3C218469E1700F26217 /* iTunesArtwork.png in Resources */,
 				6194E3BF18469DFA00F26217 /* iTunesArtwork@2x in Resources */,
 				6194E3B218469DFA00F26217 /* Icon-72.png in Resources */,
+				617F60E21899E86E00D4C01C /* 849-radar@2x.png in Resources */,
 				6194E3651845291000F26217 /* 730-envelope@2x.png in Resources */,
 				6153AD89183B0BD8004E8C17 /* 731-cloud-download@2x.png in Resources */,
 				6194E36018445CA000F26217 /* 731-cloud-download-selected@2x.png in Resources */,
+				617F60E61899E9E000D4C01C /* 789-map-location@2x.png in Resources */,
 				44952DA31822E4A800DC00E3 /* 703-download@2x.png in Resources */,
 				6194E3B318469DFA00F26217 /* Icon-72@2x.png in Resources */,
 				44EFC67B181CA11D007C1B1B /* AirshipConfig.plist in Resources */,
@@ -479,6 +490,7 @@
 				4476CEE41819F87E002E5F9E /* 722-location-pin.png in Resources */,
 				6194E3B818469DFA00F26217 /* Icon-Small.png in Resources */,
 				6194E3B618469DFA00F26217 /* Icon-Small-50.png in Resources */,
+				617F60E41899E8D800D4C01C /* 751-eye@2x.png in Resources */,
 				6153AD681836E7BE004E8C17 /* 722-location-ping@2x.png in Resources */,
 				6194E399184696E400F26217 /* iBeaconManager.xcassets in Resources */,
 				6153AD8B183B0DA3004E8C17 /* 760-refresh-3@2x.png in Resources */,

@@ -172,6 +172,8 @@
         self.broadcastImage.image = _greenMarker;
         self.beaconView.image = _greenMarker;
         self.halo.radius = self.transmitPowerSlider.value * kMaxRadius;
+        self.transmitPowerSlider.enabled = NO;
+        self.transmitPowerSlider.userInteractionEnabled = NO;
         [self.tableView reloadData];
         // We must construct a CLBeaconRegion that represents the payload we want the device to beacon.
         NSDictionary *peripheralData = nil;
@@ -199,6 +201,8 @@
     }
     else
     {
+        self.transmitPowerSlider.enabled = YES;
+        self.transmitPowerSlider.userInteractionEnabled = YES;
         [_peripheralManager stopAdvertising];
     }
     
