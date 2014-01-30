@@ -223,8 +223,6 @@
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"managerDidRangeBeacons"
      object:self];
-    
-    [self updateVistedStatsForRangedBeacons:beacons];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
@@ -502,30 +500,6 @@
     {
         [beaconRegionStats setObject:@0 forKey:kCumulativeTime];
     }
-}
-
-//TODO finish filtering by proximity and tagging
--(void)updateVistedStatsForRangedBeacons:(NSArray *)rangedBeacons
-{
-    //[tmpRangedBeacons removeAllObjects];
-//    NSArray *unknownBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityUnknown]];
-//    if([unknownBeacons count])
-//        [currentRangedBeacons setObject:unknownBeacons forKey:[NSNumber numberWithInt:CLProximityUnknown]];
-//    
-//    NSArray *immediateBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityImmediate]];
-//    if([immediateBeacons count])
-//        [currentRangedBeacons setObject:immediateBeacons forKey:[NSNumber numberWithInt:CLProximityImmediate]];
-//    
-//    NSArray *nearBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityNear]];
-//    if([nearBeacons count])
-//        [currentRangedBeacons setObject:nearBeacons forKey:[NSNumber numberWithInt:CLProximityNear]];
-//    
-//    NSArray *farBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityFar]];
-//    if([farBeacons count])
-//        [currentRangedBeacons setObject:farBeacons forKey:[NSNumber numberWithInt:CLProximityFar]];
-//    
-//    //set read only parameter for detailed ranged beacons
-//    _rangedBeaconsDetailed = currentRangedBeacons;
 }
 
 #pragma non-essential helpers
