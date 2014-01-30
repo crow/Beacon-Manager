@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface PulsingHaloLayer : CALayer
+@interface BeaconPulsingHaloLayer : CALayer
 
 @property (nonatomic, assign) CGFloat radius;                   // default:60pt
 @property (nonatomic, assign) NSTimeInterval animationDuration; // default:3s

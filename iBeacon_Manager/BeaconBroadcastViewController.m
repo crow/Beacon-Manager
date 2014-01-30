@@ -8,7 +8,7 @@
 
 #import "BeaconBroadcastViewController.h"
 #import "BeaconManagerValues.h"
-#import "PulsingHaloLayer.h"
+#import "BeaconPulsingHaloLayer.h"
 
 #define kMaxRadius 400
 
@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *minorField;
 @property (strong, nonatomic) IBOutlet UIButton *generateUuidButton;
 
-@property (nonatomic, strong) PulsingHaloLayer *halo;
+@property (nonatomic, strong) BeaconPulsingHaloLayer *halo;
 @property (nonatomic, weak) IBOutlet UIImageView *beaconView;
 @property (strong, nonatomic) IBOutlet UITableViewCell *broadcastCell;
 
@@ -95,7 +95,7 @@
  
     
     //halo view
-    self.halo = [PulsingHaloLayer layer];
+    self.halo = [BeaconPulsingHaloLayer layer];
     self.halo.radius = 0;
     self.halo.position = self.beaconView.center;
     [self.view.layer insertSublayer:self.halo below:self.beaconView.layer];

@@ -16,10 +16,8 @@
     
     if(self)
     {
-//        //Initialize plist filed - TODO add file mngr checking
-//        [self getAvailableManagedBeaconRegions];
+        
     }
-    
     return self;
 }
 
@@ -42,7 +40,7 @@
 
 -(void)loadHostedPlistWithUrl:(NSURL*)url
 {
-  //TODO make a sane URL request with a callback instead of this lazy shit
+  //TODO make a sane URL request with a callback instead of this hilarious shit
 //    NSMutableData *data;
 //    
 //    NSURLRequest *request=[NSURLRequest requestWithURL:url
@@ -58,7 +56,6 @@
 //        [alert show];
 //    }
     
-    //
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         _plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfURL:url];
         [self loadAvailableBeaconRegionsList];

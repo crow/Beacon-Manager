@@ -8,15 +8,15 @@
 //  Inspired by https://github.com/samvermette/SVPulsingAnnotationView
 
 
-#import "PulsingHaloLayer.h"
+#import "BeaconPulsingHaloLayer.h"
 
 
-@interface PulsingHaloLayer ()
+@interface BeaconPulsingHaloLayer ()
 @property (nonatomic, strong) CAAnimationGroup *animationGroup;
 @end
 
 
-@implementation PulsingHaloLayer
+@implementation BeaconPulsingHaloLayer
 
 - (id)init {
     self = [super init];

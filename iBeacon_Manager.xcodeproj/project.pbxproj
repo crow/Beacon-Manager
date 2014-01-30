@@ -72,7 +72,7 @@
 		6194E3BF18469DFA00F26217 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3AE18469DFA00F26217 /* iTunesArtwork@2x */; };
 		6194E3C018469DFA00F26217 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3AF18469DFA00F26217 /* iTunesArtwork@2x.png */; };
 		6194E3C218469E1700F26217 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3C118469E1700F26217 /* iTunesArtwork.png */; };
-		61B2E1631893211F00A87DB4 /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B2E1621893211F00A87DB4 /* PulsingHaloLayer.m */; };
+		61B2E1631893211F00A87DB4 /* BeaconPulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B2E1621893211F00A87DB4 /* BeaconPulsingHaloLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,8 +165,8 @@
 		6194E3AE18469DFA00F26217 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		6194E3AF18469DFA00F26217 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		6194E3C118469E1700F26217 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
-		61B2E1611893211F00A87DB4 /* PulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulsingHaloLayer.h; sourceTree = "<group>"; };
-		61B2E1621893211F00A87DB4 /* PulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulsingHaloLayer.m; sourceTree = "<group>"; };
+		61B2E1611893211F00A87DB4 /* BeaconPulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconPulsingHaloLayer.h; sourceTree = "<group>"; };
+		61B2E1621893211F00A87DB4 /* BeaconPulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconPulsingHaloLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,24 +256,9 @@
 			children = (
 				440E860017F5140E00D191A2 /* AppDelegate.h */,
 				440E860117F5140E00D191A2 /* AppDelegate.m */,
-				440E860317F5140E00D191A2 /* Main.storyboard */,
-				6139C7D9186E480A00D72E45 /* BeaconRegionManager.h */,
-				6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */,
-				6139C7DC186E482700D72E45 /* BeaconPlistManager.h */,
-				6139C7DD186E482700D72E45 /* BeaconPlistManager.m */,
-				44E6C1CA17FE29A200CD88AE /* BeaconViewController.h */,
-				44E6C1CB17FE29A200CD88AE /* BeaconViewController.m */,
-				4498CDC31826EC8A001EC26B /* BeaconSettingsViewController.h */,
-				4498CDC41826EC8A001EC26B /* BeaconSettingsViewController.m */,
-				6192602C1835A17C00143F5A /* BeaconStatsViewController.h */,
-				6192602D1835A17C00143F5A /* BeaconStatsViewController.m */,
-				6139C7DF186E486F00D72E45 /* BeaconManagerValues.h */,
-				61564A2C183B102100D87AF2 /* BeaconListViewController.h */,
-				61564A2D183B102100D87AF2 /* BeaconListViewController.m */,
-				6119CDE9188E0E460023B25B /* BeaconBroadcastViewController.h */,
-				6119CDEA188E0E460023B25B /* BeaconBroadcastViewController.m */,
-				61B2E1611893211F00A87DB4 /* PulsingHaloLayer.h */,
-				61B2E1621893211F00A87DB4 /* PulsingHaloLayer.m */,
+				617F60DF1899DC5200D4C01C /* Models */,
+				617F60DE1899DBDC00D4C01C /* Views */,
+				617F60E01899DC6D00D4C01C /* Controllers */,
 				440E85F817F5140E00D191A2 /* Supporting Files */,
 			);
 			path = iBeacon_Manager;
@@ -300,6 +285,45 @@
 				6194E35E18445B8400F26217 /* Icons */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		617F60DE1899DBDC00D4C01C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				440E860317F5140E00D191A2 /* Main.storyboard */,
+				61B2E1611893211F00A87DB4 /* BeaconPulsingHaloLayer.h */,
+				61B2E1621893211F00A87DB4 /* BeaconPulsingHaloLayer.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		617F60DF1899DC5200D4C01C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6139C7DF186E486F00D72E45 /* BeaconManagerValues.h */,
+				6139C7D9186E480A00D72E45 /* BeaconRegionManager.h */,
+				6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */,
+				6139C7DC186E482700D72E45 /* BeaconPlistManager.h */,
+				6139C7DD186E482700D72E45 /* BeaconPlistManager.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		617F60E01899DC6D00D4C01C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				61564A2C183B102100D87AF2 /* BeaconListViewController.h */,
+				61564A2D183B102100D87AF2 /* BeaconListViewController.m */,
+				44E6C1CA17FE29A200CD88AE /* BeaconViewController.h */,
+				44E6C1CB17FE29A200CD88AE /* BeaconViewController.m */,
+				4498CDC31826EC8A001EC26B /* BeaconSettingsViewController.h */,
+				4498CDC41826EC8A001EC26B /* BeaconSettingsViewController.m */,
+				6192602C1835A17C00143F5A /* BeaconStatsViewController.h */,
+				6192602D1835A17C00143F5A /* BeaconStatsViewController.m */,
+				6119CDE9188E0E460023B25B /* BeaconBroadcastViewController.h */,
+				6119CDEA188E0E460023B25B /* BeaconBroadcastViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		6194E35E18445B8400F26217 /* Icons */ = {
@@ -482,7 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61B2E1631893211F00A87DB4 /* PulsingHaloLayer.m in Sources */,
+				61B2E1631893211F00A87DB4 /* BeaconPulsingHaloLayer.m in Sources */,
 				6192602E1835A17C00143F5A /* BeaconStatsViewController.m in Sources */,
 				4498CDC51826EC8A001EC26B /* BeaconSettingsViewController.m in Sources */,
 				6119CDEB188E0E460023B25B /* BeaconBroadcastViewController.m in Sources */,

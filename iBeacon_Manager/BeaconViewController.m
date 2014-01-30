@@ -81,7 +81,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
     int sections = 1;
     return sections;
 }
@@ -95,7 +94,6 @@
 {
     static NSString *CellIdentifier = @"BeaconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
  
     NSArray *availableBeaconRegionsList = [[BeaconRegionManager shared] availableBeaconRegionsList]; //[NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
     
@@ -131,7 +129,6 @@
     else{
         cell.imageView.image = _whiteMarker;
     }
-    
     cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [selectedBeaconRegion.proximityUUID UUIDString], selectedBeaconRegion.major ? selectedBeaconRegion.major : @"None", selectedBeaconRegion.minor ? selectedBeaconRegion.minor : @"None"];
     
     return cell;
@@ -139,13 +136,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     //NOTE setting the selected beacon region and selected beacon in this way will cause issue if IDs are not unique
     _selectedBeaconRegion = [[BeaconRegionManager shared] beaconRegionWithId:cell.textLabel.text];
     _selectedBeacon = [[BeaconRegionManager shared] beaconWithId:cell.textLabel.text];
     [self performSegueWithIdentifier:@"beaconSettings" sender:self];
-    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -155,7 +150,6 @@
     {
         // Get reference to the destination view controller
         BeaconSettingsViewController *vc = [segue destinationViewController];
-
         vc.beaconRegion = _selectedBeaconRegion;
         vc.beacon = _selectedBeacon;
     }

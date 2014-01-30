@@ -25,6 +25,9 @@
     IBOutlet UIButton *_loadButton;
     IBOutlet UITableViewCell *_availableBeaconsCell;
     NSURL *_lastUrl;
+    BOOL loading;
+    IBOutlet UIProgressView *remoteLoadProgress;
+    
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -42,16 +45,24 @@
 
 - (IBAction)loadSampleButtonPressed:(id)sender {
     
+
+    if (!loading)
+    {
     //clear any beaconRegions stored in the locationManager
     [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
-    
     [[[BeaconRegionManager shared] plistManager] loadLocalPlist];
     
     _availableBeaconsCell.hidden = NO;
-    [UIView animateWithDuration:1 animations:^() {
+    
+    //fade in and out to show loading
+    [UIView animateWithDuration:0.5 animations:^() {
+        _availableBeaconsCell.alpha = 0.5;
+    }];
+    [UIView animateWithDuration:0.5 animations:^() {
         _availableBeaconsCell.alpha = 1.0;
     }];
     _availableBeaconsCell.userInteractionEnabled = YES;
+    }
 }
 
 - (void)viewDidLoad
@@ -64,7 +75,14 @@
     //[PlistManager shared];
     _lastUrl = [[NSUserDefaults standardUserDefaults] URLForKey:@"lastUrl"];
     //[[BeaconRegionManager shared] loadAvailableRegions];
-    [self beaconLoadCheck];
+    loading = NO;
+    remoteLoadProgress.hidden = YES;
+    
+    
+    //set initial available state
+    _availableBeaconsCell.hidden = YES;
+    _availableBeaconsCell.alpha = 0;
+    _availableBeaconsCell.userInteractionEnabled = NO;
 }
 
 - (void)hideKeyboard
@@ -85,42 +103,30 @@
 
 - (IBAction)reloadBeaconList:(id)sender
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Please ensure your URL is correct" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
-    [alert show];
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
+    
+    loading = YES;
+    //update UI to reflect loading new list
+    [self beaconLoadCheck];
     NSURL *url = [NSURL URLWithString:_urlTextField.text];
-    // the user clicked OK
-    if (buttonIndex == 0)
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    
+    if ([self validateUrl:[url absoluteString]])
     {
-        if (url != nil)
-        {
-           //check if
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-            [request setHTTPMethod:@"HEAD"];
-            [NSURLConnection connectionWithRequest:request delegate:self];
-        }
-    }
-}
-
-//helper for determining if a beacon list has been loaded
--(void)beaconLoadCheck
-{
-    if ([[BeaconRegionManager shared] availableBeaconRegionsList])
-    {
-        _availableBeaconsCell.hidden = NO;
-        [UIView animateWithDuration:1 animations:^() {
-            _availableBeaconsCell.alpha = 1.0;
-        }];
-        _availableBeaconsCell.userInteractionEnabled = YES;
+        remoteLoadProgress.hidden = NO;
+        remoteLoadProgress.progress = 0.0;
+        [self performSelectorOnMainThread:@selector(setProgress) withObject:nil waitUntilDone:NO];
+        
+        //Make the request TODO this is a lame way of doing this, to improve soon
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        [request setHTTPMethod:@"HEAD"];
+        [NSURLConnection connectionWithRequest:request delegate:self];
     }
     else
     {
-        _availableBeaconsCell.hidden = YES;
-        _availableBeaconsCell.alpha = 0;
-        _availableBeaconsCell.userInteractionEnabled = NO;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"URL provided is not not valid, please double check the URL and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
     }
 }
 
@@ -133,12 +139,58 @@
         //initialize ibeacon manager, load iBeacon plist, load available regions, start monitoring available regions
         // url exists
         [[[BeaconRegionManager shared] plistManager] loadHostedPlistWithUrl:[NSURL URLWithString:_urlTextField.text]];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"URL provided is not responding, please double check the URL and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+}
 
+- (BOOL) validateUrl: (NSString *)urlString {
+    NSString *urlRegEx =
+    @"(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+";
+    NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegEx];
+    return [urlTest evaluateWithObject:urlString];
+}
+
+- (void)setProgress
+{
+    float actual = [remoteLoadProgress progress];
+    if (actual < 1) {
+        
+        //should add receiveddata/expected data
+        loading = YES;
+        remoteLoadProgress.progress = actual + 0.01;
+        [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(setProgress) userInfo:nil repeats:NO];
+    }
+    else
+    {
+        loading = NO;
+        remoteLoadProgress.hidden = YES;
+        //load available regions for beacon load check
+        [[BeaconRegionManager shared] loadAvailableRegions];
+        [self beaconLoadCheck];
+    }
+}
+
+//helper for determining if a beacon list has been loaded
+-(void)beaconLoadCheck
+{
+    if ([[BeaconRegionManager shared] availableBeaconRegionsList] && !loading)
+    {
+        _availableBeaconsCell.userInteractionEnabled = YES;
         _availableBeaconsCell.hidden = NO;
-        [UIView animateWithDuration:1 animations:^() {
+        [UIView animateWithDuration:0.5 animations:^() {
             _availableBeaconsCell.alpha = 1.0;
         }];
-        _availableBeaconsCell.userInteractionEnabled = YES;
+    }
+    else
+    {
+        _availableBeaconsCell.userInteractionEnabled = NO;
+        [UIView animateWithDuration:0.5 animations:^() {
+            _availableBeaconsCell.alpha = 0.0;
+        }];
+        _availableBeaconsCell.hidden = YES;
     }
 }
 
@@ -161,7 +213,6 @@
     // MIME type is XML (plist)
     NSString *mimeType = @"application/xml";
 
-    
     // Add attachment
     [mc addAttachmentData:fileData mimeType:mimeType fileName:@"BeaconRegions"];
     
