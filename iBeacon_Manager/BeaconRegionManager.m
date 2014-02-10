@@ -215,10 +215,6 @@
         //place current ranged beacons for this region under this region's key
         [_currentRangedBeacons setObject:currentBeaconsInRegion forKey:region.identifier];
     }
-    //else create the dictionary with the identifier of the beacon region
-    
-    
-    [self saveBeaconStats];
     
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"managerDidRangeBeacons"
@@ -416,20 +412,21 @@
     if (beaconRegion.identifier)
     {
         NSLog(@"visit recorded");
-        //if beaconstats dict is present and there's a visits entry
-        if ([self.beaconStats objectForKey:beaconRegion.identifier] && [self visitsForIdentifier:beaconRegion.identifier] > 0)
+        //if beaconstats dict is present
+        if ([self.beaconStats objectForKey:beaconRegion.identifier])
         {
             NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
-            visits = [self visitsForIdentifier:beaconRegion.identifier] + 1;
+            
+            if ([self visitsForIdentifier:beaconRegion.identifier])
+            {
+                visits = [self visitsForIdentifier:beaconRegion.identifier] + 1;
+            }
+            else
+            {
+                visits = 1;
+            }
+            
             [beaconRegionStats setObject:[NSNumber numberWithInteger:visits] forKey:kVisits];
-        }
-        else
-        {
-            //create new dictionary for this region and add it to stats
-            NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] init];
-            visits = 1;
-            [beaconRegionStats setObject:[NSNumber numberWithInteger:visits] forKey:kVisits];
-            [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
         }
         [self saveBeaconStats];
     }

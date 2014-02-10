@@ -173,6 +173,7 @@
 		6194E3C118469E1700F26217 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		61B2E1611893211F00A87DB4 /* BeaconPulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconPulsingHaloLayer.h; sourceTree = "<group>"; };
 		61B2E1621893211F00A87DB4 /* BeaconPulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconPulsingHaloLayer.m; sourceTree = "<group>"; };
+		61BB3CCE18A1817200C7ECA2 /* jd.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = jd.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,6 +336,7 @@
 		6194E35E18445B8400F26217 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				61BB3CCE18A1817200C7ECA2 /* jd.caf */,
 				617F60E31899E8D800D4C01C /* 751-eye@2x.png */,
 				617F60E51899E9E000D4C01C /* 789-map-location@2x.png */,
 				617F60E11899E86E00D4C01C /* 849-radar@2x.png */,
