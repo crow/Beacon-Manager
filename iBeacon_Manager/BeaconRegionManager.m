@@ -10,16 +10,11 @@
 #import "BeaconManagerValues.h"
 #import "UAPush.h"
 
-
-
-
-
 @interface BeaconRegionManager ()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
-
 
 @implementation BeaconRegionManager
 {
@@ -40,7 +35,6 @@
 {
     self = [super init];
     
-
     _plistManager = [[BeaconPlistManager alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -55,8 +49,6 @@
     //clear monitoring on store location manager regions
     [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
     //initialize ibeacon manager, load iBeacon plist, load available regions, start monitoring available regions
-    //[[[BeaconRegionManager shared] plistManager] loadLocalPlist];
-    //[[[BeaconRegionManager shared] plistManager] loadHostedPlistWithUrl:[NSURL URLWithString:@"http://bit.ly/1iIvvKQ"]];
     [[BeaconRegionManager shared] loadAvailableRegions];
     [[BeaconRegionManager shared] startMonitoringAllAvailableBeaconRegions];
     [self loadBeaconStats];
@@ -66,7 +58,6 @@
 {
     //clear monitoring on store location manager regions
     [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
-
 }
 
 -(void)checkiBeaconsEnabledState
@@ -108,7 +99,6 @@
         [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kExitTagPreamble, beaconRegion.identifier]];
         [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, beaconRegion.identifier]];
     }
-    
     [[UAPush shared] updateRegistration];
 }
 
@@ -431,12 +421,9 @@
         [self saveBeaconStats];
     }
 }
+
 -(void)timestampEntryForBeaconRegion:(CLBeaconRegion *)beaconRegion
 {
-    
-    //record a visit on entry
-    [self recordVisitForBeaconRegion:beaconRegion];
-    
     if (beaconRegion.identifier)
     {
         NSLog(@"timestamped entry");
@@ -454,6 +441,9 @@
         }
         [self saveBeaconStats];
     }
+    
+    //record a visit on entry after necessary dictionary check is made
+    [self recordVisitForBeaconRegion:beaconRegion];
 }
 
 -(void)timestampExitForBeaconRegion:(CLBeaconRegion *)beaconRegion
@@ -479,7 +469,6 @@
     [self calculateCumulativeTimeForBeaconRegion:beaconRegion];
 }
 
-
 -(void)calculateCumulativeTimeForBeaconRegion:(CLBeaconRegion *)beaconRegion
 {
     NSTimeInterval cumulativeTime = [self cumulativeTimeForIdentifier:beaconRegion.identifier];
@@ -497,6 +486,7 @@
     {
         [beaconRegionStats setObject:@0 forKey:kCumulativeTime];
     }
+    [self saveBeaconStats];
 }
 
 #pragma non-essential helpers

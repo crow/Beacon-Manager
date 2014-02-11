@@ -72,6 +72,8 @@
 -(void)loadBeaconStats
 {
     
+    [[BeaconRegionManager shared] loadBeaconStats];
+    
     _lastEntry = [[BeaconRegionManager shared] lastEntryForIdentifier:self.beaconRegion.identifier];
     _lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:self.beaconRegion.identifier];
     _cumulativeVisitTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:self.beaconRegion.identifier];

@@ -12,8 +12,6 @@
 #import <MessageUI/MessageUI.h>
 #import "BeaconManagerValues.h"
 
-
-
 @interface BeaconListViewController () <MFMailComposeViewControllerDelegate>
 
 @end
@@ -27,7 +25,6 @@
     NSURL *_lastUrl;
     BOOL loading;
     IBOutlet UIProgressView *remoteLoadProgress;
-    
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -77,7 +74,6 @@
     loading = NO;
     remoteLoadProgress.hidden = YES;
     
-    
     //set initial available state
     _availableBeaconsCell.hidden = YES;
     _availableBeaconsCell.alpha = 0;
@@ -102,14 +98,12 @@
 
 - (IBAction)reloadBeaconList:(id)sender
 {
-    
     loading = YES;
     //update UI to reflect loading new list
     [self beaconLoadCheck];
     NSURL *url = [NSURL URLWithString:_urlTextField.text];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    
     
     if ([self validateUrl:[url absoluteString]])
     {
@@ -205,7 +199,6 @@
     [mc setMessageBody:messageBody isHTML:NO];
     [mc setToRecipients:toRecipents];
     
-    
     NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions" ofType:@"plist"];
     NSData *fileData = [NSData dataWithContentsOfFile:plistBeaconRegionsPath];
     
@@ -238,10 +231,8 @@
         default:
             break;
     }
-    
     // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
-
 
 @end
