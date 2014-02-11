@@ -103,8 +103,6 @@
     [self beaconLoadCheck];
     NSURL *url = [NSURL URLWithString:_urlTextField.text];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    
     if ([self validateUrl:[url absoluteString]])
     {
         remoteLoadProgress.hidden = NO;
