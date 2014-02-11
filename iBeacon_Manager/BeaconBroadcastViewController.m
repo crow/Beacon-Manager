@@ -57,6 +57,13 @@
     
 }
 
+- (BOOL)validateUuidString: (NSString *)urlString {
+    NSString *uuidRegEx =
+    @"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}";
+    NSPredicate *uuidTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", uuidRegEx];
+    return [uuidTest evaluateWithObject:urlString];
+}
+
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
 {
     
@@ -155,6 +162,13 @@
     self.broadcastImage.image = _whiteMarker;
     self.beaconView.image = _whiteMarker;
     self.halo.radius = 0;
+    
+    if (![self validateUuidString:self.uuidField.text])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"UUID you provided is not not valid, please double check the UUID and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
     
     if(_peripheralManager.state < CBPeripheralManagerStatePoweredOn)
     {
