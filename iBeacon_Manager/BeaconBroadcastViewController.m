@@ -59,7 +59,7 @@
 
 - (BOOL)validateUuidString: (NSString *)urlString {
     NSString *uuidRegEx =
-    @"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}";
+    @"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}";
     NSPredicate *uuidTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", uuidRegEx];
     return [uuidTest evaluateWithObject:urlString];
 }
