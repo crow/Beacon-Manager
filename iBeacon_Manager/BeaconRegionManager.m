@@ -151,7 +151,8 @@
             [self startMonitoringBeaconInRegion:beaconRegion];
         }
     }
-       [self syncMonitoredRegions];
+    
+    [self syncMonitoredRegions];
 }
 
 //helper method to stop monitoring all available beacon regions
@@ -328,7 +329,7 @@
     {
         return [self.beaconStats objectForKey:identifier];
     }
-    NSLog(@"No beacon stats for that identifier are available");
+    //NSLog(@"No beacon stats for that identifier are available");
     return nil;
 }
 
@@ -343,7 +344,7 @@
         }
         
     }
-    NSLog(@"No lastEntry for that identifier is available");
+    //NSLog(@"No lastEntry for that identifier is available");
     return 0;
 }
 
@@ -359,7 +360,7 @@
         }
         
     }
-    NSLog(@"No lastExit for that identifier is available");
+    //NSLog(@"No lastExit for that identifier is available");
     return 0;
 }
 
@@ -373,13 +374,17 @@
             return [[stats objectForKey:kCumulativeTime] doubleValue];
         }
     }
-    NSLog(@"No cumulativeTime for that identifier is available");
+    //NSLog(@"No cumulativeTime for that identifier is available");
     return 0;
 }
 
 -(double)averageVisitTimeForIdentifier:(NSString *)identifier
 {
-    return [self cumulativeTimeForIdentifier:identifier]/[self visitsForIdentifier:identifier];
+    
+    if ([self cumulativeTimeForIdentifier:identifier] && [self visitsForIdentifier:identifier])
+        return [self cumulativeTimeForIdentifier:identifier]/[self visitsForIdentifier:identifier];
+    else
+        return 0;
 }
 
 -(int)visitsForIdentifier:(NSString *)identifier
@@ -417,6 +422,8 @@
             }
             
             [beaconRegionStats setObject:[NSNumber numberWithInteger:visits] forKey:kVisits];
+            [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+
         }
         [self saveBeaconStats];
     }
@@ -431,6 +438,8 @@
         {
             NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
             [beaconRegionStats setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:kLastEntry];
+            [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+
         }
         else
         {
@@ -455,6 +464,8 @@
         {
             NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
             [beaconRegionStats setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:kLastExit];
+            [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+
         }
         else
         {
@@ -481,10 +492,14 @@
     {
         cumulativeTime = cumulativeTime + (exitTime - entryTime);
         [beaconRegionStats setObject:[NSNumber numberWithDouble:cumulativeTime] forKey:kCumulativeTime];
+        [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+
     }
     else
     {
         [beaconRegionStats setObject:@0 forKey:kCumulativeTime];
+        [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+
     }
     [self saveBeaconStats];
 }
