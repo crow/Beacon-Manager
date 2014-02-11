@@ -167,6 +167,7 @@
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"UUID you provided is not not valid, please double check the UUID and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
+        [sender setOn:NO animated:YES];
         return;
     }
     
@@ -175,7 +176,7 @@
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Bluetooth must be enabled" message:@"To configure your device as a beacon" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         //reset switch position
-        [sender setOn:false animated:true];
+        [sender setOn:NO animated:YES];
         
         return;
     }
