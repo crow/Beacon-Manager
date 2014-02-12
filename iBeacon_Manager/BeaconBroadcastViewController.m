@@ -216,8 +216,10 @@
     if ([self.broadcastSwitch isOn]){
     self.halo.radius = self.transmitPowerSlider.value * kMaxRadius;
     //self.radiusLabel.text = [@(self.transmitPowerSlider) stringValue];
-    self.transmitPowerLabel.text = [NSString stringWithFormat:@"-%1.0f dB", self.transmitPowerSlider.value];
     }
+
+    self.transmitPowerLabel.text = [NSString stringWithFormat:@"-%1.0f dB", self.transmitPowerSlider.value];
+
     _power = [NSNumber numberWithFloat:self.transmitPowerSlider.value];
 }
 

@@ -10,16 +10,11 @@
 #import "BeaconManagerValues.h"
 #import "UAPush.h"
 
-
-
-
-
 @interface BeaconRegionManager ()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
-
 
 @implementation BeaconRegionManager
 {
@@ -40,7 +35,6 @@
 {
     self = [super init];
     
-
     _plistManager = [[BeaconPlistManager alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -55,8 +49,6 @@
     //clear monitoring on store location manager regions
     [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
     //initialize ibeacon manager, load iBeacon plist, load available regions, start monitoring available regions
-    //[[[BeaconRegionManager shared] plistManager] loadLocalPlist];
-    //[[[BeaconRegionManager shared] plistManager] loadHostedPlistWithUrl:[NSURL URLWithString:@"http://bit.ly/1iIvvKQ"]];
     [[BeaconRegionManager shared] loadAvailableRegions];
     [[BeaconRegionManager shared] startMonitoringAllAvailableBeaconRegions];
     [self loadBeaconStats];
@@ -66,7 +58,6 @@
 {
     //clear monitoring on store location manager regions
     [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
-
 }
 
 -(void)checkiBeaconsEnabledState
@@ -108,7 +99,6 @@
         [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kExitTagPreamble, beaconRegion.identifier]];
         [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, beaconRegion.identifier]];
     }
-    
     [[UAPush shared] updateRegistration];
 }
 
@@ -121,6 +111,16 @@
 -(void)loadAvailableRegions
 {
     _availableBeaconRegionsList = [_plistManager getAvailableBeaconRegionsList];
+}
+
+//helper method to return a properly formatted (short style) date
+-(NSString *)dateStringFromInterval:(NSTimeInterval)interval
+{
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
+    NSString *dateString = [NSDateFormatter localizedStringFromDate:date
+                                                          dateStyle:NSDateFormatterShortStyle
+                                                          timeStyle:NSDateFormatterNoStyle];
+    return dateString;
 }
 
 #pragma monitoring stop/start helpers
@@ -161,7 +161,8 @@
             [self startMonitoringBeaconInRegion:beaconRegion];
         }
     }
-       [self syncMonitoredRegions];
+    
+    [self syncMonitoredRegions];
 }
 
 //helper method to stop monitoring all available beacon regions
@@ -215,49 +216,48 @@
         //place current ranged beacons for this region under this region's key
         [_currentRangedBeacons setObject:currentBeaconsInRegion forKey:region.identifier];
     }
-    //else create the dictionary with the identifier of the beacon region
-    
-    
-    [self saveBeaconStats];
     
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"managerDidRangeBeacons"
      object:self];
-    
-    [self updateVistedStatsForRangedBeacons:beacons];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    NSTimeInterval lastEntry = [[BeaconRegionManager shared] lastEntryForIdentifier:region.identifier];
-    NSTimeInterval lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:region.identifier];
-    NSTimeInterval cumulativeTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:region.identifier];
+//    NSTimeInterval lastEntry = [[BeaconRegionManager shared] lastEntryForIdentifier:region.identifier];
+//    NSTimeInterval lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:region.identifier];
+//    NSTimeInterval cumulativeTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:region.identifier];
     
-    [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kExitTagPreamble]];
-    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kEntryTagPreamble]];
+    NSString *todaysDate = [self dateStringFromInterval:[[NSDate date] timeIntervalSince1970]];
+    //swap entry/exit tags
+    [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kExitTagPreamble, region.identifier]];
+    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, region.identifier]];
     
-    //[[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"Entered-%@_At:%@", region.identifier, [NSDate dateWithTimeIntervalSince1970:lastEntry]]];
-
-    UALOG(@"Updating tag");
+    //optional dated tags
+    //set dated encountered any tag
+    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kEncounterAnyPreamble, todaysDate]];
+    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@_%@", kEncounterSpecificPreamble, region.identifier, todaysDate]];
+    
+    UA_LDEBUG(@"Updating tags");
     [[UAPush shared] updateRegistration];
-    
-    NSLog( @"didEnterRegion %@", region.identifier );
+    UA_LDEBUG( @"didEnterRegion '%@'", region.identifier );
     [self timestampEntryForBeaconRegion:[self beaconRegionWithId:region.identifier]];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-    NSTimeInterval lastEntry = [[BeaconRegionManager shared] lastEntryForIdentifier:region.identifier];
-    NSTimeInterval lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:region.identifier];
-    NSTimeInterval cumulativeTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:region.identifier];
+//    NSTimeInterval lastEntry = [[BeaconRegionManager shared] lastEntryForIdentifier:region.identifier];
+//    NSTimeInterval lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:region.identifier];
+//    NSTimeInterval cumulativeTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:region.identifier];
     
-    [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kEntryTagPreamble]];
-    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kExitTagPreamble]];
+    //swap entry/exit tags
+    [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, region.identifier]];
+    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kExitTagPreamble, region.identifier]];
     
-    UALOG(@"Updating tag");
+    UA_LDEBUG(@"Updating tags");
     [[UAPush shared] updateRegistration];
     
-    NSLog(@"didExitRegion %@", region.identifier);
+    UA_LDEBUG(@"didExitRegion '%@'", region.identifier);
     //exit timestamp includes cumulative time measurement
     [self timestampExitForBeaconRegion:[self beaconRegionWithId:region.identifier]];
 }
@@ -267,15 +267,26 @@
 {
     // A user can transition in or out of a region while the application is not running.
     // When this happens CoreLocation will launch the application momentarily, call this delegate method
-    // and we will let the user know via a local notification.
+
+    NSString *todaysDate = [self dateStringFromInterval:[[NSDate date] timeIntervalSince1970]];
 
     if(state == CLRegionStateInside)
     {
-        [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kExitTagPreamble]];
-        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kEntryTagPreamble]];
-        UALOG(@"Updating tag");
-        NSLog( @"didEnterRegion %@", region.identifier );
-                
+        
+        //set encountered any tag
+        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@", kEncounterAnyPreamble]];
+        //set entry tag (implied entry)
+        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, region.identifier]];
+        
+        
+        //optional dated tags
+        //set dated encountered any tag
+        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kEncounterAnyPreamble, todaysDate]];
+        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@_%@", kEncounterSpecificPreamble, region.identifier, todaysDate]];
+        
+        
+        UA_LDEBUG( @"Beacon Manager Updated State: Entered Region '%@'", region.identifier );
+        
         //if lastEntry is null then entry is when the app started in the region
         if (![[BeaconRegionManager shared] lastEntryForIdentifier:region.identifier])
         {
@@ -284,9 +295,8 @@
     }
     else if(state == CLRegionStateOutside)
     {
-        [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kEntryTagPreamble]];
-        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@-%@", region.identifier, kExitTagPreamble]];
-        NSLog(@"didExitRegion %@", region.identifier);
+
+       UA_LDEBUG(@"Beacon Manager Updated State: Exited Region '%@'", region.identifier);
     }
     UALOG(@"Updating tag");
     [[UAPush shared] updateRegistration];
@@ -294,12 +304,15 @@
 
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error
 {
+    
+    UA_LDEBUG(@"%@", error);
     NSLog(@"%@", error);
 }
 
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
 {
+    UA_LDEBUG(@"%@", error);
     NSLog(@"%@", error);
 }
 
@@ -344,7 +357,7 @@
     {
         return [self.beaconStats objectForKey:identifier];
     }
-    NSLog(@"No beacon stats for that identifier are available");
+    //NSLog(@"No beacon stats for that identifier are available");
     return nil;
 }
 
@@ -359,7 +372,7 @@
         }
         
     }
-    NSLog(@"No lastEntry for that identifier is available");
+    //NSLog(@"No lastEntry for that identifier is available");
     return 0;
 }
 
@@ -375,7 +388,7 @@
         }
         
     }
-    NSLog(@"No lastExit for that identifier is available");
+    //NSLog(@"No lastExit for that identifier is available");
     return 0;
 }
 
@@ -389,13 +402,17 @@
             return [[stats objectForKey:kCumulativeTime] doubleValue];
         }
     }
-    NSLog(@"No cumulativeTime for that identifier is available");
+    //NSLog(@"No cumulativeTime for that identifier is available");
     return 0;
 }
 
 -(double)averageVisitTimeForIdentifier:(NSString *)identifier
 {
-    return [self cumulativeTimeForIdentifier:identifier]/[self visitsForIdentifier:identifier];
+    
+    if ([self cumulativeTimeForIdentifier:identifier] && [self visitsForIdentifier:identifier])
+        return [self cumulativeTimeForIdentifier:identifier]/[self visitsForIdentifier:identifier];
+    else
+        return 0;
 }
 
 -(int)visitsForIdentifier:(NSString *)identifier
@@ -408,7 +425,7 @@
             return [[stats objectForKey:kVisits] intValue];
         }
     }
-    NSLog(@"No visits for that identifier are available");
+    //NSLog(@"No visits for that identifier are available");
     return 0;
 }
 
@@ -417,38 +434,40 @@
     int visits;
     if (beaconRegion.identifier)
     {
-        NSLog(@"visit recorded");
-        //if beaconstats dict is present and there's a visits entry
-        if ([self.beaconStats objectForKey:beaconRegion.identifier] && [self visitsForIdentifier:beaconRegion.identifier] > 0)
+        //NSLog(@"visit recorded");
+        //if beaconstats dict is present
+        if ([self.beaconStats objectForKey:beaconRegion.identifier])
         {
             NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
-            visits = [self visitsForIdentifier:beaconRegion.identifier] + 1;
-            [beaconRegionStats setObject:[NSNumber numberWithInteger:visits] forKey:kVisits];
-        }
-        else
-        {
-            //create new dictionary for this region and add it to stats
-            NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] init];
-            visits = 1;
+            
+            if ([self visitsForIdentifier:beaconRegion.identifier])
+            {
+                visits = [self visitsForIdentifier:beaconRegion.identifier] + 1;
+            }
+            else
+            {
+                visits = 1;
+            }
+            
             [beaconRegionStats setObject:[NSNumber numberWithInteger:visits] forKey:kVisits];
             [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+
         }
         [self saveBeaconStats];
     }
 }
+
 -(void)timestampEntryForBeaconRegion:(CLBeaconRegion *)beaconRegion
 {
-    
-    //record a visit on entry
-    [self recordVisitForBeaconRegion:beaconRegion];
-    
     if (beaconRegion.identifier)
     {
-        NSLog(@"timestamped entry");
+        //NSLog(@"timestamped entry");
         if ([self.beaconStats objectForKey:beaconRegion.identifier])
         {
             NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
             [beaconRegionStats setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:kLastEntry];
+            [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+
         }
         else
         {
@@ -459,17 +478,22 @@
         }
         [self saveBeaconStats];
     }
+    
+    //record a visit on entry after necessary dictionary check is made
+    [self recordVisitForBeaconRegion:beaconRegion];
 }
 
 -(void)timestampExitForBeaconRegion:(CLBeaconRegion *)beaconRegion
 {
     if (beaconRegion.identifier)
     {
-        NSLog(@"timestamped exit");
+        //NSLog(@"timestamped exit");
         if ([self.beaconStats objectForKey:beaconRegion.identifier])
         {
             NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
             [beaconRegionStats setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:kLastExit];
+            [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+
         }
         else
         {
@@ -484,7 +508,6 @@
     [self calculateCumulativeTimeForBeaconRegion:beaconRegion];
 }
 
-
 -(void)calculateCumulativeTimeForBeaconRegion:(CLBeaconRegion *)beaconRegion
 {
     NSTimeInterval cumulativeTime = [self cumulativeTimeForIdentifier:beaconRegion.identifier];
@@ -497,35 +520,16 @@
     {
         cumulativeTime = cumulativeTime + (exitTime - entryTime);
         [beaconRegionStats setObject:[NSNumber numberWithDouble:cumulativeTime] forKey:kCumulativeTime];
+        [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+
     }
     else
     {
         [beaconRegionStats setObject:@0 forKey:kCumulativeTime];
-    }
-}
+        [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
 
-//TODO finish filtering by proximity and tagging
--(void)updateVistedStatsForRangedBeacons:(NSArray *)rangedBeacons
-{
-    //[tmpRangedBeacons removeAllObjects];
-//    NSArray *unknownBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityUnknown]];
-//    if([unknownBeacons count])
-//        [currentRangedBeacons setObject:unknownBeacons forKey:[NSNumber numberWithInt:CLProximityUnknown]];
-//    
-//    NSArray *immediateBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityImmediate]];
-//    if([immediateBeacons count])
-//        [currentRangedBeacons setObject:immediateBeacons forKey:[NSNumber numberWithInt:CLProximityImmediate]];
-//    
-//    NSArray *nearBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityNear]];
-//    if([nearBeacons count])
-//        [currentRangedBeacons setObject:nearBeacons forKey:[NSNumber numberWithInt:CLProximityNear]];
-//    
-//    NSArray *farBeacons = [rangedBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", CLProximityFar]];
-//    if([farBeacons count])
-//        [currentRangedBeacons setObject:farBeacons forKey:[NSNumber numberWithInt:CLProximityFar]];
-//    
-//    //set read only parameter for detailed ranged beacons
-//    _rangedBeaconsDetailed = currentRangedBeacons;
+    }
+    [self saveBeaconStats];
 }
 
 #pragma non-essential helpers

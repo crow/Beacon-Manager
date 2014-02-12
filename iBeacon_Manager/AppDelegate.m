@@ -11,7 +11,13 @@
 #import "UAirship.h"
 #import "UAConfig.h"
 #import "UAPush.h"
+#import "UANotificationHandler.h"
 
+@interface AppDelegate ()
+
+@property (nonatomic, strong) UANotificationHandler *notificationDelegate;
+
+@end
 
 @implementation AppDelegate
 
@@ -29,6 +35,10 @@
     // Call takeOff (which creates the UAirship singleton)
     [UAirship takeOff:config];
     [[UAPush shared] setPushEnabled:YES];
+    
+    
+    self.notificationDelegate = [[UANotificationHandler alloc] init];
+    [UAPush shared].pushNotificationDelegate = self.notificationDelegate;
     
     return YES;
 }

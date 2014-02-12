@@ -10,6 +10,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
-@interface BeaconBroadcastViewController : UITableViewController <CBPeripheralManagerDelegate, UIAlertViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
+@interface BeaconBroadcastViewController : UITableViewController <CBPeripheralManagerDelegate, UIAlertViewDelegate, UITextFieldDelegate>
 
 @end

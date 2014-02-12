@@ -8,8 +8,7 @@
 
 #import "BeaconViewController.h"
 #import "BeaconSettingsViewController.h"
-//remove this after debugging
-#import "BeaconPlistManager.h"
+
 
 @interface BeaconViewController ()
 
