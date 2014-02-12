@@ -654,8 +654,13 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+<<<<<<< HEAD
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+=======
+				CODE_SIGN_IDENTITY = "iPhone Developer: John D Crow (877GS32Q5E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John D Crow (877GS32Q5E)";
+>>>>>>> 9a7cd9af6666d02939df7cfef23283b3e2787807
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iBeacon_Manager/iBeacon_Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -672,7 +677,11 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iBeacon_Manager;
+<<<<<<< HEAD
 				PROVISIONING_PROFILE = "11FA79D8-94C8-4A36-8239-758BD890B0DF";
+=======
+				PROVISIONING_PROFILE = "073EF2A8-E66C-454E-A3E0-EA6AEEC94F9E";
+>>>>>>> 9a7cd9af6666d02939df7cfef23283b3e2787807
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -685,8 +694,13 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+<<<<<<< HEAD
 				CODE_SIGN_IDENTITY = "iPhone Distribution: John D Crow (RT2J3E5RQP)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: John D Crow (RT2J3E5RQP)";
+=======
+				CODE_SIGN_IDENTITY = "iPhone Developer: John D Crow (877GS32Q5E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John D Crow (877GS32Q5E)";
+>>>>>>> 9a7cd9af6666d02939df7cfef23283b3e2787807
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iBeacon_Manager/iBeacon_Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -703,7 +717,11 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iBeacon_Manager;
+<<<<<<< HEAD
 				PROVISIONING_PROFILE = "11FA79D8-94C8-4A36-8239-758BD890B0DF";
+=======
+				PROVISIONING_PROFILE = "073EF2A8-E66C-454E-A3E0-EA6AEEC94F9E";
+>>>>>>> 9a7cd9af6666d02939df7cfef23283b3e2787807
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
