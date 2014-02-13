@@ -12,6 +12,7 @@
 #import "UAConfig.h"
 #import "UAPush.h"
 #import "UANotificationHandler.h"
+#import <Parse/Parse.h>
 
 @interface AppDelegate ()
 
@@ -32,6 +33,11 @@
     // config.developmentAppKey = @"YourKey";
     // etc.
     
+    [Parse setApplicationId:@"yzJQGyU8wb3I4JLmJ7JQdv1kxDTdYWOQGCidPExK"
+                  clientKey:@"wxakbXOpvq6Day993YWlFPeKLadyByrJqgmWEZpb"];
+    
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
     // Call takeOff (which creates the UAirship singleton)
     [UAirship takeOff:config];
     [[UAPush shared] setPushEnabled:YES];
@@ -39,6 +45,10 @@
     
     self.notificationDelegate = [[UANotificationHandler alloc] init];
     [UAPush shared].pushNotificationDelegate = self.notificationDelegate;
+    
+    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+    testObject[@"foo"] = @"bar";
+    [testObject saveInBackground];
     
     return YES;
 }

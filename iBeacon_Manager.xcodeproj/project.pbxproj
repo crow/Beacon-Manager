@@ -49,6 +49,8 @@
 		6153AD8B183B0DA3004E8C17 /* 760-refresh-3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6153AD8A183B0DA3004E8C17 /* 760-refresh-3@2x.png */; };
 		61564A2E183B102100D87AF2 /* BeaconListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61564A2D183B102100D87AF2 /* BeaconListViewController.m */; };
 		61564A3C1840044900D87AF2 /* 722-location-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61564A3B1840044900D87AF2 /* 722-location-pin@2x.png */; };
+		61727D2A18AC2869005BFD0F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61727D2918AC2869005BFD0F /* Parse.framework */; };
+		61727D2C18AC2A3E005BFD0F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61727D2B18AC2A3E005BFD0F /* FacebookSDK.framework */; };
 		617F60E21899E86E00D4C01C /* 849-radar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 617F60E11899E86E00D4C01C /* 849-radar@2x.png */; };
 		617F60E41899E8D800D4C01C /* 751-eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 617F60E31899E8D800D4C01C /* 751-eye@2x.png */; };
 		617F60E61899E9E000D4C01C /* 789-map-location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 617F60E51899E9E000D4C01C /* 789-map-location@2x.png */; };
@@ -76,6 +78,8 @@
 		6194E3C018469DFA00F26217 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3AF18469DFA00F26217 /* iTunesArtwork@2x.png */; };
 		6194E3C218469E1700F26217 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3C118469E1700F26217 /* iTunesArtwork.png */; };
 		61B2E1631893211F00A87DB4 /* BeaconPulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B2E1621893211F00A87DB4 /* BeaconPulsingHaloLayer.m */; };
+		61B604F418AC22710059D37E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865117F5157100D191A2 /* QuartzCore.framework */; };
+		61B604F618AC22970059D37E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B604F518AC22970059D37E /* StoreKit.framework */; };
 		61BB3CF118AAC69200C7ECA2 /* UANotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BB3CF018AAC69200C7ECA2 /* UANotificationHandler.m */; };
 /* End PBXBuildFile section */
 
@@ -145,6 +149,8 @@
 		61564A2C183B102100D87AF2 /* BeaconListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconListViewController.h; sourceTree = "<group>"; };
 		61564A2D183B102100D87AF2 /* BeaconListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconListViewController.m; sourceTree = "<group>"; };
 		61564A3B1840044900D87AF2 /* 722-location-pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "722-location-pin@2x.png"; sourceTree = "<group>"; };
+		61727D2918AC2869005BFD0F /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		61727D2B18AC2A3E005BFD0F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		617F60E11899E86E00D4C01C /* 849-radar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "849-radar@2x.png"; sourceTree = "<group>"; };
 		617F60E31899E8D800D4C01C /* 751-eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "751-eye@2x.png"; sourceTree = "<group>"; };
 		617F60E51899E9E000D4C01C /* 789-map-location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "789-map-location@2x.png"; sourceTree = "<group>"; };
@@ -174,6 +180,7 @@
 		6194E3C118469E1700F26217 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		61B2E1611893211F00A87DB4 /* BeaconPulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconPulsingHaloLayer.h; sourceTree = "<group>"; };
 		61B2E1621893211F00A87DB4 /* BeaconPulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconPulsingHaloLayer.m; sourceTree = "<group>"; };
+		61B604F518AC22970059D37E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		61BB3CCE18A1817200C7ECA2 /* jd.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = jd.caf; sourceTree = "<group>"; };
 		61BB3CEF18AAC69200C7ECA2 /* UANotificationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UANotificationHandler.h; sourceTree = "<group>"; };
 		61BB3CF018AAC69200C7ECA2 /* UANotificationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UANotificationHandler.m; sourceTree = "<group>"; };
@@ -184,19 +191,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44A5F86017F6048900F619C1 /* SystemConfiguration.framework in Frameworks */,
+				61727D2C18AC2A3E005BFD0F /* FacebookSDK.framework in Frameworks */,
+				61B604F618AC22970059D37E /* StoreKit.framework in Frameworks */,
+				440E865817F5159300D191A2 /* libz.dylib in Frameworks */,
+				440E865C17F515A500D191A2 /* CFNetwork.framework in Frameworks */,
 				6119CDE81885F64D0023B25B /* MobileCoreServices.framework in Frameworks */,
+				6119CDE21885F5F30023B25B /* CoreGraphics.framework in Frameworks */,
+				61B604F418AC22710059D37E /* QuartzCore.framework in Frameworks */,
 				6119CDE61885F6440023B25B /* Security.framework in Frameworks */,
 				6119CDE51885F6320023B25B /* MapKit.framework in Frameworks */,
 				6119CDE41885F62C0023B25B /* AudioToolbox.framework in Frameworks */,
 				6119CDE31885F6220023B25B /* CoreTelephony.framework in Frameworks */,
 				440E865A17F5159C00D191A2 /* libsqlite3.dylib in Frameworks */,
 				440E85F617F5140E00D191A2 /* UIKit.framework in Frameworks */,
-				44A5F86017F6048900F619C1 /* SystemConfiguration.framework in Frameworks */,
-				6119CDE21885F5F30023B25B /* CoreGraphics.framework in Frameworks */,
+				61727D2A18AC2869005BFD0F /* Parse.framework in Frameworks */,
 				44A5F85A17F6041D00F619C1 /* MessageUI.framework in Frameworks */,
-				440E865C17F515A500D191A2 /* CFNetwork.framework in Frameworks */,
 				6119CDE11885F59C0023B25B /* libUAirship-3.0.2.a in Frameworks */,
-				440E865817F5159300D191A2 /* libz.dylib in Frameworks */,
 				440E865617F5157F00D191A2 /* CoreLocation.framework in Frameworks */,
 				440E865017F5156900D191A2 /* CoreBluetooth.framework in Frameworks */,
 				440E85F217F5140E00D191A2 /* Foundation.framework in Frameworks */,
@@ -237,6 +248,9 @@
 		440E85F017F5140E00D191A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				61727D2B18AC2A3E005BFD0F /* FacebookSDK.framework */,
+				61727D2918AC2869005BFD0F /* Parse.framework */,
+				61B604F518AC22970059D37E /* StoreKit.framework */,
 				6119CDE71885F64C0023B25B /* MobileCoreServices.framework */,
 				6119CDE01885F59C0023B25B /* libUAirship-3.0.2.a */,
 				44A5F86117F6049A00F619C1 /* CoreData.framework */,
@@ -656,6 +670,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: John D Crow (877GS32Q5E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John D Crow (877GS32Q5E)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager",
+					/Users/dcrow/Desktop,
+					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager/iBeacon_Manager",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iBeacon_Manager/iBeacon_Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -686,6 +706,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: John D Crow (877GS32Q5E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John D Crow (877GS32Q5E)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager",
+					/Users/dcrow/Desktop,
+					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager/iBeacon_Manager",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iBeacon_Manager/iBeacon_Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -699,7 +725,7 @@
 					"$(inherited)",
 					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iBeacon_Manager;
 				PROVISIONING_PROFILE = "073EF2A8-E66C-454E-A3E0-EA6AEEC94F9E";
