@@ -24,6 +24,8 @@
  */
 
 #import "UANotificationHandler.h"
+#import "BeaconRegionManager.h"
+#import "BeaconPlistManager.h"
 
 #import <AudioToolbox/AudioServices.h>
 
@@ -125,6 +127,25 @@
 
     // Call the completion handler
     completionHandler(UIBackgroundFetchResultNoData);
+}
+
+-(void)extractBeaconListFromNotification:(NSDictionary *)notification{
+    
+    //this is hardcoded on purpose to be obvious, we could loop through if we wanted, but we're limited to 20 anyway
+    
+    int i = 1;
+    NSString *beaconKey;
+    NSDictionary *availableBeaconRegions = [[NSDictionary alloc] init];
+    
+    for (i = 1; i < 20 ; i++) {
+        beaconKey = [[NSString alloc] initWithFormat:@"beaconRegion%d", i];
+        
+        if ([notification objectForKey:beaconKey]) {
+            
+            
+        }
+        
+    }
 }
 
 @end
