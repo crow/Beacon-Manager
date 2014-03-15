@@ -328,9 +328,9 @@
 				6139C7D9186E480A00D72E45 /* BeaconRegionManager.h */,
 				6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */,
 				6139C7DC186E482700D72E45 /* BeaconPlistManager.h */,
+				6139C7DD186E482700D72E45 /* BeaconPlistManager.m */,
 				61BB3CEF18AAC69200C7ECA2 /* UANotificationHandler.h */,
 				61BB3CF018AAC69200C7ECA2 /* UANotificationHandler.m */,
-				6139C7DD186E482700D72E45 /* BeaconPlistManager.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
