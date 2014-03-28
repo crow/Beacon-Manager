@@ -7,7 +7,7 @@
 //
 
 #import "BeaconListViewController.h"
-#import "BeaconPlistManager.h"
+#import "BeaconListManager.h"
 #import "BeaconRegionManager.h"
 #import <MessageUI/MessageUI.h>
 #import "BeaconManagerValues.h"
@@ -20,7 +20,9 @@
 {
     IBOutlet UIButton *_emailButton;
     IBOutlet UITextField *_urlTextField;
-    IBOutlet UIButton *_loadButton;
+    
+    IBOutlet UIButton *_loadLocationBasedButton;
+    IBOutlet UIButton *_loadHostedButton;
     IBOutlet UITableViewCell *_availableBeaconsCell;
     NSURL *_lastUrl;
     BOOL loading;
@@ -95,8 +97,11 @@
     [super didReceiveMemoryWarning];
 }
 
+- (IBAction)locationBasedButtonTapped:(id)sender {
 
-- (IBAction)reloadBeaconList:(id)sender
+}
+
+- (IBAction)hostedButtonTapped:(id)sender
 {
     loading = YES;
     //update UI to reflect loading new list

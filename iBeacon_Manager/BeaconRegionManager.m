@@ -35,7 +35,7 @@
 {
     self = [super init];
     
-    _plistManager = [[BeaconPlistManager alloc] init];
+    _plistManager = [[BeaconListManager alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     _currentRangedBeacons = [[NSMutableDictionary alloc] init];
