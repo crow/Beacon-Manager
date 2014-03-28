@@ -26,7 +26,6 @@
 #import "UANotificationHandler.h"
 #import "BeaconRegionManager.h"
 #import "BeaconPlistManager.h"
-
 #import <AudioToolbox/AudioServices.h>
 
 @implementation UANotificationHandler
