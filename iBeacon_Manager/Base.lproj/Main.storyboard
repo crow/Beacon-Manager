@@ -381,7 +381,6 @@
                                                     <state key="selected" image="731-cloud-download-selected.png"/>
                                                     <state key="highlighted" image="703-download-selected.png"/>
                                                     <connections>
-                                                        <action selector="loadSampleButtonPressed:" destination="GPg-HD-qLl" eventType="touchUpInside" id="S5D-OS-qi3"/>
                                                         <action selector="locationBasedButtonTapped:" destination="GPg-HD-qLl" eventType="touchUpInside" id="lJM-3I-6Me"/>
                                                     </connections>
                                                 </button>

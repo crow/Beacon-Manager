@@ -48,7 +48,7 @@
     {
     //clear any beaconRegions stored in the locationManager
     [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
-    [[[BeaconRegionManager shared] plistManager] loadLocalPlist];
+    [[[BeaconRegionManager shared] listManager] loadLocalPlist];
     
     _availableBeaconsCell.hidden = NO;
     
@@ -98,7 +98,7 @@
 }
 
 - (IBAction)locationBasedButtonTapped:(id)sender {
-
+    [[[BeaconRegionManager shared] listManager] loadLocationBasedList];
 }
 
 - (IBAction)hostedButtonTapped:(id)sender
@@ -134,7 +134,7 @@
         [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
         //initialize ibeacon manager, load iBeacon plist, load available regions, start monitoring available regions
         // url exists
-        [[[BeaconRegionManager shared] plistManager] loadHostedPlistWithUrl:[NSURL URLWithString:_urlTextField.text]];
+        [[[BeaconRegionManager shared] listManager] loadHostedPlistWithUrl:[NSURL URLWithString:_urlTextField.text]];
     }
     else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"URL provided is not responding, please double check the URL and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

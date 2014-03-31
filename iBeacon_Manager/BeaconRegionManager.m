@@ -35,7 +35,7 @@
 {
     self = [super init];
     
-    _plistManager = [[BeaconListManager alloc] init];
+    _listManager = [[BeaconListManager alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     _currentRangedBeacons = [[NSMutableDictionary alloc] init];
@@ -110,7 +110,7 @@
 
 -(void)loadAvailableRegions
 {
-    _availableBeaconRegionsList = [_plistManager getAvailableBeaconRegionsList];
+    _availableBeaconRegionsList = [_listManager getAvailableBeaconRegionsList];
 }
 
 //helper method to return a properly formatted (short style) date

@@ -17,7 +17,6 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 @property (nonatomic, strong) NSArray *remoteBeaconContentsArray;
 @property(nonatomic, strong) UAHTTPRequestEngine *requestEngine;
 
-
 @end
 
 @implementation BeaconListManager
@@ -35,7 +34,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     
     if(self)
     {
-        
+        self.requestEngine = [[UAHTTPRequestEngine alloc] init];
     }
     return self;
 }
@@ -51,23 +50,25 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 
 -(NSArray*)getAvailableBeaconRegionsList
 {
-    //set read-only available regions 
-    [self loadAvailableBeaconRegionsList];
+    
+    //THIS SHOULDN'T BE BUILDING AND LOADING
+    //set read-only available regions
+    //[self buildAndLoadAvailableBeaconRegionsList];
     return self.availableBeaconRegionsList;
 }
 
 //curl -i -u 'zuhKEYkfT4ys-CAix4fWFg:R28JlFrvQ-KzTbW_-DUEpw' 'https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'
 
 - (UAHTTPRequest *)listRequest{
-    NSString *urlString = [NSString stringWithFormat: @"%@%@",
-                           @"https://proserve-test.urbanairship.com:1443/", @"ibeacons?lat=45.53207&long=-122.69879'"];
-    NSURL *requestUrl = [NSURL URLWithString: urlString];
+    //NSString *urlString = [NSString stringWithFormat: @"%@%@",
+    //                    @"https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'"];
+    NSURL *requestUrl = [NSURL URLWithString: @"https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879"];
     
     UAHTTPRequest *request = [UAUtils UAHTTPUserRequestWithURL:requestUrl method:@"GET"];
     request.username = @"zuhKEYkfT4ys-CAix4fWFg";
     request.password = @"R28JlFrvQ-KzTbW_-DUEpw";
     
-    UA_LTRACE(@"Request to retrieve beacon list: %@", urlString);
+    //UA_LTRACE(@"Request to retrieve beacon list: %@", urlString);
     
     return request;
 }
@@ -97,7 +98,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
          double beaconMajor;
          double beaconMinor;
          
-         NSMutableArray *beaconRegionsArray = [NSMutableArray array];
+         NSMutableArray *beaconRegionsArray = [[NSMutableArray alloc] init];
          
          
          //check to see if the json response is an array
@@ -117,7 +118,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
                  beaconID = [[NSString alloc] initWithString:[beaconRegion valueForKey:@"identifier"]];
              }
              if ([beaconRegion valueForKey:@"uuid"]) {
-                 beaconProximityUUID = [[NSUUID alloc] initWithUUIDString:[beaconRegion valueForKey:@"uuid"]];
+                 beaconProximityUUID = [[NSUUID alloc] initWithUUIDString:@"E53D412B-776B-4F56-8061-9A13535BD34A"];
              }
              if ([beaconRegion valueForKey:@"major"]) {
                  beaconMajor = [[beaconRegion valueForKey:@"major"] doubleValue];
@@ -138,11 +139,14 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
              
          }
          
+         //load beacon regions array into beacon list manager
          
+     
+         _plistBeaconContentsArray = [[NSArray alloc] initWithArray:beaconRegionsArray];
+         _availableBeaconRegionsList = beaconRegionsArray;
+         [self loadReadableBeaconRegions];
          
          if (successBlock) {
-             
-             //    successBlock([[inboxDBManager getMessages] mutableCopy], (NSUInteger) unread);
              
          } else {
              UA_LERR(@"missing successBlock");
@@ -163,54 +167,36 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"SampleBeaconRegions" ofType:@"plist"];
     _plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
     
-    [self loadAvailableBeaconRegionsList];
+    [self buildAndLoadAvailableBeaconRegionsList];
     [self loadReadableBeaconRegions];
+}
+
+-(void)loadLocationBasedList
+{
+    //intialize the connection with the request
+    [self retrieveBeaconListOnSuccess:^(NSMutableArray *beaconRegions) {
+        UA_LTRACE(@"Request to retrieve beacon list succeeded");
+        
+        
+    } onFailure:^(UAHTTPRequest *request) {
+        UA_LTRACE(@"Request to retrieve beacon list failed");
+        
+    }];
 }
 
 -(void)loadHostedPlistWithUrl:(NSURL*)url
 {
-  //TODO make a sane URL request with a callback instead of this hilarious shit
-//    NSMutableData *data;
-//    
-//    NSURLRequest *request=[NSURLRequest requestWithURL:url
-//                                              cachePolicy:NSURLRequestUseProtocolCachePolicy
-//                                          timeoutInterval:60.0];
-//    
-//    NSURLConnection *connection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
-//    
-//    if (connection) {
-//        data=[NSMutableData data];
-//    } else {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No connection could be made" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [alert show];
-//    }
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+  //TODO make a sane URL request with a callback instead of this bullshit
+   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         _plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfURL:url];
-        [self loadAvailableBeaconRegionsList];
+        [self buildAndLoadAvailableBeaconRegionsList];
         [self loadReadableBeaconRegions];
         
     });
 }
 
-#pragma NSURLConnectionDelegate callbacks
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-
-}
-
--(void)loadAvailableBeaconRegionsList
+-(void)buildAndLoadAvailableBeaconRegionsList
 {
     _availableBeaconRegionsList = [self buildBeaconRegionDataFromPlist];
 }

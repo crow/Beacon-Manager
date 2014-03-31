@@ -12,9 +12,12 @@
 
 //Plist loading
 -(void)loadLocalPlist;
+-(void)loadLocationBasedList;
 -(void)loadHostedPlistWithUrl:(NSURL*)url;
 
 @property (nonatomic, copy, readonly) NSArray *availableBeaconRegionsList;
 @property (nonatomic, copy, readonly) NSArray *readableBeaconRegions;
+
+
 
 @end
