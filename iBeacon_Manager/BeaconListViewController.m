@@ -38,30 +38,6 @@
     return self;
 }
 
-- (IBAction)emailButtonTouched:(id)sender {
-    [self showEmail];
-}
-
-- (IBAction)loadSampleButtonPressed:(id)sender {
-    
-    if (!loading)
-    {
-    //clear any beaconRegions stored in the locationManager
-    [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
-    [[[BeaconRegionManager shared] listManager] loadLocalPlist];
-    
-    _availableBeaconsCell.hidden = NO;
-    
-    //fade in and out to show loading
-    [UIView animateWithDuration:0.5 animations:^() {
-        _availableBeaconsCell.alpha = 0.5;
-    }];
-    [UIView animateWithDuration:0.5 animations:^() {
-        _availableBeaconsCell.alpha = 1.0;
-    }];
-    _availableBeaconsCell.userInteractionEnabled = YES;
-    }
-}
 
 - (void)viewDidLoad
 {
@@ -97,8 +73,61 @@
     [super didReceiveMemoryWarning];
 }
 
-- (IBAction)locationBasedButtonTapped:(id)sender {
-    [[[BeaconRegionManager shared] listManager] loadLocationBasedList];
+
+- (IBAction)emailButtonTouched:(id)sender {
+    [self showEmail];
+}
+
+- (IBAction)loadSampleButtonPressed:(id)sender {
+    
+    if (!loading)
+    {
+        //clear any beaconRegions stored in the locationManager
+        [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
+        [[[BeaconRegionManager shared] listManager] loadLocalPlist];
+        
+        //automatically reveal available beacon cell
+        [self revealAvailableBeaconCell];
+
+    }
+}
+
+- (IBAction)locationBasedButtonTapped:(id)sender
+{
+    if (!loading)
+    {
+        //clear any beaconRegions stored in the locationManager
+        [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
+        [[[BeaconRegionManager shared] listManager] loadLocationBasedList];
+        
+        //wait for http success callback to call revealAvailableBeaconCell
+
+    }
+    
+}
+
+-(void)revealAvailableBeaconCell
+{
+    _availableBeaconsCell.hidden = NO;
+    
+    //fade in and out to show loading
+    [UIView animateWithDuration:0.5 animations:^() {
+        _availableBeaconsCell.alpha = 0.5;
+    }];
+    [UIView animateWithDuration:0.5 animations:^() {
+        _availableBeaconsCell.alpha = 1.0;
+    }];
+    _availableBeaconsCell.userInteractionEnabled = YES;
+}
+
+-(void)hideAvailableBeaconCell
+{
+    _availableBeaconsCell.hidden = YES;
+
+    [UIView animateWithDuration:0.5 animations:^() {
+        _availableBeaconsCell.alpha = 0.0;
+    }];
+    _availableBeaconsCell.userInteractionEnabled =  NO;
 }
 
 - (IBAction)hostedButtonTapped:(id)sender
@@ -174,19 +203,11 @@
 {
     if ([[BeaconRegionManager shared] availableBeaconRegionsList] && !loading)
     {
-        _availableBeaconsCell.userInteractionEnabled = YES;
-        _availableBeaconsCell.hidden = NO;
-        [UIView animateWithDuration:0.5 animations:^() {
-            _availableBeaconsCell.alpha = 1.0;
-        }];
+        [self revealAvailableBeaconCell];
     }
     else
     {
-        _availableBeaconsCell.userInteractionEnabled = NO;
-        [UIView animateWithDuration:0.5 animations:^() {
-            _availableBeaconsCell.alpha = 0.0;
-        }];
-        _availableBeaconsCell.hidden = YES;
+        [self hideAvailableBeaconCell];
     }
 }
 

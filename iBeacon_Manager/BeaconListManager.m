@@ -13,7 +13,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 
 @interface BeaconListManager ()
 
-@property (nonatomic, strong) NSArray *plistBeaconContentsArray;
+@property (nonatomic, strong) NSArray *beaconContentsArray;
 @property (nonatomic, strong) NSArray *remoteBeaconContentsArray;
 @property(nonatomic, strong) UAHTTPRequestEngine *requestEngine;
 
@@ -24,8 +24,8 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     NSFileManager *_manager;
     NSArray *_uuidToTitleKey;
     NSArray *_availableBeaconRegions;
-    NSArray *_plistBeaconContentsArray;
-    NSArray *_plistRegionContentsArray;
+    NSArray *_beaconContentsArray;
+    NSArray *_regionContentsArray;
 }
 
 - (id)init
@@ -65,8 +65,8 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     NSURL *requestUrl = [NSURL URLWithString: @"https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879"];
     
     UAHTTPRequest *request = [UAUtils UAHTTPUserRequestWithURL:requestUrl method:@"GET"];
-    request.username = @"zuhKEYkfT4ys-CAix4fWFg";
-    request.password = @"R28JlFrvQ-KzTbW_-DUEpw";
+    request.username = @"V6a5HDxsRl-9yuDhgj4WHg";
+    request.password = @"NYT-ZbPdRVeVFkgk9-rBKA";
     
     //UA_LTRACE(@"Request to retrieve beacon list: %@", urlString);
     
@@ -92,16 +92,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
          UA_LTRACE(@"Retrieved message list response: %@", responseString);
          
          NSDictionary *beaconRegionsList;
-//         
-//         NSString *beaconID;
-//         NSUUID *beaconProximityUUID;
-//         double beaconMajor;
-//         double beaconMinor;
-//         
-//         NSMutableArray *beaconRegionsArray = [[NSMutableArray alloc] init];
-//         
-         
-         //check to see if the json response is an array
+
          if ([jsonResponse isKindOfClass:[NSArray class]])
          {
              beaconRegionsList = jsonResponse;
@@ -110,41 +101,9 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
          {
              NSLog(@"JSON response is not an array of beacons!");
          }
-         
-         // Convert dictionary to objects for both convenience and necessity
-//         for (NSDictionary *beaconRegion in beaconRegionsList)
-//         {
-//             if ([beaconRegion valueForKey:@"identifier"]) {
-//                 beaconID = [[NSString alloc] initWithString:[beaconRegion valueForKey:@"identifier"]];
-//             }
-//             if ([beaconRegion valueForKey:@"uuid"]) {
-//                 beaconProximityUUID = [[NSUUID alloc] initWithUUIDString:@"E53D412B-776B-4F56-8061-9A13535BD34A"];
-//             }
-//             if ([beaconRegion valueForKey:@"major"]) {
-//                 beaconMajor = [[beaconRegion valueForKey:@"major"] doubleValue];
-//             }
-//             if ([beaconRegion valueForKey:@"minor"]) {
-//                 beaconMinor = [[beaconRegion valueForKey:@"minor"] doubleValue];
-//             }
-//             
-//             //create the beacon region after a simple null check on the required items
-//             if (beaconID && beaconProximityUUID && beaconMajor && beaconMinor) {
-//                 CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:beaconProximityUUID major:beaconMajor minor:beaconMinor identifier:beaconID];
-//                 [beaconRegionsArray addObject:beaconRegion];
-//             }
-//             else
-//             {
-//                 NSLog(@"Beacon list is missing contents/nidentifier:%@, uuid:%@, major:%f, minor:%f", beaconID, beaconProximityUUID, beaconMajor, beaconMinor);
-//             }
-//             
-//         }
-         
-         //load beacon regions array into beacon list manager
-         
      
-         _plistBeaconContentsArray = [[NSArray alloc] initWithArray:beaconRegionsList];
+         _beaconContentsArray = [[NSArray alloc] initWithArray:beaconRegionsList];
          [self buildAndLoadAvailableBeaconRegionsList];
-         [self loadReadableBeaconRegions];
          
          if (successBlock) {
              
@@ -165,10 +124,9 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 {
     //initialize with local list
     NSString* plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:@"SampleBeaconRegions" ofType:@"plist"];
-    _plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
+    _beaconContentsArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
     
     [self buildAndLoadAvailableBeaconRegionsList];
-    [self loadReadableBeaconRegions];
 }
 
 -(void)loadLocationBasedList
@@ -188,10 +146,8 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 {
   //TODO make a sane URL request with a callback instead of this bullshit
    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        _plistBeaconContentsArray = [[NSArray alloc] initWithContentsOfURL:url];
+        _beaconContentsArray = [[NSArray alloc] initWithContentsOfURL:url];
         [self buildAndLoadAvailableBeaconRegionsList];
-        [self loadReadableBeaconRegions];
-        
     });
 }
 
@@ -206,7 +162,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 - (NSArray*) buildBeaconRegionsFromBeaconDictionaries
 {
     NSMutableArray *managedBeaconRegions = [NSMutableArray array];
-    for(NSDictionary *beaconDict in _plistBeaconContentsArray)
+    for(NSDictionary *beaconDict in _beaconContentsArray)
     {
         CLBeaconRegion *beaconRegion = [self mapDictionaryToBeacon:beaconDict];
         if (beaconRegion != nil)
@@ -256,22 +212,6 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 }
 
 #pragma non-essential helper methods
-
-//This is a helper method that can be removed, useful for displaying IDs next to UUID
--(void)loadReadableBeaconRegions
-{
-    
-    NSMutableArray *readableBeaconArray = [[NSMutableArray alloc] initWithCapacity:[self.availableBeaconRegionsList count]];
-    NSString *currentReadableBeacon;
-
-    for (CLBeaconRegion *beaconRegion in _availableBeaconRegions)
-    {
-        currentReadableBeacon = [NSString stringWithFormat:@"%@ - %@", [beaconRegion identifier], [[beaconRegion proximityUUID] UUIDString]];
-        [readableBeaconArray addObject:currentReadableBeacon];
-    }
-
-        _readableBeaconRegions = [NSArray arrayWithArray:readableBeaconArray];
-}
 
 -(NSString *)identifierForUUID:(NSUUID *) uuid
 {
