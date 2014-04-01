@@ -59,7 +59,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 
 //curl -i -u 'zuhKEYkfT4ys-CAix4fWFg:R28JlFrvQ-KzTbW_-DUEpw' 'https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'
 
-- (UAHTTPRequest *)listRequest{
+- (UAHTTPRequest *)locationListRequest{
     //NSString *urlString = [NSString stringWithFormat: @"%@%@",
     //                    @"https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'"];
     NSURL *requestUrl = [NSURL URLWithString: @"https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879"];
@@ -77,7 +77,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 - (void)retrieveBeaconListOnSuccess:(UAInboxClientRetrievalSuccessBlock)successBlock
                           onFailure:(UAInboxClientFailureBlock)failureBlock {
     
-    UAHTTPRequest *listRequest = [self listRequest];
+    UAHTTPRequest *listRequest = [self locationListRequest];
     
     [self.requestEngine
      runRequest:listRequest
@@ -92,14 +92,14 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
          UA_LTRACE(@"Retrieved message list response: %@", responseString);
          
          NSDictionary *beaconRegionsList;
-         
-         NSString *beaconID;
-         NSUUID *beaconProximityUUID;
-         double beaconMajor;
-         double beaconMinor;
-         
-         NSMutableArray *beaconRegionsArray = [[NSMutableArray alloc] init];
-         
+//         
+//         NSString *beaconID;
+//         NSUUID *beaconProximityUUID;
+//         double beaconMajor;
+//         double beaconMinor;
+//         
+//         NSMutableArray *beaconRegionsArray = [[NSMutableArray alloc] init];
+//         
          
          //check to see if the json response is an array
          if ([jsonResponse isKindOfClass:[NSArray class]])
@@ -112,38 +112,38 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
          }
          
          // Convert dictionary to objects for both convenience and necessity
-         for (NSDictionary *beaconRegion in beaconRegionsList)
-         {
-             if ([beaconRegion valueForKey:@"identifier"]) {
-                 beaconID = [[NSString alloc] initWithString:[beaconRegion valueForKey:@"identifier"]];
-             }
-             if ([beaconRegion valueForKey:@"uuid"]) {
-                 beaconProximityUUID = [[NSUUID alloc] initWithUUIDString:@"E53D412B-776B-4F56-8061-9A13535BD34A"];
-             }
-             if ([beaconRegion valueForKey:@"major"]) {
-                 beaconMajor = [[beaconRegion valueForKey:@"major"] doubleValue];
-             }
-             if ([beaconRegion valueForKey:@"minor"]) {
-                 beaconMinor = [[beaconRegion valueForKey:@"minor"] doubleValue];
-             }
-             
-             //create the beacon region after a simple null check on the required items
-             if (beaconID && beaconProximityUUID && beaconMajor && beaconMinor) {
-                 CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:beaconProximityUUID major:beaconMajor minor:beaconMinor identifier:beaconID];
-                 [beaconRegionsArray addObject:beaconRegion];
-             }
-             else
-             {
-                 NSLog(@"Beacon list is missing contents/nidentifier:%@, uuid:%@, major:%f, minor:%f", beaconID, beaconProximityUUID, beaconMajor, beaconMinor);
-             }
-             
-         }
+//         for (NSDictionary *beaconRegion in beaconRegionsList)
+//         {
+//             if ([beaconRegion valueForKey:@"identifier"]) {
+//                 beaconID = [[NSString alloc] initWithString:[beaconRegion valueForKey:@"identifier"]];
+//             }
+//             if ([beaconRegion valueForKey:@"uuid"]) {
+//                 beaconProximityUUID = [[NSUUID alloc] initWithUUIDString:@"E53D412B-776B-4F56-8061-9A13535BD34A"];
+//             }
+//             if ([beaconRegion valueForKey:@"major"]) {
+//                 beaconMajor = [[beaconRegion valueForKey:@"major"] doubleValue];
+//             }
+//             if ([beaconRegion valueForKey:@"minor"]) {
+//                 beaconMinor = [[beaconRegion valueForKey:@"minor"] doubleValue];
+//             }
+//             
+//             //create the beacon region after a simple null check on the required items
+//             if (beaconID && beaconProximityUUID && beaconMajor && beaconMinor) {
+//                 CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:beaconProximityUUID major:beaconMajor minor:beaconMinor identifier:beaconID];
+//                 [beaconRegionsArray addObject:beaconRegion];
+//             }
+//             else
+//             {
+//                 NSLog(@"Beacon list is missing contents/nidentifier:%@, uuid:%@, major:%f, minor:%f", beaconID, beaconProximityUUID, beaconMajor, beaconMinor);
+//             }
+//             
+//         }
          
          //load beacon regions array into beacon list manager
          
      
-         _plistBeaconContentsArray = [[NSArray alloc] initWithArray:beaconRegionsArray];
-         _availableBeaconRegionsList = beaconRegionsArray;
+         _plistBeaconContentsArray = [[NSArray alloc] initWithArray:beaconRegionsList];
+         [self buildAndLoadAvailableBeaconRegionsList];
          [self loadReadableBeaconRegions];
          
          if (successBlock) {
