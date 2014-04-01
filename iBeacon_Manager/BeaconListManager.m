@@ -198,10 +198,12 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 
 -(void)buildAndLoadAvailableBeaconRegionsList
 {
-    _availableBeaconRegionsList = [self buildBeaconRegionDataFromPlist];
+    _availableBeaconRegionsList = [self buildBeaconRegionsFromBeaconDictionaries];
 }
 
-- (NSArray*) buildBeaconRegionDataFromPlist
+
+//takes an nsarray of ibeacon dictionaries and returns an array of CLBeacon objects
+- (NSArray*) buildBeaconRegionsFromBeaconDictionaries
 {
     NSMutableArray *managedBeaconRegions = [NSMutableArray array];
     for(NSDictionary *beaconDict in _plistBeaconContentsArray)
@@ -226,20 +228,20 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     
     if (dictionary)
     {
-        if ([dictionary valueForKey:@"proximityUUID"] != nil && [[dictionary valueForKey:@"proximityUUID"]isKindOfClass:[NSString class]])
+        if ([dictionary valueForKey:@"uuid"] != nil && [[dictionary valueForKey:@"uuid"]isKindOfClass:[NSString class]])
         {
-           proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"proximityUUID"]];
+           proximityUUID = [[NSUUID alloc] initWithUUIDString:[dictionary valueForKey:@"uuid"]];
         }
-        if ([dictionary valueForKey:@"Major"] != nil && [[dictionary valueForKey:@"Major"]isKindOfClass:[NSNumber class]])
+        if ([dictionary valueForKey:@"major"] != nil && [[dictionary valueForKey:@"major"]isKindOfClass:[NSNumber class]])
         {
-            major = [[dictionary valueForKey:@"Major"] shortValue];
+            major = [[dictionary valueForKey:@"major"] shortValue];
         }
-        if ([dictionary valueForKey:@"Minor"] != nil && [[dictionary valueForKey:@"Minor"]isKindOfClass:[NSNumber class]])
+        if ([dictionary valueForKey:@"minor"] != nil && [[dictionary valueForKey:@"minor"]isKindOfClass:[NSNumber class]])
         {
-            minor = [[dictionary valueForKey:@"Minor"] shortValue];
+            minor = [[dictionary valueForKey:@"minor"] shortValue];
         }
-        if ([dictionary valueForKey:@"title"] != nil && [[dictionary valueForKey:@"title"]isKindOfClass:[NSString class]]) {
-            identifier = [dictionary valueForKey:@"title"];
+        if ([dictionary valueForKey:@"identifier"] != nil && [[dictionary valueForKey:@"identifier"]isKindOfClass:[NSString class]]) {
+            identifier = [dictionary valueForKey:@"identifier"];
         }
      
     }
@@ -269,7 +271,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     }
 
         _readableBeaconRegions = [NSArray arrayWithArray:readableBeaconArray];
-    }
+}
 
 -(NSString *)identifierForUUID:(NSUUID *) uuid
 {
