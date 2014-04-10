@@ -12,7 +12,9 @@
 #import "UAConfig.h"
 #import "UAPush.h"
 #import "UANotificationHandler.h"
+#import "UALocationService.h"
 #import <Parse/Parse.h>
+
 
 @interface AppDelegate ()
 
@@ -24,6 +26,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+    
 
     // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
     // or set runtime properties here.
@@ -49,6 +53,13 @@
     PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
     testObject[@"foo"] = @"bar";
     [testObject saveInBackground];
+    
+    
+    //UALocationService auth
+    [UALocationService locationServicesEnabled];
+    [UALocationService locationServiceAuthorized];
+    [UALocationService airshipLocationServiceEnabled];
+  
     
     return YES;
 }

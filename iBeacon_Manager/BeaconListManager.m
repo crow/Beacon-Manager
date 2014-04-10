@@ -6,6 +6,8 @@
 #import "UAirship.h"
 #import "UAPush.h"
 #import "UAHTTPRequestEngine.h"
+#import "UALocationService.h"
+#import "BeaconRegionManager.h"
 
 typedef void (^UAInboxClientSuccessBlock)(void);
 typedef void (^UAInboxClientRetrievalSuccessBlock)(NSMutableArray *beaconRegions);
@@ -60,13 +62,34 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 //curl -i -u 'zuhKEYkfT4ys-CAix4fWFg:R28JlFrvQ-KzTbW_-DUEpw' 'https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'
 
 - (UAHTTPRequest *)locationListRequest{
-    //NSString *urlString = [NSString stringWithFormat: @"%@%@",
-    //                    @"https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'"];
-    NSURL *requestUrl = [NSURL URLWithString: @"https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879"];
     
+    UALocationService *locationService = [[UAirship shared] locationService];
+    [locationService startReportingSignificantLocationChanges];
+    
+    
+    // locationManager update as location
+    [[BeaconRegionManager shared] locationManager].desiredAccuracy = kCLLocationAccuracyBest;
+    [[BeaconRegionManager shared] locationManager].distanceFilter = kCLDistanceFilterNone;
+    [[[BeaconRegionManager shared] locationManager] startUpdatingLocation];
+    [[[BeaconRegionManager shared] locationManager] stopUpdatingLocation];
+    CLLocation *location = [[[BeaconRegionManager shared] locationManager] location];
+    // Configure the new event with information from the location
+    float longitude=location.coordinate.longitude;
+    float latitude=location.coordinate.latitude;
+    
+    NSLog(@"dLongitude : %f", longitude);
+    NSLog(@"dLatitude : %f", latitude);
+    
+    NSString *urlString = [NSString stringWithFormat: @"%@%f%@%f", @"https://proserve-test.urbanairship.com:1443/ibeacons?lat=", latitude, @"&long=", longitude];
+    //                    @"https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'"];
+    NSURL *requestUrl = [NSURL URLWithString: urlString];
+    NSLog(@"request url : %@", urlString);
     UAHTTPRequest *request = [UAUtils UAHTTPUserRequestWithURL:requestUrl method:@"GET"];
+    
+    //TODO don't hardcode these
     request.username = @"V6a5HDxsRl-9yuDhgj4WHg";
     request.password = @"NYT-ZbPdRVeVFkgk9-rBKA";
+    
     
     //UA_LTRACE(@"Request to retrieve beacon list: %@", urlString);
     
@@ -88,10 +111,10 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
      } onSuccess:^(UAHTTPRequest *request, NSUInteger lastDelay){
          
          NSString *responseString = request.responseString;
-         NSDictionary *jsonResponse = [BeaconListManager objectWithString:responseString];
+         NSArray *jsonResponse = [BeaconListManager objectWithString:responseString];
          UA_LTRACE(@"Retrieved message list response: %@", responseString);
          
-         NSDictionary *beaconRegionsList;
+         NSArray *beaconRegionsList;
 
          if ([jsonResponse isKindOfClass:[NSArray class]])
          {
@@ -131,6 +154,8 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 
 -(void)loadLocationBasedList
 {
+    
+    
     //intialize the connection with the request
     [self retrieveBeaconListOnSuccess:^(NSMutableArray *beaconRegions) {
         UA_LTRACE(@"Request to retrieve beacon list succeeded");

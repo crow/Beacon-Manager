@@ -40,7 +40,7 @@
     self.locationManager.delegate = self;
     _currentRangedBeacons = [[NSMutableDictionary alloc] init];
     _monitoredRegionCount = 0;
-
+    
     return self;
 }
 
@@ -288,7 +288,7 @@
         UA_LDEBUG( @"Beacon Manager Updated State: Entered Region '%@'", region.identifier );
         
         //if lastEntry is null then entry is when the app started in the region
-        if (![[BeaconRegionManager shared] lastEntryForIdentifier:region.identifier])
+        if (![self lastEntryForIdentifier:region.identifier])
         {
             [self timestampEntryForBeaconRegion:[self beaconRegionWithId:region.identifier]];
         }
