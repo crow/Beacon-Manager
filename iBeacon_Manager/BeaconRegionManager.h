@@ -51,7 +51,7 @@ return _sharedObject; \
 
 
 -(void)syncMonitoredRegions;
--(void)loadAvailableRegions;
+//-(void)loadAvailableRegions;
 
 //monitoring checking
 -(BOOL)isMonitored:(CLBeaconRegion *) beaconRegion;

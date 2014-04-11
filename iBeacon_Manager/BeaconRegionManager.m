@@ -49,7 +49,7 @@
     //clear monitoring on store location manager regions
     [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
     //initialize ibeacon manager, load iBeacon plist, load available regions, start monitoring available regions
-    [[BeaconRegionManager shared] loadAvailableRegions];
+    //[[BeaconRegionManager shared] loadAvailableRegions];
     [[BeaconRegionManager shared] startMonitoringAllAvailableBeaconRegions];
     [self loadBeaconStats];
 }
@@ -108,10 +108,10 @@
     _monitoredBeaconRegions = [self.locationManager monitoredRegions];
 }
 
--(void)loadAvailableRegions
-{
-    _availableBeaconRegionsList = [_listManager getAvailableBeaconRegionsList];
-}
+//-(void)loadAvailableRegions
+//{
+//    _availableBeaconRegionsList = [_listManager getAvailableBeaconRegionsList];
+//}
 
 //helper method to return a properly formatted (short style) date
 -(NSString *)dateStringFromInterval:(NSTimeInterval)interval
@@ -154,21 +154,20 @@
 //helper method to start monitoring all available beacon regions with no notifications
 -(void)startMonitoringAllAvailableBeaconRegions
 {
-    for (CLBeaconRegion *beaconRegion in self.availableBeaconRegionsList)
+    for (CLBeaconRegion *beaconRegion in [[self listManager] availableBeaconRegionsList])
     {
         if (beaconRegion != nil)
         {
             [self startMonitoringBeaconInRegion:beaconRegion];
         }
     }
-    
     [self syncMonitoredRegions];
 }
 
 //helper method to stop monitoring all available beacon regions
 -(void)stopMonitoringAllAvailableBeaconRegions
 {
-    for (CLBeaconRegion *beaconRegion in self.availableBeaconRegionsList)
+    for (CLBeaconRegion *beaconRegion in [[self listManager] availableBeaconRegionsList])
     {
         [self stopMonitoringBeaconInRegion:beaconRegion];
         //reset monitored region count

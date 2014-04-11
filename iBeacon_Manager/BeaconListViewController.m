@@ -193,7 +193,7 @@
         loading = NO;
         remoteLoadProgress.hidden = YES;
         //load available regions for beacon load check
-        [[BeaconRegionManager shared] loadAvailableRegions];
+        //[[BeaconRegionManager shared] loadAvailableRegions];
         [self beaconLoadCheck];
     }
 }
@@ -201,7 +201,7 @@
 //helper for determining if a beacon list has been loaded
 -(void)beaconLoadCheck
 {
-    if ([[BeaconRegionManager shared] availableBeaconRegionsList] && !loading)
+    if ([[[BeaconRegionManager shared] listManager] availableBeaconRegionsList] && !loading)
     {
         [self revealAvailableBeaconCell];
     }

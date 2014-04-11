@@ -5,18 +5,14 @@
 
 @interface BeaconListManager : NSObject <NSURLConnectionDelegate>
 
--(NSString *)identifierForUUID:(NSUUID *) uuid;
--(NSArray *)getAvailableBeaconRegionsList;
+@property (nonatomic, copy, readonly) NSArray *availableBeaconRegionsList;
 
--(void)loadReadableBeaconRegions;
+//-(NSString *)identifierForUUID:(NSUUID *) uuid;
 
 //Plist loading
 -(void)loadLocalPlist;
 -(void)loadLocationBasedList;
 -(void)loadHostedPlistWithUrl:(NSURL*)url;
-
-@property (nonatomic, copy, readonly) NSArray *availableBeaconRegionsList;
-@property (nonatomic, copy, readonly) NSArray *readableBeaconRegions;
 
 
 

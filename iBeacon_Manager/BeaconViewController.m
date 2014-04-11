@@ -38,7 +38,7 @@
     [super viewDidLoad];
 
     //Load the available managed beacon regions and update monitored regions
-    [[BeaconRegionManager shared] loadAvailableRegions];
+    //[[BeaconRegionManager shared] loadAvailableRegions];
     [[BeaconRegionManager shared] syncMonitoredRegions];
 
     [[BeaconRegionManager shared] startManager];
@@ -86,7 +86,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[BeaconRegionManager shared] availableBeaconRegionsList].count;
+    return [[[BeaconRegionManager shared] listManager] availableBeaconRegionsList].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,7 +94,7 @@
     static NSString *CellIdentifier = @"BeaconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
  
-    NSArray *availableBeaconRegionsList = [[BeaconRegionManager shared] availableBeaconRegionsList]; //[NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
+    NSArray *availableBeaconRegionsList = [[[BeaconRegionManager shared] listManager] availableBeaconRegionsList]; //[NSArray arrayWithArray:[[[BeaconRegionManager shared] monitoredBeaconRegions] allObjects]];
     
     CLBeaconRegion *selectedBeaconRegion = availableBeaconRegionsList[indexPath.row];
     CLBeacon *selectedBeacon = [[BeaconRegionManager shared] beaconWithId:[availableBeaconRegionsList[indexPath.row] identifier]];

@@ -131,7 +131,6 @@
 -(void)extractBeaconListFromNotification:(NSDictionary *)notification{
     
     //this is hardcoded on purpose to be obvious, we could loop through if we wanted, but we're limited to 20 anyway
-    
     int i = 1;
     NSString *beaconKey;
     NSDictionary *availableBeaconRegions = [[NSDictionary alloc] init];
