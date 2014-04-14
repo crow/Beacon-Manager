@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BeaconRegionManager.h"
+#import "BeaconRegionManagerDelegate.h"
 
-@interface BeaconViewController : UITableViewController
+@interface BeaconViewController : UITableViewController <BeaconRegionManagerDelegate>
 
 @end

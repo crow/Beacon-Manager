@@ -173,6 +173,7 @@
         //reset monitored region count
         _monitoredRegionCount = 0;
     }
+    [self syncMonitoredRegions];
 }
 
 //stops monitoring all beacons in the current location monitor list
@@ -186,11 +187,11 @@
             beaconRegion.notifyEntryStateOnDisplay = NO;
             [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
             [self.locationManager stopMonitoringForRegion:beaconRegion];
-            [self syncMonitoredRegions];
             //reset monitored region count
             _monitoredRegionCount = 0;
         }
     }
+    [self syncMonitoredRegions];
 }
 
 #pragma location manager callbacks
@@ -215,6 +216,9 @@
         //place current ranged beacons for this region under this region's key
         [_currentRangedBeacons setObject:currentBeaconsInRegion forKey:region.identifier];
     }
+    
+    //forward to the delegate
+    [self.beaconRegionManagerDelegate beaconRegionManagerDidRangeBeacons:beacons inRegion:region];
     
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"managerDidRangeBeacons"
@@ -553,16 +557,13 @@
     //this lever of checking probably isn't completely necessary
     if ([_currentRangedBeacons objectForKey:identifier] && [[_currentRangedBeacons objectForKey:identifier] isKindOfClass:[NSMutableArray class]]) {
         beacons = [_currentRangedBeacons objectForKey:identifier];
-    }
-
-    if (beacons)
-    {
         for (CLBeacon *beacon in beacons){
             if ([[beacon.proximityUUID UUIDString] isEqualToString:[beaconRegion.proximityUUID UUIDString]]) {
                 return beacon;
             }
         }
     }
+    NSLog(@"No beacon available with this ID");
     //No beacon with the specified ID is within range
     return nil;
 }
@@ -570,7 +571,7 @@
 //returns a beacon regions from the available regions (all in plist) given an identifier
 -(CLBeaconRegion *)beaconRegionWithId:(NSString *)identifier
 {
-    for (CLBeaconRegion *beaconRegion in self.availableBeaconRegionsList)
+    for (CLBeaconRegion *beaconRegion in [[self listManager] availableBeaconRegionsList])
     {
         if ([beaconRegion.identifier isEqualToString:identifier]) {
             return beaconRegion;

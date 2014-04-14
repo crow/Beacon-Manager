@@ -155,6 +155,7 @@
 		617F60E31899E8D800D4C01C /* 751-eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "751-eye@2x.png"; sourceTree = "<group>"; };
 		617F60E51899E9E000D4C01C /* 789-map-location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "789-map-location@2x.png"; sourceTree = "<group>"; };
 		6182BA2A18E6041C000F9EBC /* 881-globe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "881-globe@2x.png"; sourceTree = "<group>"; };
+		618A2FCC18FC6BF0006DA371 /* BeaconRegionManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconRegionManagerDelegate.h; sourceTree = "<group>"; };
 		6192602C1835A17C00143F5A /* BeaconStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconStatsViewController.h; sourceTree = "<group>"; };
 		6192602D1835A17C00143F5A /* BeaconStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconStatsViewController.m; sourceTree = "<group>"; };
 		6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "731-cloud-download-selected@2x.png"; sourceTree = "<group>"; };
@@ -329,6 +330,7 @@
 				6139C7DF186E486F00D72E45 /* BeaconManagerValues.h */,
 				6139C7D9186E480A00D72E45 /* BeaconRegionManager.h */,
 				6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */,
+				618A2FCC18FC6BF0006DA371 /* BeaconRegionManagerDelegate.h */,
 				6139C7DC186E482700D72E45 /* BeaconListManager.h */,
 				6139C7DD186E482700D72E45 /* BeaconListManager.m */,
 				61BB3CEF18AAC69200C7ECA2 /* UANotificationHandler.h */,

@@ -18,6 +18,7 @@
 {
     @private
         NSMutableDictionary *_beacons;
+        NSArray *_rangedBeacons;
         CLBeaconRegion *_selectedBeaconRegion;
         CLBeacon *_selectedBeacon;
         UIImage *_whiteMarker;
@@ -43,6 +44,9 @@
 
     [[BeaconRegionManager shared] startManager];
     
+    //set beacon region manager delegate to self
+    [[BeaconRegionManager shared] setBeaconRegionManagerDelegate:self];
+    
     //Initialize reused tableview images
     _greenMarker = [[UIImage alloc] init];
     _greenMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-ping@2x" ofType:@"png"]];
@@ -58,6 +62,13 @@
      object:nil];
     
     _refreshCount = 0;
+}
+
+- (void)beaconRegionManagerDidRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
+{
+    _rangedBeacons = beacons;
+    
+    
 }
 
 - (void)managerDidRangeBeacons
@@ -106,7 +117,7 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
     
-    [cell.textLabel setText:selectedBeaconRegion.identifier];
+    [cell.textLabel setText:[availableBeaconRegionsList[indexPath.row] identifier]];
     
     //iBeacon is in range
     if ([selectedBeacon accuracy] > 0)
@@ -128,7 +139,7 @@
     else{
         cell.imageView.image = _whiteMarker;
     }
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [selectedBeaconRegion.proximityUUID UUIDString], selectedBeaconRegion.major ? selectedBeaconRegion.major : @"None", selectedBeaconRegion.minor ? selectedBeaconRegion.minor : @"None"];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [[availableBeaconRegionsList[indexPath.row] proximityUUID] UUIDString], selectedBeaconRegion.major ? selectedBeaconRegion.major : @"None", selectedBeaconRegion.minor ? selectedBeaconRegion.minor : @"None"];
     
     return cell;
 }

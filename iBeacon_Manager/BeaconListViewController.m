@@ -11,8 +11,9 @@
 #import "BeaconRegionManager.h"
 #import <MessageUI/MessageUI.h>
 #import "BeaconManagerValues.h"
+#import "BeaconRegionManagerDelegate.h"
 
-@interface BeaconListViewController () <MFMailComposeViewControllerDelegate>
+@interface BeaconListViewController () <MFMailComposeViewControllerDelegate, BeaconRegionManagerDelegate>
 
 @end
 

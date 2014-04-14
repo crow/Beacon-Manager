@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BeaconListManager.h"
+#import "BeaconRegionManagerDelegate.h"
 
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
 static dispatch_once_t pred = 0; \
@@ -33,10 +34,11 @@ return _sharedObject; \
 //all the managed regions loaded from the plist manager, data store for the available regions
 @property (strong, nonatomic, readonly) NSArray *availableBeaconRegionsList;
 
-//@property (strong, nonatomic) NSMutableDictionary *availableManagedBeaconRegions;
 
 @property (strong, nonatomic) NSMutableDictionary *beaconStats;
 
+//Beacon Manager delegate
+@property (nonatomic, assign) id<BeaconRegionManagerDelegate> beaconRegionManagerDelegate;
 
 + (id)shared;
 -(void)startManager;

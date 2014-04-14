@@ -31,6 +31,7 @@
 #import "UAirship.h"
 #import "UAPush.h"
 #import "UAHTTPRequestEngine.h"
+#import "BeaconRegionManager.h"
 
 typedef void (^UAInboxClientSuccessBlock)(void);
 typedef void (^UAInboxClientRetrievalSuccessBlock)(NSMutableArray *beaconRegions);
@@ -41,8 +42,6 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 
 @interface BeaconListManager ()
 
-//@property (nonatomic, strong) NSArray *plistBeaconContentsArray;
-//@property (nonatomic, strong) NSArray *remoteBeaconContentsArray;
 @property(nonatomic, strong) UAHTTPRequestEngine *requestEngine;
 
 
@@ -73,7 +72,11 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     //initialize with local list
     NSString *plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:kLocalPlistFileName ofType:@"plist"];
     NSArray *beaconRegionsDictArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
-    [self buildBeaconRegionDataFromBeaconDictArray:beaconRegionsDictArray];
+    
+    
+    
+    //call local list loaded
+    [[[BeaconRegionManager shared] beaconRegionManagerDelegate] localListFinishedLoadingWithList:[self buildBeaconRegionDataFromBeaconDictArray:beaconRegionsDictArray]];
 }
 
 - (void)loadHostedPlistWithUrl:(NSURL *)url {
@@ -82,18 +85,18 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     });
 }
 
--(void)loadRemoteListWithUrl:(NSURL *)url{
-    //intialize the connection with the request
-    [self retrieveBeaconListOnSuccess:^(NSMutableArray *beaconRegions) {
-        UA_LTRACE(@"Request to retrieve beacon list succeeded");
-        
-        
-    } onFailure:^(UAHTTPRequest *request) {
-        UA_LTRACE(@"Request to retrieve beacon list failed");
-        
-    }];
-    
-}
+//-(void)loadLocationBasedListWithUrl:(NSURL *)url{
+//    //intialize the connection with the request
+//    [self retrieveBeaconListOnSuccess:^(NSMutableArray *beaconRegions) {
+//        UA_LTRACE(@"Request to retrieve beacon list succeeded");
+//        
+//        
+//    } onFailure:^(UAHTTPRequest *request) {
+//        UA_LTRACE(@"Request to retrieve beacon list failed");
+//        
+//    }];
+//    
+//}
 
 -(void)loadLocationBasedList
 {
@@ -110,7 +113,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     }];
 }
 
-//curl -i -u 'zuhKEYkfT4ys-CAix4fWFg:R28JlFrvQ-KzTbW_-DUEpw' 'https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'
+//curl -i -u 'V6a5HDxsRl-9yuDhgj4WHg:NYT-ZbPdRVeVFkgk9-rBKA' 'https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'
 
 - (UAHTTPRequest *)listRequest{
     NSString *urlString = [NSString stringWithFormat: @"%@%@",
@@ -118,8 +121,8 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     NSURL *requestUrl = [NSURL URLWithString: urlString];
     
     UAHTTPRequest *request = [UAUtils UAHTTPUserRequestWithURL:requestUrl method:@"GET"];
-    request.username = @"zuhKEYkfT4ys-CAix4fWFg";
-    request.password = @"R28JlFrvQ-KzTbW_-DUEpw";
+    request.username = @"V6a5HDxsRl-9yuDhgj4WHg";
+    request.password = @"NYT-ZbPdRVeVFkgk9-rBKA";
     
     UA_LTRACE(@"Request to retrieve beacon list: %@", urlString);
     
@@ -224,7 +227,8 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 
 
 // maps each plist dictionary representing a beacon region to an allocated beacon region
-- (CLBeaconRegion *)mapDictionaryToBeacon:(NSDictionary *)dictionary {
+- (CLBeaconRegion *)mapDictionaryToBeacon:(NSDictionary *)dictionary
+{
     
     NSUUID *proximityUUID;
     CLBeaconMajorValue major = 0;
@@ -252,11 +256,13 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
         proximityUUID = [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
         major = 0;
         minor = 0;
-        identifier = @"No Identifier";
+        identifier = @"NoIdentifier";
     }
     
     return [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
 }
+
+
 
 #pragma non-essential helper methods
 //- (NSString *)identifierForUUID:(NSUUID *) uuid {
