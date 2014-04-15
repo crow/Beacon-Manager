@@ -22,8 +22,8 @@ return _sharedObject; \
 
 @interface BeaconRegionManager : NSObject <CLLocationManagerDelegate>
 
-
-@property  (nonatomic, assign) BOOL ibeaconsEnabled;
+@property (nonatomic) BOOL bluetoothReady;
+@property (nonatomic) BOOL beaconsEnabled;
 
 //plist manager for managing local (sample) and remotely hosted plists
 @property (strong, nonatomic, readonly) BeaconListManager *listManager;
@@ -40,7 +40,7 @@ return _sharedObject; \
 //Beacon Manager delegate
 @property (nonatomic, assign) id<BeaconRegionManagerDelegate> beaconRegionManagerDelegate;
 
-+ (id)shared;
++(id)shared;
 -(void)startManager;
 
 //checks state of iBeacons enabled and starts monitoring accordingly
@@ -51,9 +51,7 @@ return _sharedObject; \
 -(CLBeacon *)beaconWithId:(NSString *)identifier;
 -(CLBeaconRegion *)beaconRegionWithId:(NSString *)identifier;
 
-
 -(void)syncMonitoredRegions;
-//-(void)loadAvailableRegions;
 
 //monitoring checking
 -(BOOL)isMonitored:(CLBeaconRegion *) beaconRegion;

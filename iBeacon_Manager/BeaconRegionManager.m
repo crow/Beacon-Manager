@@ -13,6 +13,10 @@
 @interface BeaconRegionManager ()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) BeaconListManager *listManager;//writable declaration
+
+//this should be replaced by [self.listManager availableBeaconRegionsList] no need to have two lists of available beacons
+@property (strong, nonatomic) NSArray *availableBeaconRegionsList;//writable declaration
 
 @end
 
@@ -64,19 +68,19 @@
     if([[NSUserDefaults standardUserDefaults] objectForKey:kBeaconsEnabled])
     {
         //if no saved switch state set to YES by default
-        self.ibeaconsEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kBeaconsEnabled];
+        self.beaconsEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kBeaconsEnabled];
     }
     else
     {
-        self.ibeaconsEnabled =  YES;
+        self.beaconsEnabled =  YES;
     }
 }
 
--(void)setIbeaconsEnabled:(BOOL)ibeaconsEnabled
+-(void)setBeaconsEnabled:(BOOL)ibeaconsEnabled
 {
-    if (ibeaconsEnabled != _ibeaconsEnabled)
+    if (ibeaconsEnabled != _beaconsEnabled)
     {
-        _ibeaconsEnabled = ibeaconsEnabled;
+        _beaconsEnabled = ibeaconsEnabled;
     }
     
     //enable montoring based on switch state
