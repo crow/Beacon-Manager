@@ -15,6 +15,8 @@
 #import "UALocationService.h"
 
 @interface BeaconListViewController () <MFMailComposeViewControllerDelegate, BeaconRegionManagerDelegate>
+@property (strong, nonatomic) IBOutlet UITextField *latTextField;
+@property (strong, nonatomic) IBOutlet UITextField *lonTextField;
 
 @end
 
@@ -54,11 +56,20 @@
     loading = NO;
     remoteLoadProgress.hidden = YES;
     
+    NSArray *latLon = [[BeaconRegionManager shared] getCurrentLatLon];
+    self.latTextField.text = [latLon[0] stringValue];
+    self.lonTextField.text = [latLon[1] stringValue];
+
+    
     //set beacon region delegate to self
     [[BeaconRegionManager shared] setBeaconRegionManagerDelegate:self];
     
     //set initial available state
     [self disableAvailableBeaconCell];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+
 }
 
 - (void)hideKeyboard
@@ -104,7 +115,6 @@
         [[[BeaconRegionManager shared] listManager] loadLocationBasedList];
         
         //wait for http success callback to call revealAvailableBeaconCell
-
     }
     
 }
@@ -274,20 +284,21 @@
     //done loading
     loading = NO;
     [self beaconLoadCheck];
+    [self enableAvailableBeaconCell];
 }
 -(void)hostedListFinishedLoadingWithList:(NSArray *)hostedBeaconList
 {
     //done loading
     loading = NO;
     [self beaconLoadCheck];
-
+    [self enableAvailableBeaconCell];
 }
 -(void)locationBasedListFinishedLoadingWithList:(NSArray *)loactionBasedBeaconList
 {
     //done loading
     loading = NO;
     [self beaconLoadCheck];
-
+    [self enableAvailableBeaconCell];
 }
 
 

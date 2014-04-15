@@ -12,4 +12,8 @@
 
 @interface BeaconBroadcastViewController : UITableViewController <CBPeripheralManagerDelegate, UIAlertViewDelegate, UITextFieldDelegate>
 
+@property (strong, nonatomic) IBOutlet UITextField *uuidField;
+@property (weak, nonatomic) IBOutlet UITextField *majorField;
+@property (weak, nonatomic) IBOutlet UITextField *minorField;
+
 @end

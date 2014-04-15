@@ -9,8 +9,10 @@
 #import "ScannerViewController.h"
 #import "BeaconRegionManager.h"
 #import "BeaconListManager.h"
-
+#import "BeaconBroadcastViewController.m"
+#import "BeaconListViewController.h"
 @interface ScannerViewController ()
+@property (nonatomic) NSString *lastScannedCode;
 @end
 
 @implementation ScannerViewController
@@ -50,7 +52,16 @@
         self.sessionToggleButton.title = @"Stop";
     }
 }
-
+//Just a stopgap since this is implemented in the UI, will move this at some point
+- (UIViewController *)backViewController {
+    NSArray * stack = self.navigationController.viewControllers;
+    
+    for (int i=stack.count-1; i > 0; --i)
+        if (stack[i] == self)
+            return stack[i-1];
+    
+    return nil;
+}
 
 //TODO, halt scanning while alert view is present to prevent multiple scans
 - (void)didScanCode:(NSString *)scannedCode onCodeType:(NSString *)codeType {
@@ -63,12 +74,9 @@
     NSString *majorString = [beaconRegionProperties objectAtIndex:1];
     NSString *minorString = [beaconRegionProperties objectAtIndex:2];
 
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Scanned Beacon %@ code", [scannerView humanReadableCodeTypeForCode:codeType]] message:[NSString stringWithFormat:@"UUID:%@\n\nMajor:%@\n\nMinor:%@", uuidString, majorString, minorString]  delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Scan Again", nil];
-   
-    //start monitoring the QR coded beacon region
-    [[[BeaconRegionManager shared] listManager] loadSingleBeaconRegion:[self beaconRegionFromScannedCode:scannedCode]];
-
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Scanned Beacon %@ Code:", [scannerView humanReadableCodeTypeForCode:codeType]] message:[NSString stringWithFormat:@"UUID:%@\n\nMajor:%@\n\nMinor:%@", uuidString, majorString, minorString]  delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Scan Again", nil];
+    self.lastScannedCode = scannedCode;
+ 
     [alert show];
 }
 
@@ -119,29 +127,40 @@ NSArray *beaconRegionProperties = [code componentsSeparatedByString: @","];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"OK"]) {
         
         //[self performSegueWithIdentifier:@"Broadcast" sender:self];
+        
+        
+        if ( [[self backViewController] isMemberOfClass:[BeaconBroadcastViewController class]]) {
+            NSLog(@"print");
+            //TODO change the fields of the view controller
+        }
+        if ( [[self backViewController] isMemberOfClass:[BeaconListViewController class]]) {
+            //start monitoring the QR coded beacon region
+            [[[BeaconRegionManager shared] listManager] loadSingleBeaconRegion:[self beaconRegionFromScannedCode:self.lastScannedCode]];
+        }
+        
         [self.navigationController popViewControllerAnimated:YES];
         self.sessionToggleButton.title = @"Start";
     }
 }
 
 //this can probably be removed
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([[segue identifier] isEqualToString:@"AvailableBeaconList"])
-    {
-        
-       // UABeaconSampleAirshipViewController *dvController = [self.storyboard instantiateViewControllerWithIdentifier:@"UABeaconSampleAirshipViewController"];
-    
-       // dvController = segue.destinationViewController;
-    }
-    if([[segue identifier] isEqualToString:@"Broadcast"])
-    {
-        
-        // UABeaconSampleAirshipViewController *dvController = [self.storyboard instantiateViewControllerWithIdentifier:@"UABeaconSampleAirshipViewController"];
-        
-        // dvController = segue.destinationViewController;
-    }
-}
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if([[segue identifier] isEqualToString:@"AvailableBeaconList"])
+//    {
+//        
+//       // UABeaconSampleAirshipViewController *dvController = [self.storyboard instantiateViewControllerWithIdentifier:@"UABeaconSampleAirshipViewController"];
+//    
+//       // dvController = segue.destinationViewController;
+//    }
+//    if([[segue identifier] isEqualToString:@"Broadcast"])
+//    {
+//        
+//        // UABeaconSampleAirshipViewController *dvController = [self.storyboard instantiateViewControllerWithIdentifier:@"UABeaconSampleAirshipViewController"];
+//        
+//        // dvController = segue.destinationViewController;
+//    }
+//}
 
 - (UIBarPosition)positionForBar:(id <UIBarPositioning>)bar {
     return UIBarPositionTopAttached;

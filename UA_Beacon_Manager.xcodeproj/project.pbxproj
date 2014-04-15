@@ -53,7 +53,6 @@
 		6182BA2B18E6041C000F9EBC /* 881-globe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6182BA2A18E6041C000F9EBC /* 881-globe@2x.png */; };
 		618A2FD118FDA909006DA371 /* 742-wrench.png in Resources */ = {isa = PBXBuildFile; fileRef = 618A2FCF18FDA909006DA371 /* 742-wrench.png */; };
 		618A2FD218FDA909006DA371 /* 742-wrench@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 618A2FD018FDA909006DA371 /* 742-wrench@2x.png */; };
-		618A2FD518FDAAF7006DA371 /* BeaconBroadcastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A2FD418FDAAF7006DA371 /* BeaconBroadcastViewController.m */; };
 		618A2FDA18FDAB5B006DA371 /* RMScannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A2FD718FDAB5B006DA371 /* RMScannerView.m */; };
 		618A2FDB18FDAB5B006DA371 /* RMOutlineBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A2FD918FDAB5B006DA371 /* RMOutlineBox.m */; };
 		618A2FFA18FDAB7A006DA371 /* RSCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A2FDE18FDAB7A006DA371 /* RSCodeView.m */; };
@@ -156,6 +155,7 @@
 		6119CDE01885F59C0023B25B /* libUAirship-3.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-3.0.2.a"; sourceTree = "<group>"; };
 		6119CDE71885F64C0023B25B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6119CDEC1891EF320023B25B /* 854-list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "854-list@2x.png"; sourceTree = "<group>"; };
+		612742E318FDE9AD00AEB5C7 /* RBLService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBLService.h; sourceTree = "<group>"; };
 		6139C7D9186E480A00D72E45 /* BeaconRegionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconRegionManager.h; sourceTree = "<group>"; };
 		6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconRegionManager.m; sourceTree = "<group>"; };
 		6139C7DC186E482700D72E45 /* BeaconListManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconListManager.h; sourceTree = "<group>"; };
@@ -418,6 +418,7 @@
 				6192602D1835A17C00143F5A /* BeaconStatsViewController.m */,
 				618A300D18FDAD0F006DA371 /* TagTableViewController.h */,
 				618A300E18FDAD0F006DA371 /* TagTableViewController.m */,
+				612742E318FDE9AD00AEB5C7 /* RBLService.h */,
 				618A301618FDAD29006DA371 /* UA Push Helpers */,
 				618A300918FDAB98006DA371 /* QR Code Support */,
 			);
@@ -705,7 +706,6 @@
 				618A301218FDAD16006DA371 /* TagTableViewCell.m in Sources */,
 				6139C7DB186E480A00D72E45 /* BeaconRegionManager.m in Sources */,
 				618A2FFF18FDAB7A006DA371 /* RSExtendedCode39Generator.m in Sources */,
-				618A2FD518FDAAF7006DA371 /* BeaconBroadcastViewController.m in Sources */,
 				618A2FFE18FDAB7A006DA371 /* RSCode39Mod43Generator.m in Sources */,
 				618A300018FDAB7A006DA371 /* RSEANGenerator.m in Sources */,
 				618A300618FDAB7A006DA371 /* RSISBN13Generator.m in Sources */,

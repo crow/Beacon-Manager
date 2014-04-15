@@ -25,6 +25,10 @@ return _sharedObject; \
 @property (nonatomic) BOOL bluetoothReady;
 @property (nonatomic) BOOL beaconsEnabled;
 
+//CoreBluetooth
+@property (nonatomic, strong) CBCentralManager *centralManager;
+@property (nonatomic, strong) CBPeripheral *peripheral;
+
 //plist manager for managing local (sample) and remotely hosted plists
 @property (strong, nonatomic, readonly) BeaconListManager *listManager;
 //detailed ranged dictionary ordered by zone (unknown, immediate, near, far)

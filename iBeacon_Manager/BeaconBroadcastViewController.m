@@ -20,9 +20,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *broadcastSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *transmitPowerLabel;
 @property (weak, nonatomic) IBOutlet UISlider *transmitPowerSlider;
-@property (strong, nonatomic) IBOutlet UITextField *uuidField;
-@property (weak, nonatomic) IBOutlet UITextField *majorField;
-@property (weak, nonatomic) IBOutlet UITextField *minorField;
+
 @property (strong, nonatomic) IBOutlet UIButton *generateUuidButton;
 
 @property (nonatomic, strong) BeaconPulsingHaloLayer *halo;
