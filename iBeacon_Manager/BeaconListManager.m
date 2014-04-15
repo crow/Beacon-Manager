@@ -65,6 +65,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
                                              error: nil];
 }
 
+
 - (void)loadLocalPlist {
     //initialize with local list
     NSString *plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:kLocalPlistFileName ofType:@"plist"];
@@ -80,9 +81,10 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 //this is an old, shitty way of doing things, but I'm not going to update it
 - (void)loadHostedPlistWithUrl:(NSURL *)url {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
         //build the beacon regions data from the dict array (and set available regions in the list manager) and set the availableBeaconRegions list
         _availableBeaconRegionsList = [NSArray arrayWithArray:[self buildBeaconRegionDataFromBeaconDictArray:[[NSArray alloc] initWithContentsOfURL:url]]];
-
+        
         //make the delegate callback
         //delegate callback would go here, but there's no need because the way it's being done is bullshit and will probably be removed anyway
     });
@@ -108,6 +110,12 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
       
     } onFailure:^(UAHTTPRequest *request) {
         UA_LTRACE(@"Request to retrieve beacon list failed");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"List Endpoint Error"
+                                                        message:@"The location-based beacon list endpoint appears to be down, please try again later"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
     }];
 }
 
@@ -147,10 +155,10 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
          
          NSDictionary *beaconRegionsList;
          
-         NSString *beaconID;
-         NSUUID *beaconProximityUUID;
-         double beaconMajor;
-         double beaconMinor;
+//         NSString *beaconID;
+//         NSUUID *beaconProximityUUID;
+//         double beaconMajor;
+//         double beaconMinor;
          
          NSMutableArray *beaconRegionsArray = [NSMutableArray array];
          
@@ -158,30 +166,17 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
          if ([jsonResponse isKindOfClass:[NSArray class]])
          {
              beaconRegionsList = jsonResponse;
+             for (NSDictionary *beaconRegion in beaconRegionsList)
+             {
+                 
+                 [beaconRegionsArray addObject:[self mapDictionaryToBeacon:beaconRegion]];
+             }
          }
          else
          {
              NSLog(@"JSON response is not an array of beacons!");
          }
-         
-         // Convert dictionary to objects, could use the build method here
-         for (NSDictionary *beaconRegion in beaconRegionsList)
-         {
-             //create the beacon region after a simple null check on the required items
-             if ([beaconRegion valueForKey:@"identifier"] && [beaconRegion valueForKey:@"uuid"] && [beaconRegion valueForKey:@"major"] && [beaconRegion valueForKey:@"minor"]) {
-                 beaconID = [[NSString alloc] initWithString:[beaconRegion valueForKey:@"identifier"]];
-                 beaconProximityUUID = [[NSUUID alloc] initWithUUIDString:[beaconRegion valueForKey:@"uuid"]];
-                 beaconMajor = [[beaconRegion valueForKey:@"major"] doubleValue];
-                 beaconMinor = [[beaconRegion valueForKey:@"minor"] doubleValue];
-                 CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:beaconProximityUUID major:beaconMajor minor:beaconMinor identifier:beaconID];
-                 [beaconRegionsArray addObject:beaconRegion];
-             }
-             else
-             {
-                 NSLog(@"Beacon list is missing a key (should have: identifier, uuid, major, minor)");
-             }
-         }
-         
+
          if (successBlock) {
                  successBlock(beaconRegionsArray);
          } else {

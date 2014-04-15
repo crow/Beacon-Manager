@@ -57,9 +57,7 @@
     [[BeaconRegionManager shared] setBeaconRegionManagerDelegate:self];
     
     //set initial available state
-    _availableBeaconsCell.hidden = NO;
-    _availableBeaconsCell.alpha = 1;
-    _availableBeaconsCell.userInteractionEnabled = NO;
+    [self disableAvailableBeaconCell];
 }
 
 - (void)hideKeyboard
@@ -77,7 +75,7 @@
     [super didReceiveMemoryWarning];
 }
 
-#pragma button actions
+#pragma Button Actions
 - (IBAction)emailButtonTouched:(id)sender {
     [self showEmail];
 }
