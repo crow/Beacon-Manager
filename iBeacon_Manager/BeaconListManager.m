@@ -65,6 +65,10 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
                                              error: nil];
 }
 
+-(void)loadSingleBeaconRegion:(CLBeaconRegion * ) beaconRegion{
+    _availableBeaconRegionsList = [[NSArray alloc] initWithObjects:beaconRegion, nil];
+    
+}
 
 - (void)loadLocalPlist {
     //initialize with local list

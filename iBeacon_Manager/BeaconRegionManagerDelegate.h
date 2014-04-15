@@ -20,6 +20,7 @@
 -(void)localListFinishedLoadingWithList:(NSArray *)localBeaconList;
 -(void)hostedListFinishedLoadingWithList:(NSArray *)hostedBeaconList;
 -(void)locationBasedListFinishedLoadingWithList:(NSArray *)loactionBasedBeaconList;
+-(void)singleQRBeaconFinishedLoadingWithBeacon:(CLBeacon*)beacon;
 
 @end
 

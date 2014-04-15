@@ -40,7 +40,6 @@
 		6119CDE51885F6320023B25B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A5F85B17F6043500F619C1 /* MapKit.framework */; };
 		6119CDE61885F6440023B25B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865D17F515AC00D191A2 /* Security.framework */; };
 		6119CDE81885F64D0023B25B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6119CDE71885F64C0023B25B /* MobileCoreServices.framework */; };
-		6119CDEB188E0E460023B25B /* BeaconBroadcastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6119CDEA188E0E460023B25B /* BeaconBroadcastViewController.m */; };
 		6119CDED1891EF320023B25B /* 854-list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6119CDEC1891EF320023B25B /* 854-list@2x.png */; };
 		6139C7DB186E480A00D72E45 /* BeaconRegionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */; };
 		6139C7DE186E482700D72E45 /* BeaconListManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139C7DD186E482700D72E45 /* BeaconListManager.m */; };
@@ -54,7 +53,7 @@
 		6182BA2B18E6041C000F9EBC /* 881-globe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6182BA2A18E6041C000F9EBC /* 881-globe@2x.png */; };
 		618A2FD118FDA909006DA371 /* 742-wrench.png in Resources */ = {isa = PBXBuildFile; fileRef = 618A2FCF18FDA909006DA371 /* 742-wrench.png */; };
 		618A2FD218FDA909006DA371 /* 742-wrench@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 618A2FD018FDA909006DA371 /* 742-wrench@2x.png */; };
-		618A2FD518FDAAF7006DA371 /* ADBeaconBroadcastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A2FD418FDAAF7006DA371 /* ADBeaconBroadcastViewController.m */; };
+		618A2FD518FDAAF7006DA371 /* BeaconBroadcastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A2FD418FDAAF7006DA371 /* BeaconBroadcastViewController.m */; };
 		618A2FDA18FDAB5B006DA371 /* RMScannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A2FD718FDAB5B006DA371 /* RMScannerView.m */; };
 		618A2FDB18FDAB5B006DA371 /* RMOutlineBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A2FD918FDAB5B006DA371 /* RMOutlineBox.m */; };
 		618A2FFA18FDAB7A006DA371 /* RSCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A2FDE18FDAB7A006DA371 /* RSCodeView.m */; };
@@ -75,6 +74,7 @@
 		618A300F18FDAD0F006DA371 /* TagTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A300E18FDAD0F006DA371 /* TagTableViewController.m */; };
 		618A301218FDAD16006DA371 /* TagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A301118FDAD16006DA371 /* TagTableViewCell.m */; };
 		618A301A18FDB368006DA371 /* UANotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A301918FDB368006DA371 /* UANotificationHandler.m */; };
+		618A301D18FDB933006DA371 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A301C18FDB933006DA371 /* ScannerViewController.m */; };
 		6192602E1835A17C00143F5A /* BeaconStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6192602D1835A17C00143F5A /* BeaconStatsViewController.m */; };
 		6194E36018445CA000F26217 /* 731-cloud-download-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */; };
 		6194E3651845291000F26217 /* 730-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3641845291000F26217 /* 730-envelope@2x.png */; };
@@ -155,8 +155,6 @@
 		44EFC67A181CA11D007C1B1B /* AirshipConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = AirshipConfig.plist; sourceTree = "<group>"; };
 		6119CDE01885F59C0023B25B /* libUAirship-3.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-3.0.2.a"; sourceTree = "<group>"; };
 		6119CDE71885F64C0023B25B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		6119CDE9188E0E460023B25B /* BeaconBroadcastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconBroadcastViewController.h; sourceTree = "<group>"; };
-		6119CDEA188E0E460023B25B /* BeaconBroadcastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconBroadcastViewController.m; sourceTree = "<group>"; };
 		6119CDEC1891EF320023B25B /* 854-list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "854-list@2x.png"; sourceTree = "<group>"; };
 		6139C7D9186E480A00D72E45 /* BeaconRegionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconRegionManager.h; sourceTree = "<group>"; };
 		6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconRegionManager.m; sourceTree = "<group>"; };
@@ -176,8 +174,8 @@
 		618A2FCC18FC6BF0006DA371 /* BeaconRegionManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconRegionManagerDelegate.h; sourceTree = "<group>"; };
 		618A2FCF18FDA909006DA371 /* 742-wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "742-wrench.png"; sourceTree = "<group>"; };
 		618A2FD018FDA909006DA371 /* 742-wrench@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "742-wrench@2x.png"; sourceTree = "<group>"; };
-		618A2FD318FDAAF7006DA371 /* ADBeaconBroadcastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBeaconBroadcastViewController.h; sourceTree = "<group>"; };
-		618A2FD418FDAAF7006DA371 /* ADBeaconBroadcastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBeaconBroadcastViewController.m; sourceTree = "<group>"; };
+		618A2FD318FDAAF7006DA371 /* BeaconBroadcastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconBroadcastViewController.h; sourceTree = "<group>"; };
+		618A2FD418FDAAF7006DA371 /* BeaconBroadcastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconBroadcastViewController.m; sourceTree = "<group>"; };
 		618A2FD618FDAB5B006DA371 /* RMScannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMScannerView.h; sourceTree = "<group>"; };
 		618A2FD718FDAB5B006DA371 /* RMScannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMScannerView.m; sourceTree = "<group>"; };
 		618A2FD818FDAB5B006DA371 /* RMOutlineBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMOutlineBox.h; sourceTree = "<group>"; };
@@ -221,6 +219,8 @@
 		618A301418FDAD20006DA371 /* UANotificationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UANotificationHandler.m; sourceTree = "<group>"; };
 		618A301818FDB368006DA371 /* UANotificationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UANotificationHandler.h; sourceTree = "<group>"; };
 		618A301918FDB368006DA371 /* UANotificationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UANotificationHandler.m; sourceTree = "<group>"; };
+		618A301B18FDB933006DA371 /* ScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerViewController.h; sourceTree = "<group>"; };
+		618A301C18FDB933006DA371 /* ScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerViewController.m; sourceTree = "<group>"; };
 		6192602C1835A17C00143F5A /* BeaconStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconStatsViewController.h; sourceTree = "<group>"; };
 		6192602D1835A17C00143F5A /* BeaconStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconStatsViewController.m; sourceTree = "<group>"; };
 		6194E35F18445CA000F26217 /* 731-cloud-download-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "731-cloud-download-selected@2x.png"; sourceTree = "<group>"; };
@@ -406,16 +406,16 @@
 				618A300B18FDAC96006DA371 /* PreferencesTableViewController.m */,
 				61564A2C183B102100D87AF2 /* BeaconListViewController.h */,
 				61564A2D183B102100D87AF2 /* BeaconListViewController.m */,
-				618A2FD318FDAAF7006DA371 /* ADBeaconBroadcastViewController.h */,
-				618A2FD418FDAAF7006DA371 /* ADBeaconBroadcastViewController.m */,
+				618A301B18FDB933006DA371 /* ScannerViewController.h */,
+				618A301C18FDB933006DA371 /* ScannerViewController.m */,
+				618A2FD318FDAAF7006DA371 /* BeaconBroadcastViewController.h */,
+				618A2FD418FDAAF7006DA371 /* BeaconBroadcastViewController.m */,
 				44E6C1CA17FE29A200CD88AE /* BeaconViewController.h */,
 				44E6C1CB17FE29A200CD88AE /* BeaconViewController.m */,
 				4498CDC31826EC8A001EC26B /* BeaconSettingsViewController.h */,
 				4498CDC41826EC8A001EC26B /* BeaconSettingsViewController.m */,
 				6192602C1835A17C00143F5A /* BeaconStatsViewController.h */,
 				6192602D1835A17C00143F5A /* BeaconStatsViewController.m */,
-				6119CDE9188E0E460023B25B /* BeaconBroadcastViewController.h */,
-				6119CDEA188E0E460023B25B /* BeaconBroadcastViewController.m */,
 				618A300D18FDAD0F006DA371 /* TagTableViewController.h */,
 				618A300E18FDAD0F006DA371 /* TagTableViewController.m */,
 				618A301618FDAD29006DA371 /* UA Push Helpers */,
@@ -684,6 +684,7 @@
 			files = (
 				618A300118FDAB7A006DA371 /* RSEAN8Generator.m in Sources */,
 				618A300518FDAB7A006DA371 /* RSCode128Generator.m in Sources */,
+				618A301D18FDB933006DA371 /* ScannerViewController.m in Sources */,
 				618A300F18FDAD0F006DA371 /* TagTableViewController.m in Sources */,
 				618A2FFA18FDAB7A006DA371 /* RSCodeView.m in Sources */,
 				61B2E1631893211F00A87DB4 /* BeaconPulsingHaloLayer.m in Sources */,
@@ -694,7 +695,6 @@
 				618A2FDA18FDAB5B006DA371 /* RMScannerView.m in Sources */,
 				6192602E1835A17C00143F5A /* BeaconStatsViewController.m in Sources */,
 				4498CDC51826EC8A001EC26B /* BeaconSettingsViewController.m in Sources */,
-				6119CDEB188E0E460023B25B /* BeaconBroadcastViewController.m in Sources */,
 				618A301A18FDB368006DA371 /* UANotificationHandler.m in Sources */,
 				618A300C18FDAC96006DA371 /* PreferencesTableViewController.m in Sources */,
 				44E6C1CC17FE29A200CD88AE /* BeaconViewController.m in Sources */,
@@ -705,7 +705,7 @@
 				618A301218FDAD16006DA371 /* TagTableViewCell.m in Sources */,
 				6139C7DB186E480A00D72E45 /* BeaconRegionManager.m in Sources */,
 				618A2FFF18FDAB7A006DA371 /* RSExtendedCode39Generator.m in Sources */,
-				618A2FD518FDAAF7006DA371 /* ADBeaconBroadcastViewController.m in Sources */,
+				618A2FD518FDAAF7006DA371 /* BeaconBroadcastViewController.m in Sources */,
 				618A2FFE18FDAB7A006DA371 /* RSCode39Mod43Generator.m in Sources */,
 				618A300018FDAB7A006DA371 /* RSEANGenerator.m in Sources */,
 				618A300618FDAB7A006DA371 /* RSISBN13Generator.m in Sources */,

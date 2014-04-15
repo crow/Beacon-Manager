@@ -7,10 +7,12 @@
 //
 
 #import "BeaconBroadcastViewController.h"
-#import "BeaconManagerValues.h"
 #import "BeaconPulsingHaloLayer.h"
+#import "RSCodeView.h"
+#import "RSCodeGen.h"
 
 #define kMaxRadius 400
+#define kLastBroadcastUuidString @"ibm-last-broadcast-uuid"
 
 @interface BeaconBroadcastViewController ()
 
@@ -26,6 +28,10 @@
 @property (nonatomic, strong) BeaconPulsingHaloLayer *halo;
 @property (nonatomic, weak) IBOutlet UIImageView *beaconView;
 @property (strong, nonatomic) IBOutlet UITableViewCell *broadcastCell;
+
+
+//Barcode properties
+@property (nonatomic, weak) IBOutlet RSCodeView *codeView;
 
 @end
 
@@ -73,6 +79,10 @@
 {
     // sync the broadcast switch
     self.broadcastSwitch.on = _peripheralManager.isAdvertising;
+    NSString *qrString = [NSString stringWithFormat:@"%@,%@,%@", [_uuid UUIDString], _major, _minor];
+    self.codeView.code = [CodeGen genCodeWithContents:qrString machineReadableCodeObjectType:AVMetadataObjectTypeQRCode];
+
+
 }
 
 -(void)saveLastBroadcastUuid
@@ -139,6 +149,7 @@
     [self.transmitPowerSlider setValue:59 animated:NO];
     _power = @-59;
     [self loadLastBroadcastUuid];
+    
     _uuid = [[NSUUID alloc] initWithUUIDString:self.uuidField.text];
     _minor = [[NSNumber alloc] initWithDouble: [self.minorField.text doubleValue]];
     _major = [[NSNumber alloc] initWithDouble: [self.majorField.text doubleValue]];
@@ -148,6 +159,16 @@
 - (void)hideKeyboard{
     //update field values on keyboard hide
     [self.view endEditing:YES];
+    
+    //update all the fields (why are we allocting again?)
+    _uuid = [[NSUUID alloc] initWithUUIDString:self.uuidField.text];
+    _minor = [[NSNumber alloc] initWithDouble: [self.minorField.text doubleValue]];
+    _major = [[NSNumber alloc] initWithDouble: [self.majorField.text doubleValue]];
+
+    //update QR
+    NSString *qrString = [NSString stringWithFormat:@"%@,%@,%@", self.uuidField.text, self.majorField.text, self.minorField.text];
+    self.codeView.code = [CodeGen genCodeWithContents:qrString machineReadableCodeObjectType:AVMetadataObjectTypeQRCode];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -226,7 +247,6 @@
 }
 
 - (IBAction)transmitPowerSliderChanged:(id)sender {
-    
     
     if ([self.broadcastSwitch isOn]){
     self.halo.radius = self.transmitPowerSlider.value * kMaxRadius;
