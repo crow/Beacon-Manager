@@ -47,17 +47,16 @@
 -(void)startManager
 {
     //clear monitoring on store location manager regions
-    [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
+    [self stopMonitoringAllBeaconRegions];
     //initialize ibeacon manager, load iBeacon plist, load available regions, start monitoring available regions
-    //[[BeaconRegionManager shared] loadAvailableRegions];
-    [[BeaconRegionManager shared] startMonitoringAllAvailableBeaconRegions];
+    [self startMonitoringAllAvailableBeaconRegions];
     [self loadBeaconStats];
 }
 
 -(void)stopManager
 {
     //clear monitoring on store location manager regions
-    [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
+    [self stopMonitoringAllBeaconRegions];
 }
 
 -(void)checkiBeaconsEnabledState
@@ -218,7 +217,7 @@
     }
     
     //forward to the delegate
-    [self.beaconRegionManagerDelegate beaconRegionManagerDidRangeBeacons:beacons inRegion:region];
+    //[self.beaconRegionManagerDelegate beaconRegionManagerDidRangeBeacons:beacons inRegion:region];
     
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"managerDidRangeBeacons"
@@ -227,9 +226,9 @@
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-//    NSTimeInterval lastEntry = [[BeaconRegionManager shared] lastEntryForIdentifier:region.identifier];
-//    NSTimeInterval lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:region.identifier];
-//    NSTimeInterval cumulativeTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:region.identifier];
+//    NSTimeInterval lastEntry = [self lastEntryForIdentifier:region.identifier];
+//    NSTimeInterval lastExit = [self lastExitForIdentifier:region.identifier];
+//    NSTimeInterval cumulativeTime = [self cumulativeTimeForIdentifier:region.identifier];
     
     NSString *todaysDate = [self dateStringFromInterval:[[NSDate date] timeIntervalSince1970]];
     //swap entry/exit tags
@@ -249,9 +248,9 @@
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-//    NSTimeInterval lastEntry = [[BeaconRegionManager shared] lastEntryForIdentifier:region.identifier];
-//    NSTimeInterval lastExit = [[BeaconRegionManager shared] lastExitForIdentifier:region.identifier];
-//    NSTimeInterval cumulativeTime = [[BeaconRegionManager shared] cumulativeTimeForIdentifier:region.identifier];
+//    NSTimeInterval lastEntry = [self lastEntryForIdentifier:region.identifier];
+//    NSTimeInterval lastExit = [self lastExitForIdentifier:region.identifier];
+//    NSTimeInterval cumulativeTime = [self cumulativeTimeForIdentifier:region.identifier];
     
     //swap entry/exit tags
     [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, region.identifier]];
@@ -563,7 +562,7 @@
             }
         }
     }
-    NSLog(@"No beacon available with this ID");
+    //NSLog(@"No beacon available with this ID");
     //No beacon with the specified ID is within range
     return nil;
 }

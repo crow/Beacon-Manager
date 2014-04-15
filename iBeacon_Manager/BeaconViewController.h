@@ -10,6 +10,6 @@
 #import "BeaconRegionManager.h"
 #import "BeaconRegionManagerDelegate.h"
 
-@interface BeaconViewController : UITableViewController <BeaconRegionManagerDelegate>
+@interface BeaconViewController : UITableViewController
 
 @end

@@ -37,16 +37,13 @@ typedef void (^UAInboxClientSuccessBlock)(void);
 typedef void (^UAInboxClientRetrievalSuccessBlock)(NSMutableArray *beaconRegions);
 typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 
-
 #define kLocalPlistFileName @"SampleBeaconRegions"
 
 @interface BeaconListManager ()
 
 @property(nonatomic, strong) UAHTTPRequestEngine *requestEngine;
 
-
 @end
-
 
 @implementation BeaconListManager
 
@@ -73,43 +70,44 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     NSString *plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:kLocalPlistFileName ofType:@"plist"];
     NSArray *beaconRegionsDictArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
     
+    //build the beacon regions data from the dict array (and set available regions in the list manager) and set the availableBeaconRegions list
+    _availableBeaconRegionsList = [NSArray arrayWithArray:[self buildBeaconRegionDataFromBeaconDictArray:beaconRegionsDictArray]];
     
-    
-    //call local list loaded
-    [[[BeaconRegionManager shared] beaconRegionManagerDelegate] localListFinishedLoadingWithList:[self buildBeaconRegionDataFromBeaconDictArray:beaconRegionsDictArray]];
+    //make the delegate callback
+    [[[BeaconRegionManager shared] beaconRegionManagerDelegate] localListFinishedLoadingWithList:beaconRegionsDictArray];
 }
 
+//this is an old, shitty way of doing things, but I'm not going to update it
 - (void)loadHostedPlistWithUrl:(NSURL *)url {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        [self buildBeaconRegionDataFromBeaconDictArray:[[NSArray alloc] initWithContentsOfURL:url]];
+        //build the beacon regions data from the dict array (and set available regions in the list manager) and set the availableBeaconRegions list
+        _availableBeaconRegionsList = [NSArray arrayWithArray:[self buildBeaconRegionDataFromBeaconDictArray:[[NSArray alloc] initWithContentsOfURL:url]]];
+
+        //make the delegate callback
+        //delegate callback would go here, but there's no need because the way it's being done is bullshit and will probably be removed anyway
     });
 }
 
-//-(void)loadLocationBasedListWithUrl:(NSURL *)url{
-//    //intialize the connection with the request
-//    [self retrieveBeaconListOnSuccess:^(NSMutableArray *beaconRegions) {
-//        UA_LTRACE(@"Request to retrieve beacon list succeeded");
-//        
-//        
-//    } onFailure:^(UAHTTPRequest *request) {
-//        UA_LTRACE(@"Request to retrieve beacon list failed");
-//        
-//    }];
-//    
-//}
-
 -(void)loadLocationBasedList
 {
-    
-    
     //intialize the connection with the request
-    [self retrieveBeaconListOnSuccess:^(NSMutableArray *beaconRegions) {
+    [self retrieveBeaconListOnSuccess:^(NSMutableArray *beaconRegionsArray) {
         UA_LTRACE(@"Request to retrieve beacon list succeeded");
+        //might want to just put this whole thing in the block, make sure beacons array is there
+        //forward the beaconRegionsArray to the delegate so it can update any views
+        
+        //build the beacon regions data from the dict array (and set available regions in the list manager)
+        //set availabe beacon region list with last loaded beacon regions list
+        _availableBeaconRegionsList = [NSArray arrayWithArray:beaconRegionsArray];
+        
+        //make the delegate callback
+        [[[BeaconRegionManager shared] beaconRegionManagerDelegate] locationBasedListFinishedLoadingWithList:beaconRegionsArray];
         
         
+        
+      
     } onFailure:^(UAHTTPRequest *request) {
         UA_LTRACE(@"Request to retrieve beacon list failed");
-        
     }];
 }
 
@@ -117,7 +115,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 
 - (UAHTTPRequest *)listRequest{
     NSString *urlString = [NSString stringWithFormat: @"%@%@",
-                           @"https://proserve-test.urbanairship.com:1443/", @"ibeacons?lat=45.53207&long=-122.69879'"];
+                           @"https://proserve-test.urbanairship.com:1443/", @"ibeacons?lat=45.53207&long=-122.69879"];
     NSURL *requestUrl = [NSURL URLWithString: urlString];
     
     UAHTTPRequest *request = [UAUtils UAHTTPUserRequestWithURL:requestUrl method:@"GET"];
@@ -154,7 +152,6 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
          double beaconMajor;
          double beaconMinor;
          
-         
          NSMutableArray *beaconRegionsArray = [NSMutableArray array];
          
          //check to see if the json response is an array
@@ -167,7 +164,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
              NSLog(@"JSON response is not an array of beacons!");
          }
          
-         // Convert dictionary to objects for both convenience and necessity
+         // Convert dictionary to objects, could use the build method here
          for (NSDictionary *beaconRegion in beaconRegionsList)
          {
              //create the beacon region after a simple null check on the required items
@@ -184,8 +181,9 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
                  NSLog(@"Beacon list is missing a key (should have: identifier, uuid, major, minor)");
              }
          }
+         
          if (successBlock) {
-             //    successBlock([[inboxDBManager getMessages] mutableCopy], (NSUInteger) unread);
+                 successBlock(beaconRegionsArray);
          } else {
              UA_LERR(@"missing successBlock");
          }
@@ -225,7 +223,6 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     return [NSArray arrayWithArray:beaconRegions];
 }
 
-
 // maps each plist dictionary representing a beacon region to an allocated beacon region
 - (CLBeaconRegion *)mapDictionaryToBeacon:(NSDictionary *)dictionary
 {
@@ -261,8 +258,6 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     
     return [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
 }
-
-
 
 #pragma non-essential helper methods
 //- (NSString *)identifierForUUID:(NSUUID *) uuid {

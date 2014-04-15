@@ -53,9 +53,12 @@
     loading = NO;
     remoteLoadProgress.hidden = YES;
     
+    //set beacon region delegate to self
+    [[BeaconRegionManager shared] setBeaconRegionManagerDelegate:self];
+    
     //set initial available state
-    _availableBeaconsCell.hidden = YES;
-    _availableBeaconsCell.alpha = 0;
+    _availableBeaconsCell.hidden = NO;
+    _availableBeaconsCell.alpha = 1;
     _availableBeaconsCell.userInteractionEnabled = NO;
 }
 
@@ -74,7 +77,7 @@
     [super didReceiveMemoryWarning];
 }
 
-
+#pragma button actions
 - (IBAction)emailButtonTouched:(id)sender {
     [self showEmail];
 }
@@ -88,7 +91,7 @@
         [[[BeaconRegionManager shared] listManager] loadLocalPlist];
         
         //automatically reveal available beacon cell
-        [self revealAvailableBeaconCell];
+        [self enableAvailableBeaconCell];
 
     }
 }
@@ -105,30 +108,6 @@
 
     }
     
-}
-
--(void)revealAvailableBeaconCell
-{
-    _availableBeaconsCell.hidden = NO;
-    
-    //fade in and out to show loading
-    [UIView animateWithDuration:0.5 animations:^() {
-        _availableBeaconsCell.alpha = 0.5;
-    }];
-    [UIView animateWithDuration:0.5 animations:^() {
-        _availableBeaconsCell.alpha = 1.0;
-    }];
-    _availableBeaconsCell.userInteractionEnabled = YES;
-}
-
--(void)hideAvailableBeaconCell
-{
-    _availableBeaconsCell.hidden = YES;
-
-    [UIView animateWithDuration:0.5 animations:^() {
-        _availableBeaconsCell.alpha = 0.0;
-    }];
-    _availableBeaconsCell.userInteractionEnabled =  NO;
 }
 
 - (IBAction)hostedButtonTapped:(id)sender
@@ -155,6 +134,35 @@
         [alert show];
     }
 }
+
+#pragma UI helpers
+
+-(void)enableAvailableBeaconCell
+{
+    _availableBeaconsCell.hidden = NO;
+    
+    //fade in and out to show loading
+    [UIView animateWithDuration:0.5 animations:^() {
+        _availableBeaconsCell.alpha = 0.5;
+    }];
+    [UIView animateWithDuration:0.5 animations:^() {
+        _availableBeaconsCell.alpha = 1.0;
+    }];
+    _availableBeaconsCell.userInteractionEnabled = YES;
+}
+
+-(void)disableAvailableBeaconCell
+{
+    _availableBeaconsCell.hidden = NO;
+
+    [UIView animateWithDuration:0.5 animations:^() {
+        _availableBeaconsCell.alpha = 0.5;
+    }];
+    _availableBeaconsCell.userInteractionEnabled =  NO;
+}
+
+
+#pragma gross url callback
 
 //response callback that ensures this is a valid URL that exists, if plist is not present list will safely fail to popluate
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -204,11 +212,11 @@
 {
     if ([[[BeaconRegionManager shared] listManager] availableBeaconRegionsList] && !loading)
     {
-        [self revealAvailableBeaconCell];
+        [self enableAvailableBeaconCell];
     }
     else
     {
-        [self hideAvailableBeaconCell];
+        [self disableAvailableBeaconCell];
     }
 }
 
@@ -259,5 +267,29 @@
     // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
+#pragma BeaconRegionManagerDelegate
+
+-(void)localListFinishedLoadingWithList:(NSArray *)localBeaconList
+{
+    //done loading
+    loading = NO;
+    [self beaconLoadCheck];
+}
+-(void)hostedListFinishedLoadingWithList:(NSArray *)hostedBeaconList
+{
+    //done loading
+    loading = NO;
+    [self beaconLoadCheck];
+
+}
+-(void)locationBasedListFinishedLoadingWithList:(NSArray *)loactionBasedBeaconList
+{
+    //done loading
+    loading = NO;
+    [self beaconLoadCheck];
+
+}
+
 
 @end

@@ -18,7 +18,6 @@
 {
     @private
         NSMutableDictionary *_beacons;
-        NSArray *_rangedBeacons;
         CLBeaconRegion *_selectedBeaconRegion;
         CLBeacon *_selectedBeacon;
         UIImage *_whiteMarker;
@@ -44,9 +43,6 @@
 
     [[BeaconRegionManager shared] startManager];
     
-    //set beacon region manager delegate to self
-    [[BeaconRegionManager shared] setBeaconRegionManagerDelegate:self];
-    
     //Initialize reused tableview images
     _greenMarker = [[UIImage alloc] init];
     _greenMarker = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"722-location-ping@2x" ofType:@"png"]];
@@ -64,14 +60,19 @@
     _refreshCount = 0;
 }
 
-- (void)beaconRegionManagerDidRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
-{
-    _rangedBeacons = beacons;
-    
-    
-}
+// Need to set the delegate before you start calling it, this is a pain in the ass
+//- (void)beaconRegionManagerDidRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
+//{
+//    //reloads every 3 seconds for better responsiveness w/o table view jerk
+//    if (_refreshCount > 2){
+//        _refreshCount = 0;
+//        [self.tableView reloadData];
+//    }
+//    _refreshCount++;
+//    
+//}
 
-- (void)managerDidRangeBeacons
+-(void)managerDidRangeBeacons
 {
     //reloads every 3 seconds for better responsiveness w/o table view jerk
     if (_refreshCount > 2){
@@ -79,6 +80,7 @@
         [self.tableView reloadData];
     }
     _refreshCount++;
+    
 }
 
 - (void)didReceiveMemoryWarning
