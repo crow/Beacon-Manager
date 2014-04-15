@@ -130,7 +130,11 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     NSArray *latLon = [[BeaconRegionManager shared] getCurrentLatLon];
     
     NSString *urlString = [NSString stringWithFormat: @"%@%@%f%@%f",
-                           @"https://proserve-test.urbanairship.com:1443/", @"ibeacons?lat=", [latLon[0] floatValue], @"&long=", [latLon[1] floatValue]];
+                           @"https://proserve-test.urbanairship.com:1443/", @"ibeacons/api?lat=", [latLon[0] floatValue], @"&long=", [latLon[1] floatValue]];
+    //debugging crap
+//    NSString *urlString = [NSString stringWithFormat: @"%@%@%@%@%@",
+//                           @"https://proserve-test.urbanairship.com:1443/", @"ibeacons/api?lat=", @"45.525265", @"&long=", @"-122.685707"];
+
     NSURL *requestUrl = [NSURL URLWithString: urlString];
     
     UAHTTPRequest *request = [UAUtils UAHTTPUserRequestWithURL:requestUrl method:@"GET"];

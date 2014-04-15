@@ -57,8 +57,8 @@
     remoteLoadProgress.hidden = YES;
     
     NSArray *latLon = [[BeaconRegionManager shared] getCurrentLatLon];
-    self.latTextField.text = [latLon[0] stringValue];
-    self.lonTextField.text = [latLon[1] stringValue];
+    self.latTextField.text = [latLon[0] stringValue] ? [latLon[0] stringValue] : @"---";
+    self.lonTextField.text = [latLon[1] stringValue] ? [latLon[1] stringValue] : @"---";
 
     
     //set beacon region delegate to self
