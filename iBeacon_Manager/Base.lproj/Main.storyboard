@@ -29,10 +29,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <color key="tintColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="separatorColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="tintColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="separatorColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <color key="sectionIndexColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="sectionIndexColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BeaconCell" textLabel="NHq-zm-Nxn" detailTextLabel="Jvp-VW-Ts2" imageView="pvy-nH-039" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="Mh8-qV-ArC">
                                 <rect key="frame" x="0.0" y="119" width="320" height="60"/>
@@ -89,10 +89,10 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <color key="tintColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="separatorColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="tintColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="separatorColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <color key="sectionIndexTrackingBackgroundColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="sectionIndexTrackingBackgroundColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                         <sections>
                             <tableViewSection id="yqt-Su-9AR">
                                 <cells>
@@ -112,7 +112,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hnk-by-tw9">
                                                     <rect key="frame" x="254" y="6" width="51" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="onTintColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="onTintColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                                                     <connections>
                                                         <action selector="monitorSwitchTouched:" destination="ECA-hv-H9x" eventType="valueChanged" id="git-aw-rqM"/>
                                                     </connections>
@@ -199,7 +199,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l3R-si-g4V">
                                                     <rect key="frame" x="251" y="6" width="51" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="onTintColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="onTintColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                                                     <connections>
                                                         <action selector="notifyOnEntrySwitchTouched:" destination="ECA-hv-H9x" eventType="valueChanged" id="xzS-Ur-esF"/>
                                                     </connections>
@@ -226,7 +226,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CAD-YM-CRq">
                                                     <rect key="frame" x="251" y="6" width="51" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="onTintColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="onTintColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                                                     <connections>
                                                         <action selector="notifyOnExitSwitchTouched:" destination="ECA-hv-H9x" eventType="valueChanged" id="rEP-Iy-Evh"/>
                                                     </connections>
@@ -253,7 +253,8 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8Po-Bc-vv6">
                                                     <rect key="frame" x="251" y="6" width="51" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="onTintColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="tintColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="onTintColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                                                     <connections>
                                                         <action selector="notifyEntryOnDisplaySwitchTouched:" destination="ECA-hv-H9x" eventType="valueChanged" id="Jyr-3O-1H4"/>
                                                     </connections>
@@ -292,6 +293,32 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Tags" id="UFu-WV-GUb">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="cZm-Bi-XyJ">
+                                        <rect key="frame" x="0.0" y="535" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cZm-Bi-XyJ" id="3wS-HA-axn">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Tags" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Wo-gf-DTa">
+                                                    <rect key="frame" x="20" y="11" width="226" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                        </accessibility>
+                                        <connections>
+                                            <segue destination="9kQ-7v-JUD" kind="push" id="ckL-no-Ms0"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -321,10 +348,10 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <color key="tintColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="separatorColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="tintColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="separatorColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <color key="sectionIndexTrackingBackgroundColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="sectionIndexTrackingBackgroundColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                         <sections>
                             <tableViewSection id="CV6-MI-2GS">
                                 <cells>
@@ -551,10 +578,10 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <color key="tintColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="separatorColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="tintColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="separatorColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <color key="sectionIndexTrackingBackgroundColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="sectionIndexTrackingBackgroundColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                         <sections>
                             <tableViewSection id="ZQK-Lx-zmi">
                                 <cells>
@@ -581,7 +608,6 @@
                                                 </switch>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="tintColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
                                         </accessibility>
@@ -782,11 +808,11 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <color key="tintColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="separatorColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="tintColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="separatorColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="sectionIndexTrackingBackgroundColor" red="0.1647058874" green="0.96470594409999999" blue="0.66274511810000003" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="sectionIndexTrackingBackgroundColor" red="0.68235296010000002" green="0.87058830259999997" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                         <sections>
                             <tableViewSection id="bvj-bp-dJa">
                                 <cells>
@@ -1654,8 +1680,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="m3r-5H-hKh"/>
         <segue reference="dd3-mg-4oD"/>
         <segue reference="1Qz-GY-sUo"/>
-        <segue reference="m3r-5H-hKh"/>
+        <segue reference="ckL-no-Ms0"/>
     </inferredMetricsTieBreakers>
 </document>

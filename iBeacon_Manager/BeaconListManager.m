@@ -126,8 +126,11 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 //curl -i -u 'V6a5HDxsRl-9yuDhgj4WHg:NYT-ZbPdRVeVFkgk9-rBKA' 'https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'
 
 - (UAHTTPRequest *)listRequest{
-    NSString *urlString = [NSString stringWithFormat: @"%@%@",
-                           @"https://proserve-test.urbanairship.com:1443/", @"ibeacons?lat=45.53207&long=-122.69879"];
+    
+    NSArray *latLon = [[BeaconRegionManager shared] getCurrentLatLon];
+    
+    NSString *urlString = [NSString stringWithFormat: @"%@%@%f%@%f",
+                           @"https://proserve-test.urbanairship.com:1443/", @"ibeacons?lat=", [latLon[0] floatValue], @"&long=", [latLon[1] floatValue]];
     NSURL *requestUrl = [NSURL URLWithString: urlString];
     
     UAHTTPRequest *request = [UAUtils UAHTTPUserRequestWithURL:requestUrl method:@"GET"];

@@ -46,6 +46,8 @@ return _sharedObject; \
 //checks state of iBeacons enabled and starts monitoring accordingly
 -(void)checkiBeaconsEnabledState;
 
+//get current latitude and longitude
+-(NSArray *)getCurrentLatLon;
 
 //beacon and beacon region getters
 -(CLBeacon *)beaconWithId:(NSString *)identifier;

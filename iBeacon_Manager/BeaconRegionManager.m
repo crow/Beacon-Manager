@@ -95,6 +95,20 @@
     }
 }
 
+-(NSArray *)getCurrentLatLon
+{
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+    [self.locationManager stopUpdatingLocation];
+    
+    NSNumber *latitude = [[NSNumber alloc] initWithFloat:self.locationManager.location.coordinate.latitude];
+    NSNumber *longitude = [[NSNumber alloc] initWithFloat:self.locationManager.location.coordinate.longitude];
+    NSArray *latLon = [[NSArray alloc] initWithObjects:latitude, longitude, nil];
+    
+    return latLon;
+}
+
 -(void)removeAllBeaconTags
 {
     for (CLBeaconRegion *beaconRegion in self.availableBeaconRegionsList)
