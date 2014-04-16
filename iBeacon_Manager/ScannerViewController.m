@@ -66,36 +66,58 @@
 //TODO, halt scanning while alert view is present to prevent multiple scans
 - (void)didScanCode:(NSString *)scannedCode onCodeType:(NSString *)codeType {
     
-    //Split the comma separated QR code string into the UUIDstring majorstring and minorstring
-    NSArray *beaconRegionProperties = [scannedCode componentsSeparatedByString: @","];
-    
-    //add checking to make sure these objects are at their proper indexes
-    NSString *uuidString = [beaconRegionProperties objectAtIndex:0];
-    NSString *majorString = [beaconRegionProperties objectAtIndex:1];
-    NSString *minorString = [beaconRegionProperties objectAtIndex:2];
+    NSArray *beaconRegions = [self beaconRegionsFromScannedCode:scannedCode];
 
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Scanned Beacon %@ Code:", [scannerView humanReadableCodeTypeForCode:codeType]] message:[NSString stringWithFormat:@"UUID:%@\n\nMajor:%@\n\nMinor:%@", uuidString, majorString, minorString]  delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Scan Again", nil];
+//    
+//    //add checking to make sure these objects are at their proper indexes
+//    NSString *uuidString = [beaconRegionProperties objectAtIndex:0];
+//    NSString *majorString = [beaconRegionProperties objectAtIndex:1];
+//    NSString *minorString = [beaconRegionProperties objectAtIndex:2];
+    
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Beacon %@ Scan resulted in %d Beacon Regions", [scannerView humanReadableCodeTypeForCode:codeType], [beaconRegions count]] message:nil  delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Scan Again", nil];
     self.lastScannedCode = scannedCode;
  
     [alert show];
 }
 
 //TODO a better check on the QR code to make sure this doesn't fail elsewhere
--(CLBeaconRegion *)beaconRegionFromScannedCode:(NSString *)code
+-(NSArray *)beaconRegionsFromScannedCode:(NSString *)scannedCode
 {
     
-    //Split the comma separated QR code string into the UUIDstring majorstring and minorstring
-NSArray *beaconRegionProperties = [code componentsSeparatedByString: @","];
+    //Split the newline separated beacon regions into an array of comma separated beacon region properties strings
     
-    //add checking to make sure these objects are at their proper indexes
-    NSString *uuidString = [beaconRegionProperties objectAtIndex:0];
-    NSString *majorString = [beaconRegionProperties objectAtIndex:1];
-    NSString *minorString = [beaconRegionProperties objectAtIndex:2];
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:uuidString];
+    
+    NSMutableArray *beaconRegions = [[NSMutableArray alloc] init];
+    
+    for (NSString *beaconRegionPropertiesString in [scannedCode componentsSeparatedByString: @"."])
+    {
+        NSArray *beaconRegionProperties = [beaconRegionPropertiesString componentsSeparatedByString: @","];
+        
+        //add checking to make sure these objects are at their proper indexes
+        if ([beaconRegionProperties count] == 4)
+        {
+            NSString *uuidString = [beaconRegionProperties objectAtIndex:0];
+            NSString *majorString = [beaconRegionProperties objectAtIndex:1];
+            NSString *minorString = [beaconRegionProperties objectAtIndex:2];
+            NSString *identifierString = [beaconRegionProperties objectAtIndex:3];
+            NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:uuidString];
+            
+            CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid major:[majorString doubleValue] minor:[minorString doubleValue] identifier:identifierString];
+            
+            [beaconRegions addObject:beaconRegion];
+        }
+        else
+        {
+            NSLog(@"QR Code is improperly formatted");
+        }
 
-    //Todo add capability to add airship identifier for fun
-    return [[CLBeaconRegion alloc] initWithProximityUUID:uuid major:[majorString doubleValue] minor:[minorString doubleValue] identifier:@"Airship"];
+        
+       
+        
+    }
 
+    return [NSArray arrayWithArray:beaconRegions];
 }
 
 - (void)errorGeneratingCaptureSession:(NSError *)error {
@@ -135,7 +157,7 @@ NSArray *beaconRegionProperties = [code componentsSeparatedByString: @","];
         }
         if ( [[self backViewController] isMemberOfClass:[BeaconListViewController class]]) {
             //start monitoring the QR coded beacon region
-            [[[BeaconRegionManager shared] listManager] loadSingleBeaconRegion:[self beaconRegionFromScannedCode:self.lastScannedCode]];
+            [[[BeaconRegionManager shared] listManager] loadBeaconRegionsArray:[self beaconRegionsFromScannedCode:self.lastScannedCode]];
         }
         
         [self.navigationController popViewControllerAnimated:YES];

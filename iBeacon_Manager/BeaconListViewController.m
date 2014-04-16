@@ -56,17 +56,36 @@
     loading = NO;
     remoteLoadProgress.hidden = YES;
     
-    NSArray *latLon = [[BeaconRegionManager shared] getCurrentLatLon];
-    self.latTextField.text = [latLon[0] stringValue] ? [latLon[0] stringValue] : @"---";
-    self.lonTextField.text = [latLon[1] stringValue] ? [latLon[1] stringValue] : @"---";
-
+    //update lat lon in the location based beacon list
+    [self updateView];
     
     //set beacon region delegate to self
     [[BeaconRegionManager shared] setBeaconRegionManagerDelegate:self];
     
     //set initial available state
     [self disableAvailableBeaconCell];
+    
+    
+    //sign up for manager did update
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(managerDidUpdateLocations)
+     name:@"managerDidUpdateLocations"
+     object:nil];
 }
+
+-(void)managerDidUpdateLocations
+{
+    [self updateView];
+}
+-(void)updateView
+{
+    NSArray *latLon = [[BeaconRegionManager shared] getCurrentLatLon];
+    [self.latTextField setText:[latLon[0] stringValue] ? [latLon[0] stringValue] : @"---"];
+    [self.lonTextField setText:[latLon[1] stringValue] ? [latLon[1] stringValue] : @"---"];
+    [[self tableView] reloadData];
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
 
@@ -169,7 +188,6 @@
     }];
     _availableBeaconsCell.userInteractionEnabled =  NO;
 }
-
 
 #pragma gross url callback
 
@@ -278,6 +296,7 @@
 }
 
 #pragma BeaconRegionManagerDelegate
+//I thought I may need to know where the list was coming from, not sure if I do no, will simplify this lots
 
 -(void)localListFinishedLoadingWithList:(NSArray *)localBeaconList
 {
@@ -300,6 +319,15 @@
     [self beaconLoadCheck];
     [self enableAvailableBeaconCell];
 }
+
+-(void)qRBasedListFinishedLoadingWithList:(NSArray *)qRBasedList
+{
+    //done loading
+    loading = NO;
+    [self beaconLoadCheck];
+    [self enableAvailableBeaconCell];
+}
+
 
 
 @end

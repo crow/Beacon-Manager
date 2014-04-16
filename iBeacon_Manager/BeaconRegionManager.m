@@ -15,15 +15,12 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) BeaconListManager *listManager;//writable declaration
 
-//this should be replaced by [self.listManager availableBeaconRegionsList] no need to have two lists of available beacons
-@property (strong, nonatomic) NSArray *availableBeaconRegionsList;//writable declaration
 
 @end
 
 @implementation BeaconRegionManager
 {
     @private
-        int _monitoredRegionCount;
         //temporary store for detailed ranging
         NSMutableDictionary *_currentRangedBeacons;
 }
@@ -43,7 +40,13 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     _currentRangedBeacons = [[NSMutableDictionary alloc] init];
-    _monitoredRegionCount = 0;
+    
+    //init standard location
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+    [self.locationManager stopUpdatingLocation];
+    [self.locationManager startMonitoringSignificantLocationChanges];
     
     return self;
 }
@@ -97,8 +100,7 @@
 
 -(NSArray *)getCurrentLatLon
 {
-    self.locationManager.distanceFilter = kCLDistanceFilterNone;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+
     [self.locationManager startUpdatingLocation];
     [self.locationManager stopUpdatingLocation];
     
@@ -151,7 +153,6 @@
         [self.locationManager startMonitoringForRegion:beaconRegion];
         [self.locationManager startRangingBeaconsInRegion:beaconRegion];
         [self syncMonitoredRegions];
-        _monitoredRegionCount++;
     }
 }
 
@@ -164,7 +165,6 @@
         [self.locationManager stopMonitoringForRegion:beaconRegion];
         [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
         [self syncMonitoredRegions];
-        _monitoredRegionCount--;
     }
 }
 
@@ -188,7 +188,6 @@
     {
         [self stopMonitoringBeaconInRegion:beaconRegion];
         //reset monitored region count
-        _monitoredRegionCount = 0;
     }
     [self syncMonitoredRegions];
 }
@@ -205,7 +204,6 @@
             [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
             [self.locationManager stopMonitoringForRegion:beaconRegion];
             //reset monitored region count
-            _monitoredRegionCount = 0;
         }
     }
     [self syncMonitoredRegions];
@@ -597,5 +595,20 @@
     //No available beacon region with the specified ID was included in the available regions list
     return nil;
 }
+
+#pragma Standard Location callbacks
+
+-(void)initStandardLocation
+{
+
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"managerDidUpdateLocations"
+     object:self];
+}
+
 
 @end

@@ -67,7 +67,12 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 
 -(void)loadSingleBeaconRegion:(CLBeaconRegion * ) beaconRegion{
     _availableBeaconRegionsList = [[NSArray alloc] initWithObjects:beaconRegion, nil];
-    
+    [[[BeaconRegionManager shared] beaconRegionManagerDelegate] qRBasedListFinishedLoadingWithList:[[NSArray alloc] initWithObjects:beaconRegion, nil]];
+}
+
+-(void)loadBeaconRegionsArray:(NSArray *) beaconRegions{
+    _availableBeaconRegionsList = [[NSArray alloc] initWithArray:beaconRegions];
+    [[[BeaconRegionManager shared] beaconRegionManagerDelegate] qRBasedListFinishedLoadingWithList:beaconRegions];
 }
 
 - (void)loadLocalPlist {

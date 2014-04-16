@@ -14,6 +14,7 @@
 -(void)loadLocationBasedList;
 -(void)loadHostedPlistWithUrl:(NSURL*)url;
 -(void)loadSingleBeaconRegion:(CLBeaconRegion * ) beaconRegion;
+-(void)loadBeaconRegionsArray:(NSArray *) beaconRegions;
 
 
 @end
