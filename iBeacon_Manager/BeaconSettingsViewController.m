@@ -116,6 +116,20 @@
         vc.beaconRegion = self.beaconRegion;
         vc.beacon = self.beacon;
     }
+    if ([[segue identifier] isEqualToString:@"exitTags"])
+    {
+        // Get reference to the destination view controller
+        BeaconStatsViewController *vc = [segue destinationViewController];
+        vc.beaconRegion = self.beaconRegion;
+        vc.beacon = self.beacon;
+    }
+    if ([[segue identifier] isEqualToString:@"entryTags"])
+    {
+        // Get reference to the destination view controller
+        BeaconStatsViewController *vc = [segue destinationViewController];
+        vc.beaconRegion = self.beaconRegion;
+        vc.beacon = self.beacon;
+    }
 }
 
 @end

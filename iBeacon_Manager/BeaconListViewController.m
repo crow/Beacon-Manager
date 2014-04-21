@@ -48,7 +48,7 @@
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
     gestureRecognizer.cancelsTouchesInView = NO;
-    self.view.userInteractionEnabled = TRUE;
+    self.view.userInteractionEnabled = YES;
     [super viewDidLoad];
     //[PlistManager shared];
     _lastUrl = [[NSUserDefaults standardUserDefaults] URLForKey:@"lastUrl"];

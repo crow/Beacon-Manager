@@ -77,7 +77,7 @@
 {
     // sync the broadcast switch
     self.broadcastSwitch.on = _peripheralManager.isAdvertising;
-    NSString *qrString = [NSString stringWithFormat:@"%@,%@,%@", [_uuid UUIDString], _major, _minor];
+    NSString *qrString = [NSString stringWithFormat:@"%@,%@,%@,%@.", [_uuid UUIDString], _major, _minor, @"Test_iBeacon"];
     self.codeView.code = [CodeGen genCodeWithContents:qrString machineReadableCodeObjectType:AVMetadataObjectTypeQRCode];
 
 

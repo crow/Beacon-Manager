@@ -41,6 +41,8 @@
 		6119CDE81885F64D0023B25B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6119CDE71885F64C0023B25B /* MobileCoreServices.framework */; };
 		6119CDED1891EF320023B25B /* 854-list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6119CDEC1891EF320023B25B /* 854-list@2x.png */; };
 		612742E718FEFDA000AEB5C7 /* libUAirship-4.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 612742E618FEFDA000AEB5C7 /* libUAirship-4.0.0.a */; };
+		612742F2190069B600AEB5C7 /* EntryTagsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 612742F1190069B600AEB5C7 /* EntryTagsTableViewController.m */; };
+		612742F519006A1700AEB5C7 /* ExitTagsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 612742F419006A1700AEB5C7 /* ExitTagsTableViewController.m */; };
 		6139C7DB186E480A00D72E45 /* BeaconRegionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */; };
 		6139C7DE186E482700D72E45 /* BeaconListManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139C7DD186E482700D72E45 /* BeaconListManager.m */; };
 		6153AD681836E7BE004E8C17 /* 722-location-ping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6153AD671836E7BE004E8C17 /* 722-location-ping@2x.png */; };
@@ -154,8 +156,11 @@
 		44EFC67A181CA11D007C1B1B /* AirshipConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = AirshipConfig.plist; sourceTree = "<group>"; };
 		6119CDE71885F64C0023B25B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6119CDEC1891EF320023B25B /* 854-list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "854-list@2x.png"; sourceTree = "<group>"; };
-		612742E318FDE9AD00AEB5C7 /* RBLService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBLService.h; sourceTree = "<group>"; };
 		612742E618FEFDA000AEB5C7 /* libUAirship-4.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-4.0.0.a"; sourceTree = "<group>"; };
+		612742F0190069B600AEB5C7 /* EntryTagsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntryTagsTableViewController.h; sourceTree = "<group>"; };
+		612742F1190069B600AEB5C7 /* EntryTagsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntryTagsTableViewController.m; sourceTree = "<group>"; };
+		612742F319006A1700AEB5C7 /* ExitTagsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExitTagsTableViewController.h; sourceTree = "<group>"; };
+		612742F419006A1700AEB5C7 /* ExitTagsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExitTagsTableViewController.m; sourceTree = "<group>"; };
 		6139C7D9186E480A00D72E45 /* BeaconRegionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconRegionManager.h; sourceTree = "<group>"; };
 		6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconRegionManager.m; sourceTree = "<group>"; };
 		6139C7DC186E482700D72E45 /* BeaconListManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconListManager.h; sourceTree = "<group>"; };
@@ -418,7 +423,10 @@
 				6192602D1835A17C00143F5A /* BeaconStatsViewController.m */,
 				618A300D18FDAD0F006DA371 /* TagTableViewController.h */,
 				618A300E18FDAD0F006DA371 /* TagTableViewController.m */,
-				612742E318FDE9AD00AEB5C7 /* RBLService.h */,
+				612742F0190069B600AEB5C7 /* EntryTagsTableViewController.h */,
+				612742F1190069B600AEB5C7 /* EntryTagsTableViewController.m */,
+				612742F319006A1700AEB5C7 /* ExitTagsTableViewController.h */,
+				612742F419006A1700AEB5C7 /* ExitTagsTableViewController.m */,
 				618A301618FDAD29006DA371 /* UA Push Helpers */,
 				618A300918FDAB98006DA371 /* QR Code Support */,
 			);
@@ -691,7 +699,9 @@
 				61B2E1631893211F00A87DB4 /* BeaconPulsingHaloLayer.m in Sources */,
 				618A2FDB18FDAB5B006DA371 /* RMOutlineBox.m in Sources */,
 				618A2FFB18FDAB7A006DA371 /* RSCodeGenerator.m in Sources */,
+				612742F519006A1700AEB5C7 /* ExitTagsTableViewController.m in Sources */,
 				618A300318FDAB7A006DA371 /* RSUPCEGenerator.m in Sources */,
+				612742F2190069B600AEB5C7 /* EntryTagsTableViewController.m in Sources */,
 				618A300718FDAB7A006DA371 /* RSISSN13Generator.m in Sources */,
 				618A2FDA18FDAB5B006DA371 /* RMScannerView.m in Sources */,
 				6192602E1835A17C00143F5A /* BeaconStatsViewController.m in Sources */,
