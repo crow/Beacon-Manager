@@ -7,11 +7,12 @@
 //
 
 #import "EntryTagsTableViewController.h"
+#import "BeaconRegionManager.h"
 #import "UAPush.h"
 
 @interface EntryTagsTableViewController ()
 
-@property (nonatomic, strong) NSMutableArray *currentTags;
+@property (nonatomic, strong) NSMutableArray *currentEntryTags;
 
 @end
 
@@ -29,7 +30,7 @@
     
     // keep a local copy here because the order of the UAPush tags is not guaranteed
     // we don't want the UI to shuffle all the time, so we'll keep our own order
-    self.currentTags = [NSMutableArray arrayWithArray:[UAPush shared].tags];
+    self.currentEntryTags = [NSMutableArray arrayWithArray:[[BeaconRegionManager shared] entryTagsForBeaconRegion:self.beaconRegion]];
     
     //default to editing, since the view is for adding/removing tags
     self.editing = YES;
@@ -50,6 +51,10 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+ 
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -64,27 +69,27 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // Return the number of rows in the section.
-    return [self.currentTags count] + 1;//add one for the add tag cell
+    return [self.currentEntryTags count] + 1;//add one for the add tag cell
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = nil;
     
-    if (indexPath.row == [self.currentTags count]) { //add tag
+    if (indexPath.row == [self.currentEntryTags count]) { //add tag
         cell = [tableView dequeueReusableCellWithIdentifier:@"addTagCell" forIndexPath:indexPath];
     } else { // existing tag
         cell = [tableView dequeueReusableCellWithIdentifier:@"tagCell" forIndexPath:indexPath];
         
         // Configure the cell...
-        cell.textLabel.text = [self.currentTags objectAtIndex:indexPath.row];
+        cell.textLabel.text = [self.currentEntryTags objectAtIndex:indexPath.row];
     }
     
     return cell;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == [self.currentTags count]) {
+    if (indexPath.row == [self.currentEntryTags count]) {
         return UITableViewCellEditingStyleInsert;
     } else {
         return UITableViewCellEditingStyleDelete;
@@ -97,52 +102,24 @@
     return YES;
 }
 
-- (NSArray *)tags {
-    NSArray *currentTags = [[NSUserDefaults standardUserDefaults] objectForKey:UAPushTagsSettingsKey];
-    if (!currentTags) {
-        currentTags = [NSArray array];
-    }
-    return currentTags;
-}
-
-- (void)setTags:(NSArray *)tags {
-    [[NSUserDefaults standardUserDefaults] setObject:tags forKey:UAPushTagsSettingsKey];
-}
-
-- (void)addTagsToCurrentDevice:(NSArray *)tags {
-    NSMutableSet *updatedTags = [NSMutableSet setWithArray:[self tags]];
-    [updatedTags addObjectsFromArray:tags];
-    [self setTags:[updatedTags allObjects]];
-}
-
-- (void)addTagToCurrentDevice:(NSString *)tag {
-    [self addTagsToCurrentDevice:[NSArray arrayWithObject:tag]];
-}
-
-- (void)removeTagFromCurrentDevice:(NSString *)tag {
-    [self removeTagsFromCurrentDevice:[NSArray arrayWithObject:tag]];
-}
-
-- (void)removeTagsFromCurrentDevice:(NSArray *)tags {
-    NSMutableArray *mutableTags = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:UAPushTagsSettingsKey]];
-    [mutableTags removeObjectsInArray:tags];
-    [[NSUserDefaults standardUserDefaults] setObject:mutableTags forKey:UAPushTagsSettingsKey];
-}
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         
-        NSString *tagToDelete = [self.currentTags objectAtIndex:(NSUInteger)indexPath.row];
+        NSString *tagToDelete = [self.currentEntryTags objectAtIndex:(NSUInteger)indexPath.row];
         
+        //TODO store this key as a constant if possible
+        NSString *beaconEntryTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-entry-tags",self.beaconRegion.identifier];
         
-        // Commit to server
-        [[UAPush shared] removeTagFromCurrentDevice:tagToDelete];
-        [[UAPush shared] updateRegistration];
-        
+        //Remove the tag from the table view from NSUserDefaults entry tags store and re-save the entry
+        NSMutableArray *entryTags = [NSMutableArray arrayWithArray:[[BeaconRegionManager shared] entryTagsForBeaconRegion:self.beaconRegion]];
+        [entryTags removeObject:tagToDelete];
+        [[NSUserDefaults standardUserDefaults] setObject:entryTags forKey:beaconEntryTagsKey];
+    
         // Delete the row from the data source & local copy of tags
-        [self.currentTags removeObjectAtIndex:(NSUInteger)indexPath.row];
+        [self.currentEntryTags removeObjectAtIndex:(NSUInteger)indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
         
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
@@ -150,14 +127,19 @@
         UITextField *tagEditField = (UITextField *)[[tableView cellForRowAtIndexPath:indexPath] viewWithTag:2];
         
         NSString *tagToAdd = tagEditField.text;
-        if (tagToAdd && tagToAdd.length > 0 && ![self.currentTags containsObject:tagToAdd]) {
-            [[UAPush shared] addTagToCurrentDevice:tagToAdd];
-            [[UAPush shared] updateRegistration];
+        if (tagToAdd && tagToAdd.length > 0 && ![self.currentEntryTags containsObject:tagToAdd]) {
+            //TODO store this key as a constant if possible
+            NSString *beaconEntryTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-entry-tags",self.beaconRegion.identifier];
+            
+            //Add the tag from the table view to NSUserDefaults entry tags store and re-save the entry
+            NSMutableArray *entryTags = [NSMutableArray arrayWithArray:[[BeaconRegionManager shared] entryTagsForBeaconRegion:self.beaconRegion]];
+            [entryTags addObject:tagToAdd];
+            [[NSUserDefaults standardUserDefaults] setObject:entryTags forKey:beaconEntryTagsKey];
             
             tagEditField.text = nil;
             
             // Insert the row to the data source & update local copy
-            [self.currentTags addObject:tagToAdd];
+            [self.currentEntryTags addObject:tagToAdd];
             [tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
         }
     }

@@ -23,6 +23,7 @@
 //#define kVisits @"visits"
 
 //Tagging constants
+#define kEncounterAnyPreamble @"entryTag"
 #define kEncounterAnyPreamble @"was_at_"
 #define kEncounterSpecificPreamble @"encountered_"
 #define kEntryTagPreamble @"entered_"

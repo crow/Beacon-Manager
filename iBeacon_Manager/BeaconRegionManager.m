@@ -242,40 +242,33 @@
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-//    NSTimeInterval lastEntry = [self lastEntryForIdentifier:region.identifier];
-//    NSTimeInterval lastExit = [self lastExitForIdentifier:region.identifier];
-//    NSTimeInterval cumulativeTime = [self cumulativeTimeForIdentifier:region.identifier];
-    
-    NSString *todaysDate = [self dateStringFromInterval:[[NSDate date] timeIntervalSince1970]];
-    //swap entry/exit tags
+    //swap default entry/exit tags
     [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kExitTagPreamble, region.identifier]];
     [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, region.identifier]];
-    
-    //optional dated tags
-    //set dated encountered any tag
-    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kEncounterAnyPreamble, todaysDate]];
-    [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@_%@", kEncounterSpecificPreamble, region.identifier, todaysDate]];
-    
+
+    //set user-provided entry tags and remove user-provided exit tags
+    [self addEntryTagsForBeaconRegion:[self beaconRegionWithId:region.identifier]];
+    [self removeExitTagsForBeaconRegion:[self beaconRegionWithId:region.identifier]];
+
     UA_LDEBUG(@"Updating tags");
     [[UAPush shared] updateRegistration];
-    UA_LDEBUG( @"didEnterRegion '%@'", region.identifier );
+    UA_LDEBUG( @"Timestamping didEnterRegion '%@'", region.identifier );
     [self timestampEntryForBeaconRegion:[self beaconRegionWithId:region.identifier]];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-//    NSTimeInterval lastEntry = [self lastEntryForIdentifier:region.identifier];
-//    NSTimeInterval lastExit = [self lastExitForIdentifier:region.identifier];
-//    NSTimeInterval cumulativeTime = [self cumulativeTimeForIdentifier:region.identifier];
-    
-    //swap entry/exit tags
+    //swap default entry/exit tags
     [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, region.identifier]];
     [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kExitTagPreamble, region.identifier]];
     
+    //set user-provided exit tags and remove user-provided entry tags
+    [self addExitTagsForBeaconRegion:[self beaconRegionWithId:region.identifier]];
+    [self removeEntryTagsForBeaconRegion:[self beaconRegionWithId:region.identifier]];
+
     UA_LDEBUG(@"Updating tags");
     [[UAPush shared] updateRegistration];
-    
-    UA_LDEBUG(@"didExitRegion '%@'", region.identifier);
+    UA_LDEBUG(@"Timestamping didExitRegion '%@'", region.identifier);
     //exit timestamp includes cumulative time measurement
     [self timestampExitForBeaconRegion:[self beaconRegionWithId:region.identifier]];
 }
@@ -290,19 +283,13 @@
 
     if(state == CLRegionStateInside)
     {
-        
-        //set encountered any tag
-        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@", kEncounterAnyPreamble]];
-        //set entry tag (implied entry)
+        //set default entry tag (implied entry)
         [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, region.identifier]];
-        
-        
-        //optional dated tags
-        //set dated encountered any tag
-        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kEncounterAnyPreamble, todaysDate]];
-        [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@_%@", kEncounterSpecificPreamble, region.identifier, todaysDate]];
-        
-        
+        //set user-provided entry tags
+        [self addEntryTagsForBeaconRegion:[self beaconRegionWithId:region.identifier]];
+        //remove all exit tags (implied entry
+        [self removeExitTagsForBeaconRegion:[self beaconRegionWithId:region.identifier]];
+        [[UAPush shared] updateRegistration];
         UA_LDEBUG( @"Beacon Manager Updated State: Entered Region '%@'", region.identifier );
         
         //if lastEntry is null then entry is when the app started in the region
@@ -524,6 +511,114 @@
     }
     
     [self calculateCumulativeTimeForBeaconRegion:beaconRegion];
+}
+
+//checks NSUserDefaults for tags array at the key "ua-beaconmanager-<identifier>-entry-tags" and applies them if it exists
+-(void)addEntryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
+{
+    if (beaconRegion.identifier)
+    {
+        NSString *beaconEntryTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-entry-tags",beaconRegion.identifier];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconEntryTagsKey])
+        {
+            [[UAPush shared] addTagsToCurrentDevice:[[NSUserDefaults standardUserDefaults] objectForKey:beaconEntryTagsKey]];
+        }
+        else
+        {
+            UALOG(@"No exit tags set for key %@", beaconEntryTagsKey);
+        }
+    }
+}
+
+//just looks in NSUserDefaults for tags array at the key "ua-beaconmanager-<identifier>-exit-tags" and applies them if it exists
+-(void)addExitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
+{
+    if (beaconRegion.identifier)
+    {
+        NSString *beaconExitTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-exit-tags",beaconRegion.identifier];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconExitTagsKey])
+        {
+            [[UAPush shared] addTagsToCurrentDevice:[[NSUserDefaults standardUserDefaults] objectForKey:beaconExitTagsKey]];
+        }
+        else
+        {
+            UALOG(@"No exit tags set for key %@", beaconExitTagsKey);
+        }
+    }
+}
+
+//checks NSUserDefaults for tags array at the key "ua-beaconmanager-<identifier>-entry-tags" and applies them if it exists
+-(void)removeEntryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
+{
+    if (beaconRegion.identifier)
+    {
+        NSString *beaconEntryTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-entry-tags",beaconRegion.identifier];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconEntryTagsKey])
+        {
+            [[UAPush shared] removeTagsFromCurrentDevice:[[NSUserDefaults standardUserDefaults] objectForKey:beaconEntryTagsKey]];
+        }
+        else
+        {
+            UALOG(@"No exit tags set for key %@", beaconEntryTagsKey);
+        }
+    }
+}
+
+//just looks in NSUserDefaults for tags array at the key "ua-beaconmanager-<identifier>-exit-tags" and applies them if it exists
+-(void)removeExitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
+{
+    if (beaconRegion.identifier)
+    {
+        NSString *beaconExitTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-exit-tags",beaconRegion.identifier];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconExitTagsKey])
+        {
+            [[UAPush shared] removeTagsFromCurrentDevice:[[NSUserDefaults standardUserDefaults] objectForKey:beaconExitTagsKey]];
+        }
+        else
+        {
+            UALOG(@"No exit tags set for key %@", beaconExitTagsKey);
+        }
+    }
+}
+
+-(NSArray *)entryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
+{
+    if (beaconRegion.identifier)
+    {
+        //NSLog(@"timestamped exit");
+        
+        NSString *beaconEntryTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-entry-tags",beaconRegion.identifier];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconEntryTagsKey])
+        {
+            return [[NSUserDefaults standardUserDefaults] objectForKey:beaconEntryTagsKey];
+        }
+        else
+        {
+            UALOG(@"No exit tags set for key %@", beaconEntryTagsKey);
+        }
+    }
+    //probably want to return an empty array instead
+    return nil;
+}
+
+-(NSArray *)exitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
+{
+    if (beaconRegion.identifier)
+    {
+        //NSLog(@"timestamped exit");
+        
+        NSString *beaconExitTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-exit-tags",beaconRegion.identifier];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconExitTagsKey])
+        {
+            return [[NSUserDefaults standardUserDefaults] objectForKey:beaconExitTagsKey];
+
+        }
+        else
+        {
+            UALOG(@"No exit tags set for key %@", beaconExitTagsKey);
+        }
+    }
+    return nil;
 }
 
 -(void)calculateCumulativeTimeForBeaconRegion:(CLBeaconRegion *)beaconRegion

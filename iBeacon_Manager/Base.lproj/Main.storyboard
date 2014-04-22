@@ -322,7 +322,7 @@
                                             <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
                                         </accessibility>
                                         <connections>
-                                            <segue destination="gs0-OQ-dB9" kind="push" id="g5f-CS-Ut5"/>
+                                            <segue destination="gs0-OQ-dB9" kind="push" identifier="entryTags" id="g5f-CS-Ut5"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="blk-XB-PER" detailTextLabel="kdt-u8-CsX" style="IBUITableViewCellStyleSubtitle" id="cZm-Bi-XyJ">
@@ -352,7 +352,7 @@
                                             <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
                                         </accessibility>
                                         <connections>
-                                            <segue destination="hnT-m8-6dX" kind="push" id="euO-Ju-eAu"/>
+                                            <segue destination="hnT-m8-6dX" kind="push" identifier="exitTags" id="euO-Ju-eAu"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="DEd-hG-bpt">

@@ -79,6 +79,13 @@ return _sharedObject; \
 -(void)clearAllBeaconStats;
 -(void)clearBeaconStatsForBeaconRegion:(CLBeaconRegion *)beaconRegion;
 
+//exit and entry tag mgmt
+-(NSArray *)entryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion;
+-(NSArray *)exitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion;
+-(void)addEntryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion;
+-(void)addExitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion;
+-(void)removeEntryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion;
+-(void)removeExitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion;
 
 
 @end
