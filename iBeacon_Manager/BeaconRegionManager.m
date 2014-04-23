@@ -127,11 +127,6 @@
     _monitoredBeaconRegions = [self.locationManager monitoredRegions];
 }
 
-//-(void)loadAvailableRegions
-//{
-//    _availableBeaconRegionsList = [_listManager getAvailableBeaconRegionsList];
-//}
-
 //helper method to return a properly formatted (short style) date
 -(NSString *)dateStringFromInterval:(NSTimeInterval)interval
 {
@@ -252,8 +247,10 @@
 
     UA_LDEBUG(@"Updating tags");
     [[UAPush shared] updateRegistration];
-    UA_LDEBUG( @"Timestamping didEnterRegion '%@'", region.identifier );
-    [self timestampEntryForBeaconRegion:[self beaconRegionWithId:region.identifier]];
+    
+    //removing this because it's redundant with the didDetermine state call
+    //UA_LDEBUG( @"Timestamping didEnterRegion '%@'", region.identifier );
+    //[self timestampEntryForBeaconRegion:[self beaconRegionWithId:region.identifier]];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region

@@ -496,7 +496,7 @@
                                             <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
                                         </accessibility>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="90" id="pch-Qo-zCf">
+                                    <tableViewCell hidden="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="90" id="pch-Qo-zCf">
                                         <rect key="frame" x="0.0" y="215" width="320" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pch-Qo-zCf" id="ire-9a-kof">
@@ -559,7 +559,7 @@
                                             <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
                                         </accessibility>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="90" id="YiN-Ty-Yps">
+                                    <tableViewCell hidden="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="90" id="YiN-Ty-Yps">
                                         <rect key="frame" x="0.0" y="305" width="320" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YiN-Ty-Yps" id="4aw-lb-fd0">
@@ -607,43 +607,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Instructions" id="6Md-4b-tCl">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="Mc3-Wr-suW">
-                                        <rect key="frame" x="0.0" y="443" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mc3-Wr-suW" id="KiX-xD-YQ3">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email Sample Plist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXj-Hc-tbu">
-                                                    <rect key="frame" x="20" y="11" width="143" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjV-je-yFw">
-                                                    <rect key="frame" x="263" y="6" width="64" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <state key="normal" image="730-envelope.png">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="emailButtonTouched:" destination="GPg-HD-qLl" eventType="touchUpInside" id="xAw-9b-dV4"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <accessibility key="accessibilityConfiguration">
-                                            <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
-                                        </accessibility>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="uw8-PM-oM7">
-                                <cells/>
-                            </tableViewSection>
                         </sections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -651,7 +614,6 @@
                     <navigationItem key="navigationItem" id="aX6-HB-dcf"/>
                     <connections>
                         <outlet property="_availableBeaconsCell" destination="gHP-Rx-XH9" id="UPF-YJ-jih"/>
-                        <outlet property="_emailButton" destination="wjV-je-yFw" id="QG0-Aj-yDV"/>
                         <outlet property="_loadHostedButton" destination="8C2-AR-3HT" id="oJ6-rO-xXl"/>
                         <outlet property="_loadLocationBasedButton" destination="Nhd-vK-Znp" id="WLZ-HJ-pBd"/>
                         <outlet property="_urlTextField" destination="Woo-TM-equ" id="D6I-VN-XON"/>
@@ -1747,7 +1709,6 @@
     <resources>
         <image name="703-download-selected.png" width="21" height="28"/>
         <image name="722-location-pin.png" width="19" height="28"/>
-        <image name="730-envelope.png" width="28" height="18"/>
         <image name="731-cloud-download-selected.png" width="28" height="27"/>
         <image name="731-cloud-download.png" width="28" height="27"/>
         <image name="742-wrench.png" width="28" height="28"/>
@@ -1762,7 +1723,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Rjt-Ww-Sk7"/>
+        <segue reference="m3r-5H-hKh"/>
         <segue reference="9av-TL-Eha"/>
         <segue reference="T2q-Sn-DGD"/>
     </inferredMetricsTieBreakers>
