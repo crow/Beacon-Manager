@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+//this might be completely stupid, it might be best to utilize notifications
+//I'm trying to make implementing beacon-related views easy, and this would imply
+//a one-to-many scheme that probably means a delegation pattern won't work well
 @protocol BeaconRegionManagerDelegate <NSObject>
 
 //This delegate is designed to be implemented a root view controller that's displaying beacon information

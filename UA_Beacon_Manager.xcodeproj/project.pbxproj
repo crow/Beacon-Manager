@@ -601,7 +601,7 @@
 				ORGANIZATIONNAME = "David Crow";
 				TargetAttributes = {
 					440E85ED17F5140E00D191A2 = {
-						DevelopmentTeam = RT2J3E5RQP;
+						DevelopmentTeam = PGJV57GD94;
 					};
 					440E860E17F5140F00D191A2 = {
 						TestTargetID = 440E85ED17F5140E00D191A2;
@@ -838,8 +838,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: John D Crow (877GS32Q5E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John D Crow (877GS32Q5E)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager",
@@ -863,7 +863,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = UA_Beacon_Manager;
-				PROVISIONING_PROFILE = "B8AB92BE-17BE-4C6A-BED0-7FF121BFE795";
+				PROVISIONING_PROFILE = "F5018A76-D911-4E71-9612-557C94C0D61B";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -875,8 +875,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: John D Crow (877GS32Q5E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: John D Crow (877GS32Q5E)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager",
@@ -901,7 +901,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = UA_Beacon_Manager;
-				PROVISIONING_PROFILE = "B8AB92BE-17BE-4C6A-BED0-7FF121BFE795";
+				PROVISIONING_PROFILE = "F5018A76-D911-4E71-9612-557C94C0D61B";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;

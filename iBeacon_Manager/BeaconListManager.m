@@ -128,8 +128,8 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     }];
 }
 
+//This proserve request will likely be removed, initially just wanted to do proof-of-concept
 //curl -i -u 'V6a5HDxsRl-9yuDhgj4WHg:NYT-ZbPdRVeVFkgk9-rBKA' 'https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'
-
 - (UAHTTPRequest *)listRequest{
     
     NSArray *latLon = [[BeaconRegionManager shared] getCurrentLatLon];
@@ -207,15 +207,6 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
      }];
 }
 
-//- (NSArray *)buildBeaconRegionDataFromPlist {
-//    NSMutableArray *beaconRegions = [NSMutableArray array];
-//    for (NSDictionary *beaconDict in _plistBeaconContentsArray) {
-//        CLBeaconRegion *beaconRegion = [self mapDictionaryToBeacon:beaconDict];
-//        [beaconRegions addObject:beaconRegion];
-//    }
-//    return [NSArray arrayWithArray:beaconRegions];
-//}
-
 - (NSArray *)buildBeaconRegionDataFromBeaconDictArray:(NSArray *) beaconDictArray
 {
     NSMutableArray *beaconRegions = [NSMutableArray array];
@@ -269,26 +260,6 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     
     return [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:major minor:minor identifier:identifier];
 }
-
-#pragma non-essential helper methods
-//- (NSString *)identifierForUUID:(NSUUID *) uuid {
-//    
-//    if (self.readableBeaconRegions) {
-//        for (NSString *string in self.readableBeaconRegions) {
-//            //if string contains - <UUID> then remove this portion so only the identifier remains
-//            NSString *uuidPortion = [NSString stringWithFormat:@" - %@", [uuid UUIDString]];
-//            
-//            if ([string rangeOfString:[uuid UUIDString]].location != NSNotFound) {
-//                return [string substringToIndex:[string rangeOfString:uuidPortion].location];
-//            }
-//        }
-//        //uuid is not in the monitored list
-//        return nil;
-//    }
-//    
-//    //identifer for UUID did not return (╯°□°)╯︵ ┻━┻
-//    return nil;
-//}
 
 @end
 

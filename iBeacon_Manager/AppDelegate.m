@@ -13,7 +13,6 @@
 #import "UAPush.h"
 #import "UANotificationHandler.h"
 #import "UALocationService.h"
-#import <Parse/Parse.h>
 
 
 @interface AppDelegate ()
