@@ -24,7 +24,6 @@
 
 //Tagging constants
 #define kEncounterAnyPreamble @"entryTag"
-#define kEncounterAnyPreamble @"was_at_"
 #define kEncounterSpecificPreamble @"encountered_"
 #define kEntryTagPreamble @"entered_"
 #define kExitTagPreamble @"exited_"
@@ -40,3 +39,8 @@
 #define kLastExit @"last-exit"
 #define kCumulativeTime @"cumulative-time"
 #define kVisits @"visits"
+
+//Beacon Broadcast contstants
+#define kLastBroadcastUuidString @"ua-beaconmanager-last-broadcast-uuid"
+#define kMaxRadius 400 //beacon pulse layer UI element max radius
+

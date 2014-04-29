@@ -102,6 +102,12 @@
 		61B2E1631893211F00A87DB4 /* BeaconPulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B2E1621893211F00A87DB4 /* BeaconPulsingHaloLayer.m */; };
 		61B604F418AC22710059D37E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865117F5157100D191A2 /* QuartzCore.framework */; };
 		61B604F618AC22970059D37E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B604F518AC22970059D37E /* StoreKit.framework */; };
+		61E2A0B7191029AC00E2F5DB /* 705-photos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0B6191029AC00E2F5DB /* 705-photos@2x.png */; };
+		61E2A0BB19102A2D00E2F5DB /* 747-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0BA19102A2D00E2F5DB /* 747-tag@2x.png */; };
+		61E2A0BD19102D2100E2F5DB /* View_QR_code.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0BC19102D2100E2F5DB /* View_QR_code.png */; };
+		61E2A0BF19102D9600E2F5DB /* 708-search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0BE19102D9600E2F5DB /* 708-search@2x.png */; };
+		61E2A0C119102EB000E2F5DB /* 887-notepad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0C019102EB000E2F5DB /* 887-notepad@2x.png */; };
+		61E2A0C319102EE800E2F5DB /* 759-refresh-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0C219102EE800E2F5DB /* 759-refresh-2@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -254,6 +260,12 @@
 		61B2E1621893211F00A87DB4 /* BeaconPulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconPulsingHaloLayer.m; sourceTree = "<group>"; };
 		61B604F518AC22970059D37E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		61BB3CCE18A1817200C7ECA2 /* jd.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = jd.caf; sourceTree = "<group>"; };
+		61E2A0B6191029AC00E2F5DB /* 705-photos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "705-photos@2x.png"; sourceTree = "<group>"; };
+		61E2A0BA19102A2D00E2F5DB /* 747-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "747-tag@2x.png"; sourceTree = "<group>"; };
+		61E2A0BC19102D2100E2F5DB /* View_QR_code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = View_QR_code.png; sourceTree = "<group>"; };
+		61E2A0BE19102D9600E2F5DB /* 708-search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "708-search@2x.png"; sourceTree = "<group>"; };
+		61E2A0C019102EB000E2F5DB /* 887-notepad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "887-notepad@2x.png"; sourceTree = "<group>"; };
+		61E2A0C219102EE800E2F5DB /* 759-refresh-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "759-refresh-2@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,6 +385,9 @@
 			isa = PBXGroup;
 			children = (
 				6182BA2A18E6041C000F9EBC /* 881-globe@2x.png */,
+				61E2A0C219102EE800E2F5DB /* 759-refresh-2@2x.png */,
+				61E2A0BC19102D2100E2F5DB /* View_QR_code.png */,
+				61E2A0C019102EB000E2F5DB /* 887-notepad@2x.png */,
 				618A2FCF18FDA909006DA371 /* 742-wrench.png */,
 				618A2FD018FDA909006DA371 /* 742-wrench@2x.png */,
 				6194E398184696E400F26217 /* iBeaconManager.xcassets */,
@@ -506,7 +521,10 @@
 			isa = PBXGroup;
 			children = (
 				61BB3CCE18A1817200C7ECA2 /* jd.caf */,
+				61E2A0BE19102D9600E2F5DB /* 708-search@2x.png */,
+				61E2A0BA19102A2D00E2F5DB /* 747-tag@2x.png */,
 				617F60E31899E8D800D4C01C /* 751-eye@2x.png */,
+				61E2A0B6191029AC00E2F5DB /* 705-photos@2x.png */,
 				617F60E51899E9E000D4C01C /* 789-map-location@2x.png */,
 				617F60E11899E86E00D4C01C /* 849-radar@2x.png */,
 				6119CDEC1891EF320023B25B /* 854-list@2x.png */,
@@ -632,11 +650,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61E2A0BD19102D2100E2F5DB /* View_QR_code.png in Resources */,
 				6194E3B018469DFA00F26217 /* Icon-60.png in Resources */,
 				447F2659182301E20076F44E /* Main.storyboard in Resources */,
 				44952DA51822E4BD00DC00E3 /* 702-share-selected@2x.png in Resources */,
 				44952DA71822E4C300DC00E3 /* 703-download-selected.png in Resources */,
 				6194E3B418469DFA00F26217 /* Icon-76.png in Resources */,
+				61E2A0BF19102D9600E2F5DB /* 708-search@2x.png in Resources */,
 				440E85FC17F5140E00D191A2 /* InfoPlist.strings in Resources */,
 				6194E3C218469E1700F26217 /* iTunesArtwork.png in Resources */,
 				6194E3BF18469DFA00F26217 /* iTunesArtwork@2x in Resources */,
@@ -647,6 +667,7 @@
 				6153AD89183B0BD8004E8C17 /* 731-cloud-download@2x.png in Resources */,
 				6194E36018445CA000F26217 /* 731-cloud-download-selected@2x.png in Resources */,
 				617F60E61899E9E000D4C01C /* 789-map-location@2x.png in Resources */,
+				61E2A0C319102EE800E2F5DB /* 759-refresh-2@2x.png in Resources */,
 				44952DA31822E4A800DC00E3 /* 703-download@2x.png in Resources */,
 				6194E3B318469DFA00F26217 /* Icon-72@2x.png in Resources */,
 				44EFC67B181CA11D007C1B1B /* AirshipConfig.plist in Resources */,
@@ -667,12 +688,15 @@
 				6182BA2B18E6041C000F9EBC /* 881-globe@2x.png in Resources */,
 				6194E399184696E400F26217 /* iBeaconManager.xcassets in Resources */,
 				6153AD8B183B0DA3004E8C17 /* 760-refresh-3@2x.png in Resources */,
+				61E2A0B7191029AC00E2F5DB /* 705-photos@2x.png in Resources */,
 				44952DA11822E4A400DC00E3 /* 702-share@2x.png in Resources */,
 				6194E3BE18469DFA00F26217 /* iTunesArtwork in Resources */,
 				6194E3B718469DFA00F26217 /* Icon-Small-50@2x.png in Resources */,
 				4481878A181F7A90009514CC /* location-pin-selected.png in Resources */,
 				6119CDED1891EF320023B25B /* 854-list@2x.png in Resources */,
 				6194E3B518469DFA00F26217 /* Icon-76@2x.png in Resources */,
+				61E2A0BB19102A2D00E2F5DB /* 747-tag@2x.png in Resources */,
+				61E2A0C119102EB000E2F5DB /* 887-notepad@2x.png in Resources */,
 				6194E36718453EBA00F26217 /* SampleBeaconRegions.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

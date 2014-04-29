@@ -100,6 +100,78 @@
     [self.noteEntryOnDisplaySwitch setOn:self.beaconRegion.notifyEntryStateOnDisplay];
 }
 
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (cell.tag == 1) {
+        if (self.beaconRegion.notifyOnEntry == YES) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+    }
+    if (cell.tag == 2) {
+        if (self.beaconRegion.notifyOnExit == YES) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+    }
+    if (cell.tag == 3) {
+        if (self.beaconRegion.notifyEntryStateOnDisplay) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+    }
+}
+
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    if (cell.tag == 1) {
+        //Tag On Entry
+        if (cell.accessoryType != UITableViewCellAccessoryCheckmark) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            self.beaconRegion.notifyOnEntry = YES;
+        }
+        else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            self.beaconRegion.notifyOnEntry = NO;
+        }
+    }
+    if (cell.tag == 2) {
+        //Tag On Exit
+        if (cell.accessoryType != UITableViewCellAccessoryCheckmark) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            self.beaconRegion.notifyOnExit = YES;
+        }
+        else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            self.beaconRegion.notifyOnExit = NO;
+        }
+    }
+    if (cell.tag == 3) {
+        //Tag On Display
+        if (cell.accessoryType != UITableViewCellAccessoryCheckmark) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            self.beaconRegion.notifyEntryStateOnDisplay = YES;
+
+        }
+        else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            self.beaconRegion.notifyEntryStateOnDisplay = NO;
+
+        }
+    }
+    
+
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

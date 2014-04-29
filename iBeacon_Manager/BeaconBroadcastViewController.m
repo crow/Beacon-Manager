@@ -10,9 +10,9 @@
 #import "BeaconPulsingHaloLayer.h"
 #import "RSCodeView.h"
 #import "RSCodeGen.h"
+#import "BeaconManagerValues.h"
 
-#define kMaxRadius 400
-#define kLastBroadcastUuidString @"ibm-last-broadcast-uuid"
+
 
 @interface BeaconBroadcastViewController ()
 
