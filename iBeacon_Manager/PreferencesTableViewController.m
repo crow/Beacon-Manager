@@ -39,7 +39,6 @@
 
 
 - (IBAction)pushToggled:(id)sender;
-- (IBAction)beaconsToggled:(id)sender;
 
 @end
 
@@ -68,8 +67,6 @@
     self.pushEnabledSwitch.on = [UAPush shared].pushEnabled;
     self.soundEnabledSwitch.enabled = self.pushEnabledSwitch.on;//disable the sound toggle if push is disabled
     self.soundEnabledSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:kSoundEnabled];
-    self.beaconsEnabledSwitch.on =  [[BeaconRegionManager shared] beaconsEnabled];
-    self.beaconsEnabledSwitch.enabled = [[BeaconRegionManager shared] bluetoothReady];
 
     self.locationEnabledSwitch.on = [UALocationService airshipLocationServiceEnabled];
 
@@ -104,10 +101,6 @@
 
 - (IBAction)pushToggled:(id)sender {
     self.soundEnabledSwitch.enabled = self.pushEnabledSwitch.on;
-}
-
-- (IBAction)beaconsToggled:(id)sender {
-    [[BeaconRegionManager shared] setBeaconsEnabled:self.beaconsEnabledSwitch.on];
 }
 
 #pragma mark -
@@ -147,22 +140,18 @@
             case CBCentralManagerStateUnsupported:
                 stateString = @"This device does not support Bluetooth Low Energy. iBeacons disabled.";
                 [[BeaconRegionManager shared] setBluetoothReady:NO];
-                [[BeaconRegionManager shared] setBeaconsEnabled:NO];
                 break;
             case CBCentralManagerStateUnauthorized:
                 stateString = @"This app is not authorized to use Bluetooth Low Energy. iBeacons disabled.";
                 [[BeaconRegionManager shared] setBluetoothReady:NO];
-                [[BeaconRegionManager shared] setBeaconsEnabled:NO];
                 break;
             case CBCentralManagerStatePoweredOff:
                 stateString = @"Bluetooth is currently powered off. To use iBeacons, bluetooth must be enabled.";
                 [[BeaconRegionManager shared] setBluetoothReady:NO];
-                [[BeaconRegionManager shared] setBeaconsEnabled:NO];
                 break;
             case CBCentralManagerStateResetting:
                 stateString = @"Bluetooth is currently resetting, iBeacon functionality will be available momentarily";
                 [[BeaconRegionManager shared] setBluetoothReady:NO];
-                [[BeaconRegionManager shared] setBeaconsEnabled:NO];
                 break;
             default:
                 //when state is unknown assume ready
@@ -177,10 +166,6 @@
             [alert show];
         }
     }
-
-    //update ibeacon toggle state
-    self.beaconsEnabledSwitch.on =  [[BeaconRegionManager shared] beaconsEnabled];
-    self.beaconsEnabledSwitch.enabled = [[BeaconRegionManager shared] bluetoothReady];
 }
 
 @end

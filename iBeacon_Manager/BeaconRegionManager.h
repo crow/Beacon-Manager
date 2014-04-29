@@ -23,7 +23,9 @@ return _sharedObject; \
 @interface BeaconRegionManager : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic) BOOL bluetoothReady;
-@property (nonatomic) BOOL beaconsEnabled;
+
+//CoreLocation
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 //CoreBluetooth
 @property (nonatomic, strong) CBCentralManager *centralManager;
@@ -33,11 +35,6 @@ return _sharedObject; \
 @property (strong, nonatomic, readonly) BeaconListManager *listManager;
 //detailed ranged dictionary ordered by zone (unknown, immediate, near, far)
 @property (strong, nonatomic, readonly) NSDictionary *rangedBeaconsDetailed;
-//beacons that are currently monitored (same as available managed beacon regions by default)
-@property (strong, nonatomic, readonly) NSSet *monitoredBeaconRegions;
-//all the managed regions loaded from the plist manager, data store for the available regions
-@property (strong, nonatomic, readonly) NSArray *availableBeaconRegionsList;
-
 
 @property (strong, nonatomic) NSMutableDictionary *beaconStats;
 
@@ -53,8 +50,6 @@ return _sharedObject; \
 //beacon and beacon region getters
 -(CLBeacon *)beaconWithId:(NSString *)identifier;
 -(CLBeaconRegion *)beaconRegionWithId:(NSString *)identifier;
-
--(void)syncMonitoredRegions;
 
 //monitoring checking
 -(BOOL)isMonitored:(CLBeaconRegion *) beaconRegion;

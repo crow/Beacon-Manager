@@ -12,7 +12,6 @@
 
 @interface BeaconRegionManager ()
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) BeaconListManager *listManager;//writable declaration
 
 
@@ -83,18 +82,12 @@
 
 -(void)removeAllBeaconTags
 {
-    for (CLBeaconRegion *beaconRegion in self.availableBeaconRegionsList)
+    for (CLBeaconRegion *beaconRegion in [[self listManager] availableBeaconRegionsList])
     {
         [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kExitTagPreamble, beaconRegion.identifier]];
         [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, beaconRegion.identifier]];
     }
     [[UAPush shared] updateRegistration];
-}
-
--(void)syncMonitoredRegions
-{
-    //set monitored region read-only property with monitored regions
-    _monitoredBeaconRegions = [self.locationManager monitoredRegions];
 }
 
 //helper method to return a properly formatted (short style) date
@@ -117,7 +110,6 @@
         beaconRegion.notifyEntryStateOnDisplay = NO;
         [self.locationManager startMonitoringForRegion:beaconRegion];
         [self.locationManager startRangingBeaconsInRegion:beaconRegion];
-        [self syncMonitoredRegions];
     }
 }
 
@@ -129,7 +121,6 @@
         beaconRegion.notifyEntryStateOnDisplay = NO;
         [self.locationManager stopMonitoringForRegion:beaconRegion];
         [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
-        [self syncMonitoredRegions];
     }
 }
 
@@ -143,7 +134,6 @@
             [self startMonitoringBeaconInRegion:beaconRegion];
         }
     }
-    [self syncMonitoredRegions];
 }
 
 //helper method to stop monitoring all available beacon regions
@@ -154,7 +144,6 @@
         [self stopMonitoringBeaconInRegion:beaconRegion];
         //reset monitored region count
     }
-    [self syncMonitoredRegions];
 }
 
 //stops monitoring all beacons in the current location monitor list
@@ -171,7 +160,6 @@
             //reset monitored region count
         }
     }
-    [self syncMonitoredRegions];
 }
 
 #pragma location manager callbacks
@@ -621,8 +609,7 @@
 //helper method for checking if a specific beacon region is monitored
 -(BOOL)isMonitored:(CLBeaconRegion *)beaconRegion
 {
-    [self syncMonitoredRegions];
-    for (CLBeaconRegion *bRegion in self.monitoredBeaconRegions) {
+    for (CLBeaconRegion *bRegion in [self.locationManager monitoredRegions]) {
         if ([bRegion.identifier isEqualToString:beaconRegion.identifier]){
             return true;
         }

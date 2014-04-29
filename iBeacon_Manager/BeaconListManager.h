@@ -7,9 +7,8 @@
 
 @property (nonatomic, copy, readonly) NSArray *availableBeaconRegionsList;
 
-//-(NSString *)identifierForUUID:(NSUUID *) uuid;
-
-//Plist loading
+//List loading
+-(void)loadLastMonitoredList;
 -(void)loadLocalPlist;
 -(void)loadLocationBasedList;
 -(void)loadHostedPlistWithUrl:(NSURL*)url;

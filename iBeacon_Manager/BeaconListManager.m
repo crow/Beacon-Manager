@@ -65,6 +65,19 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
                                              error: nil];
 }
 
+#pragma load last list
+- (void)loadLastMonitoredList {
+    //initialize with local list
+    NSString *plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:kLocalPlistFileName ofType:@"plist"];
+    NSArray *beaconRegionsDictArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
+    
+    //build the beacon regions data from the dict array (and set available regions in the list manager) and set the availableBeaconRegions list
+    _availableBeaconRegionsList = [[[[BeaconRegionManager shared] locationManager] monitoredRegions] allObjects];
+    
+    //make the delegate callback
+    [[[BeaconRegionManager shared] beaconRegionManagerDelegate] localListFinishedLoadingWithList:beaconRegionsDictArray];
+}
+
 #pragma QR code list loading
 -(void)loadSingleBeaconRegion:(CLBeaconRegion * ) beaconRegion{
     _availableBeaconRegionsList = [[NSArray alloc] initWithObjects:beaconRegion, nil];

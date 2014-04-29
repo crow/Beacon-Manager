@@ -37,10 +37,6 @@
 {
     [super viewDidLoad];
 
-    //Load the available managed beacon regions and update monitored regions
-    //[[BeaconRegionManager shared] loadAvailableRegions];
-    [[BeaconRegionManager shared] syncMonitoredRegions];
-
     [[BeaconRegionManager shared] startManager];
     
     //Initialize reused tableview images

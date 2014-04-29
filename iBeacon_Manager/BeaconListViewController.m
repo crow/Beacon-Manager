@@ -7,7 +7,6 @@
 //
 
 #import "BeaconListViewController.h"
-#import "BeaconListManager.h"
 #import "BeaconRegionManager.h"
 #import <MessageUI/MessageUI.h>
 #import "BeaconManagerValues.h"
@@ -51,7 +50,15 @@
     //set initial available state by loading the sample
     //clear any beaconRegions stored in the locationManager
     [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
-    [[[BeaconRegionManager shared] listManager] loadLocalPlist];
+    
+    //if there are regions being currently monitored, load those by default
+    if ([[[BeaconRegionManager shared] locationManager] monitoredRegions]) {
+        [[[BeaconRegionManager shared] listManager] loadLastMonitoredList];
+    }
+    else {
+        [[[BeaconRegionManager shared] listManager] loadLocalPlist];
+    }
+    
     //automatically reveal available beacon cell
     [self enableAvailableBeaconCell];
 }
