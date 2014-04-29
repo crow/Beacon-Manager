@@ -67,38 +67,6 @@
     [self stopMonitoringAllBeaconRegions];
 }
 
-//-(void)checkiBeaconsEnabledState
-//{
-//    if([[NSUserDefaults standardUserDefaults] objectForKey:kBeaconsEnabled])
-//    {
-//        //if no saved switch state set to YES by default
-//        self.beaconsEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kBeaconsEnabled];
-//    }
-//    else
-//    {
-//        self.beaconsEnabled =  YES;
-//    }
-//}
-
-//-(void)setBeaconsEnabled:(BOOL)ibeaconsEnabled
-//{
-//    if (ibeaconsEnabled != _beaconsEnabled)
-//    {
-//        _beaconsEnabled = ibeaconsEnabled;
-//    }
-//    
-//    //enable montoring based on switch state
-//    if (ibeaconsEnabled)
-//    {
-//        [self startManager];
-//    }
-//    else
-//    {
-//        [self stopManager];
-//        //[self removeAllBeaconTags];
-//    }
-//}
-
 //Experimental Location-Based List functionality
 -(NSArray *)getCurrentLatLon
 {
@@ -229,9 +197,6 @@
         [_currentRangedBeacons setObject:currentBeaconsInRegion forKey:region.identifier];
     }
     
-    //forward to the delegate
-    //[self.beaconRegionManagerDelegate beaconRegionManagerDidRangeBeacons:beacons inRegion:region];
-    
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"managerDidRangeBeacons"
      object:self];
@@ -277,8 +242,6 @@
 {
     // A user can transition in or out of a region while the application is not running.
     // When this happens CoreLocation will launch the application momentarily, call this delegate method
-
-    NSString *todaysDate = [self dateStringFromInterval:[[NSDate date] timeIntervalSince1970]];
 
     if(state == CLRegionStateInside)
     {
@@ -699,6 +662,7 @@
     return nil;
 }
 
+//Experimental Location-Based List functionality
 #pragma Standard Location callbacks
 
 -(void)initStandardLocation
