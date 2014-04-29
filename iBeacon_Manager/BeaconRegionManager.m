@@ -41,6 +41,7 @@
     self.locationManager.delegate = self;
     _currentRangedBeacons = [[NSMutableDictionary alloc] init];
     
+    //Experimental Location-Based List functionality
     //init standard location
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -66,38 +67,39 @@
     [self stopMonitoringAllBeaconRegions];
 }
 
--(void)checkiBeaconsEnabledState
-{
-    if([[NSUserDefaults standardUserDefaults] objectForKey:kBeaconsEnabled])
-    {
-        //if no saved switch state set to YES by default
-        self.beaconsEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kBeaconsEnabled];
-    }
-    else
-    {
-        self.beaconsEnabled =  YES;
-    }
-}
+//-(void)checkiBeaconsEnabledState
+//{
+//    if([[NSUserDefaults standardUserDefaults] objectForKey:kBeaconsEnabled])
+//    {
+//        //if no saved switch state set to YES by default
+//        self.beaconsEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kBeaconsEnabled];
+//    }
+//    else
+//    {
+//        self.beaconsEnabled =  YES;
+//    }
+//}
 
--(void)setBeaconsEnabled:(BOOL)ibeaconsEnabled
-{
-    if (ibeaconsEnabled != _beaconsEnabled)
-    {
-        _beaconsEnabled = ibeaconsEnabled;
-    }
-    
-    //enable montoring based on switch state
-    if (ibeaconsEnabled)
-    {
-        [self startManager];
-    }
-    else
-    {
-        [self stopManager];
-        //[self removeAllBeaconTags];
-    }
-}
+//-(void)setBeaconsEnabled:(BOOL)ibeaconsEnabled
+//{
+//    if (ibeaconsEnabled != _beaconsEnabled)
+//    {
+//        _beaconsEnabled = ibeaconsEnabled;
+//    }
+//    
+//    //enable montoring based on switch state
+//    if (ibeaconsEnabled)
+//    {
+//        [self startManager];
+//    }
+//    else
+//    {
+//        [self stopManager];
+//        //[self removeAllBeaconTags];
+//    }
+//}
 
+//Experimental Location-Based List functionality
 -(NSArray *)getCurrentLatLon
 {
 
@@ -318,6 +320,7 @@
     NSLog(@"%@", error);
 }
 
+
 #pragma beacon stats helpers
 
 -(void)loadBeaconStats
@@ -408,6 +411,7 @@
     return 0;
 }
 
+//directly caluclates dumb average dwell time and returns it for display
 -(double)averageVisitTimeForIdentifier:(NSString *)identifier
 {
     
@@ -431,34 +435,7 @@
     return 0;
 }
 
--(void)recordVisitForBeaconRegion:(CLBeaconRegion *)beaconRegion
-{
-    int visits;
-    if (beaconRegion.identifier)
-    {
-        //NSLog(@"visit recorded");
-        //if beaconstats dict is present
-        if ([self.beaconStats objectForKey:beaconRegion.identifier])
-        {
-            NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
-            
-            if ([self visitsForIdentifier:beaconRegion.identifier])
-            {
-                visits = [self visitsForIdentifier:beaconRegion.identifier] + 1;
-            }
-            else
-            {
-                visits = 1;
-            }
-            
-            [beaconRegionStats setObject:[NSNumber numberWithInteger:visits] forKey:kVisits];
-            [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
-
-        }
-        [self saveBeaconStats];
-    }
-}
-
+//saves last entry time to the last entry time key in NSUderDefaults
 -(void)timestampEntryForBeaconRegion:(CLBeaconRegion *)beaconRegion
 {
     if (beaconRegion.identifier)
@@ -485,6 +462,7 @@
     [self recordVisitForBeaconRegion:beaconRegion];
 }
 
+//saves last exit time to the last exit time key in NSUderDefaults
 -(void)timestampExitForBeaconRegion:(CLBeaconRegion *)beaconRegion
 {
     if (beaconRegion.identifier)
@@ -507,8 +485,63 @@
         [self saveBeaconStats];
     }
     
-    [self calculateCumulativeTimeForBeaconRegion:beaconRegion];
+    [self recordCumulativeTimeForBeaconRegion:beaconRegion];
 }
+
+//calculates beacon region's visit count and saves it to the visits key in NSUderDefaults
+-(void)recordVisitForBeaconRegion:(CLBeaconRegion *)beaconRegion
+{
+    int visits;
+    if (beaconRegion.identifier)
+    {
+        //NSLog(@"visit recorded");
+        //if beaconstats dict is present
+        if ([self.beaconStats objectForKey:beaconRegion.identifier])
+        {
+            NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
+            
+            if ([self visitsForIdentifier:beaconRegion.identifier])
+            {
+                visits = [self visitsForIdentifier:beaconRegion.identifier] + 1;
+            }
+            else
+            {
+                visits = 1;
+            }
+            
+            [beaconRegionStats setObject:[NSNumber numberWithInteger:visits] forKey:kVisits];
+            [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+            
+        }
+        [self saveBeaconStats];
+    }
+}
+
+//calculates cumulative time in beacon region and saves it to the cumulative time key in NSUderDefaults
+-(void)recordCumulativeTimeForBeaconRegion:(CLBeaconRegion *)beaconRegion
+{
+    NSTimeInterval cumulativeTime = [self cumulativeTimeForIdentifier:beaconRegion.identifier];
+    NSTimeInterval entryTime = [self lastEntryForIdentifier:beaconRegion.identifier];
+    NSTimeInterval exitTime = [self lastExitForIdentifier:beaconRegion.identifier];
+    
+    NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
+    
+    if (entryTime > 0)
+    {
+        cumulativeTime = cumulativeTime + (exitTime - entryTime);
+        [beaconRegionStats setObject:[NSNumber numberWithDouble:cumulativeTime] forKey:kCumulativeTime];
+        [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+        
+    }
+    else
+    {
+        [beaconRegionStats setObject:@0 forKey:kCumulativeTime];
+        [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
+        
+    }
+    [self saveBeaconStats];
+}
+
 
 //checks NSUserDefaults for tags array at the key "ua-beaconmanager-<identifier>-entry-tags" and applies them if it exists
 -(void)addEntryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
@@ -578,6 +611,7 @@
     }
 }
 
+//Getter that returns array of entry tags currently set for that beacon in NSUserDefaults
 -(NSArray *)entryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
 {
     if (beaconRegion.identifier)
@@ -598,6 +632,7 @@
     return nil;
 }
 
+//Getter that returns array of exit tags currently set for that beacon in NSUserDefaults
 -(NSArray *)exitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
 {
     if (beaconRegion.identifier)
@@ -618,31 +653,7 @@
     return nil;
 }
 
--(void)calculateCumulativeTimeForBeaconRegion:(CLBeaconRegion *)beaconRegion
-{
-    NSTimeInterval cumulativeTime = [self cumulativeTimeForIdentifier:beaconRegion.identifier];
-    NSTimeInterval entryTime = [self lastEntryForIdentifier:beaconRegion.identifier];
-    NSTimeInterval exitTime = [self lastExitForIdentifier:beaconRegion.identifier];
-    
-    NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
-    
-    if (entryTime > 0)
-    {
-        cumulativeTime = cumulativeTime + (exitTime - entryTime);
-        [beaconRegionStats setObject:[NSNumber numberWithDouble:cumulativeTime] forKey:kCumulativeTime];
-        [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
-
-    }
-    else
-    {
-        [beaconRegionStats setObject:@0 forKey:kCumulativeTime];
-        [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
-
-    }
-    [self saveBeaconStats];
-}
-
-#pragma non-essential helpers
+#pragma miscellaneous helpers
 
 //helper method for checking if a specific beacon region is monitored
 -(BOOL)isMonitored:(CLBeaconRegion *)beaconRegion

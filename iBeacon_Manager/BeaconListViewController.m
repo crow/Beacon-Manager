@@ -68,8 +68,6 @@
     [[[BeaconRegionManager shared] listManager] loadLocalPlist];
     //automatically reveal available beacon cell
     [self enableAvailableBeaconCell];
-
-    
     
     //sign up for manager did update
     [[NSNotificationCenter defaultCenter]
@@ -115,6 +113,7 @@
 - (IBAction)emailButtonTouched:(id)sender {
     [self showEmail];
 }
+
 
 - (IBAction)loadSampleButtonPressed:(id)sender {
     
@@ -298,6 +297,11 @@
     }
     // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+//manually deselect the row to keep it from being stuck
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma BeaconRegionManagerDelegate
