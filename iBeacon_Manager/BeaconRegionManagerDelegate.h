@@ -21,8 +21,6 @@
 
 // when a remote plist is done loading, when each type of http request returns (and the list themselves)
 -(void)localListFinishedLoadingWithList:(NSArray *)localBeaconList;
--(void)hostedListFinishedLoadingWithList:(NSArray *)hostedBeaconList;
--(void)locationBasedListFinishedLoadingWithList:(NSArray *)loactionBasedBeaconList;
 -(void)qRBasedListFinishedLoadingWithList:(NSArray *)qRBasedList;
 
 @end

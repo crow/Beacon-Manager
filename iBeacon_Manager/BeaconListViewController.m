@@ -131,18 +131,6 @@
     [self beaconLoadCheck];
     [self enableAvailableBeaconCell];
 }
--(void)hostedListFinishedLoadingWithList:(NSArray *)hostedBeaconList{
-    //done loading
-    loading = NO;
-    [self beaconLoadCheck];
-    [self enableAvailableBeaconCell];
-}
--(void)locationBasedListFinishedLoadingWithList:(NSArray *)loactionBasedBeaconList{
-    //done loading
-    loading = NO;
-    [self beaconLoadCheck];
-    [self enableAvailableBeaconCell];
-}
 
 -(void)qRBasedListFinishedLoadingWithList:(NSArray *)qRBasedList{
     //done loading

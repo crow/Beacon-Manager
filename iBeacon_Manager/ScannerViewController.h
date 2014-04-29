@@ -14,7 +14,10 @@
 @property (strong, nonatomic) IBOutlet RMScannerView *scannerView;
 @property (weak, nonatomic) IBOutlet UILabel *statusText;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *sessionToggleButton;
-- (IBAction)startNewScannerSession:(id)sender;
+//not needed for now
+//@property (weak, nonatomic) IBOutlet UIBarButtonItem *sessionToggleButton;
+
+//not needed for now
+//- (IBAction)startNewScannerSession:(id)sender;
 
 @end

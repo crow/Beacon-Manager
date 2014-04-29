@@ -37,14 +37,6 @@
     self.locationManager.delegate = self;
     _currentRangedBeacons = [[NSMutableDictionary alloc] init];
     
-    //Experimental Location-Based List functionality
-    //init standard location
-    self.locationManager.distanceFilter = kCLDistanceFilterNone;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [self.locationManager startUpdatingLocation];
-    [self.locationManager stopUpdatingLocation];
-    [self.locationManager startMonitoringSignificantLocationChanges];
-    
     return self;
 }
 
@@ -59,19 +51,6 @@
 -(void)stopManager{
     //clear monitoring on store location manager regions
     [self stopMonitoringAllBeaconRegions];
-}
-
-//Experimental Location-Based List functionality
--(NSArray *)getCurrentLatLon{
-
-    [self.locationManager startUpdatingLocation];
-    [self.locationManager stopUpdatingLocation];
-    
-    NSNumber *latitude = [[NSNumber alloc] initWithFloat:self.locationManager.location.coordinate.latitude];
-    NSNumber *longitude = [[NSNumber alloc] initWithFloat:self.locationManager.location.coordinate.longitude];
-    NSArray *latLon = [[NSArray alloc] initWithObjects:latitude, longitude, nil];
-    
-    return latLon;
 }
 
 -(void)removeAllBeaconTags{
@@ -565,19 +544,5 @@
     //No available beacon region with the specified ID was included in the available regions list
     return nil;
 }
-
-//Experimental Location-Based List functionality
-#pragma Standard Location callbacks
-
--(void)initStandardLocation{
-
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"managerDidUpdateLocations"
-     object:self];
-}
-
 
 @end

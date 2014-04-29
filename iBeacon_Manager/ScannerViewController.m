@@ -35,7 +35,7 @@
     [scannerView startCaptureSession];
     
     // Set the title of the toggle button
-    self.sessionToggleButton.title = @"Stop";
+    //self.sessionToggleButton.title = @"Stop";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -121,7 +121,7 @@
     [alert show];
     
     statusText.text = @"Unsupported Device";
-    self.sessionToggleButton.title = @"Error";
+    //self.sessionToggleButton.title = @"Error";
 }
 
 - (void)errorAcquiringDeviceHardwareLock:(NSError *)error {
@@ -139,7 +139,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Scan Again"]) {
         [scannerView startScanSession];
-        self.sessionToggleButton.title = @"Stop";
+        //self.sessionToggleButton.title = @"Stop";
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"OK"]) {
         
         //[self performSegueWithIdentifier:@"Broadcast" sender:self];
@@ -155,7 +155,7 @@
         }
         
         [self.navigationController popViewControllerAnimated:YES];
-        self.sessionToggleButton.title = @"Start";
+        //self.sessionToggleButton.title = @"Start";
     }
 }
 

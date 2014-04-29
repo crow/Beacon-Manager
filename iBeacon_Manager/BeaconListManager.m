@@ -24,24 +24,15 @@
  */
 
 #import "BeaconListManager.h"
-#import "UAHTTPConnection.h"
-#import "UAUtils.h"
-
-#import "UAHTTPRequest.h"
 #import "UAirship.h"
 #import "UAPush.h"
-#import "UAHTTPRequestEngine.h"
 #import "BeaconRegionManager.h"
 
-typedef void (^UAInboxClientSuccessBlock)(void);
-typedef void (^UAInboxClientRetrievalSuccessBlock)(NSMutableArray *beaconRegions);
-typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
+
 
 #define kLocalPlistFileName @"SampleBeaconRegions"
 
 @interface BeaconListManager ()
-
-@property(nonatomic, strong) UAHTTPRequestEngine *requestEngine;
 
 @end
 
@@ -50,7 +41,6 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 - (id)init {
     self = [super init];
     if (self) {
-        self.requestEngine = [[UAHTTPRequestEngine alloc] init];
     }
     
     return self;
@@ -94,121 +84,6 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     
     //make the delegate callback
     [[[BeaconRegionManager shared] beaconRegionManagerDelegate] localListFinishedLoadingWithList:beaconRegionsDictArray];
-}
-
-#pragma terrible hosted plist loading
-//this is an old, shitty way of doing things, but I'm not going to update it
-- (void)loadHostedPlistWithUrl:(NSURL *)url {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        
-        //build the beacon regions data from the dict array (and set available regions in the list manager) and set the availableBeaconRegions list
-        _availableBeaconRegionsList = [NSArray arrayWithArray:[self buildBeaconRegionDataFromBeaconDictArray:[[NSArray alloc] initWithContentsOfURL:url]]];
-        
-        //make the delegate callback
-        //delegate callback would go here, but there's no need because the way it's being done is bullshit and will probably be removed anyway
-    });
-}
-
-#pragma location based list loading
-//Experimental Location-Based List functionality
--(void)loadLocationBasedList{
-    //intialize the connection with the request
-    [self retrieveBeaconListOnSuccess:^(NSMutableArray *beaconRegionsArray) {
-        UA_LTRACE(@"Request to retrieve beacon list succeeded");
-        //might want to just put this whole thing in the block, make sure beacons array is there
-        //forward the beaconRegionsArray to the delegate so it can update any views
-        
-        //build the beacon regions data from the dict array (and set available regions in the list manager)
-        //set availabe beacon region list with last loaded beacon regions list
-        _availableBeaconRegionsList = [NSArray arrayWithArray:beaconRegionsArray];
-        
-        //make the delegate callback
-        [[[BeaconRegionManager shared] beaconRegionManagerDelegate] locationBasedListFinishedLoadingWithList:beaconRegionsArray];
-        
-        
-        
-      
-    } onFailure:^(UAHTTPRequest *request) {
-        UA_LTRACE(@"Request to retrieve beacon list failed");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"List Endpoint Error"
-                                                        message:@"The location-based beacon list endpoint appears to be down, please try again later"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }];
-}
-
-//Experimental Location-Based List functionality
-//curl -i -u 'V6a5HDxsRl-9yuDhgj4WHg:NYT-ZbPdRVeVFkgk9-rBKA' 'https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'
-- (UAHTTPRequest *)listRequest{
-    
-    NSArray *latLon = [[BeaconRegionManager shared] getCurrentLatLon];
-    
-    NSString *urlString = [NSString stringWithFormat: @"%@%@%f%@%f",
-                           @"https://proserve-test.urbanairship.com:1443/", @"ibeacons/api?lat=", [latLon[0] floatValue], @"&long=", [latLon[1] floatValue]];
-
-    NSURL *requestUrl = [NSURL URLWithString: urlString];
-    
-    UAHTTPRequest *request = [UAUtils UAHTTPUserRequestWithURL:requestUrl method:@"GET"];
-    request.username = @"V6a5HDxsRl-9yuDhgj4WHg";
-    request.password = @"NYT-ZbPdRVeVFkgk9-rBKA";
-    
-    UA_LTRACE(@"Request to retrieve beacon list: %@", urlString);
-    
-    return request;
-}
-
-//Experimental Location-Based List functionality
-//expects to receive a dictionary titled "beaconRegions" (JSON) that has a dictionary for each individual beacon, returns beacon array
-- (void)retrieveBeaconListOnSuccess:(UAInboxClientRetrievalSuccessBlock)successBlock
-                          onFailure:(UAInboxClientFailureBlock)failureBlock {
-    
-    UAHTTPRequest *listRequest = [self listRequest];
-    
-    [self.requestEngine
-     runRequest:listRequest
-     succeedWhere:^(UAHTTPRequest *request){
-         return (BOOL)(request.response.statusCode == 200);
-     } retryWhere:^(UAHTTPRequest *request){
-         return NO;
-     } onSuccess:^(UAHTTPRequest *request, NSUInteger lastDelay){
-         
-         NSString *responseString = request.responseString;
-         NSDictionary *jsonResponse = [BeaconListManager objectWithString:responseString];
-         UA_LTRACE(@"Retrieved message list response: %@", responseString);
-         
-         NSDictionary *beaconRegionsList;
-         
-         NSMutableArray *beaconRegionsArray = [NSMutableArray array];
-         
-         //check to see if the json response is an array
-         if ([jsonResponse isKindOfClass:[NSArray class]])
-         {
-             beaconRegionsList = jsonResponse;
-             for (NSDictionary *beaconRegion in beaconRegionsList)
-             {
-                 
-                 [beaconRegionsArray addObject:[self mapDictionaryToBeacon:beaconRegion]];
-             }
-         }
-         else
-         {
-             NSLog(@"JSON response is not an array of beacons!");
-         }
-
-         if (successBlock) {
-                 successBlock(beaconRegionsArray);
-         } else {
-             UA_LERR(@"missing successBlock");
-         }
-     } onFailure:^(UAHTTPRequest *request, NSUInteger lastDelay){
-         if (failureBlock) {
-             failureBlock(request);
-         } else {
-             UA_LERR(@"missing failureBlock");
-         }
-     }];
 }
 
 #pragma list parsing helpers
