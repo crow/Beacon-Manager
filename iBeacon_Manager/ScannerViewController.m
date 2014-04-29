@@ -43,15 +43,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)startNewScannerSession:(id)sender {
-    if ([scannerView isScanSessionInProgress]) {
-        [scannerView stopScanSession];
-        self.sessionToggleButton.title = @"Start";
-    } else {
-        [scannerView startScanSession];
-        self.sessionToggleButton.title = @"Stop";
-    }
-}
+//Dont' need this for now
+//- (IBAction)startNewScannerSession:(id)sender {
+//    if ([scannerView isScanSessionInProgress]) {
+//        [scannerView stopScanSession];
+//        self.sessionToggleButton.title = @"Start";
+//    } else {
+//        [scannerView startScanSession];
+//        self.sessionToggleButton.title = @"Stop";
+//    }
+//}
+
 //Just a stopgap since this is implemented in the UI, will move this at some point
 - (UIViewController *)backViewController {
     NSArray * stack = self.navigationController.viewControllers;
@@ -68,13 +70,6 @@
     
     NSArray *beaconRegions = [self beaconRegionsFromScannedCode:scannedCode];
 
-//    
-//    //add checking to make sure these objects are at their proper indexes
-//    NSString *uuidString = [beaconRegionProperties objectAtIndex:0];
-//    NSString *majorString = [beaconRegionProperties objectAtIndex:1];
-//    NSString *minorString = [beaconRegionProperties objectAtIndex:2];
-    
-
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Beacon %@ Scan resulted in %d Beacon Regions", [scannerView humanReadableCodeTypeForCode:codeType], [beaconRegions count]] message:nil  delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Scan Again", nil];
     self.lastScannedCode = scannedCode;
  
@@ -82,8 +77,7 @@
 }
 
 //TODO a better check on the QR code to make sure this doesn't fail elsewhere
--(NSArray *)beaconRegionsFromScannedCode:(NSString *)scannedCode
-{
+-(NSArray *)beaconRegionsFromScannedCode:(NSString *)scannedCode{
     
     //Split the newline separated beacon regions into an array of comma separated beacon region properties strings
     
@@ -164,25 +158,6 @@
         self.sessionToggleButton.title = @"Start";
     }
 }
-
-//this can probably be removed
-//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if([[segue identifier] isEqualToString:@"AvailableBeaconList"])
-//    {
-//        
-//       // UABeaconSampleAirshipViewController *dvController = [self.storyboard instantiateViewControllerWithIdentifier:@"UABeaconSampleAirshipViewController"];
-//    
-//       // dvController = segue.destinationViewController;
-//    }
-//    if([[segue identifier] isEqualToString:@"Broadcast"])
-//    {
-//        
-//        // UABeaconSampleAirshipViewController *dvController = [self.storyboard instantiateViewControllerWithIdentifier:@"UABeaconSampleAirshipViewController"];
-//        
-//        // dvController = segue.destinationViewController;
-//    }
-//}
 
 - (UIBarPosition)positionForBar:(id <UIBarPositioning>)bar {
     return UIBarPositionTopAttached;

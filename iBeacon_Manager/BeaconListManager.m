@@ -67,15 +67,8 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 
 #pragma load last list
 - (void)loadLastMonitoredList {
-    //initialize with local list
-    NSString *plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:kLocalPlistFileName ofType:@"plist"];
-    NSArray *beaconRegionsDictArray = [[NSArray alloc] initWithContentsOfFile:plistBeaconRegionsPath];
-    
-    //build the beacon regions data from the dict array (and set available regions in the list manager) and set the availableBeaconRegions list
+    //set the availableBeaconRegions list
     _availableBeaconRegionsList = [[[[BeaconRegionManager shared] locationManager] monitoredRegions] allObjects];
-    
-    //make the delegate callback
-    [[[BeaconRegionManager shared] beaconRegionManagerDelegate] localListFinishedLoadingWithList:beaconRegionsDictArray];
 }
 
 #pragma QR code list loading
@@ -118,8 +111,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 
 #pragma location based list loading
 //Experimental Location-Based List functionality
--(void)loadLocationBasedList
-{
+-(void)loadLocationBasedList{
     //intialize the connection with the request
     [self retrieveBeaconListOnSuccess:^(NSMutableArray *beaconRegionsArray) {
         UA_LTRACE(@"Request to retrieve beacon list succeeded");
@@ -220,8 +212,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 }
 
 #pragma list parsing helpers
-- (NSArray *)buildBeaconRegionDataFromBeaconDictArray:(NSArray *) beaconDictArray
-{
+- (NSArray *)buildBeaconRegionDataFromBeaconDictArray:(NSArray *) beaconDictArray{
     NSMutableArray *beaconRegions = [NSMutableArray array];
     for (NSDictionary *beaconDict in beaconDictArray) {
         CLBeaconRegion *beaconRegion = [self mapDictionaryToBeacon:beaconDict];
@@ -239,8 +230,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
 }
 
 // maps each plist dictionary representing a beacon region to an allocated beacon region
-- (CLBeaconRegion *)mapDictionaryToBeacon:(NSDictionary *)dictionary
-{
+- (CLBeaconRegion *)mapDictionaryToBeacon:(NSDictionary *)dictionary{
     
     NSUUID *proximityUUID;
     CLBeaconMajorValue major = 0;

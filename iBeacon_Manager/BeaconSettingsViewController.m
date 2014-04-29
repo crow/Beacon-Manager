@@ -16,18 +16,15 @@
 
 @synthesize beaconRegion;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
-    if (self)
-    {
+    if (self){
         // Custom initialization
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     self.title = self.beaconRegion.identifier;
     [self loadSwitchStates];
@@ -41,13 +38,11 @@
      object:nil];
 }
 
-- (void)managerDidRangeBeacons
-{
+- (void)managerDidRangeBeacons{
     [self updateView];
 }
 
--(void)updateView
-{
+-(void)updateView{
     NSString *proximity;
     NSString *rssi;
     
@@ -60,8 +55,7 @@
     self.proximityLabel.text = proximity;
 }
 
-- (IBAction)monitorSwitchTouched:(id)sender
-{
+- (IBAction)monitorSwitchTouched:(id)sender{
     //if ON
     if ([sender isOn]) {
         [[BeaconRegionManager shared] startMonitoringBeaconInRegion:self.beaconRegion];
@@ -73,35 +67,14 @@
     [self loadSwitchStates];
 }
 
-- (IBAction)notifyOnEntrySwitchTouched:(id)sender
-{
-    self.beaconRegion.notifyOnEntry = [sender isOn];
-    [self loadSwitchStates];
-}
-
-- (IBAction)notifyOnExitSwitchTouched:(id)sender
-{
-    self.beaconRegion.notifyOnExit = [sender isOn];
-    [self loadSwitchStates];
-}
-
-- (IBAction)notifyEntryOnDisplaySwitchTouched:(id)sender
-{
-    self.beaconRegion.notifyEntryStateOnDisplay = [sender isOn];
-    [self loadSwitchStates];
-}
-
-
--(void)loadSwitchStates
-{
+-(void)loadSwitchStates{
     [self.monitorSwitch setOn:[[BeaconRegionManager shared] isMonitored:self.beaconRegion]];
     [self.noteEntrySwitch setOn:self.beaconRegion.notifyOnEntry];
     [self.noteExitSwitch setOn:self.beaconRegion.notifyOnExit];
     [self.noteEntryOnDisplaySwitch setOn:self.beaconRegion.notifyEntryStateOnDisplay];
 }
 
-- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (cell.tag == 1) {
         if (self.beaconRegion.notifyOnEntry == YES) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -172,14 +145,12 @@
 
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     // Make sure your segue name in storyboard is the same as this line
     if ([[segue identifier] isEqualToString:@"beaconStats"])
     {

@@ -33,8 +33,7 @@
 
 @end
 
-@implementation BeaconBroadcastViewController
-{
+@implementation BeaconBroadcastViewController{
     @private
         CBPeripheralManager *_peripheralManager;
         NSUUID *_uuid;
@@ -45,8 +44,7 @@
         UIImage *_greenMarker;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
     if (self)
     {
@@ -54,8 +52,7 @@
     return self;
 }
 
-- (IBAction)generateUuidTapped:(id)sender
-{
+- (IBAction)generateUuidTapped:(id)sender{
     NSString *uuid = [[NSUUID UUID] UUIDString];
     [self.uuidField setText:uuid];
     
@@ -68,13 +65,11 @@
     return [uuidTest evaluateWithObject:urlString];
 }
 
-- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
-{
+- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral{
     
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated{
     // sync the broadcast switch
     self.broadcastSwitch.on = _peripheralManager.isAdvertising;
     NSString *qrString = [NSString stringWithFormat:@"%@,%@,%@,%@.", [_uuid UUIDString], _major, _minor, @"Test_iBeacon"];
@@ -83,15 +78,13 @@
 
 }
 
--(void)saveLastBroadcastUuid
-{
+-(void)saveLastBroadcastUuid{
     if ([self.uuidField text]) {
         [[NSUserDefaults standardUserDefaults] setObject:[self.uuidField text] forKey:kLastBroadcastUuidString];
     }
 }
 
--(void)loadLastBroadcastUuid
-{
+-(void)loadLastBroadcastUuid{
     if([[NSUserDefaults standardUserDefaults] objectForKey:kLastBroadcastUuidString])
     {
         //if no saved switch state set to YES by default
@@ -104,8 +97,7 @@
     }
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
  
     
@@ -169,8 +161,7 @@
 
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

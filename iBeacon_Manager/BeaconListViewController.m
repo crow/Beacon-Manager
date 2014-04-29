@@ -18,16 +18,14 @@
 
 @end
 
-@implementation BeaconListViewController
-{
+@implementation BeaconListViewController{
 
     IBOutlet UITableViewCell *_availableBeaconsCell;
     BOOL loading;
 
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
@@ -36,8 +34,7 @@
 }
 
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
 
     self.view.userInteractionEnabled = YES;
     [super viewDidLoad];
@@ -52,7 +49,7 @@
     [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
     
     //if there are regions being currently monitored, load those by default
-    if ([[[BeaconRegionManager shared] locationManager] monitoredRegions]) {
+    if ([[[[BeaconRegionManager shared] locationManager] monitoredRegions] count] > 0) {
         [[[BeaconRegionManager shared] listManager] loadLastMonitoredList];
     }
     else {
@@ -64,19 +61,16 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated
-{
+-(void)viewWillAppear:(BOOL)animated{
 
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
 }
 
 #pragma UI helpers
--(void)enableAvailableBeaconCell
-{
+-(void)enableAvailableBeaconCell{
     _availableBeaconsCell.hidden = NO;
     
     //fade in and out to show loading
@@ -89,8 +83,7 @@
     _availableBeaconsCell.userInteractionEnabled = YES;
 }
 
--(void)disableAvailableBeaconCell
-{
+-(void)disableAvailableBeaconCell{
     _availableBeaconsCell.hidden = NO;
 
     [UIView animateWithDuration:0.5 animations:^() {
@@ -100,14 +93,11 @@
 }
 
 //helper for determining if a beacon list has been loaded
--(void)beaconLoadCheck
-{
-    if ([[[BeaconRegionManager shared] listManager] availableBeaconRegionsList] && !loading)
-    {
+-(void)beaconLoadCheck{
+    if ([[[BeaconRegionManager shared] listManager] availableBeaconRegionsList] && !loading){
         [self enableAvailableBeaconCell];
     }
-    else
-    {
+    else{
         [self disableAvailableBeaconCell];
     }
 }
@@ -135,30 +125,26 @@
 #pragma BeaconRegionManagerDelegate
 //I thought I may need to know where the list was coming from, not sure if I do no, will simplify this lots
 
--(void)localListFinishedLoadingWithList:(NSArray *)localBeaconList
-{
+-(void)localListFinishedLoadingWithList:(NSArray *)localBeaconList{
     //done loading
     loading = NO;
     [self beaconLoadCheck];
     [self enableAvailableBeaconCell];
 }
--(void)hostedListFinishedLoadingWithList:(NSArray *)hostedBeaconList
-{
+-(void)hostedListFinishedLoadingWithList:(NSArray *)hostedBeaconList{
     //done loading
     loading = NO;
     [self beaconLoadCheck];
     [self enableAvailableBeaconCell];
 }
--(void)locationBasedListFinishedLoadingWithList:(NSArray *)loactionBasedBeaconList
-{
+-(void)locationBasedListFinishedLoadingWithList:(NSArray *)loactionBasedBeaconList{
     //done loading
     loading = NO;
     [self beaconLoadCheck];
     [self enableAvailableBeaconCell];
 }
 
--(void)qRBasedListFinishedLoadingWithList:(NSArray *)qRBasedList
-{
+-(void)qRBasedListFinishedLoadingWithList:(NSArray *)qRBasedList{
     //done loading
     loading = NO;
     [self beaconLoadCheck];
