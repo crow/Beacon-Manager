@@ -43,6 +43,7 @@
 -(void)startManager{
     //clear monitoring on store location manager regions
     [self stopMonitoringAllBeaconRegions];
+    
     //initialize ibeacon manager, load iBeacon plist, load available regions, start monitoring available regions
     [self startMonitoringAllAvailableBeaconRegions];
     [self loadBeaconStats];
@@ -144,6 +145,7 @@
         [_currentRangedBeacons setObject:currentBeaconsInRegion forKey:region.identifier];
     }
     
+    //this notification is used to update views that rely on ranging
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"managerDidRangeBeacons"
      object:self];
@@ -160,10 +162,6 @@
 
     UA_LDEBUG(@"Updating tags");
     [[UAPush shared] updateRegistration];
-    
-    //removing this because it's redundant with the didDetermine state call
-    //UA_LDEBUG( @"Timestamping didEnterRegion '%@'", region.identifier );
-    //[self timestampEntryForBeaconRegion:[self beaconRegionWithId:region.identifier]];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region{
@@ -203,7 +201,10 @@
         }
     }
     else if(state == CLRegionStateOutside){
-
+        //Remove default entry tag and any user defined entry tags and update registration
+        [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, region.identifier]];
+        [self removeEntryTagsForBeaconRegion:[self beaconRegionWithId:region.identifier]];
+        [[UAPush shared] updateRegistration];
        UA_LDEBUG(@"Beacon Manager Updated State: Exited Region '%@'", region.identifier);
     }
     UALOG(@"Updating tag");
@@ -211,7 +212,6 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error{
-    
     UA_LDEBUG(@"%@", error);
     NSLog(@"%@", error);
 }

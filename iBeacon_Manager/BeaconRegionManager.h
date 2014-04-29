@@ -31,21 +31,18 @@ return _sharedObject; \
 @property (nonatomic, strong) CBCentralManager *centralManager;
 @property (nonatomic, strong) CBPeripheral *peripheral;
 
-//plist manager for managing local (sample) and remotely hosted plists
+//Beacon List manager
 @property (strong, nonatomic, readonly) BeaconListManager *listManager;
-//detailed ranged dictionary ordered by zone (unknown, immediate, near, far)
-@property (strong, nonatomic, readonly) NSDictionary *rangedBeaconsDetailed;
 
+//Beacon stats dictionary that gets saved in NSUserDefaults
 @property (strong, nonatomic) NSMutableDictionary *beaconStats;
 
 //Beacon Manager delegate
 @property (nonatomic, assign) id<BeaconRegionManagerDelegate> beaconRegionManagerDelegate;
 
+//Beacon Manager startup
 +(id)shared;
 -(void)startManager;
-
-//get current latitude and longitude
--(NSArray *)getCurrentLatLon;
 
 //beacon and beacon region getters
 -(CLBeacon *)beaconWithId:(NSString *)identifier;
