@@ -65,6 +65,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
                                              error: nil];
 }
 
+#pragma QR code list loading
 -(void)loadSingleBeaconRegion:(CLBeaconRegion * ) beaconRegion{
     _availableBeaconRegionsList = [[NSArray alloc] initWithObjects:beaconRegion, nil];
     [[[BeaconRegionManager shared] beaconRegionManagerDelegate] qRBasedListFinishedLoadingWithList:[[NSArray alloc] initWithObjects:beaconRegion, nil]];
@@ -75,6 +76,8 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     [[[BeaconRegionManager shared] beaconRegionManagerDelegate] qRBasedListFinishedLoadingWithList:beaconRegions];
 }
 
+
+#pragma local list/sample plist loading
 - (void)loadLocalPlist {
     //initialize with local list
     NSString *plistBeaconRegionsPath = [[NSBundle mainBundle] pathForResource:kLocalPlistFileName ofType:@"plist"];
@@ -87,6 +90,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     [[[BeaconRegionManager shared] beaconRegionManagerDelegate] localListFinishedLoadingWithList:beaconRegionsDictArray];
 }
 
+#pragma terrible hosted plist loading
 //this is an old, shitty way of doing things, but I'm not going to update it
 - (void)loadHostedPlistWithUrl:(NSURL *)url {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -99,6 +103,8 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     });
 }
 
+#pragma location based list loading
+//Experimental Location-Based List functionality
 -(void)loadLocationBasedList
 {
     //intialize the connection with the request
@@ -128,7 +134,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     }];
 }
 
-//This proserve request will likely be removed, initially just wanted to do proof-of-concept
+//Experimental Location-Based List functionality
 //curl -i -u 'V6a5HDxsRl-9yuDhgj4WHg:NYT-ZbPdRVeVFkgk9-rBKA' 'https://proserve-test.urbanairship.com:1443/ibeacons?lat=45.53207&long=-122.69879'
 - (UAHTTPRequest *)listRequest{
     
@@ -136,9 +142,6 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     
     NSString *urlString = [NSString stringWithFormat: @"%@%@%f%@%f",
                            @"https://proserve-test.urbanairship.com:1443/", @"ibeacons/api?lat=", [latLon[0] floatValue], @"&long=", [latLon[1] floatValue]];
-    //debugging crap
-//    NSString *urlString = [NSString stringWithFormat: @"%@%@%@%@%@",
-//                           @"https://proserve-test.urbanairship.com:1443/", @"ibeacons/api?lat=", @"45.525265", @"&long=", @"-122.685707"];
 
     NSURL *requestUrl = [NSURL URLWithString: urlString];
     
@@ -151,6 +154,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
     return request;
 }
 
+//Experimental Location-Based List functionality
 //expects to receive a dictionary titled "beaconRegions" (JSON) that has a dictionary for each individual beacon, returns beacon array
 - (void)retrieveBeaconListOnSuccess:(UAInboxClientRetrievalSuccessBlock)successBlock
                           onFailure:(UAInboxClientFailureBlock)failureBlock {
@@ -170,11 +174,6 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
          UA_LTRACE(@"Retrieved message list response: %@", responseString);
          
          NSDictionary *beaconRegionsList;
-         
-//         NSString *beaconID;
-//         NSUUID *beaconProximityUUID;
-//         double beaconMajor;
-//         double beaconMinor;
          
          NSMutableArray *beaconRegionsArray = [NSMutableArray array];
          
@@ -207,6 +206,7 @@ typedef void (^UAInboxClientFailureBlock)(UAHTTPRequest *request);
      }];
 }
 
+#pragma list parsing helpers
 - (NSArray *)buildBeaconRegionDataFromBeaconDictArray:(NSArray *) beaconDictArray
 {
     NSMutableArray *beaconRegions = [NSMutableArray array];
