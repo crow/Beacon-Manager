@@ -32,7 +32,6 @@
 @property (nonatomic, weak) IBOutlet UISwitch *soundEnabledSwitch;
 
 @property (nonatomic, weak) IBOutlet UISwitch *locationEnabledSwitch;
-@property (nonatomic, weak) IBOutlet UISwitch *beaconsEnabledSwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *modalLandingPagesSwitch;
 
 @property (nonatomic, weak) IBOutlet UILabel *appVersionValue;
