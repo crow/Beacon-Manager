@@ -43,10 +43,7 @@
     
     //set beacon region delegate to self
     [[BeaconRegionManager shared] setBeaconRegionManagerDelegate:self];
-    
-    //set initial available state by loading the sample
-    //clear any beaconRegions stored in the locationManager
-    [[BeaconRegionManager shared] stopMonitoringAllBeaconRegions];
+
     
     //if there are regions being currently monitored, load those by default
     if ([[[[BeaconRegionManager shared] locationManager] monitoredRegions] count] > 0) {
@@ -55,6 +52,8 @@
     else {
         [[[BeaconRegionManager shared] listManager] loadLocalPlist];
     }
+    
+    [[BeaconRegionManager shared] startManager];
     
     //automatically reveal available beacon cell
     [self enableAvailableBeaconCell];
