@@ -14,7 +14,7 @@
 
 @end
 
-@implementation BeaconViewController{
+@implementation BeaconViewController {
     @private
         NSMutableDictionary *_beacons;
         CLBeaconRegion *_selectedBeaconRegion;
@@ -24,14 +24,14 @@
         int _refreshCount;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style{
+- (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
     }
     return self;
 }
 
-- (void)viewDidLoad{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     [[BeaconRegionManager shared] startManager];
@@ -53,7 +53,7 @@
     _refreshCount = 0;
 }
 
--(void)managerDidRangeBeacons{
+-(void)managerDidRangeBeacons {
     //reloads every 3 seconds for better responsiveness w/o table view jerk
     if (_refreshCount > 2){
         _refreshCount = 0;
@@ -63,23 +63,23 @@
     
 }
 
-- (void)didReceiveMemoryWarning{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     int sections = 1;
     return sections;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [[[BeaconRegionManager shared] listManager] availableBeaconRegionsList].count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"BeaconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
  
@@ -89,7 +89,7 @@
     CLBeacon *selectedBeacon = [[BeaconRegionManager shared] beaconWithId:[availableBeaconRegionsList[indexPath.row] identifier]];
     
     // Configure the cell...
-    if (cell == nil){
+    if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
@@ -97,11 +97,11 @@
     [cell.textLabel setText:[availableBeaconRegionsList[indexPath.row] identifier]];
     
     //iBeacon is in range
-    if ([selectedBeacon accuracy] > 0){
+    if ([selectedBeacon accuracy] > 0) {
         cell.imageView.image = _greenMarker;
     }
     //iBeacon has been seen, but has gone out of range
-    else if ([selectedBeacon accuracy] == -1){
+    else if ([selectedBeacon accuracy] == -1) {
         //fade green marker to white
         [UIView animateWithDuration:1.0 delay:0.f options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse
                          animations:^{
@@ -111,7 +111,7 @@
                          }];
     }
     //iBeacon has never been seen
-    else{
+    else {
         cell.imageView.image = _whiteMarker;
     }
     cell.detailTextLabel.text = [NSString stringWithFormat:@"UUID: %@\nMajor: %@\nMinor: %@\n", [[availableBeaconRegionsList[indexPath.row] proximityUUID] UUIDString], selectedBeaconRegion.major ? selectedBeaconRegion.major : @"None", selectedBeaconRegion.minor ? selectedBeaconRegion.minor : @"None"];
@@ -119,7 +119,7 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     //NOTE setting the selected beacon region and selected beacon in this way will cause issue if IDs are not unique
     _selectedBeaconRegion = [[BeaconRegionManager shared] beaconRegionWithId:cell.textLabel.text];
@@ -127,10 +127,9 @@
     [self performSegueWithIdentifier:@"beaconSettings" sender:self];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"beaconSettings"])
-    {
+    if ([[segue identifier] isEqualToString:@"beaconSettings"]) {
         // Get reference to the destination view controller
         BeaconSettingsViewController *vc = [segue destinationViewController];
         vc.beaconRegion = _selectedBeaconRegion;

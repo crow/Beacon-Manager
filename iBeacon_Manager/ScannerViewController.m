@@ -77,20 +77,18 @@
 }
 
 //TODO a better check on the QR code to make sure this doesn't fail elsewhere
--(NSArray *)beaconRegionsFromScannedCode:(NSString *)scannedCode{
+-(NSArray *)beaconRegionsFromScannedCode:(NSString *)scannedCode {
     
     //Split the newline separated beacon regions into an array of comma separated beacon region properties strings
     
     
     NSMutableArray *beaconRegions = [[NSMutableArray alloc] init];
     
-    for (NSString *beaconRegionPropertiesString in [scannedCode componentsSeparatedByString: @"."])
-    {
+    for (NSString *beaconRegionPropertiesString in [scannedCode componentsSeparatedByString: @"."]) {
         NSArray *beaconRegionProperties = [beaconRegionPropertiesString componentsSeparatedByString: @","];
         
         //add checking to make sure these objects are at their proper indexes
-        if ([beaconRegionProperties count] == 4)
-        {
+        if ([beaconRegionProperties count] == 4) {
             NSString *uuidString = [beaconRegionProperties objectAtIndex:0];
             NSString *majorString = [beaconRegionProperties objectAtIndex:1];
             NSString *minorString = [beaconRegionProperties objectAtIndex:2];
@@ -101,14 +99,9 @@
             
             [beaconRegions addObject:beaconRegion];
         }
-        else
-        {
+        else {
             NSLog(@"QR Code is improperly formatted");
         }
-
-        
-       
-        
     }
 
     return [NSArray arrayWithArray:beaconRegions];

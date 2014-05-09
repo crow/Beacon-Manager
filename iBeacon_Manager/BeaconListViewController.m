@@ -18,14 +18,14 @@
 
 @end
 
-@implementation BeaconListViewController{
+@implementation BeaconListViewController {
 
     IBOutlet UITableViewCell *_availableBeaconsCell;
     BOOL loading;
 
 }
 
-- (id)initWithStyle:(UITableViewStyle)style{
+- (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
@@ -60,16 +60,16 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated {
 
 }
 
-- (void)didReceiveMemoryWarning{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
 #pragma UI helpers
--(void)enableAvailableBeaconCell{
+-(void)enableAvailableBeaconCell {
     _availableBeaconsCell.hidden = NO;
     
     //fade in and out to show loading
@@ -82,7 +82,7 @@
     _availableBeaconsCell.userInteractionEnabled = YES;
 }
 
--(void)disableAvailableBeaconCell{
+-(void)disableAvailableBeaconCell {
     _availableBeaconsCell.hidden = NO;
 
     [UIView animateWithDuration:0.5 animations:^() {
@@ -92,7 +92,7 @@
 }
 
 //helper for determining if a beacon list has been loaded
--(void)beaconLoadCheck{
+-(void)beaconLoadCheck {
     if ([[[BeaconRegionManager shared] listManager] availableBeaconRegionsList] && !loading){
         [self enableAvailableBeaconCell];
     }
@@ -124,14 +124,14 @@
 #pragma BeaconRegionManagerDelegate
 //I thought I may need to know where the list was coming from, not sure if I do no, will simplify this lots
 
--(void)localListFinishedLoadingWithList:(NSArray *)localBeaconList{
+-(void)localListFinishedLoadingWithList:(NSArray *)localBeaconList {
     //done loading
     loading = NO;
     [self beaconLoadCheck];
     [self enableAvailableBeaconCell];
 }
 
--(void)qRBasedListFinishedLoadingWithList:(NSArray *)qRBasedList{
+-(void)qRBasedListFinishedLoadingWithList:(NSArray *)qRBasedList {
     //done loading
     loading = NO;
     [self beaconLoadCheck];

@@ -62,12 +62,12 @@
 }
 
 #pragma QR code list loading
--(void)loadSingleBeaconRegion:(CLBeaconRegion * ) beaconRegion{
+-(void)loadSingleBeaconRegion:(CLBeaconRegion * ) beaconRegion {
     _availableBeaconRegionsList = [[NSArray alloc] initWithObjects:beaconRegion, nil];
     [[[BeaconRegionManager shared] beaconRegionManagerDelegate] qRBasedListFinishedLoadingWithList:[[NSArray alloc] initWithObjects:beaconRegion, nil]];
 }
 
--(void)loadBeaconRegionsArray:(NSArray *) beaconRegions{
+-(void)loadBeaconRegionsArray:(NSArray *) beaconRegions {
     _availableBeaconRegionsList = [[NSArray alloc] initWithArray:beaconRegions];
     [[[BeaconRegionManager shared] beaconRegionManagerDelegate] qRBasedListFinishedLoadingWithList:beaconRegions];
 }
@@ -87,7 +87,7 @@
 }
 
 #pragma list parsing helpers
-- (NSArray *)buildBeaconRegionDataFromBeaconDictArray:(NSArray *) beaconDictArray{
+- (NSArray *)buildBeaconRegionDataFromBeaconDictArray:(NSArray *) beaconDictArray {
     NSMutableArray *beaconRegions = [NSMutableArray array];
     for (NSDictionary *beaconDict in beaconDictArray) {
         CLBeaconRegion *beaconRegion = [self mapDictionaryToBeacon:beaconDict];
@@ -105,7 +105,7 @@
 }
 
 // maps each plist dictionary representing a beacon region to an allocated beacon region
-- (CLBeaconRegion *)mapDictionaryToBeacon:(NSDictionary *)dictionary{
+- (CLBeaconRegion *)mapDictionaryToBeacon:(NSDictionary *)dictionary {
     
     NSUUID *proximityUUID;
     CLBeaconMajorValue major = 0;

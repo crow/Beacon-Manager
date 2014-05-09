@@ -30,7 +30,7 @@
         int _visits;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style{
+- (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
@@ -38,17 +38,17 @@
     return self;
 }
 
-- (void)viewDidLoad{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.title = self.beaconRegion.identifier;
     
     BOOL recordState;
     if ([[NSUserDefaults standardUserDefaults]
-          boolForKey:@"recordStatsSwitchState"]){
+          boolForKey:@"recordStatsSwitchState"]) {
         recordState = [[NSUserDefaults standardUserDefaults]
                             boolForKey:@"recordStatsSwitchState"];
     }
-    else{
+    else {
         recordState = YES;
     }
     
@@ -62,11 +62,11 @@
      object:nil];
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+-(void)viewDidDisappear:(BOOL)animated {
 
 }
 
--(void)loadBeaconStats{
+-(void)loadBeaconStats {
     
     [[BeaconRegionManager shared] loadBeaconStats];
     
@@ -92,12 +92,12 @@
     }
 }
 
-- (void)managerDidRangeBeacons{
+- (void)managerDidRangeBeacons {
     //continuosly update beaconstats
     [self loadBeaconStats];
 }
 
--(NSString *)dateStringFromInterval:(NSTimeInterval)interval{
+-(NSString *)dateStringFromInterval:(NSTimeInterval)interval {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
     NSString *dateString = [NSDateFormatter localizedStringFromDate:date
                                                           dateStyle:NSDateFormatterShortStyle
@@ -105,13 +105,13 @@
     return dateString;
 }
 
-- (void)didReceiveMemoryWarning{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-- (IBAction)recordStatsSwitchTouched:(id)sender{
+- (IBAction)recordStatsSwitchTouched:(id)sender {
     BOOL recordStatsSwitchState = [sender isOn];
 
-    if (recordStatsSwitchState){
+    if (recordStatsSwitchState) {
         NSLog(@"Recording Started");
     }
     else{
@@ -125,7 +125,7 @@
      setBool:recordStatsSwitchState forKey:@"recordStatsSwitchState"];
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     switch (buttonIndex) {
         case 1:
             //delete all stats for this beacon
@@ -140,13 +140,13 @@
             break;
     }
     // the user clicked No
-    if (buttonIndex == 0){
+    if (buttonIndex == 0) {
 
     }
-    if (buttonIndex == 1){
+    if (buttonIndex == 1) {
         
     }
-    else{
+    else { 
         [[BeaconRegionManager shared] clearAllBeaconStats];
     }
 }

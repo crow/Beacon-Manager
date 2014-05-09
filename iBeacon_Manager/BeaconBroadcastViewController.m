@@ -33,7 +33,7 @@
 
 @end
 
-@implementation BeaconBroadcastViewController{
+@implementation BeaconBroadcastViewController {
     @private
         CBPeripheralManager *_peripheralManager;
         NSUUID *_uuid;
@@ -44,7 +44,7 @@
         UIImage *_greenMarker;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style{
+- (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self)
     {
@@ -52,7 +52,7 @@
     return self;
 }
 
-- (IBAction)generateUuidTapped:(id)sender{
+- (IBAction)generateUuidTapped:(id)sender {
     NSString *uuid = [[NSUUID UUID] UUIDString];
     [self.uuidField setText:uuid];
     
@@ -65,39 +65,36 @@
     return [uuidTest evaluateWithObject:urlString];
 }
 
-- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral{
+- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     // sync the broadcast switch
     self.broadcastSwitch.on = _peripheralManager.isAdvertising;
     NSString *qrString = [NSString stringWithFormat:@"%@,%@,%@,%@.", [_uuid UUIDString], _major, _minor, @"Test_iBeacon"];
     self.codeView.code = [CodeGen genCodeWithContents:qrString machineReadableCodeObjectType:AVMetadataObjectTypeQRCode];
 
-
 }
 
--(void)saveLastBroadcastUuid{
+-(void)saveLastBroadcastUuid {
     if ([self.uuidField text]) {
         [[NSUserDefaults standardUserDefaults] setObject:[self.uuidField text] forKey:kLastBroadcastUuidString];
     }
 }
 
--(void)loadLastBroadcastUuid{
-    if([[NSUserDefaults standardUserDefaults] objectForKey:kLastBroadcastUuidString])
-    {
+-(void)loadLastBroadcastUuid {
+    if([[NSUserDefaults standardUserDefaults] objectForKey:kLastBroadcastUuidString]) {
         //if no saved switch state set to YES by default
         [self.uuidField setText:[[NSUserDefaults standardUserDefaults] stringForKey:kLastBroadcastUuidString]];
     }
-    else
-    {
+    else {
         NSString *uuid = [[NSUUID UUID] UUIDString];
         [self.uuidField setText:uuid];
     }
 }
 
-- (void)viewDidLoad{
+- (void)viewDidLoad {
     [super viewDidLoad];
  
     
@@ -146,7 +143,7 @@
 
 }
 
-- (void)hideKeyboard{
+- (void)hideKeyboard {
     //update field values on keyboard hide
     [self.view endEditing:YES];
     
@@ -161,7 +158,7 @@
 
 }
 
-- (void)didReceiveMemoryWarning{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -173,16 +170,14 @@
     self.beaconView.image = _whiteMarker;
     self.halo.radius = 0;
     
-    if (![self validateUuidString:self.uuidField.text])
-    {
+    if (![self validateUuidString:self.uuidField.text]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"UUID you provided is not not valid, please double check the UUID and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         [sender setOn:NO animated:YES];
         return;
     }
     
-    if(_peripheralManager.state < CBPeripheralManagerStatePoweredOn)
-    {
+    if(_peripheralManager.state < CBPeripheralManagerStatePoweredOn) {
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Bluetooth must be enabled" message:@"To configure your device as a beacon" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         //reset switch position
@@ -191,8 +186,7 @@
         return;
     }
 
-    if([sender isOn])
-    {
+    if([sender isOn]) {
        
         self.broadcastImage.image = _greenMarker;
         self.beaconView.image = _greenMarker;
@@ -202,30 +196,25 @@
         [self.tableView reloadData];
         // We must construct a CLBeaconRegion that represents the payload we want the device to beacon.
         NSDictionary *peripheralData = nil;
-        if(_uuid && _major && _minor)
-        {
+        if(_uuid && _major && _minor) {
             CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid major:[_major shortValue] minor:[_minor shortValue] identifier:[[UIDevice currentDevice] name]];
             peripheralData = [region peripheralDataWithMeasuredPower:_power];
         }
-        else if(_uuid && _major)
-        {
+        else if(_uuid && _major) {
             CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid major:[_major shortValue]  identifier:[[UIDevice currentDevice] name]];
             peripheralData = [region peripheralDataWithMeasuredPower:_power];
         }
-        else if(_uuid)
-        {
+        else if(_uuid) {
             CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:_uuid identifier:[[UIDevice currentDevice] name]];
             peripheralData = [region peripheralDataWithMeasuredPower:_power];
         }
         
         // The region's peripheral data contains the CoreBluetooth-specific data we need to advertise.
-        if(peripheralData)
-        {
+        if(peripheralData) {
             [_peripheralManager startAdvertising:peripheralData];
         }
     }
-    else
-    {
+    else {
         self.transmitPowerSlider.enabled = YES;
         self.transmitPowerSlider.userInteractionEnabled = YES;
         [_peripheralManager stopAdvertising];
@@ -237,7 +226,7 @@
 
 - (IBAction)transmitPowerSliderChanged:(id)sender {
     
-    if ([self.broadcastSwitch isOn]){
+    if ([self.broadcastSwitch isOn]) {
     self.halo.radius = self.transmitPowerSlider.value * kMaxRadius;
     //self.radiusLabel.text = [@(self.transmitPowerSlider) stringValue];
     }

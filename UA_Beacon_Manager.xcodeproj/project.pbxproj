@@ -40,7 +40,6 @@
 		6119CDE61885F6440023B25B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865D17F515AC00D191A2 /* Security.framework */; };
 		6119CDE81885F64D0023B25B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6119CDE71885F64C0023B25B /* MobileCoreServices.framework */; };
 		6119CDED1891EF320023B25B /* 854-list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6119CDEC1891EF320023B25B /* 854-list@2x.png */; };
-		612742E718FEFDA000AEB5C7 /* libUAirship-4.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 612742E618FEFDA000AEB5C7 /* libUAirship-4.0.0.a */; };
 		612742F2190069B600AEB5C7 /* EntryTagsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 612742F1190069B600AEB5C7 /* EntryTagsTableViewController.m */; };
 		612742F519006A1700AEB5C7 /* ExitTagsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 612742F419006A1700AEB5C7 /* ExitTagsTableViewController.m */; };
 		6139C7DB186E480A00D72E45 /* BeaconRegionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */; };
@@ -53,6 +52,7 @@
 		617F60E41899E8D800D4C01C /* 751-eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 617F60E31899E8D800D4C01C /* 751-eye@2x.png */; };
 		617F60E61899E9E000D4C01C /* 789-map-location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 617F60E51899E9E000D4C01C /* 789-map-location@2x.png */; };
 		6182BA2B18E6041C000F9EBC /* 881-globe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6182BA2A18E6041C000F9EBC /* 881-globe@2x.png */; };
+		6189C39E19199BA000E96C17 /* libUAirship-4.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6189C39D19199BA000E96C17 /* libUAirship-4.0.0.a */; };
 		618A2FD118FDA909006DA371 /* 742-wrench.png in Resources */ = {isa = PBXBuildFile; fileRef = 618A2FCF18FDA909006DA371 /* 742-wrench.png */; };
 		618A2FD218FDA909006DA371 /* 742-wrench@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 618A2FD018FDA909006DA371 /* 742-wrench@2x.png */; };
 		618A2FDA18FDAB5B006DA371 /* RMScannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 618A2FD718FDAB5B006DA371 /* RMScannerView.m */; };
@@ -86,7 +86,6 @@
 		61B604F618AC22970059D37E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B604F518AC22970059D37E /* StoreKit.framework */; };
 		61E2A0B7191029AC00E2F5DB /* 705-photos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0B6191029AC00E2F5DB /* 705-photos@2x.png */; };
 		61E2A0BB19102A2D00E2F5DB /* 747-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0BA19102A2D00E2F5DB /* 747-tag@2x.png */; };
-		61E2A0BD19102D2100E2F5DB /* View_QR_code.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0BC19102D2100E2F5DB /* View_QR_code.png */; };
 		61E2A0BF19102D9600E2F5DB /* 708-search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0BE19102D9600E2F5DB /* 708-search@2x.png */; };
 		61E2A0C119102EB000E2F5DB /* 887-notepad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0C019102EB000E2F5DB /* 887-notepad@2x.png */; };
 		61E2A0C319102EE800E2F5DB /* 759-refresh-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0C219102EE800E2F5DB /* 759-refresh-2@2x.png */; };
@@ -162,7 +161,6 @@
 		44EFC67A181CA11D007C1B1B /* AirshipConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = AirshipConfig.plist; sourceTree = "<group>"; };
 		6119CDE71885F64C0023B25B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6119CDEC1891EF320023B25B /* 854-list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "854-list@2x.png"; sourceTree = "<group>"; };
-		612742E618FEFDA000AEB5C7 /* libUAirship-4.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-4.0.0.a"; sourceTree = "<group>"; };
 		612742F0190069B600AEB5C7 /* EntryTagsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntryTagsTableViewController.h; sourceTree = "<group>"; };
 		612742F1190069B600AEB5C7 /* EntryTagsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntryTagsTableViewController.m; sourceTree = "<group>"; };
 		612742F319006A1700AEB5C7 /* ExitTagsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExitTagsTableViewController.h; sourceTree = "<group>"; };
@@ -182,6 +180,7 @@
 		617F60E31899E8D800D4C01C /* 751-eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "751-eye@2x.png"; sourceTree = "<group>"; };
 		617F60E51899E9E000D4C01C /* 789-map-location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "789-map-location@2x.png"; sourceTree = "<group>"; };
 		6182BA2A18E6041C000F9EBC /* 881-globe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "881-globe@2x.png"; sourceTree = "<group>"; };
+		6189C39D19199BA000E96C17 /* libUAirship-4.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-4.0.0.a"; sourceTree = "<group>"; };
 		618A2FCC18FC6BF0006DA371 /* BeaconRegionManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconRegionManagerDelegate.h; sourceTree = "<group>"; };
 		618A2FCF18FDA909006DA371 /* 742-wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "742-wrench.png"; sourceTree = "<group>"; };
 		618A2FD018FDA909006DA371 /* 742-wrench@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "742-wrench@2x.png"; sourceTree = "<group>"; };
@@ -244,7 +243,6 @@
 		61BB3CCE18A1817200C7ECA2 /* jd.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = jd.caf; sourceTree = "<group>"; };
 		61E2A0B6191029AC00E2F5DB /* 705-photos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "705-photos@2x.png"; sourceTree = "<group>"; };
 		61E2A0BA19102A2D00E2F5DB /* 747-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "747-tag@2x.png"; sourceTree = "<group>"; };
-		61E2A0BC19102D2100E2F5DB /* View_QR_code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = View_QR_code.png; sourceTree = "<group>"; };
 		61E2A0BE19102D9600E2F5DB /* 708-search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "708-search@2x.png"; sourceTree = "<group>"; };
 		61E2A0C019102EB000E2F5DB /* 887-notepad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "887-notepad@2x.png"; sourceTree = "<group>"; };
 		61E2A0C219102EE800E2F5DB /* 759-refresh-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "759-refresh-2@2x.png"; sourceTree = "<group>"; };
@@ -288,7 +286,7 @@
 				440E85F617F5140E00D191A2 /* UIKit.framework in Frameworks */,
 				44A5F85A17F6041D00F619C1 /* MessageUI.framework in Frameworks */,
 				440E865617F5157F00D191A2 /* CoreLocation.framework in Frameworks */,
-				612742E718FEFDA000AEB5C7 /* libUAirship-4.0.0.a in Frameworks */,
+				6189C39E19199BA000E96C17 /* libUAirship-4.0.0.a in Frameworks */,
 				440E865017F5156900D191A2 /* CoreBluetooth.framework in Frameworks */,
 				440E85F217F5140E00D191A2 /* Foundation.framework in Frameworks */,
 			);
@@ -328,7 +326,7 @@
 		440E85F017F5140E00D191A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				612742E618FEFDA000AEB5C7 /* libUAirship-4.0.0.a */,
+				6189C39D19199BA000E96C17 /* libUAirship-4.0.0.a */,
 				61B604F518AC22970059D37E /* StoreKit.framework */,
 				6119CDE71885F64C0023B25B /* MobileCoreServices.framework */,
 				44A5F86117F6049A00F619C1 /* CoreData.framework */,
@@ -550,7 +548,6 @@
 				617F60E11899E86E00D4C01C /* 849-radar@2x.png */,
 				6119CDEC1891EF320023B25B /* 854-list@2x.png */,
 				61E2A0C219102EE800E2F5DB /* 759-refresh-2@2x.png */,
-				61E2A0BC19102D2100E2F5DB /* View_QR_code.png */,
 				61E2A0C019102EB000E2F5DB /* 887-notepad@2x.png */,
 				618A2FCF18FDA909006DA371 /* 742-wrench.png */,
 				618A2FD018FDA909006DA371 /* 742-wrench@2x.png */,
@@ -650,7 +647,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61E2A0BD19102D2100E2F5DB /* View_QR_code.png in Resources */,
 				447F2659182301E20076F44E /* Main.storyboard in Resources */,
 				44952DA51822E4BD00DC00E3 /* 702-share-selected@2x.png in Resources */,
 				44952DA71822E4C300DC00E3 /* 703-download-selected.png in Resources */,
@@ -862,7 +858,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -885,7 +881,7 @@
 					"Drive/currentprojects/iBeacon-Manager",
 					"$(PROJECT_DIR)",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "-force_load";
 				PRODUCT_NAME = UA_Beacon_Manager;
 				PROVISIONING_PROFILE = "F5018A76-D911-4E71-9612-557C94C0D61B";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -899,7 +895,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -923,7 +919,7 @@
 					"$(PROJECT_DIR)",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "-force_load";
 				PRODUCT_NAME = UA_Beacon_Manager;
 				PROVISIONING_PROFILE = "F5018A76-D911-4E71-9612-557C94C0D61B";
 				TARGETED_DEVICE_FAMILY = 1;

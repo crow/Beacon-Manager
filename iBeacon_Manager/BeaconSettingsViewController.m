@@ -16,7 +16,7 @@
 
 @synthesize beaconRegion;
 
-- (id)initWithStyle:(UITableViewStyle)style{
+- (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self){
         // Custom initialization
@@ -24,7 +24,7 @@
     return self;
 }
 
-- (void)viewDidLoad{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.title = self.beaconRegion.identifier;
     [self loadSwitchStates];
@@ -38,11 +38,11 @@
      object:nil];
 }
 
-- (void)managerDidRangeBeacons{
+- (void)managerDidRangeBeacons {
     [self updateView];
 }
 
--(void)updateView{
+-(void)updateView {
     NSString *proximity;
     NSString *rssi;
     
@@ -55,26 +55,26 @@
     self.proximityLabel.text = proximity;
 }
 
-- (IBAction)monitorSwitchTouched:(id)sender{
+- (IBAction)monitorSwitchTouched:(id)sender {
     //if ON
     if ([sender isOn]) {
         [[BeaconRegionManager shared] startMonitoringBeaconInRegion:self.beaconRegion];
     }
-    else{
+    else {
         [[BeaconRegionManager shared] stopMonitoringBeaconInRegion:self.beaconRegion];
     }
     
     [self loadSwitchStates];
 }
 
--(void)loadSwitchStates{
+-(void)loadSwitchStates {
     [self.monitorSwitch setOn:[[BeaconRegionManager shared] isMonitored:self.beaconRegion]];
     [self.noteEntrySwitch setOn:self.beaconRegion.notifyOnEntry];
     [self.noteExitSwitch setOn:self.beaconRegion.notifyOnExit];
     [self.noteEntryOnDisplaySwitch setOn:self.beaconRegion.notifyEntryStateOnDisplay];
 }
 
-- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (cell.tag == 1) {
         if (self.beaconRegion.notifyOnEntry == YES) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -145,29 +145,26 @@
 
 }
 
-- (void)didReceiveMemoryWarning{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"beaconStats"])
-    {
+    if ([[segue identifier] isEqualToString:@"beaconStats"]) {
         // Get reference to the destination view controller
         BeaconStatsViewController *vc = [segue destinationViewController];
         vc.beaconRegion = self.beaconRegion;
         vc.beacon = self.beacon;
     }
-    if ([[segue identifier] isEqualToString:@"exitTags"])
-    {
+    if ([[segue identifier] isEqualToString:@"exitTags"]) {
         // Get reference to the destination view controller
         BeaconStatsViewController *vc = [segue destinationViewController];
         vc.beaconRegion = self.beaconRegion;
         vc.beacon = self.beacon;
     }
-    if ([[segue identifier] isEqualToString:@"entryTags"])
-    {
+    if ([[segue identifier] isEqualToString:@"entryTags"]) {
         // Get reference to the destination view controller
         BeaconStatsViewController *vc = [segue destinationViewController];
         vc.beaconRegion = self.beaconRegion;

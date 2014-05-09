@@ -17,19 +17,19 @@
 
 @end
 
-@implementation BeaconRegionManager{
+@implementation BeaconRegionManager {
     @private
         //temporary store for detailed ranging
         NSMutableDictionary *_currentRangedBeacons;
 }
 
-+ (BeaconRegionManager *)shared{
++ (BeaconRegionManager *)shared {
     DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
         return [[self alloc] init];
     });
 }
 
--(BeaconRegionManager *)init{
+-(BeaconRegionManager *)init {
     self = [super init];
     
     _listManager = [[BeaconListManager alloc] init];
@@ -40,7 +40,7 @@
     return self;
 }
 
--(void)startManager{
+-(void)startManager {
     //clear monitoring on store location manager regions
     [self stopMonitoringAllBeaconRegions];
     
@@ -49,13 +49,13 @@
     [self loadBeaconStats];
 }
 
--(void)stopManager{
+-(void)stopManager {
     //clear monitoring on store location manager regions
     [self stopMonitoringAllBeaconRegions];
 }
 
--(void)removeAllBeaconTags{
-    for (CLBeaconRegion *beaconRegion in [[self listManager] availableBeaconRegionsList]){
+-(void)removeAllBeaconTags {
+    for (CLBeaconRegion *beaconRegion in [[self listManager] availableBeaconRegionsList]) {
         [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kExitTagPreamble, beaconRegion.identifier]];
         [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, beaconRegion.identifier]];
     }
@@ -63,7 +63,7 @@
 }
 
 //helper method to return a properly formatted (short style) date
--(NSString *)dateStringFromInterval:(NSTimeInterval)interval{
+-(NSString *)dateStringFromInterval:(NSTimeInterval)interval {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
     NSString *dateString = [NSDateFormatter localizedStringFromDate:date
                                                           dateStyle:NSDateFormatterShortStyle
@@ -73,7 +73,7 @@
 
 #pragma monitoring stop/start helpers
 
--(void)startMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion{
+-(void)startMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion {
     if (beaconRegion != nil) {
         beaconRegion.notifyOnEntry = YES;
         beaconRegion.notifyOnExit = YES;
@@ -83,7 +83,7 @@
     }
 }
 
--(void)stopMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion{
+-(void)stopMonitoringBeaconInRegion:(CLBeaconRegion *)beaconRegion {
     if (beaconRegion != nil) {
         beaconRegion.notifyOnEntry = NO;
         beaconRegion.notifyOnExit = NO;
@@ -94,7 +94,7 @@
 }
 
 //helper method to start monitoring all available beacon regions with no notifications
--(void)startMonitoringAllAvailableBeaconRegions{
+-(void)startMonitoringAllAvailableBeaconRegions {
     for (CLBeaconRegion *beaconRegion in [[self listManager] availableBeaconRegionsList]){
         if (beaconRegion != nil){
             [self startMonitoringBeaconInRegion:beaconRegion];
@@ -103,17 +103,16 @@
 }
 
 //helper method to stop monitoring all available beacon regions
--(void)stopMonitoringAllAvailableBeaconRegions
-{
-    for (CLBeaconRegion *beaconRegion in [[self listManager] availableBeaconRegionsList]){
+-(void)stopMonitoringAllAvailableBeaconRegions {
+    for (CLBeaconRegion *beaconRegion in [[self listManager] availableBeaconRegionsList]) {
         [self stopMonitoringBeaconInRegion:beaconRegion];
         //reset monitored region count
     }
 }
 
 //stops monitoring all beacons in the current location monitor list
--(void)stopMonitoringAllBeaconRegions{
-    for (CLBeaconRegion *beaconRegion in [self.locationManager monitoredRegions]){
+-(void)stopMonitoringAllBeaconRegions {
+    for (CLBeaconRegion *beaconRegion in [self.locationManager monitoredRegions]) {
         if (beaconRegion != nil) {
             beaconRegion.notifyOnEntry = NO;
             beaconRegion.notifyOnExit = NO;
@@ -128,11 +127,11 @@
 #pragma location manager callbacks
 
 //this gets called once for each beacon regions at 1 hz
-- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region{
+- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
     // CoreLocation will call this delegate method at 1 Hz once for each region
     
     //if a mutable array exists under key region.identifier, replace it's contents with the ranged beacons
-    if ([_currentRangedBeacons objectForKey:region.identifier] && [[_currentRangedBeacons objectForKey:region.identifier] isKindOfClass:[NSMutableArray class]]){
+    if ([_currentRangedBeacons objectForKey:region.identifier] && [[_currentRangedBeacons objectForKey:region.identifier] isKindOfClass:[NSMutableArray class]]) {
         
         NSMutableArray *currentBeaconsInRegion = [_currentRangedBeacons objectForKey:region.identifier];
         currentBeaconsInRegion = [NSMutableArray arrayWithArray:beacons];
@@ -151,7 +150,7 @@
      object:self];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region{
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
     //swap default entry/exit tags
     [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kExitTagPreamble, region.identifier]];
     [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, region.identifier]];
@@ -164,7 +163,7 @@
     [[UAPush shared] updateRegistration];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region{
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
     //swap default entry/exit tags
     [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, region.identifier]];
     [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kExitTagPreamble, region.identifier]];
@@ -181,11 +180,11 @@
 }
 
 //this is redundant but ensures all regions are tagged as inside or outside
-- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region{
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
     // A user can transition in or out of a region while the application is not running.
     // When this happens CoreLocation will launch the application momentarily, call this delegate method
 
-    if(state == CLRegionStateInside){
+    if(state == CLRegionStateInside) {
         //set default entry tag (implied entry)
         [[UAPush shared] addTagToCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, region.identifier]];
         //set user-provided entry tags
@@ -200,7 +199,7 @@
             [self timestampEntryForBeaconRegion:[self beaconRegionWithId:region.identifier]];
         }
     }
-    else if(state == CLRegionStateOutside){
+    else if(state == CLRegionStateOutside) {
         //Remove default entry tag and any user defined entry tags and update registration
         [[UAPush shared] removeTagFromCurrentDevice:[NSString stringWithFormat:@"%@%@", kEntryTagPreamble, region.identifier]];
         [self removeEntryTagsForBeaconRegion:[self beaconRegionWithId:region.identifier]];
@@ -211,13 +210,13 @@
     [[UAPush shared] updateRegistration];
 }
 
-- (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error{
+- (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error {
     UA_LDEBUG(@"%@", error);
     NSLog(@"%@", error);
 }
 
 
-- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error{
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     UA_LDEBUG(@"%@", error);
     NSLog(@"%@", error);
 }
@@ -225,7 +224,7 @@
 
 #pragma beacon stats helpers
 
--(void)loadBeaconStats{
+-(void)loadBeaconStats {
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kiBeaconStats]){
         self.beaconStats = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:kiBeaconStats]];
     }
@@ -235,32 +234,32 @@
     }
 }
 
--(void)saveBeaconStats{
+-(void)saveBeaconStats {
     [[NSUserDefaults standardUserDefaults] setObject:self.beaconStats forKey:kiBeaconStats];
 }
 
--(void)clearAllBeaconStats{
+-(void)clearAllBeaconStats {
     self.beaconStats = nil;
     [[NSUserDefaults standardUserDefaults] setObject:self.beaconStats forKey:kiBeaconStats];
 }
 
--(void)clearBeaconStatsForBeaconRegion:(CLBeaconRegion *)beaconRegion{
+-(void)clearBeaconStatsForBeaconRegion:(CLBeaconRegion *)beaconRegion {
     if ([self.beaconStats objectForKey:beaconRegion.identifier]){
     [self.beaconStats setObject:nil forKey:beaconRegion.identifier];
     }
     [self saveBeaconStats];
 }
 
--(NSMutableDictionary *)beaconStatsForIdentifier:(NSString *)identifier{
-    if (self.beaconStats && [self.beaconStats objectForKey:identifier]){
+-(NSMutableDictionary *)beaconStatsForIdentifier:(NSString *)identifier {
+    if (self.beaconStats && [self.beaconStats objectForKey:identifier]) {
         return [self.beaconStats objectForKey:identifier];
     }
     //NSLog(@"No beacon stats for that identifier are available");
     return nil;
 }
 
--(double)lastEntryForIdentifier:(NSString *)identifier{
-    if (self.beaconStats && [self.beaconStats objectForKey:identifier]){
+-(double)lastEntryForIdentifier:(NSString *)identifier {
+    if (self.beaconStats && [self.beaconStats objectForKey:identifier]) {
         NSDictionary *stats = [self.beaconStats objectForKey:identifier];
         if ([stats objectForKey:kLastEntry]){
             return [[stats objectForKey:kLastEntry] doubleValue];
@@ -271,8 +270,8 @@
     return 0;
 }
 
--(double)lastExitForIdentifier:(NSString *)identifier{
-    if (self.beaconStats && [self.beaconStats objectForKey:identifier]){
+-(double)lastExitForIdentifier:(NSString *)identifier {
+    if (self.beaconStats && [self.beaconStats objectForKey:identifier]) {
         
         NSDictionary *stats = [self.beaconStats objectForKey:identifier];
         if ([stats objectForKey:kLastExit]){
@@ -284,9 +283,8 @@
     return 0;
 }
 
--(double)cumulativeTimeForIdentifier:(NSString *)identifier
-{
-    if (self.beaconStats && [self.beaconStats objectForKey:identifier]){
+-(double)cumulativeTimeForIdentifier:(NSString *)identifier {
+    if (self.beaconStats && [self.beaconStats objectForKey:identifier]) {
         NSDictionary *stats = [self.beaconStats objectForKey:identifier];
         if ([stats objectForKey:kCumulativeTime]){
             return [[stats objectForKey:kCumulativeTime] doubleValue];
@@ -297,7 +295,7 @@
 }
 
 //directly caluclates dumb average dwell time and returns it for display
--(double)averageVisitTimeForIdentifier:(NSString *)identifier{
+-(double)averageVisitTimeForIdentifier:(NSString *)identifier {
     
     if ([self cumulativeTimeForIdentifier:identifier] && [self visitsForIdentifier:identifier])
         return [self cumulativeTimeForIdentifier:identifier]/[self visitsForIdentifier:identifier];
@@ -305,8 +303,8 @@
         return 0;
 }
 
--(int)visitsForIdentifier:(NSString *)identifier{
-    if (self.beaconStats && [self.beaconStats objectForKey:identifier]){
+-(int)visitsForIdentifier:(NSString *)identifier {
+    if (self.beaconStats && [self.beaconStats objectForKey:identifier]) {
         NSDictionary *stats = [self.beaconStats objectForKey:identifier];
         if ([stats objectForKey:kVisits]){
             return [[stats objectForKey:kVisits] intValue];
@@ -317,16 +315,15 @@
 }
 
 //saves last entry time to the last entry time key in NSUderDefaults
--(void)timestampEntryForBeaconRegion:(CLBeaconRegion *)beaconRegion
-{
+-(void)timestampEntryForBeaconRegion:(CLBeaconRegion *)beaconRegion {
     if (beaconRegion.identifier){
-        if ([self.beaconStats objectForKey:beaconRegion.identifier]){
+        if ([self.beaconStats objectForKey:beaconRegion.identifier]) {
             NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
             [beaconRegionStats setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:kLastEntry];
             [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
 
         }
-        else{
+        else {
             //create new dictionary for this region and add it to stats
             NSMutableDictionary *beaconRegionStats = [NSMutableDictionary new];
             [beaconRegionStats setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:kLastEntry];
@@ -340,16 +337,15 @@
 }
 
 //saves last exit time to the last exit time key in NSUderDefaults
--(void)timestampExitForBeaconRegion:(CLBeaconRegion *)beaconRegion
-{
-    if (beaconRegion.identifier){
-        if ([self.beaconStats objectForKey:beaconRegion.identifier]){
+-(void)timestampExitForBeaconRegion:(CLBeaconRegion *)beaconRegion {
+    if (beaconRegion.identifier) {
+        if ([self.beaconStats objectForKey:beaconRegion.identifier]) {
             NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
             [beaconRegionStats setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:kLastExit];
             [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
 
         }
-        else{
+        else {
             //create new dictionary for this region and add it to stats
             NSMutableDictionary *beaconRegionStats = [NSMutableDictionary new];
             [beaconRegionStats setObject:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:kLastExit];
@@ -362,19 +358,18 @@
 }
 
 //calculates beacon region's visit count and saves it to the visits key in NSUderDefaults
--(void)recordVisitForBeaconRegion:(CLBeaconRegion *)beaconRegion
-{
+-(void)recordVisitForBeaconRegion:(CLBeaconRegion *)beaconRegion {
     int visits;
-    if (beaconRegion.identifier){
+    if (beaconRegion.identifier) {
         //NSLog(@"visit recorded");
         //if beaconstats dict is present
-        if ([self.beaconStats objectForKey:beaconRegion.identifier]){
+        if ([self.beaconStats objectForKey:beaconRegion.identifier]) {
             NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
             
-            if ([self visitsForIdentifier:beaconRegion.identifier]){
+            if ([self visitsForIdentifier:beaconRegion.identifier]) {
                 visits = [self visitsForIdentifier:beaconRegion.identifier] + 1;
             }
-            else{
+            else {
                 visits = 1;
             }
             
@@ -387,21 +382,20 @@
 }
 
 //calculates cumulative time in beacon region and saves it to the cumulative time key in NSUderDefaults
--(void)recordCumulativeTimeForBeaconRegion:(CLBeaconRegion *)beaconRegion
-{
+-(void)recordCumulativeTimeForBeaconRegion:(CLBeaconRegion *)beaconRegion {
     NSTimeInterval cumulativeTime = [self cumulativeTimeForIdentifier:beaconRegion.identifier];
     NSTimeInterval entryTime = [self lastEntryForIdentifier:beaconRegion.identifier];
     NSTimeInterval exitTime = [self lastExitForIdentifier:beaconRegion.identifier];
     
     NSMutableDictionary *beaconRegionStats = [[NSMutableDictionary alloc] initWithDictionary:[self.beaconStats objectForKey:beaconRegion.identifier]];
     
-    if (entryTime > 0){
+    if (entryTime > 0) {
         cumulativeTime = cumulativeTime + (exitTime - entryTime);
         [beaconRegionStats setObject:[NSNumber numberWithDouble:cumulativeTime] forKey:kCumulativeTime];
         [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
         
     }
-    else{
+    else {
         [beaconRegionStats setObject:@0 forKey:kCumulativeTime];
         [self.beaconStats setObject:beaconRegionStats forKey:beaconRegion.identifier];
         
@@ -411,8 +405,7 @@
 
 
 //checks NSUserDefaults for tags array at the key "ua-beaconmanager-<identifier>-entry-tags" and applies them if it exists
--(void)addEntryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
-{
+-(void)addEntryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion {
     if (beaconRegion.identifier){
         NSString *beaconEntryTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-entry-tags",beaconRegion.identifier];
         if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconEntryTagsKey]){
@@ -425,58 +418,54 @@
 }
 
 //just looks in NSUserDefaults for tags array at the key "ua-beaconmanager-<identifier>-exit-tags" and applies them if it exists
--(void)addExitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
-{
+-(void)addExitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion {
     if (beaconRegion.identifier){
         NSString *beaconExitTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-exit-tags",beaconRegion.identifier];
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconExitTagsKey]){
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconExitTagsKey]) {
             [[UAPush shared] addTagsToCurrentDevice:[[NSUserDefaults standardUserDefaults] objectForKey:beaconExitTagsKey]];
         }
-        else{
+        else {
             UALOG(@"No exit tags set for key %@", beaconExitTagsKey);
         }
     }
 }
 
 //checks NSUserDefaults for tags array at the key "ua-beaconmanager-<identifier>-entry-tags" and applies them if it exists
--(void)removeEntryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
-{
-    if (beaconRegion.identifier){
+-(void)removeEntryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion {
+    if (beaconRegion.identifier) {
         NSString *beaconEntryTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-entry-tags",beaconRegion.identifier];
         if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconEntryTagsKey]){
             [[UAPush shared] removeTagsFromCurrentDevice:[[NSUserDefaults standardUserDefaults] objectForKey:beaconEntryTagsKey]];
         }
-        else{
+        else {
             UALOG(@"No exit tags set for key %@", beaconEntryTagsKey);
         }
     }
 }
 
 //just looks in NSUserDefaults for tags array at the key "ua-beaconmanager-<identifier>-exit-tags" and applies them if it exists
--(void)removeExitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
-{
-    if (beaconRegion.identifier){
+-(void)removeExitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion {
+    if (beaconRegion.identifier) {
         NSString *beaconExitTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-exit-tags",beaconRegion.identifier];
         if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconExitTagsKey]){
             [[UAPush shared] removeTagsFromCurrentDevice:[[NSUserDefaults standardUserDefaults] objectForKey:beaconExitTagsKey]];
         }
-        else{
+        else {
             UALOG(@"No exit tags set for key %@", beaconExitTagsKey);
         }
     }
 }
 
 //Getter that returns array of entry tags currently set for that beacon in NSUserDefaults
--(NSArray *)entryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
-{
-    if (beaconRegion.identifier){
+-(NSArray *)entryTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion {
+    if (beaconRegion.identifier) {
         //NSLog(@"timestamped exit");
         
         NSString *beaconEntryTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-entry-tags",beaconRegion.identifier];
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconEntryTagsKey]){
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:beaconEntryTagsKey]) {
             return [[NSUserDefaults standardUserDefaults] objectForKey:beaconEntryTagsKey];
         }
-        else{
+        else {
             UALOG(@"No exit tags set for key %@", beaconEntryTagsKey);
         }
     }
@@ -485,9 +474,8 @@
 }
 
 //Getter that returns array of exit tags currently set for that beacon in NSUserDefaults
--(NSArray *)exitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion
-{
-    if (beaconRegion.identifier){
+-(NSArray *)exitTagsForBeaconRegion:(CLBeaconRegion *)beaconRegion {
+    if (beaconRegion.identifier) {
         //NSLog(@"timestamped exit");
         
         NSString *beaconExitTagsKey = [NSString stringWithFormat:@"ua-beaconmanager-%@-exit-tags",beaconRegion.identifier];
@@ -504,10 +492,9 @@
 #pragma miscellaneous helpers
 
 //helper method for checking if a specific beacon region is monitored
--(BOOL)isMonitored:(CLBeaconRegion *)beaconRegion
-{
+-(BOOL)isMonitored:(CLBeaconRegion *)beaconRegion {
     for (CLBeaconRegion *bRegion in [self.locationManager monitoredRegions]) {
-        if ([bRegion.identifier isEqualToString:beaconRegion.identifier]){
+        if ([bRegion.identifier isEqualToString:beaconRegion.identifier]) {
             return true;
         }
     }
@@ -515,8 +502,7 @@
 }
 
 //returns a beacon from the ranged list given a identifier, else emits log and returns nil
--(CLBeacon *)beaconWithId:(NSString *)identifier
-{
+-(CLBeacon *)beaconWithId:(NSString *)identifier {
     CLBeaconRegion *beaconRegion = [self beaconRegionWithId:identifier];
     NSMutableArray *beacons;
     //this lever of checking probably isn't completely necessary
@@ -534,8 +520,7 @@
 }
 
 //returns a beacon regions from the available regions (all in plist) given an identifier
--(CLBeaconRegion *)beaconRegionWithId:(NSString *)identifier
-{
+-(CLBeaconRegion *)beaconRegionWithId:(NSString *)identifier {
     for (CLBeaconRegion *beaconRegion in [[self listManager] availableBeaconRegionsList]){
         if ([beaconRegion.identifier isEqualToString:identifier]) {
             return beaconRegion;
