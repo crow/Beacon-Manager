@@ -98,10 +98,10 @@
 		6194E3651845291000F26217 /* 730-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6194E3641845291000F26217 /* 730-envelope@2x.png */; };
 		6194E36718453EBA00F26217 /* SampleBeaconRegions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6194E36618453EBA00F26217 /* SampleBeaconRegions.plist */; };
 		6194E399184696E400F26217 /* iBeaconManager.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6194E398184696E400F26217 /* iBeaconManager.xcassets */; };
-		619CB48F192C11AC005A7C54 /* libUAirship-4.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6189C39D19199BA000E96C17 /* libUAirship-4.0.0.a */; };
 		61B2E1631893211F00A87DB4 /* BeaconPulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B2E1621893211F00A87DB4 /* BeaconPulsingHaloLayer.m */; };
 		61B604F418AC22710059D37E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E865117F5157100D191A2 /* QuartzCore.framework */; };
 		61B604F618AC22970059D37E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B604F518AC22970059D37E /* StoreKit.framework */; };
+		61CACC73194696CF006B12A0 /* libUAirship-4.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61CACC72194696CF006B12A0 /* libUAirship-4.0.0.a */; };
 		61E2A0BB19102A2D00E2F5DB /* 747-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0BA19102A2D00E2F5DB /* 747-tag@2x.png */; };
 		61E2A0BF19102D9600E2F5DB /* 708-search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0BE19102D9600E2F5DB /* 708-search@2x.png */; };
 		61E2A0C119102EB000E2F5DB /* 887-notepad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2A0C019102EB000E2F5DB /* 887-notepad@2x.png */; };
@@ -197,7 +197,6 @@
 		617F60E31899E8D800D4C01C /* 751-eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "751-eye@2x.png"; sourceTree = "<group>"; };
 		617F60E51899E9E000D4C01C /* 789-map-location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "789-map-location@2x.png"; sourceTree = "<group>"; };
 		6182BA2A18E6041C000F9EBC /* 881-globe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "881-globe@2x.png"; sourceTree = "<group>"; };
-		6189C39D19199BA000E96C17 /* libUAirship-4.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-4.0.0.a"; sourceTree = "<group>"; };
 		618A2FCC18FC6BF0006DA371 /* BeaconRegionManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconRegionManagerDelegate.h; sourceTree = "<group>"; };
 		618A2FCF18FDA909006DA371 /* 742-wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "742-wrench.png"; sourceTree = "<group>"; };
 		618A2FD018FDA909006DA371 /* 742-wrench@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "742-wrench@2x.png"; sourceTree = "<group>"; };
@@ -258,6 +257,7 @@
 		61B2E1621893211F00A87DB4 /* BeaconPulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconPulsingHaloLayer.m; sourceTree = "<group>"; };
 		61B604F518AC22970059D37E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		61BB3CCE18A1817200C7ECA2 /* jd.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = jd.caf; sourceTree = "<group>"; };
+		61CACC72194696CF006B12A0 /* libUAirship-4.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-4.0.0.a"; path = "Airship/libUAirship-4.0.0.a"; sourceTree = "<group>"; };
 		61E2A0BA19102A2D00E2F5DB /* 747-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "747-tag@2x.png"; sourceTree = "<group>"; };
 		61E2A0BE19102D9600E2F5DB /* 708-search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "708-search@2x.png"; sourceTree = "<group>"; };
 		61E2A0C019102EB000E2F5DB /* 887-notepad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "887-notepad@2x.png"; sourceTree = "<group>"; };
@@ -272,13 +272,13 @@
 				44A5F86017F6048900F619C1 /* SystemConfiguration.framework in Frameworks */,
 				61B604F618AC22970059D37E /* StoreKit.framework in Frameworks */,
 				440E865817F5159300D191A2 /* libz.dylib in Frameworks */,
+				61CACC73194696CF006B12A0 /* libUAirship-4.0.0.a in Frameworks */,
 				440E865C17F515A500D191A2 /* CFNetwork.framework in Frameworks */,
 				6119CDE81885F64D0023B25B /* MobileCoreServices.framework in Frameworks */,
 				6119CDE21885F5F30023B25B /* CoreGraphics.framework in Frameworks */,
 				61B604F418AC22710059D37E /* QuartzCore.framework in Frameworks */,
 				6119CDE61885F6440023B25B /* Security.framework in Frameworks */,
 				6119CDE51885F6320023B25B /* MapKit.framework in Frameworks */,
-				619CB48F192C11AC005A7C54 /* libUAirship-4.0.0.a in Frameworks */,
 				6119CDE41885F62C0023B25B /* AudioToolbox.framework in Frameworks */,
 				6119CDE31885F6220023B25B /* CoreTelephony.framework in Frameworks */,
 				440E865A17F5159C00D191A2 /* libsqlite3.dylib in Frameworks */,
@@ -324,7 +324,7 @@
 		440E85F017F5140E00D191A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6189C39D19199BA000E96C17 /* libUAirship-4.0.0.a */,
+				61CACC72194696CF006B12A0 /* libUAirship-4.0.0.a */,
 				61B604F518AC22970059D37E /* StoreKit.framework */,
 				6119CDE71885F64C0023B25B /* MobileCoreServices.framework */,
 				44A5F86117F6049A00F619C1 /* CoreData.framework */,
@@ -856,17 +856,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager",
-					/Users/dcrow/Desktop,
-					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager/iBeacon_Manager",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iBeacon_Manager/iBeacon_Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"Airship/**",
 				);
 				INFOPLIST_FILE = "iBeacon_Manager/iBeacon_Manager-Info.plist";
@@ -876,11 +870,13 @@
 					/Users/dcrow/Cloud,
 					"Drive/currentprojects/iBeacon-Manager",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Airship",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iBeacon_Manager;
 				PROVISIONING_PROFILE = "F5018A76-D911-4E71-9612-557C94C0D61B";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(inherited) Airship/**";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -893,17 +889,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager",
-					/Users/dcrow/Desktop,
-					"/Users/dcrow/Cloud\\ Drive/currentprojects/iBeacon-Manager/iBeacon_Manager",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iBeacon_Manager/iBeacon_Manager-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"Airship/**",
 				);
 				INFOPLIST_FILE = "iBeacon_Manager/iBeacon_Manager-Info.plist";
@@ -913,12 +903,14 @@
 					/Users/dcrow/Cloud,
 					"Drive/currentprojects/iBeacon-Manager",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Airship",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iBeacon_Manager;
 				PROVISIONING_PROFILE = "F5018A76-D911-4E71-9612-557C94C0D61B";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(inherited) Airship/**";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
