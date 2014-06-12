@@ -33,17 +33,14 @@
     return self;
 }
 
-
 - (void)viewDidLoad{
 
     self.view.userInteractionEnabled = YES;
     [super viewDidLoad];
     loading = NO;
-
     
     //set beacon region delegate to self
     [[BeaconRegionManager shared] setBeaconRegionManagerDelegate:self];
-
     
     //if there are regions being currently monitored, load those by default
     if ([[[[BeaconRegionManager shared] locationManager] monitoredRegions] count] > 0) {

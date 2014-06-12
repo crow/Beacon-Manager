@@ -1,6 +1,6 @@
 //
-//  UABeaconManager.m
-//  UABeacons
+//  BeaconRegionManager.m
+//  iBeacon_Manager
 //
 //  Created by David Crow on 10/3/13.
 //  Copyright (c) 2013 David Crow. All rights reserved.
@@ -36,7 +36,6 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     _currentRangedBeacons = [[NSMutableDictionary alloc] init];
-    
     return self;
 }
 
@@ -78,8 +77,8 @@
         beaconRegion.notifyOnEntry = YES;
         beaconRegion.notifyOnExit = YES;
         beaconRegion.notifyEntryStateOnDisplay = NO;
-        [self.locationManager startMonitoringForRegion:beaconRegion];
         [self.locationManager startRangingBeaconsInRegion:beaconRegion];
+        [self.locationManager startMonitoringForRegion:beaconRegion];
     }
 }
 
@@ -88,8 +87,8 @@
         beaconRegion.notifyOnEntry = NO;
         beaconRegion.notifyOnExit = NO;
         beaconRegion.notifyEntryStateOnDisplay = NO;
-        [self.locationManager stopMonitoringForRegion:beaconRegion];
         [self.locationManager stopRangingBeaconsInRegion:beaconRegion];
+        [self.locationManager stopMonitoringForRegion:beaconRegion];
     }
 }
 
@@ -161,6 +160,9 @@
 
     UA_LDEBUG(@"Updating tags");
     [[UAPush shared] updateRegistration];
+    UA_LDEBUG(@"Timestamping didEnterRegion '%@'", region.identifier);
+    //exit timestamp includes cumulative time measurement
+    [self timestampEntryForBeaconRegion:[self beaconRegionWithId:region.identifier]];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {

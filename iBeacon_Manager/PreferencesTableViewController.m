@@ -24,7 +24,6 @@
  */
 #import "PreferencesTableViewController.h"
 #import "BeaconManagerValues.h"
-//#import "BeaconSampleTools.h"
 
 #import "UAirship.h"
 #import "UAUser.h"

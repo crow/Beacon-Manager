@@ -1,6 +1,6 @@
 //
 //  main.m
-//  UABeacons
+//  iBeacon_Manager
 //
 //  Created by David Crow on 9/26/13.
 //  Copyright (c) 2013 David Crow. All rights reserved.
