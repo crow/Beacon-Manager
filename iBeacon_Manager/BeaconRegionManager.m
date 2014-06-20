@@ -161,7 +161,6 @@
     UA_LDEBUG(@"Updating tags");
     [[UAPush shared] updateRegistration];
     UA_LDEBUG(@"Timestamping didEnterRegion '%@'", region.identifier);
-    //exit timestamp includes cumulative time measurement
     [self timestampEntryForBeaconRegion:[self beaconRegionWithId:region.identifier]];
 }
 
