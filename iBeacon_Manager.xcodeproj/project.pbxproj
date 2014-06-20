@@ -306,7 +306,7 @@
 		440E85E517F5140E00D191A2 = {
 			isa = PBXGroup;
 			children = (
-				440E85F717F5140E00D191A2 /* UABeaconManager */,
+				440E85F717F5140E00D191A2 /* BeaconManager */,
 				440E85F017F5140E00D191A2 /* Frameworks */,
 				440E85EF17F5140E00D191A2 /* Products */,
 			);
@@ -349,7 +349,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		440E85F717F5140E00D191A2 /* UABeaconManager */ = {
+		440E85F717F5140E00D191A2 /* BeaconManager */ = {
 			isa = PBXGroup;
 			children = (
 				440E860017F5140E00D191A2 /* AppDelegate.h */,
@@ -358,7 +358,7 @@
 				617F60E01899DC6D00D4C01C /* Controllers */,
 				440E85F817F5140E00D191A2 /* Supporting Files */,
 			);
-			name = UABeaconManager;
+			name = BeaconManager;
 			path = iBeacon_Manager;
 			sourceTree = "<group>";
 		};
@@ -422,8 +422,8 @@
 				6139C7DA186E480A00D72E45 /* BeaconRegionManager.m */,
 				618A2FCC18FC6BF0006DA371 /* BeaconRegionManagerDelegate.h */,
 				6139C7DC186E482700D72E45 /* BeaconListManager.h */,
-				617F60DE1899DBDC00D4C01C /* Views */,
 				6139C7DD186E482700D72E45 /* BeaconListManager.m */,
+				617F60DE1899DBDC00D4C01C /* Views */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -854,7 +854,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: John D Crow (877GS32Q5E)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -864,14 +864,14 @@
 					"Airship/**",
 				);
 				INFOPLIST_FILE = "iBeacon_Manager/iBeacon_Manager-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Airship",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iBeacon_Manager;
-				PROVISIONING_PROFILE = "C3DC7970-336D-4508-941A-DBBBB39800D8";
+				PROVISIONING_PROFILE = "BCE933D0-781B-46D2-9AFC-3FE278F95510";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) Airship/**";
 				VALID_ARCHS = "armv7 armv7s";
@@ -884,7 +884,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: John D Crow (877GS32Q5E)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -894,7 +894,7 @@
 					"Airship/**",
 				);
 				INFOPLIST_FILE = "iBeacon_Manager/iBeacon_Manager-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Airship",
@@ -902,7 +902,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iBeacon_Manager;
-				PROVISIONING_PROFILE = "C3DC7970-336D-4508-941A-DBBBB39800D8";
+				PROVISIONING_PROFILE = "BCE933D0-781B-46D2-9AFC-3FE278F95510";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) Airship/**";
 				VALID_ARCHS = "armv7 armv7s";
