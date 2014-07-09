@@ -32,5 +32,7 @@
 
 //Beacon Broadcast contstants
 #define kLastBroadcastUuidString @"ua-beaconmanager-last-broadcast-uuid"
+#define kLastBroadcastMajorString @"ua-beaconmanager-last-broadcast-major"
+#define kLastBroadcastMinorString @"ua-beaconmanager-last-broadcast-minor"
 #define kMaxRadius 400 //beacon pulse layer UI element max radius
 

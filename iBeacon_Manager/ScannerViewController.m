@@ -9,7 +9,7 @@
 #import "ScannerViewController.h"
 #import "BeaconRegionManager.h"
 #import "BeaconListManager.h"
-#import "BeaconBroadcastViewController.m"
+#import "BroadcastViewController.h"
 #import "BeaconListViewController.h"
 @interface ScannerViewController ()
 @property (nonatomic) NSString *lastScannedCode;
@@ -138,7 +138,7 @@
         //[self performSegueWithIdentifier:@"Broadcast" sender:self];
         
         
-        if ( [[self backViewController] isMemberOfClass:[BeaconBroadcastViewController class]]) {
+        if ( [[self backViewController] isMemberOfClass:[BroadcastViewController class]]) {
             NSLog(@"print");
             //TODO change the fields of the view controller
         }
