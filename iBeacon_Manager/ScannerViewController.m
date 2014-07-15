@@ -43,17 +43,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-//Dont' need this for now
-//- (IBAction)startNewScannerSession:(id)sender {
-//    if ([scannerView isScanSessionInProgress]) {
-//        [scannerView stopScanSession];
-//        self.sessionToggleButton.title = @"Start";
-//    } else {
-//        [scannerView startScanSession];
-//        self.sessionToggleButton.title = @"Stop";
-//    }
-//}
-
 //Just a stopgap since this is implemented in the UI, will move this at some point
 - (UIViewController *)backViewController {
     NSArray * stack = self.navigationController.viewControllers;
