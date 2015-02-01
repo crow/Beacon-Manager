@@ -14,7 +14,6 @@
 
 @property (strong, nonatomic) BeaconListManager *listManager;//writable declaration
 
-
 @end
 
 @implementation BeaconRegionManager {
