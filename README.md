@@ -1,7 +1,7 @@
-![alt text](https://github.com/crow/Beacon-Manager/blob/master/iBeacon_Manager/Icon-76%402x.png "Beacon Manager")
+#Beacon Manager ![alt text](https://github.com/crow/Beacon-Manager/blob/master/iBeacon_Manager/Icon-Spotlight-40.png "Beacon Manager")
 
 
-Beacon Manager is a simple open-source iOS developer utility that allows users to explore bluetooth low energy beacon functionality.  
+Beacon Manager is a simple open-source iOS developer utility, available for [free on the App Store](https://itunes.apple.com/us/app/ibeacon-manager/id767148086?mt=8&ign-mpt=uo%3D4), that allows users to explore bluetooth low energy beacon functionality.  
 
 Beacon Manager allows users to use their iOS device to broadcast as an beacon or monitor and interact with a list of beacon regions.  A beacon region list can be remotely hosted, or directly scanned in the application using a QR code.  
 
