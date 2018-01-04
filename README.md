@@ -15,7 +15,7 @@ Beacon Manager Can:
 * Modify beacon notification properties
 * Persistently store entry and exit statistics including dwell time
 
-##Getting Started:##
+### Getting Started:
 
 Best way to get up and running with a custom beacon list is to generate a QR code using plain text. There are numerous free web applications to accomplish this task - one of which can be found [here](http://goqr.me/).
 
